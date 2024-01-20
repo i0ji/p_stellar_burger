@@ -1,12 +1,10 @@
 import './App.scss';
-import {Logo, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import AppHeader from "components/AppHeader/AppHeader.tsx";
 
 function App() {
-        return (
+    return (
         <>
-            hello
-            <Logo/>
-            <ProfileIcon type={"primary"}/>
+            <AppHeader/>
         </>
     )
 }

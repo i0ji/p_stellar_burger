@@ -1,0 +1,12 @@
+.header_button {
+  display: flex;
+  align-items: center;
+
+  svg {
+    transition: .6s all;
+  }
+
+  &_disabled {
+    color: #8585AD;
+  }
+}
