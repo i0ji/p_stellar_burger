@@ -1,9 +1,8 @@
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   composes: p-4 from global;
-
 
   height: 88px;
   width: 100%;
@@ -11,5 +10,6 @@
   nav {
     display: flex;
     flex-direction: row;
+    flex-grow: 0;
   }
 }

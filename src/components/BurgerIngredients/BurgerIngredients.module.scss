@@ -1,0 +1,5 @@
+.ingredients_menu {
+  border: 1px solid yellow;
+  composes: pt-25 pl-5  from global;
+  flex-grow: 1;
+}

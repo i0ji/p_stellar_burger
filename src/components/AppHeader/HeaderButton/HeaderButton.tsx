@@ -15,20 +15,16 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
     switch (typeFor) {
         case 'builder':
             return (
-                <a
-                    href="#"
-                >
-                    <div
-                        className={headerButtonStyles.header_button}
-                        onMouseEnter={buttonHovered}
-                        onMouseLeave={buttonHovered}
-                    >
+                <a href="#">
+                    <div className={headerButtonStyles.header_button}>
                         <BurgerIcon
                             type={isActive ? "primary" : "secondary"}
                         />
                         <div className={headerButtonStyles.button_wrapper}>
                             <Button
-                                extraClass={`${headerButtonPaddings} ${headerButtonStyles.header_button_disabled  }`}
+                                onMouseEnter={buttonHovered}
+                                onMouseLeave={buttonHovered}
+                                extraClass={`${headerButtonPaddings} ${headerButtonStyles.header_button_disabled}`}
                                 htmlType="button"
                                 type="secondary"
                                 size="medium"
@@ -45,14 +41,15 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
                 <a href="#">
                     <div
                         className={headerButtonStyles.header_button}
-                        onMouseEnter={buttonHovered}
-                        onMouseLeave={buttonHovered}
+
                     >
                         <ListIcon
                             type={isActive ? "primary" : "secondary"}
                         />
                         <Button
-                            extraClass={`${headerButtonPaddings} ${headerButtonStyles.header_button_disabled  }`}
+                            onMouseEnter={buttonHovered}
+                            onMouseLeave={buttonHovered}
+                            extraClass={`${headerButtonPaddings} ${headerButtonStyles.header_button_disabled}`}
                             htmlType="button"
                             type="secondary"
                             size="medium"
@@ -68,13 +65,13 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
                 <a href="#">
                     <div
                         className={headerButtonStyles.header_button}
-                        onMouseEnter={buttonHovered}
-                        onMouseLeave={buttonHovered}
                     >
                         <ProfileIcon
                             type={isActive ? "primary" : "secondary"}
                         />
                         <Button
+                            onMouseEnter={buttonHovered}
+                            onMouseLeave={buttonHovered}
                             extraClass={`${headerButtonPaddings} ${headerButtonStyles.header_button_disabled}`}
                             htmlType="button"
                             type="secondary"
