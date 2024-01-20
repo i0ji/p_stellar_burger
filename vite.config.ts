@@ -8,6 +8,9 @@ export default defineConfig({
   resolve: {
     alias: {
       components: "/src/components",
+      styles: "/src/styles",
+      data: "/src/data",
+      images: "/src/images",
       src: "."
     }
   },
