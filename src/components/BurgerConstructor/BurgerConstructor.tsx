@@ -19,34 +19,9 @@ export default function BurgerConstructor() {
                     Начинки
                 </Tab>
             </div>
+            <div className={constructorStyles.constructor_ingredient_cards}>
+
+            </div>
         </div>
     );
 };
-
-
-//  <ul>
-//                     <li>
-//                         <Button
-//                             htmlType={"button"}
-//                             type={"secondary"}
-//                         >
-//                             Булки
-//                         </Button>
-//                     </li>
-//                     <li>
-//                         <Button
-//                             htmlType={"button"}
-//                             type={"secondary"}
-//                         >
-//                             Соусы
-//                         </Button>
-//                     </li>
-//                     <li>
-//                         <Button
-//                             htmlType={"button"}
-//                             type={"secondary"}
-//                         >
-//                             Начинки
-//                         </Button>
-//                     </li>
-//                 </ul>

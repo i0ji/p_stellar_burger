@@ -3,7 +3,11 @@
   composes: pt-10 pr-5 from global;
 
   .constructor_menu {
-      list-style-type: none;
-      display: flex;
-    }
+    list-style-type: none;
+    display: flex;
   }
+
+  .constructor_ingredient_cards {
+
+  }
+}
