@@ -3,15 +3,14 @@ import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 export default function IngredientCard({ingredient_data}: { ingredient_data: any }) {
     return (
-        ingredient_data.map((elem: any) => {
+        ingredient_data.map((elem:any) => {
                 return (
 
                     <div className={ingredientCardStyles.ingredient_item}>
 
+                        <img class={ingredientCardStyles.ingredient_img} src={elem.image} alt={elem.name}/>
 
-                        <img src={elem.image} alt={'ingredient'}/>
-
-                        <div className={ingredientCardStyles.ingredient_coast}>
+                        <div className={ingredientCardStyles.ingredient_price}>
                             <p>{elem.price}</p>
                             <CurrencyIcon type={"primary"}/>
                         </div>
@@ -23,4 +22,4 @@ export default function IngredientCard({ingredient_data}: { ingredient_data: any
             }
         )
     )
-};
+}

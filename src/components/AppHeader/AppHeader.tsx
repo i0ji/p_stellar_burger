@@ -13,4 +13,4 @@ export default function AppHeader() {
             <HeaderButton typeFor={"profile"}/>
         </div>
     );
-};
+}

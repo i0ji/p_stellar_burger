@@ -32,4 +32,5 @@ html {
 
 body {
   composes: pb-4 from global;
+  max-height: 100vh;
 }

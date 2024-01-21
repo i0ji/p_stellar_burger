@@ -1,8 +1,7 @@
 .burger_builder {
   width: 100%;
-  height: 500px;
+  height: calc(80vh);
   display: flex;
   justify-content: space-between;
-  border: 1px solid green;
   composes: pl-4 pr-4 from global;
 }

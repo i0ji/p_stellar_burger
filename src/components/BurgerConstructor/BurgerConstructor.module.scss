@@ -1,25 +1,20 @@
 .constructor_block {
-  border: 1px solid red;
-  composes: pt-10 pr-5 from global;
+  composes: mt-10 from global;
   display: flex;
   flex-direction: column;
 
+  //border: 1px solid red;
+
+  height: 100%;
+  width: 50%;
+
   .constructor_menu {
-    list-style-type: none;
     display: flex;
   }
 
   .ingredient_list {
-    height: 30%;
+    height: 100%;
     overflow-x: hidden;
     overflow-y: scroll;
   }
-}
-
-.constructor_menu {
-  composes: pb-10 from global;
-}
-
-.constructor_ingredient_group {
-  composes: mb-10 from global;
 }

@@ -5,10 +5,10 @@ import IngredientCard from "components/BurgerConstructor/IngredientCard/Ingredie
 import ingredients_data from "data/ingredients_data.json"
 
 {/* -----INGREDIENT ARRAYS -----*/}
-const ingredients  =  ingredients_data
-const bunIngredient = ingredients.filter(elem => elem.type === "bun");
-const sauceIngredient  = ingredients.filter(elem => elem.type === "sauce");
-const mainIngredient = ingredients.filter(elem => elem.type === "main");
+const ingredients = ingredients_data
+const bunIngredients = ingredients.filter(elem => elem.type === "bun");
+const sauceIngredients = ingredients.filter(elem => elem.type === "sauce");
+const mainIngredients = ingredients.filter(elem => elem.type === "main");
 
 
 export default function BurgerConstructor() {
@@ -17,7 +17,7 @@ export default function BurgerConstructor() {
     return (
         <section className={constructorStyles.constructor_block}>
 
-            <p className="text text_type_main-large pb-5">Соберите бургер</p>
+            <h3 className="text text_type_main-large pb-5">Соберите бургер</h3>
 
             {/* -----INGREDIENT TABS -----*/}
             <div className={constructorStyles.constructor_menu}>
@@ -37,22 +37,21 @@ export default function BurgerConstructor() {
 
                 <div className={constructorStyles.ingredient_group}>
                     <h3 className="text text_type_main-medium">Булки</h3>
-                    <IngredientCard ingredient_data={bunIngredient}/>
+                    <IngredientCard ingredient_data={bunIngredients}/>
                 </div>
 
-                <div className={constructorStyles.constructor_ingredient_group}>
+                <div className={constructorStyles.ingredient_group}>
                     <h3 className="text text_type_main-medium">Соусы</h3>
-                    <IngredientCard ingredient_data={sauceIngredient}/>
+                    <IngredientCard ingredient_data={sauceIngredients}/>
                 </div>
 
-                <div className={constructorStyles.constructor_ingredient_group}>
+                <div className={constructorStyles.ingredient_group}>
                     <h3 className="text text_type_main-medium">Начинки</h3>
-                    <IngredientCard ingredient_data={mainIngredient}/>
+                    <IngredientCard ingredient_data={mainIngredients}/>
                 </div>
 
             </div>
 
-
         </section>
-    );
-};
+    )
+}

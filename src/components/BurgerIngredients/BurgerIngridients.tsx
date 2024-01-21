@@ -6,4 +6,4 @@ export default function BurgerIngredients() {
                 <p className="text text_type_main-large">/////</p>
             </section>
     );
-};
+}

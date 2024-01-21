@@ -1,13 +1,14 @@
-.ingredient_item {
-  composes: mb-18 mr-4 mt-6 ml-3 from global;
+.ingredient_item {;
+  // border: 1px solid yellow;
+  width: 50%;
 
-  .ingredient_group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
 
-  }
-
-  .ingredient_coast {
+  .ingredient_price {
     display: flex;
-
+    flex-direction: row;
   }
 }
-
