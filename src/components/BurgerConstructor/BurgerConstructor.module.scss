@@ -8,13 +8,21 @@
   height: 100%;
   width: 50%;
 
-  .constructor_menu {
-    display: flex;
-  }
-
   .ingredient_list {
     height: 100%;
     overflow-x: hidden;
     overflow-y: scroll;
+
+    .ingredient_group {
+      h3 {
+        width: 100%;
+      }
+    }
   }
 }
+
+.constructor_menu {
+  composes: mb-10 from global;
+  display: flex;
+}
+

@@ -1,14 +1,19 @@
 import React from "react";
 import constructorStyles from "./BurgerConstructor.module.scss";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientCard from "components/BurgerConstructor/IngredientCard/IngredientCard.tsx";
+import IngredientGroup from "components/BurgerConstructor/IngredientGroup/IngredientGroup.tsx";
 import ingredients_data from "data/ingredients_data.json"
 
-{/* -----INGREDIENT ARRAYS -----*/}
+{/* -----INGREDIENT ARRAYS -----*/
+}
 const ingredients = ingredients_data
-const bunIngredients = ingredients.filter(elem => elem.type === "bun");
-const sauceIngredients = ingredients.filter(elem => elem.type === "sauce");
-const mainIngredients = ingredients.filter(elem => elem.type === "main");
+
+const bunIngredients =
+    {ingredients: ingredients.filter(elem => elem.type === "bun"), type: 'Булки'}
+const sauceIngredients =
+    {ingredients: ingredients.filter(elem => elem.type === "sauce"), type: 'Соусы'}
+const mainIngredients =
+    {ingredients: ingredients.filter(elem => elem.type === "main"), type: 'Начинки'}
 
 
 export default function BurgerConstructor() {
@@ -22,34 +27,30 @@ export default function BurgerConstructor() {
             {/* -----INGREDIENT TABS -----*/}
             <div className={constructorStyles.constructor_menu}>
                 <Tab value="one" active={current === 'one'} onClick={setCurrent}>
-                    Булки
+                    {bunIngredients.type}
                 </Tab>
                 <Tab value="two" active={current === 'two'} onClick={setCurrent}>
-                    Соусы
+                    {sauceIngredients.type}
                 </Tab>
                 <Tab value="three" active={current === 'three'} onClick={setCurrent}>
-                    Начинки
+                    {mainIngredients.type}
                 </Tab>
             </div>
 
             {/* -----INGREDIENT GROUPS -----*/}
             <div className={constructorStyles.ingredient_list}>
-
-                <div className={constructorStyles.ingredient_group}>
-                    <h3 className="text text_type_main-medium">Булки</h3>
-                    <IngredientCard ingredient_data={bunIngredients}/>
-                </div>
-
-                <div className={constructorStyles.ingredient_group}>
-                    <h3 className="text text_type_main-medium">Соусы</h3>
-                    <IngredientCard ingredient_data={sauceIngredients}/>
-                </div>
-
-                <div className={constructorStyles.ingredient_group}>
-                    <h3 className="text text_type_main-medium">Начинки</h3>
-                    <IngredientCard ingredient_data={mainIngredients}/>
-                </div>
-
+                <IngredientGroup
+                    type={bunIngredients.type}
+                    ingredients={bunIngredients.ingredients}
+                />
+                <IngredientGroup
+                    type={sauceIngredients.type}
+                    ingredients={sauceIngredients.ingredients}
+                />
+                <IngredientGroup
+                    type={mainIngredients.type}
+                    ingredients={mainIngredients.ingredients}
+                />
             </div>
 
         </section>
