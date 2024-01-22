@@ -1,8 +1,7 @@
-import BurgerIngredientsStyles from "./BurgerIngredients.module.scss";
-import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import BurgerIngredientsStyles from "./BurgerIngredientsStyles.module.scss";
+import {Button, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import {IIngredient} from "src/Interfaces";
-
 
 export default function BurgerIngredients({ingredients_data}: { ingredients_data: IIngredient[] }) {
     return (
@@ -10,6 +9,7 @@ export default function BurgerIngredients({ingredients_data}: { ingredients_data
             <div
                 className={`${BurgerIngredientsStyles.ingredients_order_list} mb-10`}>
                 <ConstructorElement
+                    extraClass={`${BurgerIngredientsStyles.ingredients_item_top}`}
                     type="top"
                     isLocked={true}
                     text={`${ingredients_data[0].name} (верх)`}
@@ -17,58 +17,49 @@ export default function BurgerIngredients({ingredients_data}: { ingredients_data
                     thumbnail={ingredients_data[0].image_mobile}
                 />
                 <div className={BurgerIngredientsStyles.ingredients_consist}>
-                    <ConstructorElement
-                        text={`${ingredients_data[12].name}`}
-                        price={ingredients_data[12].price ?? 0}
-                        thumbnail={ingredients_data[12].image_mobile}
-                    />
-                    <ConstructorElement
-                        text={`${ingredients_data[12].name} (верх)`}
-                        price={ingredients_data[12].price ?? 0}
-                        thumbnail={ingredients_data[12].image_mobile}
-                    />
-                    <ConstructorElement
-                        text={`${ingredients_data[12].name} (верх)`}
-                        price={ingredients_data[12].price ?? 0}
-                        thumbnail={ingredients_data[12].image_mobile}
-                    />
-                    <ConstructorElement
-                        text={`${ingredients_data[12].name} (верх)`}
-                        price={ingredients_data[12].price ?? 0}
-                        thumbnail={ingredients_data[12].image_mobile}
-                    />
-                    <ConstructorElement
-                        text={`${ingredients_data[12].name} (верх)`}
-                        price={ingredients_data[12].price ?? 0}
-                        thumbnail={ingredients_data[12].image_mobile}
-                    />
-                    <ConstructorElement
-                        text={`${ingredients_data[12].name} (верх)`}
-                        price={ingredients_data[12].price ?? 0}
-                        thumbnail={ingredients_data[12].image_mobile}
-                    />
-                    <ConstructorElement
-                        text={`${ingredients_data[12].name} (верх)`}
-                        price={ingredients_data[12].price ?? 0}
-                        thumbnail={ingredients_data[12].image_mobile}
-                    />
-                    <ConstructorElement
-                        text={`${ingredients_data[6].name} (верх)`}
-                        price={ingredients_data[6].price ?? 0}
-                        thumbnail={ingredients_data[6].image_mobile}
-                    />
-                    <ConstructorElement
-                        text={`${ingredients_data[6].name} (верх)`}
-                        price={ingredients_data[6].price ?? 0}
-                        thumbnail={ingredients_data[6].image_mobile}
-                    />
-                    <ConstructorElement
-                        text={`${ingredients_data[6].name} (верх)`}
-                        price={ingredients_data[6].price ?? 0}
-                        thumbnail={ingredients_data[6].image_mobile}
-                    />
+                    <div className={BurgerIngredientsStyles.ingredients_order_item}>
+                        <DragIcon type="primary"/>
+                        <ConstructorElement
+                            text={ingredients_data[7].name}
+                            price={ingredients_data[7].price ?? 0}
+                            thumbnail={ingredients_data[7].image_mobile}
+                        />
+                    </div>
+                    <div className={BurgerIngredientsStyles.ingredients_order_item}>
+                        <DragIcon type="primary"/>
+                        <ConstructorElement
+                            text={ingredients_data[12].name}
+                            price={ingredients_data[12].price ?? 0}
+                            thumbnail={ingredients_data[12].image_mobile}
+                        />
+                    </div>
+                    <div className={BurgerIngredientsStyles.ingredients_order_item}>
+                        <DragIcon type="primary"/>
+                        <ConstructorElement
+                            text={ingredients_data[2].name}
+                            price={ingredients_data[2].price ?? 0}
+                            thumbnail={ingredients_data[2].image_mobile}
+                        />
+                    </div>
+                    <div className={BurgerIngredientsStyles.ingredients_order_item}>
+                        <DragIcon type="primary"/>
+                        <ConstructorElement
+                            text={ingredients_data[12].name}
+                            price={ingredients_data[12].price ?? 0}
+                            thumbnail={ingredients_data[12].image_mobile}
+                        />
+                    </div>
+                    <div className={BurgerIngredientsStyles.ingredients_order_item}>
+                        <DragIcon type="primary"/>
+                        <ConstructorElement
+                            text={`${ingredients_data[6].name} (верх)`}
+                            price={ingredients_data[6].price ?? 0}
+                            thumbnail={ingredients_data[6].image_mobile}
+                        />
+                    </div>
                 </div>
                 <ConstructorElement
+                    extraClass={`${BurgerIngredientsStyles.ingredients_item_bottom}`}
                     type="bottom"
                     isLocked={true}
                     text={`${ingredients_data[0].name} (низ)`}

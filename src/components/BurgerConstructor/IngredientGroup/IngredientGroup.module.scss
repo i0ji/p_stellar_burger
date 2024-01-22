@@ -12,6 +12,7 @@
 
 .ingredient_card {
   width: 50%;
+  composes: pb-8 from global;
 
   display: flex;
   flex-flow: column;

@@ -1,7 +1,7 @@
 export interface IIngredient {
     image_mobile: string;
     "_id"?: string;
-    "name"?: string;
+    "name": string;
     "type"?: string;
     "proteins"?: number;
     "fat"?: number;
