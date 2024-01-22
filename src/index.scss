@@ -28,9 +28,12 @@ html {
   max-width: 1260px;
   margin: 0 auto;
   background-color: #131316;
+  scroll-behavior: smooth;
+
 }
 
 body {
   composes: pb-4 from global;
   max-height: 100vh;
+  overflow-x: hidden;
 }

@@ -2,6 +2,8 @@ import appStyles from './App.module.scss';
 import AppHeader from "components/AppHeader/AppHeader.tsx";
 import BurgerConstructor from "components/BurgerConstructor/BurgerConstructor";
 import BurgerIngredients from "components/BurgerIngredients/BurgerIngridients";
+import ingredients_data from "data/ingredients_data.json"
+
 
 function App() {
     return (
@@ -10,9 +12,9 @@ function App() {
 
             <main className={appStyles.burger_builder}>
 
-                <BurgerConstructor/>
+                <BurgerConstructor ingredients_data={ingredients_data}/>
 
-                <BurgerIngredients/>
+                <BurgerIngredients ingredients_data={ingredients_data}/>
 
             </main>
         </>

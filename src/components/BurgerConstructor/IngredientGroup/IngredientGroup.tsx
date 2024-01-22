@@ -1,19 +1,31 @@
-import IngredientGroupStyle from "./IngredientGroup.module.scss";
-export default function IngredientGroup ({type, ingredients}: {type:string, ingredients: string[]}) {
+import IngredientGroupStyles from "./IngredientGroup.module.scss";
+import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {IIngredient} from "src/Interfaces";
 
+export default function IngredientGroup({type, ingredients}: { type: string, ingredients: IIngredient[]}) {
 
-    const IngredinetCard = (ingredintsData) => {
+   const IngredientCard = (ingredient: IIngredient) => {
         return (
-            <div>
-
+            <div className={IngredientGroupStyles.ingredient_card}>
+                <img
+                    src={ingredient.image}
+                    alt={ingredient.name}
+                />
+                <p className="text text_type_main-default pt-1">
+                    <CurrencyIcon type="primary"/>
+                    {ingredient.price}
+                </p>
+                <p className="text text_type_main-default pt1">{ingredient.name}</p>
             </div>
         )
     }
 
     return (
-        <div>
+        <div className={IngredientGroupStyles.ingredient_list}>
             <h3 className="text text_type_main-medium pb-6">{type}</h3>
-
+            {ingredients.map(ingredientItem => (
+                <IngredientCard {...ingredientItem}/>
+            ))}
         </div>
     );
 }

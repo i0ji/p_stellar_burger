@@ -1,0 +1,29 @@
+.ingredient_list {
+  composes: pb-10 from global;
+
+  h3 {
+    width: 100%;
+  }
+
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.ingredient_card {
+  width: 50%;
+
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+
+  p {
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    svg {
+      padding-right: 6px;
+    }
+  }
+}

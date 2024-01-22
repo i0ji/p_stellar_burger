@@ -1,5 +1,29 @@
-.ingredients_menu {
-  composes: pt-25 pl-5  from global;
+.ingredients_order {
+  composes: mt-25 pl-5 pr-5 pb-10 from global;
   width: 50%;
-  flex-grow: 1;
+  height: 100%;
+
+
+  .ingredients_order_list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 80%;
+
+    .ingredients_consist {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      height: 70%;
+      overflow-x: hidden;
+      overflow-y: scroll;
+    }
+  }
+
+  .price_info {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+  }
 }
