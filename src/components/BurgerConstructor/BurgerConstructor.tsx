@@ -1,5 +1,5 @@
 import React from "react";
-import ConstructorStyles from "./BurgerConstructor.module.scss";
+import ConstructorStyles from "./BurgerConstructorStyles.module.scss";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "components/BurgerConstructor/IngredientGroup/IngredientGroup.tsx";
 import {IIngredient} from "src/Interfaces";
