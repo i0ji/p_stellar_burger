@@ -1,66 +1,92 @@
-import React from "react";
-import ConstructorStyles from "./BurgerConstructorStyles.module.scss";
-import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientGroup from "components/BurgerConstructor/IngredientGroup/IngredientGroup.tsx";
+import BurgerConstructorStyles from "./BurgerConstructorStyles.module.scss";
+import {Button, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import {IIngredient} from "src/Interfaces";
 
-
-export default function BurgerConstructor({ingredients_data}:{ingredients_data: IIngredient[]}) {
-    const [current, setCurrent] = React.useState('one')
-
-    {/* -----INGREDIENT DATA ARRAYS -----*/}
-    const bunIngredients =
-        {
-            ingredients: ingredients_data.filter(elem => elem.type === "bun"),
-            type: 'Булки'
-        }
-    const sauceIngredients =
-        {
-            ingredients: ingredients_data.filter(elem => elem.type === "sauce"),
-            type: 'Соусы'
-        }
-    const mainIngredients =
-        {
-            ingredients: ingredients_data.filter(elem => elem.type === "main"),
-            type: 'Начинки'
-        }
-
+export default function BurgerConstructor({ingredientsData}: { ingredientsData: IIngredient[] }) {
 
     return (
-        <section className={ConstructorStyles.constructor_block}>
+        <section className={BurgerConstructorStyles.constructor_block}>
+            <div
+                className={`${BurgerConstructorStyles.constructor_list} mb-10`}>
 
-            <h3 className="text text_type_main-large pb-5">Соберите бургер</h3>
+                {/*----- TOP BUN -----*/}
+                <ConstructorElement
+                    extraClass={`${BurgerConstructorStyles.constructor_item_top}`}
+                    type="top"
+                    isLocked={true}
+                    text={`${ingredientsData[0].name} (верх)`}
+                    price={ingredientsData[0].price ?? 0}
+                    thumbnail={ingredientsData[0].image_mobile}
+                />
 
-            {/* -----INGREDIENT TABS -----*/}
-            <div className={ConstructorStyles.constructor_menu}>
-                <Tab value="one" active={current === 'one'} onClick={setCurrent}>
-                    {bunIngredients.type}
-                </Tab>
-                <Tab value="two" active={current === 'two'} onClick={setCurrent}>
-                    {sauceIngredients.type}
-                </Tab>
-                <Tab value="three" active={current === 'three'} onClick={setCurrent}>
-                    {mainIngredients.type}
-                </Tab>
+
+                {/*/!* ----- SCROLLED INNER INGREDIENTS -----*!/*/}
+                {/*<div className={BurgerConstructorStyles.constructor_order}>*/}
+                {/*    <div className={BurgerConstructorStyles.constructor_order_item}>*/}
+                {/*        <DragIcon type="primary"/>*/}
+                {/*        <ConstructorElement*/}
+                {/*            text={ingredientsData[7].name}*/}
+                {/*            price={ingredientsData[7].price ?? 0}*/}
+                {/*            thumbnail={ingredientsData[7].image_mobile}*/}
+                {/*        />*/}
+                {/*    </div>*/}
+                {/*    <div className={BurgerConstructorStyles.constructor_order_item}>*/}
+                {/*        <DragIcon type="primary"/>*/}
+                {/*        <ConstructorElement*/}
+                {/*            text={ingredientsData[12].name}*/}
+                {/*            price={ingredientsData[12].price ?? 0}*/}
+                {/*            thumbnail={ingredientsData[12].image_mobile}*/}
+                {/*        />*/}
+                {/*    </div>*/}
+                {/*    <div className={BurgerConstructorStyles.constructor_order_item}>*/}
+                {/*        <DragIcon type="primary"/>*/}
+                {/*        <ConstructorElement*/}
+                {/*            text={ingredientsData[2].name}*/}
+                {/*            price={ingredientsData[2].price ?? 0}*/}
+                {/*            thumbnail={ingredientsData[2].image_mobile}*/}
+                {/*        />*/}
+                {/*    </div>*/}
+                {/*    <div className={BurgerConstructorStyles.constructor_order_item}>*/}
+                {/*        <DragIcon type="primary"/>*/}
+                {/*        <ConstructorElement*/}
+                {/*            text={ingredientsData[12].name}*/}
+                {/*            price={ingredientsData[12].price ?? 0}*/}
+                {/*            thumbnail={ingredientsData[12].image_mobile}*/}
+                {/*        />*/}
+                {/*    </div>*/}
+                {/*    <div className={BurgerConstructorStyles.constructor_order_item}>*/}
+                {/*        <DragIcon type="primary"/>*/}
+                {/*        <ConstructorElement*/}
+                {/*            text={`${ingredientsData[6].name} (верх)`}*/}
+                {/*            price={ingredientsData[6].price ?? 0}*/}
+                {/*            thumbnail={ingredientsData[6].image_mobile}*/}
+                {/*        />*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+
+                {/*----- BOTTOM BUN -----*/}
+                <ConstructorElement
+                    extraClass={`${BurgerConstructorStyles.constructor_item_bottom}`}
+                    type="bottom"
+                    isLocked={true}
+                    text={`${ingredientsData[0].name} (низ)`}
+                    price={ingredientsData[4].price ?? 0}
+                    thumbnail={ingredientsData[4].image_mobile}
+                />
+
+                {/* ----- PRICE -----*/}
             </div>
-
-            {/* -----INGREDIENT GROUPS -----*/}
-            <div className={ConstructorStyles.ingredients_list}>
-                <IngredientGroup
-                    type={bunIngredients.type}
-                    ingredients={bunIngredients.ingredients}
-                />
-                <IngredientGroup
-                    type={sauceIngredients.type}
-                    ingredients={sauceIngredients.ingredients}
-                />
-                <IngredientGroup
-                    type={mainIngredients.type}
-                    ingredients={mainIngredients.ingredients}
-                />
-
+            <div className={BurgerConstructorStyles.price_info}>
+                <h1 className="text text_type_main-large pr-3">1000</h1>
+                <CurrencyIcon type="primary"/>
+                <Button
+                    extraClass="ml-3"
+                    size="large"
+                    type="primary"
+                    htmlType="button"
+                >Оформить заказ</Button>
             </div>
-
         </section>
-    )
+    );
 }

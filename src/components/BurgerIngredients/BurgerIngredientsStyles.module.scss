@@ -1,45 +1,24 @@
-.ingredients_order {
-  composes: mt-25 pl-5 pr-5 pb-10 from global;
+.ingredients_block {
+  composes: mt-10 from global;
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
   width: 50%;
-  height: 95%;
 
-  .ingredients_order_list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    height: 80%;
-
-    .ingredients_item_top,
-    .ingredients_item_bottom {
-      width: 88%;
-      align-self: center;
-    }
-
-    .ingredients_consist {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      height: 70%;
-      overflow-x: hidden;
-      overflow-y: scroll;
-    }
-
-    .ingredients_order_item {
-      padding-right: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      svg {
-        margin-right: 13px;
-      }
-    }
+  .ingredients_list {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
+}
 
-  .price_info {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: end;
-  }
+.ingredients_menu {
+  composes: mb-10 from global;
+  display: flex;
+}
+
+div::-webkit-scrollbar-track {
+  background: transparent;
+  margin-bottom: 152px;
 }
