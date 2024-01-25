@@ -8,6 +8,7 @@ export default function BurgerIngredients({ingredients_data}: { ingredients_data
         <section className={BurgerIngredientsStyles.ingredients_order}>
             <div
                 className={`${BurgerIngredientsStyles.ingredients_order_list} mb-10`}>
+                {/* ----- TOP BUN -----*/}
                 <ConstructorElement
                     extraClass={`${BurgerIngredientsStyles.ingredients_item_top}`}
                     type="top"
@@ -58,6 +59,8 @@ export default function BurgerIngredients({ingredients_data}: { ingredients_data
                         />
                     </div>
                 </div>
+
+                {/* ----- BOTTOM BUN -----*/}
                 <ConstructorElement
                     extraClass={`${BurgerIngredientsStyles.ingredients_item_bottom}`}
                     type="bottom"
