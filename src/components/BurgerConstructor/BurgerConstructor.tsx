@@ -21,49 +21,49 @@ export default function BurgerConstructor({ingredientsData}: { ingredientsData: 
                 />
 
 
-                {/*/!* ----- SCROLLED INNER INGREDIENTS -----*!/*/}
-                {/*<div className={BurgerConstructorStyles.constructor_order}>*/}
-                {/*    <div className={BurgerConstructorStyles.constructor_order_item}>*/}
-                {/*        <DragIcon type="primary"/>*/}
-                {/*        <ConstructorElement*/}
-                {/*            text={ingredientsData[7].name}*/}
-                {/*            price={ingredientsData[7].price ?? 0}*/}
-                {/*            thumbnail={ingredientsData[7].image_mobile}*/}
-                {/*        />*/}
-                {/*    </div>*/}
-                {/*    <div className={BurgerConstructorStyles.constructor_order_item}>*/}
-                {/*        <DragIcon type="primary"/>*/}
-                {/*        <ConstructorElement*/}
-                {/*            text={ingredientsData[12].name}*/}
-                {/*            price={ingredientsData[12].price ?? 0}*/}
-                {/*            thumbnail={ingredientsData[12].image_mobile}*/}
-                {/*        />*/}
-                {/*    </div>*/}
-                {/*    <div className={BurgerConstructorStyles.constructor_order_item}>*/}
-                {/*        <DragIcon type="primary"/>*/}
-                {/*        <ConstructorElement*/}
-                {/*            text={ingredientsData[2].name}*/}
-                {/*            price={ingredientsData[2].price ?? 0}*/}
-                {/*            thumbnail={ingredientsData[2].image_mobile}*/}
-                {/*        />*/}
-                {/*    </div>*/}
-                {/*    <div className={BurgerConstructorStyles.constructor_order_item}>*/}
-                {/*        <DragIcon type="primary"/>*/}
-                {/*        <ConstructorElement*/}
-                {/*            text={ingredientsData[12].name}*/}
-                {/*            price={ingredientsData[12].price ?? 0}*/}
-                {/*            thumbnail={ingredientsData[12].image_mobile}*/}
-                {/*        />*/}
-                {/*    </div>*/}
-                {/*    <div className={BurgerConstructorStyles.constructor_order_item}>*/}
-                {/*        <DragIcon type="primary"/>*/}
-                {/*        <ConstructorElement*/}
-                {/*            text={`${ingredientsData[6].name} (верх)`}*/}
-                {/*            price={ingredientsData[6].price ?? 0}*/}
-                {/*            thumbnail={ingredientsData[6].image_mobile}*/}
-                {/*        />*/}
-                {/*    </div>*/}
-                {/*</div>*/}
+                {/* ----- SCROLLED INNER INGREDIENTS -----*/}
+                <div className={BurgerConstructorStyles.constructor_order}>
+                    <div className={BurgerConstructorStyles.constructor_order_item}>
+                        <DragIcon type="primary"/>
+                        <ConstructorElement
+                            text={ingredientsData[7].name}
+                            price={ingredientsData[7].price ?? 0}
+                            thumbnail={ingredientsData[7].image_mobile}
+                        />
+                    </div>
+                    <div className={BurgerConstructorStyles.constructor_order_item}>
+                        <DragIcon type="primary"/>
+                        <ConstructorElement
+                            text={ingredientsData[12].name}
+                            price={ingredientsData[12].price ?? 0}
+                            thumbnail={ingredientsData[12].image_mobile}
+                        />
+                    </div>
+                    <div className={BurgerConstructorStyles.constructor_order_item}>
+                        <DragIcon type="primary"/>
+                        <ConstructorElement
+                            text={ingredientsData[2].name}
+                            price={ingredientsData[2].price ?? 0}
+                            thumbnail={ingredientsData[2].image_mobile}
+                        />
+                    </div>
+                    <div className={BurgerConstructorStyles.constructor_order_item}>
+                        <DragIcon type="primary"/>
+                        <ConstructorElement
+                            text={ingredientsData[12].name}
+                            price={ingredientsData[12].price ?? 0}
+                            thumbnail={ingredientsData[12].image_mobile}
+                        />
+                    </div>
+                    <div className={BurgerConstructorStyles.constructor_order_item}>
+                        <DragIcon type="primary"/>
+                        <ConstructorElement
+                            text={`${ingredientsData[6].name} (верх)`}
+                            price={ingredientsData[6].price ?? 0}
+                            thumbnail={ingredientsData[6].image_mobile}
+                        />
+                    </div>
+                </div>
 
                 {/*----- BOTTOM BUN -----*/}
                 <ConstructorElement
