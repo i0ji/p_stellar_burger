@@ -23,8 +23,8 @@ export default function IngredientGroup({type, ingredients}: { type: string, ing
     return (
         <div className={IngredientGroupStyles.ingredient_list}>
             <h3 className="text text_type_main-medium pb-6">{type}</h3>
-            {ingredients.map(ingredientItem => (
-                <IngredientCard {...ingredientItem}/>
+            {ingredients.map((ingredientItem: IIngredient, i) => (
+                <IngredientCard key={i} {...ingredientItem}/>
             ))}
         </div>
     );
