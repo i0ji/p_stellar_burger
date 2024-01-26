@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef, useState} from "react";
 import burgerIngredientsStyles from "./BurgerIngredientsStyles.module.scss";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "components/BurgerIngredients/IngredientGroup/IngredientGroup.tsx";
@@ -6,7 +6,9 @@ import {IIngredient} from "src/Interfaces";
 
 export default function BurgerIngredients({ingredientsData}: { ingredientsData: IIngredient[] }) {
 
-    const [current, setCurrent] = React.useState('one')
+    const [current, setCurrent] = React.useState('bun')
+
+    const scrollToRef = useRef();
 
     {/* -----INGREDIENT DATA ARRAYS -----*/
     }
@@ -33,13 +35,21 @@ export default function BurgerIngredients({ingredientsData}: { ingredientsData: 
 
             {/* -----INGREDIENT TABS -----*/}
             <div className={burgerIngredientsStyles.ingredients_menu}>
-                <Tab value="one" active={current === 'one'} onClick={setCurrent}>
+                <Tab
+                    href="#buns"
+                    value="bun"
+                    active={current === 'bun'}
+                    onClick={setCurrent}>
                     {bunIngredients.type}
                 </Tab>
-                <Tab value="two" active={current === 'two'} onClick={setCurrent}>
+                <Tab value="sauce"
+                     active={current === 'sauce'}
+                     onClick={setCurrent}>
                     {sauceIngredients.type}
                 </Tab>
-                <Tab value="three" active={current === 'three'} onClick={setCurrent}>
+                <Tab value="main"
+                     active={current === 'main'}
+                     onClick={setCurrent}>
                     {mainIngredients.type}
                 </Tab>
             </div>
@@ -47,6 +57,7 @@ export default function BurgerIngredients({ingredientsData}: { ingredientsData: 
             {/* -----INGREDIENT GROUPS -----*/}
             <div className={burgerIngredientsStyles.ingredients_list}>
                 <IngredientGroup
+                    id="buns"
                     type={bunIngredients.type}
                     ingredients={bunIngredients.ingredients}
                 />

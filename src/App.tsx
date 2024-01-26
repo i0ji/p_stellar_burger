@@ -3,9 +3,6 @@ import AppHeader from "components/AppHeader/AppHeader.tsx";
 import BurgerIngredients from "components/BurgerIngredients/BurgerIngredients.tsx";
 import BurgerConstructor from "components/BurgerConstructor/BurgerConstructor.tsx";
 import {useEffect, useState} from "react";
-import OrderDetails from "components/Modal/OrderDetails/OrderDetails.tsx";
-import IngredientDetails from "components/Modal/IngredientDetails/IngredientDetails.tsx"
-
 
 const ingredientsDataUrl = 'https://norma.nomoreparties.space/api/ingredients';
 
@@ -46,13 +43,6 @@ function App() {
                     </>
                 }
             </main>
-
-            <div style={{height: 500,
-            background: "white"}}></div>
-
-            <OrderDetails/>
-
-            <IngredientDetails/>
         </>
     )
 }
