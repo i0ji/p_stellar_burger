@@ -1,5 +1,5 @@
-.modal {
-  composes: pt-10 pl-10 pr-10 pb-15 from global;
+.modal_ingredients {
+  composes: pl-10 pr-10 from global;
 
   width: 720px;
   height: 539px;
@@ -14,7 +14,16 @@
   border-radius: 40px;
 
   h3 {
-    width: 100%;
+    width: 90%;
     text-align: start;
+  }
+
+  button {
+    background: transparent;
+    color: #F2F2F3;
+  }
+
+  button:active {
+
   }
 }

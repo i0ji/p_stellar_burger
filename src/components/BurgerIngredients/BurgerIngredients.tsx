@@ -29,7 +29,7 @@ export default function BurgerIngredients({ingredientsData}: { ingredientsData: 
     return (
         <section className={burgerIngredientsStyles.ingredients_block}>
 
-            <h3 className="text text_type_main-large pb-5">Соберите бургер</h3>
+            <h3 className="text text_type_main-large pb-10">Соберите бургер</h3>
 
             {/* -----INGREDIENT TABS -----*/}
             <div className={burgerIngredientsStyles.ingredients_menu}>
