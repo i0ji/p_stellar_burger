@@ -1,4 +1,4 @@
-import BurgerConstructorStyles from "./BurgerConstructorStyles.module.scss";
+import burgerConstructorStyles from "./BurgerConstructorStyles.module.scss";
 import {Button, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import {IIngredient} from "src/Interfaces";
@@ -6,13 +6,13 @@ import {IIngredient} from "src/Interfaces";
 export default function BurgerConstructor({ingredientsData}: { ingredientsData: IIngredient[] }) {
 
     return (
-        <section className={BurgerConstructorStyles.constructor_block}>
+        <section className={burgerConstructorStyles.constructor_block}>
             <div
-                className={`${BurgerConstructorStyles.constructor_list} mb-10`}>
+                className={`${burgerConstructorStyles.constructor_list} mb-10`}>
 
-                {/*----- TOP BUN -----*/}
+                {/* ----- TOP BUN ----- */}
                 <ConstructorElement
-                    extraClass={`${BurgerConstructorStyles.constructor_item_top}`}
+                    extraClass={`${burgerConstructorStyles.constructor_item_top}`}
                     type="top"
                     isLocked={true}
                     text={`${ingredientsData[0].name} (верх)`}
@@ -21,9 +21,9 @@ export default function BurgerConstructor({ingredientsData}: { ingredientsData: 
                 />
 
 
-                {/* ----- SCROLLED INNER INGREDIENTS -----*/}
-                <div className={BurgerConstructorStyles.constructor_order}>
-                    <div className={BurgerConstructorStyles.constructor_order_item}>
+                {/* ----- SCROLLED INNER INGREDIENTS ----- */}
+                <div className={burgerConstructorStyles.constructor_order}>
+                    <div className={burgerConstructorStyles.constructor_order_item}>
                         <DragIcon type="primary"/>
                         <ConstructorElement
                             text={ingredientsData[7].name}
@@ -31,7 +31,7 @@ export default function BurgerConstructor({ingredientsData}: { ingredientsData: 
                             thumbnail={ingredientsData[7].image_mobile}
                         />
                     </div>
-                    <div className={BurgerConstructorStyles.constructor_order_item}>
+                    <div className={burgerConstructorStyles.constructor_order_item}>
                         <DragIcon type="primary"/>
                         <ConstructorElement
                             text={ingredientsData[12].name}
@@ -39,7 +39,7 @@ export default function BurgerConstructor({ingredientsData}: { ingredientsData: 
                             thumbnail={ingredientsData[12].image_mobile}
                         />
                     </div>
-                    <div className={BurgerConstructorStyles.constructor_order_item}>
+                    <div className={burgerConstructorStyles.constructor_order_item}>
                         <DragIcon type="primary"/>
                         <ConstructorElement
                             text={ingredientsData[2].name}
@@ -47,7 +47,7 @@ export default function BurgerConstructor({ingredientsData}: { ingredientsData: 
                             thumbnail={ingredientsData[2].image_mobile}
                         />
                     </div>
-                    <div className={BurgerConstructorStyles.constructor_order_item}>
+                    <div className={burgerConstructorStyles.constructor_order_item}>
                         <DragIcon type="primary"/>
                         <ConstructorElement
                             text={ingredientsData[12].name}
@@ -55,7 +55,7 @@ export default function BurgerConstructor({ingredientsData}: { ingredientsData: 
                             thumbnail={ingredientsData[12].image_mobile}
                         />
                     </div>
-                    <div className={BurgerConstructorStyles.constructor_order_item}>
+                    <div className={burgerConstructorStyles.constructor_order_item}>
                         <DragIcon type="primary"/>
                         <ConstructorElement
                             text={`${ingredientsData[6].name} (верх)`}
@@ -65,9 +65,9 @@ export default function BurgerConstructor({ingredientsData}: { ingredientsData: 
                     </div>
                 </div>
 
-                {/*----- BOTTOM BUN -----*/}
+                {/*----- BOTTOM BUN ----- */}
                 <ConstructorElement
-                    extraClass={`${BurgerConstructorStyles.constructor_item_bottom}`}
+                    extraClass={`${burgerConstructorStyles.constructor_item_bottom}`}
                     type="bottom"
                     isLocked={true}
                     text={`${ingredientsData[0].name} (низ)`}
@@ -75,9 +75,9 @@ export default function BurgerConstructor({ingredientsData}: { ingredientsData: 
                     thumbnail={ingredientsData[4].image_mobile}
                 />
 
-                {/* ----- PRICE -----*/}
+                {/* ----- PRICE ----- */}
             </div>
-            <div className={BurgerConstructorStyles.price_info}>
+            <div className={burgerConstructorStyles.price_info}>
                 <h1 className="text text_type_main-large pr-3">1000</h1>
                 <CurrencyIcon type="primary"/>
                 <Button

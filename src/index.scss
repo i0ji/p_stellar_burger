@@ -1,4 +1,5 @@
-@import "styles/scrollbar.scss";
+@import "styles/_theme_colors";
+@import "styles/_scrollbar";
 
 * {
   padding: 0;
@@ -27,7 +28,7 @@ a:hover {
 html {
   max-width: 1260px;
   margin: 0 auto;
-  background-color: #131316;
+  //background-color: $bg_color;
   scroll-behavior: smooth;
 
 }

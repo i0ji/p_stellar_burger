@@ -3,47 +3,49 @@ import AppHeader from "components/AppHeader/AppHeader.tsx";
 import BurgerIngredients from "components/BurgerIngredients/BurgerIngredients.tsx";
 import BurgerConstructor from "components/BurgerConstructor/BurgerConstructor.tsx";
 import {useEffect, useState} from "react";
+import ModalIngredient from "components/Modal/ModalIngredient.tsx";
 
 const ingredientsDataUrl = 'https://norma.nomoreparties.space/api/ingredients';
 
 function App() {
 
-    const [ingredientsData, setIngredientsData] = useState([])
+    //const [ingredientsData, setIngredientsData] = useState([])
 
-    {/* ----- FETCHING DATA ON MOUNT -----*/
-    }
+    {/* ----- FETCHING DATA ON MOUNT -----*/}
 
-    useEffect(() => {
-        fetch(ingredientsDataUrl)
-            .then((res) => {
-                if (!res.ok) {
-                    throw new Error(
-                        `NO BURGERS! CUZ OF: ${res.status} ARGHHHHHH!`
-                    );
-                }
-                return res.json();
-            })
-            .then(data => {
-                console.log(data.data)
-                setIngredientsData(data.data)
-            })
-            .catch((err) => console.log(err.message))
-    }, []);
+    // useEffect(() => {
+    //     fetch(ingredientsDataUrl)
+    //         .then((res) => {
+    //             if (!res.ok) {
+    //                 throw new Error(
+    //                     `NO BURGERS! CUZ OF: ${res.status} ARGHHHHHH!`
+    //                 );
+    //             }
+    //             return res.json();
+    //         })
+    //         .then(data => {
+    //             setIngredientsData(data.data)
+    //         })
+    //         .catch((err) => console.log(err.message))
+    // }, []);
 
     return (
         <>
-            <AppHeader/>
+            {/*<AppHeader/>*/}
 
-            <main className={appStyles.burger_builder}>
+            {/*<main className={appStyles.burger_builder}>*/}
 
-                {ingredientsData.length && <>
+            {/*    {*/}
+            {/*        ingredientsData.length && <>*/}
 
-                    <BurgerIngredients ingredientsData={ingredientsData}/>
+            {/*            <BurgerIngredients ingredientsData={ingredientsData}/>*/}
 
-                    <BurgerConstructor ingredientsData={ingredientsData}/>
-                </>
-                }
-            </main>
+            {/*            <BurgerConstructor ingredientsData={ingredientsData}/>*/}
+            {/*        </>*/}
+            {/*    }*/}
+            {/*</main>*/}
+
+            <ModalIngredient/>
         </>
     )
 }

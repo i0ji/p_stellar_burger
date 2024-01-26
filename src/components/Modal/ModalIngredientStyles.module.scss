@@ -1,0 +1,20 @@
+.modal {
+  composes: pt-10 pl-10 pr-10 pb-15 from global;
+
+  width: 720px;
+  height: 539px;
+
+  background-color: #131316;
+  color: #F2F2F3;
+
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+
+  border-radius: 40px;
+
+  h3 {
+    width: 100%;
+    text-align: start;
+  }
+}

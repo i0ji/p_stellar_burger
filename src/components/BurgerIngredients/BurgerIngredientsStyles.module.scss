@@ -11,14 +11,14 @@
     overflow-x: hidden;
     overflow-y: scroll;
   }
+
+  .ingredients_list::-webkit-scrollbar-track {
+    background: transparent;
+    margin-bottom: 52px;
+  }
 }
 
 .ingredients_menu {
   composes: mb-10 from global;
   display: flex;
-}
-
-div::-webkit-scrollbar-track {
-  background: transparent;
-  margin-bottom: 152px;
 }

@@ -1,4 +1,4 @@
-import IngredientGroupStyles from "./IngredientGroup.module.scss";
+import ingredientGroupStyles from "./IngredientGroupStyles.module.scss";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {IIngredient} from "src/Interfaces";
 
@@ -6,7 +6,7 @@ export default function IngredientGroup({type, ingredients}: { type: string, ing
 
    const IngredientCard = (ingredient: IIngredient) => {
         return (
-            <div className={IngredientGroupStyles.ingredient_card}>
+            <div className={ingredientGroupStyles.ingredient_card}>
                 <img
                     src={ingredient.image}
                     alt={ingredient.name}
@@ -21,7 +21,7 @@ export default function IngredientGroup({type, ingredients}: { type: string, ing
     }
 
     return (
-        <div className={IngredientGroupStyles.ingredient_list}>
+        <div className={ingredientGroupStyles.ingredient_list}>
             <h3 className="text text_type_main-medium pb-6">{type}</h3>
             {ingredients.map((ingredientItem: IIngredient, i) => (
                 <IngredientCard key={i} {...ingredientItem}/>

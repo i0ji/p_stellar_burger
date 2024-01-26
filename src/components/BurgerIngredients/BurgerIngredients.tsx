@@ -1,5 +1,5 @@
 import React from "react";
-import BurgerIngredientsStyles from "./BurgerIngredientsStyles.module.scss";
+import burgerIngredientsStyles from "./BurgerIngredientsStyles.module.scss";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "components/BurgerIngredients/IngredientGroup/IngredientGroup.tsx";
 import {IIngredient} from "src/Interfaces";
@@ -27,12 +27,12 @@ export default function BurgerIngredients({ingredientsData}: { ingredientsData: 
         }
 
     return (
-        <section className={BurgerIngredientsStyles.ingredients_block}>
+        <section className={burgerIngredientsStyles.ingredients_block}>
 
             <h3 className="text text_type_main-large pb-5">Соберите бургер</h3>
 
             {/* -----INGREDIENT TABS -----*/}
-            <div className={BurgerIngredientsStyles.ingredients_menu}>
+            <div className={burgerIngredientsStyles.ingredients_menu}>
                 <Tab value="one" active={current === 'one'} onClick={setCurrent}>
                     {bunIngredients.type}
                 </Tab>
@@ -45,7 +45,7 @@ export default function BurgerIngredients({ingredientsData}: { ingredientsData: 
             </div>
 
             {/* -----INGREDIENT GROUPS -----*/}
-            <div className={BurgerIngredientsStyles.ingredients_list}>
+            <div className={burgerIngredientsStyles.ingredients_list}>
                 <IngredientGroup
                     type={bunIngredients.type}
                     ingredients={bunIngredients.ingredients}

@@ -1,3 +1,5 @@
+@import "styles/_theme_colors";
+
 .header_button {
   display: flex;
   align-items: center;
@@ -8,6 +10,6 @@
   }
 
   &_disabled {
-    color: #8585AD;
+    color: $theme_light;
   }
 }

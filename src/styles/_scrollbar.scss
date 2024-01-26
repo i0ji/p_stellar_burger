@@ -1,0 +1,19 @@
+@import "styles/_theme_colors";
+
+::-webkit-scrollbar {
+  display: block;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px $scroll_dark;
+  border: 1px solid $theme_light;
+  background-color: $scroll_dark;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $theme_light;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $scroll_active;
+}
