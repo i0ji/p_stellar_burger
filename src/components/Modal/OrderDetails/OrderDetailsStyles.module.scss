@@ -1,0 +1,38 @@
+@import "styles/theme_colors";
+
+.orders_modal {
+  position: relative;
+
+  composes: pt-30 pb-30 from global;
+
+  width: 720px;
+  height: 718px;
+
+  background-color: $bg_modal;
+  color: $theme_white;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+    button {
+    position: absolute;
+
+    right: 40px;
+    top: 60px;
+
+    background: transparent;
+    color: $theme_white;
+    font-weight: bolder;
+    height: auto;
+
+    transition: .5s all;
+  }
+
+  button:hover,
+  button:active {
+    opacity: .9;
+    transform: scale(.96);
+    color: $scroll_active;
+  }
+}

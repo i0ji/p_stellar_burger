@@ -2,12 +2,12 @@
 
 ::-webkit-scrollbar {
   display: block;
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px $scroll_dark;
   border: 1px solid $theme_light;
-  background-color: $scroll_dark;
+  background: $scroll_dark;
 }
 
 ::-webkit-scrollbar-thumb {

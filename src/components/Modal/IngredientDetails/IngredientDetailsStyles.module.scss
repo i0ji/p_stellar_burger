@@ -1,0 +1,74 @@
+@import "styles/theme_colors";
+
+.ingredients_modal {
+  position: relative;
+
+  composes: pl-10 pr-10 pb-10 pt-15 from global;
+
+  width: 720px;
+  height: 539px;
+
+  background-color: $bg_modal;
+  color: $theme_white;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 40px;
+
+  button {
+    position: absolute;
+
+    right: 40px;
+    top: 80px;
+
+    background: transparent;
+    color: $theme_white;
+    font-weight: bolder;
+    height: auto;
+
+    transition: .5s all;
+  }
+
+  button:hover,
+  button:active {
+    opacity: .9;
+    transform: scale(.96);
+    color: $scroll_active;
+  }
+
+  &_title {
+    width: 100%;
+    height: 10%;
+
+    display: flex;
+    justify-content: space-between;
+  }
+
+  img {
+    width: 65%;
+  }
+
+  &_features {
+    width: 100%;
+    height: 20%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    .feature {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+
+      p {
+        color: $theme_light;
+      }
+    }
+  }
+}
+

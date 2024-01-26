@@ -1,4 +1,4 @@
-import headerStyles from './AppHeader.module.scss';
+import headerStyles from './AppHeaderStyles.module.scss';
 import {Logo} from "@ya.praktikum/react-developer-burger-ui-components";
 import HeaderButton from "./HeaderButton/HeaderButton.tsx";
 
