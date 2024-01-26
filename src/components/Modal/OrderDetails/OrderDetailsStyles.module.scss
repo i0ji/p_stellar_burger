@@ -12,10 +12,13 @@
   color: $theme_white;
 
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
 
-    button {
+  border-radius: 40px;
+
+  button {
     position: absolute;
 
     right: 40px;
@@ -34,5 +37,23 @@
     opacity: .9;
     transform: scale(.96);
     color: $scroll_active;
+  }
+
+  h1 {
+    text-shadow: 0 0 7px $scroll_active,
+    0 0 14px $scroll_active
+  }
+
+  img {
+    width: 120px;
+    height: auto;
+  }
+
+  &_info {
+    text-align: center;
+
+    p:last-of-type {
+      color: $theme_light;
+    }
   }
 }
