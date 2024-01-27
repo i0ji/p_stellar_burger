@@ -14,6 +14,7 @@ export interface IIngredient {
     "__v"?: number;
 }
 
-export interface IModalProps {
-    onClick?: () => void;
+export interface IModalOverlayProps {
+    children?: ReactNode;
+    onClose?:() => void;
 }
