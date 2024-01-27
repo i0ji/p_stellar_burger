@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React from "react";
 import burgerIngredientsStyles from "./BurgerIngredientsStyles.module.scss";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "components/BurgerIngredients/IngredientGroup/IngredientGroup.tsx";
@@ -8,9 +8,7 @@ export default function BurgerIngredients({ingredientsData}: { ingredientsData: 
 
     const [current, setCurrent] = React.useState('bun')
 
-    const scrollToRef = useRef();
-
-    {/* -----INGREDIENT DATA ARRAYS -----*/
+    {/* -----INGREDIENT DATA ARRAYS ----- */
     }
     const bunIngredients =
         {
@@ -36,7 +34,6 @@ export default function BurgerIngredients({ingredientsData}: { ingredientsData: 
             {/* -----INGREDIENT TABS -----*/}
             <div className={burgerIngredientsStyles.ingredients_menu}>
                 <Tab
-                    href="#buns"
                     value="bun"
                     active={current === 'bun'}
                     onClick={setCurrent}>
@@ -57,7 +54,6 @@ export default function BurgerIngredients({ingredientsData}: { ingredientsData: 
             {/* -----INGREDIENT GROUPS -----*/}
             <div className={burgerIngredientsStyles.ingredients_list}>
                 <IngredientGroup
-                    id="buns"
                     type={bunIngredients.type}
                     ingredients={bunIngredients.ingredients}
                 />

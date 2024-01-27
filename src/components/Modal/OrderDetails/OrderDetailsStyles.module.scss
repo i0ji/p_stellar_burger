@@ -1,10 +1,8 @@
 @import "styles/theme_colors";
 
 .orders_modal {
-  position: relative;
-
+  position: fixed;
   composes: pt-30 pb-30 from global;
-
   width: 720px;
   height: 718px;
 
@@ -18,7 +16,7 @@
 
   border-radius: 40px;
 
-  button {
+  svg {
     position: absolute;
 
     right: 40px;
@@ -30,13 +28,6 @@
     height: auto;
 
     transition: .5s all;
-  }
-
-  button:hover,
-  button:active {
-    opacity: .9;
-    transform: scale(.96);
-    color: $scroll_active;
   }
 
   h1 {

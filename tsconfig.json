@@ -28,6 +28,7 @@
       "styles/*": ["styles/*"],
       "images/*": ["images/*"],
       "data/*": ["data/*"],
+      "modal/*": ["components/Modal/*"],
       "src/*" : ["./*"],
     }
   },

@@ -2,13 +2,29 @@ import burgerConstructorStyles from "./BurgerConstructorStyles.module.scss";
 import {Button, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import {IIngredient} from "src/Interfaces";
+import {useState} from "react";
+import OrderDetails from "modal/OrderDetails/OrderDetails.tsx";
 
 export default function BurgerConstructor({ingredientsData}: { ingredientsData: IIngredient[] }) {
 
+
+    const [isVisible, setIsVisible] = useState(false)
+
+    // ------ MODAL OPENING/CLOSING LOGIC ------
+    function handleOpenModal() {
+        setIsVisible(true);
+    }
+
+    function handleCloseModal() {
+        setIsVisible(false);
+    }
+
     return (
         <section className={burgerConstructorStyles.constructor_block}>
+
             <div
-                className={`${burgerConstructorStyles.constructor_list} mb-10`}>
+                className={`${burgerConstructorStyles.constructor_list} mb-10`}
+            >
 
                 {/* ----- TOP BUN ----- */}
                 <ConstructorElement
@@ -85,8 +101,10 @@ export default function BurgerConstructor({ingredientsData}: { ingredientsData: 
                     size="large"
                     type="primary"
                     htmlType="button"
+                    onClick={handleOpenModal}
                 >Оформить заказ</Button>
             </div>
+            {isVisible && <OrderDetails onClose={handleCloseModal}/>}
         </section>
     );
 }

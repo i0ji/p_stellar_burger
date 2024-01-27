@@ -2,6 +2,7 @@
   composes: mt-25 pl-5 pr-5 pb-10 from global;
   width: 50%;
   height: 95%;
+  overflow: hidden;
 
   .constructor_list {
     display: flex;
