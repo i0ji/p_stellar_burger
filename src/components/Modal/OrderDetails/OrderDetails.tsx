@@ -4,8 +4,9 @@ import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "modal/ModalOverlay/ModalOverlay.tsx";
 import {createPortal} from "react-dom";
 import {useEffect} from "react";
+import {IOrderDetailsProps} from "src/Interfaces";
 
-export default function OrderDetails({onClose}: { onClose: () => void }) {
+export default function OrderDetails({onClose}: IOrderDetailsProps) {
 
     const modalPlacement = document.querySelector('#modals');
 

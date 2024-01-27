@@ -18,3 +18,7 @@ export interface IModalOverlayProps {
     children?: ReactNode;
     onClose?:() => void;
 }
+
+export interface IOrderDetailsProps {
+    onClose: () => void;
+}

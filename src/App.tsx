@@ -22,7 +22,6 @@ function App() {
     }
 
 
-
     {/* ----- FETCHING DATA ON MOUNT ----- */
     }
     useEffect(() => {
@@ -44,21 +43,12 @@ function App() {
     return (
         <>
             {/* ----- MODAL -----*/}
-            {isVisible && <OrderDetails handleToggleModal={handleToggleModal}/>}
-
-
-
-
-
-
-
+            {isVisible && <OrderDetails onClose={handleToggleModal}/>}
 
 
             {/* ----- APP HEADER -----*/}
 
             <AppHeader/>
-
-
 
             {/* ----- TWO MAIN BLOCKS -----*/}
 
@@ -80,4 +70,4 @@ function App() {
     )
 }
 
-export default App
+export default App;
