@@ -24,13 +24,9 @@ export interface IOrderDetailsProps {
     onClose: () => void,
 }
 
-
-export interface IModalOverlayProps {
-    onClose: () => void,
+export interface IModalOverlayProps extends  IOrderDetailsProps {
     children?: React.ReactNode,
-
 }
-
 
 export interface IIngredientDetailsProps extends IOrderDetailsProps {
     image: string,
@@ -40,4 +36,3 @@ export interface IIngredientDetailsProps extends IOrderDetailsProps {
     carbohydrates: number,
     calories: number,
 }
-
