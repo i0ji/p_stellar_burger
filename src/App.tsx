@@ -3,24 +3,12 @@ import AppHeader from "components/AppHeader/AppHeader.tsx";
 import BurgerIngredients from "components/BurgerIngredients/BurgerIngredients.tsx";
 import BurgerConstructor from "components/BurgerConstructor/BurgerConstructor.tsx";
 import {useEffect, useState} from "react";
-import OrderDetails from "components/Modal/OrderDetails/OrderDetails.tsx";
 
 const ingredientsDataUrl = 'https://norma.nomoreparties.space/api/ingredients';
 
 function App() {
 
     const [ingredientsData, setIngredientsData] = useState([]);
-
-
-    { /* ----- MODAL ----- */
-    }
-    const [isVisible, setIsVisible] = useState(false);
-
-
-    function handleToggleModal() {
-        setIsVisible(!isVisible);
-    }
-
 
     {/* ----- FETCHING DATA ON MOUNT ----- */
     }
@@ -42,10 +30,6 @@ function App() {
 
     return (
         <>
-            {/* ----- MODAL -----*/}
-            {isVisible && <OrderDetails onClose={handleToggleModal}/>}
-
-
             {/* ----- APP HEADER -----*/}
 
             <AppHeader/>

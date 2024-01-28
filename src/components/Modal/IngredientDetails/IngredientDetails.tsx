@@ -1,10 +1,6 @@
 import ingredientDetailsStyles from "./IngredientDetailsStyles.module.scss"
 import {IIngredientDetailsProps} from "src/Interfaces";
 import {useEffect} from "react";
-import {createPortal} from "react-dom";
-import ModalOverlay from "modal/ModalOverlay/ModalOverlay.tsx";
-import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-
 export default function IngredientDetails({
                                               onClose,
                                               image,
@@ -24,25 +20,12 @@ export default function IngredientDetails({
         };
     }, [onClose]);
 
-    const modalPlacement = document.querySelector('#modals');
-
-    if (modalPlacement)
-
-        return createPortal(
-            (
+        return (
                 <>
-                    <ModalOverlay
-                        onClose={onClose}
-                    />
                     <div className={ingredientDetailsStyles.ingredients_modal}>
                         <div className={ingredientDetailsStyles.ingredients_modal_title}>
                             <h3 className="text text_type_main-large">Детали ингредиента</h3>
                         </div>
-
-                        <CloseIcon
-                            type="primary"
-                            onClick={onClose}
-                        />
 
                         <img
                             src={image}
@@ -74,5 +57,5 @@ export default function IngredientDetails({
                         </div>
                     </div>
                 </>
-            ), modalPlacement)
+            )
 }

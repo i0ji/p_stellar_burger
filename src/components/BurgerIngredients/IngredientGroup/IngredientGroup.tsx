@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import ingredientGroupStyles from "./IngredientGroupStyles.module.scss";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {IIngredient} from "src/Interfaces";
+import {IIngredient, IIngredientCardProps} from "src/Interfaces";
 import IngredientDetails from "modal/IngredientDetails/IngredientDetails.tsx";
-import IIngredientCardProps from "src/interfaces.d.ts"
+import Modal from "modal/Modal.tsx";
 
 {/* ----- INGREDIENT ITEM CARD   ----- */
 }
@@ -49,15 +49,19 @@ export default function IngredientGroup({type, ingredients}: { type: string; ing
 
             {/* ----- MODAL ENTER ----- */}
             {selectedIngredient && (
-                <IngredientDetails
-                    onClose={handleCloseModal}
-                    image={selectedIngredient.image || ""}
-                    name={selectedIngredient.name}
-                    proteins={selectedIngredient.proteins || 0}
-                    carbohydrates={selectedIngredient.carbohydrates || 0}
-                    calories={selectedIngredient.calories || 0}
-                    fat={selectedIngredient.fat || 0}
-                />
+
+                <Modal onClose={handleCloseModal}>
+                    <IngredientDetails
+                        onClose={handleCloseModal}
+                        image={selectedIngredient.image || ""}
+                        name={selectedIngredient.name}
+                        proteins={selectedIngredient.proteins || 0}
+                        carbohydrates={selectedIngredient.carbohydrates || 0}
+                        calories={selectedIngredient.calories || 0}
+                        fat={selectedIngredient.fat || 0}
+                    />
+                </Modal>
+
             )}
         </div>
     );

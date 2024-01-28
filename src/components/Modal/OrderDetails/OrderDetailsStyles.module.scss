@@ -16,20 +16,6 @@
 
   border-radius: 40px;
 
-  svg {
-    position: absolute;
-
-    right: 40px;
-    top: 60px;
-
-    background: transparent;
-    color: $theme_white;
-    font-weight: bolder;
-    height: auto;
-
-    transition: .5s all;
-  }
-
   h1 {
     text-shadow: 0 0 7px $scroll_active,
     0 0 14px $scroll_active

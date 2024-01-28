@@ -23,8 +23,8 @@ export default function Modal({onClose, children}: { onClose: () => void, childr
             (
                 <>
                     <ModalOverlay onClose={onClose}/>
-                    <div className={`${modalStyles.modal} pr-10 pb-15`}>
-                        <div className={modalStyles.close_btn}>
+                    <div className={modalStyles.modal}>
+                        <div className={modalStyles.modal_btn}>
                             <CloseIcon
                                 type="primary"
                                 onClick={onClose}
@@ -32,5 +32,6 @@ export default function Modal({onClose, children}: { onClose: () => void, childr
                         </div>
                         {children}
                     </div>
-                </>), modalPlacement);
+                </>
+            ), modalPlacement);
 }

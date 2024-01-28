@@ -3,14 +3,6 @@
 .ingredients_modal {
   composes: pl-10 pr-10 pb-10 pt-15 from global;
 
-  position: absolute;
-  overflow: hidden;
-  z-index: 200;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-
   width: 720px;
   height: 539px;
 
@@ -23,20 +15,6 @@
   justify-content: center;
 
   border-radius: 40px;
-
-  svg {
-    position: absolute;
-
-    right: 40px;
-    top: 80px;
-
-    background: transparent;
-    color: $theme_white;
-    font-weight: bolder;
-    height: auto;
-
-    transition: .5s all;
-  }
 
   &_title {
     width: 100%;
