@@ -1,19 +1,9 @@
 import ingredientDetailsStyles from "./IngredientDetailsStyles.module.scss"
 import {IIngredientDetailsProps} from "src/Interfaces";
-import {useEffect} from "react";
 
 export default function IngredientDetails(props: IIngredientDetailsProps) {
 
-    const {onClose, image, fat, name, calories, proteins, carbohydrates} = props;
-
-    useEffect(() => {
-        const closeOnEscapeKey = (e: KeyboardEvent) => (e.key === "Escape" ? onClose() : null);
-        document.body.addEventListener("keydown", closeOnEscapeKey);
-
-        return () => {
-            document.body.removeEventListener("keydown", closeOnEscapeKey);
-        };
-    }, [onClose]);
+    const { image, fat, name, calories, proteins, carbohydrates} = props;
 
     return (
         <>

@@ -13,14 +13,14 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
     const IngredientCard: React.FC<IIngredientCardProps> = ({onOpenModal, image, price, name}) => {
 
         return (
-            <div className={ingredientGroupStyles.ingredient_card} onClick={onOpenModal}>
-                <img src={image} alt={name}/>
-                <p className="text text_type_main-default pt-1">
-                    <CurrencyIcon type="primary"/>
-                    {price}
-                </p>
-                <p className="text text_type_main-default pt1">{name}</p>
-            </div>
+                <div className={ingredientGroupStyles.ingredient_card} onClick={onOpenModal}>
+                    <img src={image} alt={name}/>
+                    <p className="text text_type_main-default pt-1">
+                        <CurrencyIcon type="primary"/>
+                        {price}
+                    </p>
+                    <p className="text text_type_main-default pt1">{name}</p>
+                </div>
         );
     };
 

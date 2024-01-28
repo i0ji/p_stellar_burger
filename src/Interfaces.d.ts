@@ -41,3 +41,7 @@ export interface IIngredientGroupProps {
     type: string;
     ingredients: IIngredient[];
 }
+
+export interface IBurgerIngredientProps {
+    ingredientsData: IIngredient[];
+}

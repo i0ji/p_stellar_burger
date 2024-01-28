@@ -1,32 +1,21 @@
+import {useEffect, useState} from "react";
 import appStyles from './App.module.scss';
 import AppHeader from "components/AppHeader/AppHeader.tsx";
 import BurgerIngredients from "components/BurgerIngredients/BurgerIngredients.tsx";
 import BurgerConstructor from "components/BurgerConstructor/BurgerConstructor.tsx";
-import {useEffect, useState} from "react";
-
-const ingredientsDataUrl = 'https://norma.nomoreparties.space/api/ingredients';
+import {getIngredients} from "src/utils/burger-api.ts";
 
 function App() {
 
     const [ingredientsData, setIngredientsData] = useState([]);
+    const [error,setError] = useState(null)
 
-    {/* ----- FETCHING DATA ON MOUNT ----- */
-    }
     useEffect(() => {
-        fetch(ingredientsDataUrl)
-            .then((res) => {
-                if (!res.ok) {
-                    throw new Error(
-                        `NO BURGERS! CUZ OF: ${res.status} ARGHHHHHH!`
-                    );
-                }
-                return res.json();
-            })
-            .then(data => {
-                setIngredientsData(data.data)
-            })
-            .catch((err) => console.log(err.message))
+        getIngredients()
+            .then(data => setIngredientsData(data))
+            .catch(err => setError(err.message));
     }, []);
+
 
     return (
         <>

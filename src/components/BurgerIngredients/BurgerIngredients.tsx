@@ -1,16 +1,22 @@
-import React, {useRef} from "react";
+import React, {useRef, useMemo} from "react";
 import burgerIngredientsStyles from "./BurgerIngredientsStyles.module.scss";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "components/BurgerIngredients/IngredientGroup/IngredientGroup.tsx";
 import {IIngredient} from "src/Interfaces";
 
-export default function BurgerIngredients({ ingredientsData }: { ingredientsData: IIngredient[] }) {
+enum TabValues {
+    Bun = "bun",
+    Sauce = "sauce",
+    Main = "main",
+}
 
-    const [current, setCurrent] = React.useState("bun");
+export default function BurgerIngredients({ingredientsData}: {ingredientsData: IIngredient[] }) {
 
-    const bunRef = useRef(null);
-    const sauceRef = useRef(null);
-    const mainRef = useRef(null);
+    const [current, setCurrent] = React.useState(TabValues.Bun);
+
+    const bunRef = useRef<HTMLDivElement>(null);
+    const sauceRef = useRef<HTMLDivElement>(null);
+    const mainRef = useRef<HTMLDivElement>(null);
 
     const scrollToRef = (ref: React.RefObject<HTMLDivElement>) => {
         if (ref && ref.current) {
@@ -22,17 +28,25 @@ export default function BurgerIngredients({ ingredientsData }: { ingredientsData
         }
     };
 
-    const handleTabClick = (value: string) => {
+    const filteredIngredients = useMemo(() => {
+        return {
+            bun: ingredientsData.filter((item) => item.type === "bun"),
+            sauce: ingredientsData.filter((item) => item.type === "sauce"),
+            main: ingredientsData.filter((item) => item.type === "main"),
+        };
+    }, [ingredientsData]);
+
+    const handleTabClick = (value: TabValues) => {
         if (value !== current) {
             setCurrent(value);
             switch (value) {
-                case "bun":
+                case TabValues.Bun:
                     scrollToRef(bunRef);
                     break;
-                case "sauce":
+                case TabValues.Sauce:
                     scrollToRef(sauceRef);
                     break;
-                case "main":
+                case TabValues.Main:
                     scrollToRef(mainRef);
                     break;
                 default:
@@ -47,13 +61,16 @@ export default function BurgerIngredients({ ingredientsData }: { ingredientsData
 
             {/* ----- INGREDIENT GROUPS MENU ----- */}
             <div className={burgerIngredientsStyles.ingredients_menu}>
-                <Tab value="bun" active={current === "bun"} onClick={() => handleTabClick("bun")}>
+                <Tab value={TabValues.Bun} active={current === TabValues.Bun}
+                     onClick={() => handleTabClick(TabValues.Bun)}>
                     Булки
                 </Tab>
-                <Tab value="sauce" active={current === "sauce"} onClick={() => handleTabClick("sauce")}>
+                <Tab value={TabValues.Sauce} active={current === TabValues.Sauce}
+                     onClick={() => handleTabClick(TabValues.Sauce)}>
                     Соусы
                 </Tab>
-                <Tab value="main" active={current === "main"} onClick={() => handleTabClick("main")}>
+                <Tab value={TabValues.Main} active={current === TabValues.Main}
+                     onClick={() => handleTabClick(TabValues.Main)}>
                     Начинки
                 </Tab>
             </div>
@@ -61,23 +78,13 @@ export default function BurgerIngredients({ ingredientsData }: { ingredientsData
             {/* ----- INGREDIENT GROUPS ----- */}
             <div className={burgerIngredientsStyles.ingredients_list}>
                 <div ref={bunRef}>
-                    <IngredientGroup
-
-                        type="Булки"
-                        ingredients={ingredientsData.filter((elem) => elem.type === "bun")}
-                    />
+                    <IngredientGroup type="Булки" ingredients={filteredIngredients.bun}/>
                 </div>
                 <div ref={sauceRef}>
-                    <IngredientGroup
-                        type="Соусы"
-                        ingredients={ingredientsData.filter((elem) => elem.type === "sauce")}
-                    />
+                    <IngredientGroup type="Соусы" ingredients={filteredIngredients.sauce}/>
                 </div>
                 <div ref={mainRef}>
-                    <IngredientGroup
-                        type="Начинки"
-                        ingredients={ingredientsData.filter((elem) => elem.type === "main")}
-                    />
+                    <IngredientGroup type="Начинки" ingredients={filteredIngredients.main}/>
                 </div>
             </div>
         </section>
