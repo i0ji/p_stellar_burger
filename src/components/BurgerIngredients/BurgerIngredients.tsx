@@ -4,8 +4,10 @@ import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "components/BurgerIngredients/IngredientGroup/IngredientGroup.tsx";
 import {IIngredient} from "src/Interfaces";
 
-export default function BurgerIngredients({ingredientsData}: { ingredientsData: IIngredient[] }) {
+export default function BurgerIngredients({ ingredientsData }: { ingredientsData: IIngredient[] }) {
+
     const [current, setCurrent] = React.useState("bun");
+
     const bunRef = useRef(null);
     const sauceRef = useRef(null);
     const mainRef = useRef(null);

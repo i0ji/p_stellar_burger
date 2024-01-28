@@ -1,29 +1,29 @@
 import React, {useState} from "react";
 import ingredientGroupStyles from "./IngredientGroupStyles.module.scss";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {IIngredient, IIngredientCardProps} from "src/Interfaces";
+import {IIngredient, IIngredientCardProps, IIngredientGroupProps} from "src/Interfaces";
 import IngredientDetails from "modal/IngredientDetails/IngredientDetails.tsx";
 import Modal from "modal/Modal.tsx";
 
-{/* ----- INGREDIENT ITEM CARD   ----- */
-}
-const IngredientCard: React.FC<IIngredientCardProps> = ({onOpenModal, ...ingredient}) => {
 
-    return (
-        <>
+export default function IngredientGroup({type, ingredients}: IIngredientGroupProps) {
+
+    { /* ----- INGREDIENT ITEM CARD   ----- */
+    }
+    const IngredientCard: React.FC<IIngredientCardProps> = ({onOpenModal, image, price, name}) => {
+
+        return (
             <div className={ingredientGroupStyles.ingredient_card} onClick={onOpenModal}>
-                <img src={ingredient.image} alt={ingredient.name}/>
+                <img src={image} alt={name}/>
                 <p className="text text_type_main-default pt-1">
                     <CurrencyIcon type="primary"/>
-                    {ingredient.price}
+                    {price}
                 </p>
-                <p className="text text_type_main-default pt1">{ingredient.name}</p>
+                <p className="text text_type_main-default pt1">{name}</p>
             </div>
-        </>
-    );
-};
+        );
+    };
 
-export default function IngredientGroup({type, ingredients}: { type: string; ingredients: IIngredient[] }) {
     const [selectedIngredient, setSelectedIngredient] = useState<IIngredient | null>(null);
 
     const handleOpenModal = (ingredient: IIngredient) => {
@@ -53,6 +53,7 @@ export default function IngredientGroup({type, ingredients}: { type: string; ing
                 <Modal onClose={handleCloseModal}>
                     <IngredientDetails
                         onClose={handleCloseModal}
+                        // ingredients={selectedIngredient}
                         image={selectedIngredient.image || ""}
                         name={selectedIngredient.name}
                         proteins={selectedIngredient.proteins || 0}

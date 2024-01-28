@@ -6,7 +6,7 @@ import {useState} from "react";
 import OrderDetails from "modal/OrderDetails/OrderDetails.tsx";
 import Modal from "modal/Modal.tsx";
 
-export default function BurgerConstructor({ingredientsData}: { ingredientsData: IIngredient[] }) {
+export default function BurgerConstructor({ ingredientsData }: { ingredientsData: IIngredient[] }) {
 
 
     const [isVisible, setIsVisible] = useState(false)

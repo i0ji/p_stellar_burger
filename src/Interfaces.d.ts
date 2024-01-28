@@ -36,3 +36,8 @@ export interface IIngredientDetailsProps extends IOrderDetailsProps {
     carbohydrates: number,
     calories: number,
 }
+
+export interface IIngredientGroupProps {
+    type: string;
+    ingredients: IIngredient[];
+}
