@@ -1,20 +1,23 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import ingredientGroupStyles from "./IngredientGroupStyles.module.scss";
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { IIngredient } from "src/Interfaces";
+import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {IIngredient} from "src/Interfaces";
 import IngredientDetails from "modal/IngredientDetails/IngredientDetails.tsx";
 
 interface IIngredientCardProps extends IIngredient {
     onOpenModal: () => void;
 }
 
-const IngredientCard: React.FC<IIngredientCardProps> = ({ onOpenModal, ...ingredient }) => {
+{/* ----- INGREDIENT ITEM CARD   ----- */
+}
+const IngredientCard: React.FC<IIngredientCardProps> = ({onOpenModal, ...ingredient}) => {
+
     return (
         <>
             <div className={ingredientGroupStyles.ingredient_card} onClick={onOpenModal}>
-                <img src={ingredient.image} alt={ingredient.name} />
+                <img src={ingredient.image} alt={ingredient.name}/>
                 <p className="text text_type_main-default pt-1">
-                    <CurrencyIcon type="primary" />
+                    <CurrencyIcon type="primary"/>
                     {ingredient.price}
                 </p>
                 <p className="text text_type_main-default pt1">{ingredient.name}</p>
@@ -23,7 +26,7 @@ const IngredientCard: React.FC<IIngredientCardProps> = ({ onOpenModal, ...ingred
     );
 };
 
-export default function IngredientGroup({ type, ingredients }: { type: string; ingredients: IIngredient[] }) {
+export default function IngredientGroup({type, ingredients}: { type: string; ingredients: IIngredient[] }) {
     const [selectedIngredient, setSelectedIngredient] = useState<IIngredient | null>(null);
 
     const handleOpenModal = (ingredient: IIngredient) => {
@@ -37,9 +40,17 @@ export default function IngredientGroup({ type, ingredients }: { type: string; i
     return (
         <div className={ingredientGroupStyles.ingredient_list}>
             <h3 className="text text_type_main-medium pb-6">{type}</h3>
+
+            {/* ----- MAPPING INGREDIENTS FOR EACH GROUP ----- */}
             {ingredients.map((ingredientItem: IIngredient, i) => (
-                <IngredientCard key={i} {...ingredientItem} onOpenModal={() => handleOpenModal(ingredientItem)} />
+                <IngredientCard
+                    key={i}
+                    {...ingredientItem}
+                    onOpenModal={() => handleOpenModal(ingredientItem)}
+                />
             ))}
+
+            {/* ----- MODAL ENTER ----- */}
             {selectedIngredient && (
                 <IngredientDetails
                     onClose={handleCloseModal}

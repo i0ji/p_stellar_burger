@@ -11,3 +11,9 @@ alias/components added
 21.01.24
 base markup/button effects/
 
+28.01.24
+All main functions are set:
+API request, modals, tab scroll to ingredient groups
+ 
+
+

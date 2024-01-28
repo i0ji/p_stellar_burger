@@ -104,6 +104,8 @@ export default function BurgerConstructor({ingredientsData}: { ingredientsData: 
                     onClick={handleOpenModal}
                 >Оформить заказ</Button>
             </div>
+
+            {/* ----- MODAL ENTER ----- */}
             {isVisible && <OrderDetails onClose={handleCloseModal}/>}
         </section>
     );

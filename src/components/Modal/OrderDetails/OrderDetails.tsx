@@ -1,5 +1,5 @@
 import orderDetailsStyles from "./OrderDetailsStyles.module.scss";
-import done_png from "assets/done.png";
+import done_png from "images/Modal/done.png";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "modal/ModalOverlay/ModalOverlay.tsx";
 import {createPortal} from "react-dom";

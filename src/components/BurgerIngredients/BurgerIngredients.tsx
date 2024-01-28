@@ -43,6 +43,7 @@ export default function BurgerIngredients({ingredientsData}: { ingredientsData: 
         <section className={burgerIngredientsStyles.ingredients_block}>
             <h1 className="text text_type_main-large pb-10">Соберите бургер</h1>
 
+            {/* ----- INGREDIENT GROUPS MENU ----- */}
             <div className={burgerIngredientsStyles.ingredients_menu}>
                 <Tab value="bun" active={current === "bun"} onClick={() => handleTabClick("bun")}>
                     Булки
@@ -55,6 +56,7 @@ export default function BurgerIngredients({ingredientsData}: { ingredientsData: 
                 </Tab>
             </div>
 
+            {/* ----- INGREDIENT GROUPS ----- */}
             <div className={burgerIngredientsStyles.ingredients_list}>
                 <div ref={bunRef}>
                     <IngredientGroup
