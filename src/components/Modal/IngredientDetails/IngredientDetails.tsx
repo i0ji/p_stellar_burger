@@ -1,43 +1,76 @@
 import ingredientDetailsStyles from "./IngredientDetailsStyles.module.scss"
+import {IIngredientDetailsProps} from "src/Interfaces";
+import {useEffect} from "react";
+import {createPortal} from "react-dom";
+import ModalOverlay from "modal/ModalOverlay/ModalOverlay.tsx";
+import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
-export default function IngredientDetails() {
-    return (
-        <div className={ingredientDetailsStyles.ingredients_modal}>
-            <div className={ingredientDetailsStyles.ingredients_modal_title}>
-                <h3 className="text text_type_main-large">Детали ингредиента</h3>
+export default function IngredientDetails({
+                                              onClose,
+                                              image,
+                                              fat,
+                                              name,
+                                              calories,
+                                              proteins,
+                                              carbohydrates
+                                          }: IIngredientDetailsProps) {
 
-            </div>
+    useEffect(() => {
+        const closeOnEscapeKey = (e: KeyboardEvent) => (e.key === "Escape" ? onClose() : null);
+        document.body.addEventListener("keydown", closeOnEscapeKey);
 
-            <button>&#x2715;</button>
+        return () => {
+            document.body.removeEventListener("keydown", closeOnEscapeKey);
+        };
+    }, [onClose]);
 
-            <img
-                src="https://code.s3.yandex.net/react/code/meat-01.png"
-                alt=""
-                className="mb-4"
-            />
+    const modalPlacement = document.querySelector('#modals');
 
-            <h4 className="text text_type_main-medium mb-8">
-                Биокотлета из марсианской Магнолии
-            </h4>
+    return createPortal(
+        (
+            <>
+                <ModalOverlay
+                    onClose={onClose}
+                />
+                <div className={ingredientDetailsStyles.ingredients_modal}>
+                    <div className={ingredientDetailsStyles.ingredients_modal_title}>
+                        <h3 className="text text_type_main-large">Детали ингредиента</h3>
+                    </div>
 
-            <div className={ingredientDetailsStyles.ingredients_modal_features}>
-                <div className={ingredientDetailsStyles.feature}>
-                    <p className="text text_type_main-default">Калории, калл</p>
-                    <p className="text text_type_digits-default">244,4</p>
+                    <CloseIcon
+                        type="primary"
+                        onClick={onClose}
+                    />
+
+                    <img
+                        src={image}
+                        alt={name}
+                        className="mb-4"
+                    />
+
+                    <h4 className="text text_type_main-medium mb-8">
+                        {name}
+                    </h4>
+
+                    <div className={ingredientDetailsStyles.ingredients_modal_features}>
+                        <div className={ingredientDetailsStyles.feature}>
+                            <p className="text text_type_main-default">Калории, калл</p>
+                            <p className="text text_type_digits-default">{calories}</p>
+                        </div>
+                        <div className={`${ingredientDetailsStyles.feature} pl-5`}>
+                            <p>Белки, г</p>
+                            <p className="text text_type_digits-default">{proteins}</p>
+                        </div>
+                        <div className={`${ingredientDetailsStyles.feature} pl-5`}>
+                            <p>Жиры, г</p>
+                            <p className="text text_type_digits-default">{fat}</p>
+                        </div>
+                        <div className={`${ingredientDetailsStyles.feature} pl-5`}>
+                            <p>Углеводы, г</p>
+                            <p className="text text_type_digits-default">{carbohydrates}</p>
+                        </div>
+                    </div>
                 </div>
-                <div className={`${ingredientDetailsStyles.feature} pl-5`}>
-                    <p>Белки, г</p>
-                    <p className="text text_type_digits-default">12,2</p>
-                </div>
-                <div className={`${ingredientDetailsStyles.feature} pl-5`}>
-                    <p>Жиры, г</p>
-                    <p className="text text_type_digits-default">17,2</p>
-                </div>
-                <div className={`${ingredientDetailsStyles.feature} pl-5`}>
-                    <p>Углеводы, г</p>
-                    <p className="text text_type_digits-default">10,2</p>
-                </div>
-            </div>
-        </div>
-    );
+            </>
+        ), modalPlacement)
 }

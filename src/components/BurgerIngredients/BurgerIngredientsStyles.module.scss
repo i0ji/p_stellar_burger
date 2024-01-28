@@ -2,12 +2,14 @@
   composes: mt-10 from global;
   display: flex;
   flex-direction: column;
-
-  height: 100%;
   width: 50%;
+  /* height: 100%; удалите это свойство */
+  h1 {
+    border: 1px solid yellow;
+  }
 
   .ingredients_list {
-    height: 100%;
+    /* height: 100%; удалите это свойство */
     overflow-x: hidden;
     overflow-y: scroll;
   }

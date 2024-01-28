@@ -40,6 +40,5 @@ export default function OrderDetails({onClose}: IOrderDetailsProps) {
                     </div>
                 </div>
             </>
-
         ), modalPlacement!);
 }
