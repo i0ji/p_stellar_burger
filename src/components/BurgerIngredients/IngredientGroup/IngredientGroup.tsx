@@ -3,10 +3,7 @@ import ingredientGroupStyles from "./IngredientGroupStyles.module.scss";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {IIngredient} from "src/Interfaces";
 import IngredientDetails from "modal/IngredientDetails/IngredientDetails.tsx";
-
-interface IIngredientCardProps extends IIngredient {
-    onOpenModal: () => void;
-}
+import IIngredientCardProps from "src/interfaces.d.ts"
 
 {/* ----- INGREDIENT ITEM CARD   ----- */
 }

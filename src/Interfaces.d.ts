@@ -16,7 +16,7 @@ export interface IIngredient {
     "__v"?: number,
 }
 
-interface IIngredientCardProps extends IIngredient {
+export interface IIngredientCardProps extends IIngredient {
     onOpenModal: () => void;
 }
 
@@ -24,9 +24,11 @@ export interface IOrderDetailsProps {
     onClose: () => void,
 }
 
+
 export interface IModalOverlayProps {
-    onClose?: () => void;
-    children?: React.ReactNode;
+    onClose?: () => void,
+    children?: React.ReactNode,
+    onClick: () => void
 }
 
 

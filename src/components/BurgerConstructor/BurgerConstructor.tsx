@@ -4,6 +4,7 @@ import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-compon
 import {IIngredient} from "src/Interfaces";
 import {useState} from "react";
 import OrderDetails from "modal/OrderDetails/OrderDetails.tsx";
+import Modal from "modal/Modal.tsx";
 
 export default function BurgerConstructor({ingredientsData}: { ingredientsData: IIngredient[] }) {
 
@@ -105,8 +106,18 @@ export default function BurgerConstructor({ingredientsData}: { ingredientsData: 
                 >Оформить заказ</Button>
             </div>
 
+            {/*/!* ----- MODAL ENTER ----- *!/*/}
+            {/*{isVisible && <OrderDetails onClose={handleCloseModal}/>}*/}
+
+
             {/* ----- MODAL ENTER ----- */}
-            {isVisible && <OrderDetails onClose={handleCloseModal}/>}
+            {isVisible &&
+                <>
+                    <Modal onClose={handleCloseModal}>
+                        <OrderDetails/>
+                    </Modal>
+                </>
+            }
         </section>
     );
 }

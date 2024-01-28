@@ -1,0 +1,17 @@
+.modal {
+  position: fixed;
+
+  z-index: 200;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+  width: 720px;
+
+  svg {
+    position: absolute;
+    right: 40px;
+    top: 60px;
+  }
+}

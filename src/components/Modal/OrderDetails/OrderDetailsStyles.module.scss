@@ -3,14 +3,6 @@
 .orders_modal {
   composes: pt-30 pb-30 from global;
 
-  position: absolute;
-  overflow: hidden;
-  z-index: 200;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-
   width: 720px;
   height: 718px;
 
