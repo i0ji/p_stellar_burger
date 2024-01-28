@@ -1,7 +1,7 @@
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
   composes: p-4 from global;
 
   height: 88px;
@@ -11,5 +11,15 @@
     display: flex;
     flex-direction: row;
     flex-grow: 0;
+  }
+
+  &_logo {
+    display: flex;
+    justify-content: center;
+  }
+
+  &_profile {
+    display: flex;
+    justify-content: end;
   }
 }

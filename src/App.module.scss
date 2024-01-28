@@ -1,14 +1,9 @@
 .burger_builder {
   composes: pl-4 pr-4 from global;
 
-  overflow: hidden;
-
   width: 100%;
-  height: 85vh;
+  height: 80vh;
 
   display: flex;
   justify-content: space-between;
-
-  border: 1px solid red;
-
 }

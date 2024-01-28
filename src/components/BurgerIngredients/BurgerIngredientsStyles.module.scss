@@ -3,13 +3,8 @@
   display: flex;
   flex-direction: column;
   width: 50%;
-  /* height: 100%; удалите это свойство */
-  h1 {
-    border: 1px solid yellow;
-  }
 
   .ingredients_list {
-    /* height: 100%; удалите это свойство */
     overflow-x: hidden;
     overflow-y: scroll;
   }
