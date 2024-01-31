@@ -1,12 +1,12 @@
 import burgerConstructorStyles from "./BurgerConstructorStyles.module.scss";
-import {Button, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import {IIngredient} from "src/Interfaces";
 import {useState} from "react";
 import OrderDetails from "modal/OrderDetails/OrderDetails.tsx";
 import Modal from "modal/Modal.tsx";
 
-export default function BurgerConstructor({ ingredientsData }: { ingredientsData: IIngredient[] }) {
+export default function BurgerConstructor({ingredientsData}: { ingredientsData: IIngredient[] }) {
 
     const [isVisible, setIsVisible] = useState(false);
 
@@ -26,70 +26,29 @@ export default function BurgerConstructor({ ingredientsData }: { ingredientsData
                 className={`${burgerConstructorStyles.constructor_list} mb-10`}
             >
 
-                {/* ----- TOP BUN ----- */}
-                <ConstructorElement
-                    extraClass={`${burgerConstructorStyles.constructor_item_top}`}
-                    type="top"
-                    isLocked={true}
-                    text={`${ingredientsData[0].name} (верх)`}
-                    price={ingredientsData[0].price ?? 0}
-                    thumbnail={ingredientsData[0].image_mobile}
-                />
-
 
                 {/* ----- SCROLLED INNER INGREDIENTS ----- */}
                 <div className={burgerConstructorStyles.constructor_order}>
-                    <div className={burgerConstructorStyles.constructor_order_item}>
-                        <DragIcon type="primary"/>
-                        <ConstructorElement
-                            text={ingredientsData[7].name}
-                            price={ingredientsData[7].price ?? 0}
-                            thumbnail={ingredientsData[7].image_mobile}
-                        />
-                    </div>
-                    <div className={burgerConstructorStyles.constructor_order_item}>
-                        <DragIcon type="primary"/>
-                        <ConstructorElement
-                            text={ingredientsData[12].name}
-                            price={ingredientsData[12].price ?? 0}
-                            thumbnail={ingredientsData[12].image_mobile}
-                        />
-                    </div>
-                    <div className={burgerConstructorStyles.constructor_order_item}>
-                        <DragIcon type="primary"/>
-                        <ConstructorElement
-                            text={ingredientsData[2].name}
-                            price={ingredientsData[2].price ?? 0}
-                            thumbnail={ingredientsData[2].image_mobile}
-                        />
-                    </div>
-                    <div className={burgerConstructorStyles.constructor_order_item}>
-                        <DragIcon type="primary"/>
-                        <ConstructorElement
-                            text={ingredientsData[12].name}
-                            price={ingredientsData[12].price ?? 0}
-                            thumbnail={ingredientsData[12].image_mobile}
-                        />
-                    </div>
-                    <div className={burgerConstructorStyles.constructor_order_item}>
-                        <DragIcon type="primary"/>
-                        <ConstructorElement
-                            text={`${ingredientsData[6].name} (верх)`}
-                            price={ingredientsData[6].price ?? 0}
-                            thumbnail={ingredientsData[6].image_mobile}
-                        />
-                    </div>
+                    {/* ----- TOP BUN ----- */}
+                    <ConstructorElement
+                        extraClass={`${burgerConstructorStyles.constructor_item_top}`}
+                        type="top"
+                        isLocked={true}
+                        text={`${ingredientsData[0].name} (верх)`}
+                        price={ingredientsData[0].price ?? 0}
+                        thumbnail={ingredientsData[0].image_mobile}
+                    />
+                    {/*----- BOTTOM BUN ----- */}
+                    <ConstructorElement
+                        extraClass={`${burgerConstructorStyles.constructor_item_bottom}`}
+                        type="bottom"
+                        isLocked={true}
+                        text={`${ingredientsData[0].name} (низ)`}
+                        price={ingredientsData[4].price ?? 0}
+                        thumbnail={ingredientsData[4].image_mobile}
+                    />
                 </div>
 
-                {/*----- BOTTOM BUN ----- */}
-                <ConstructorElement
-                    extraClass={`${burgerConstructorStyles.constructor_item_bottom}`}
-                    type="bottom"
-                    isLocked={true}
-                    text={`${ingredientsData[0].name} (низ)`}
-                    price={ingredientsData[4].price ?? 0}
-                    thumbnail={ingredientsData[4].image_mobile}
-                />
 
                 {/* ----- PRICE ----- */}
             </div>

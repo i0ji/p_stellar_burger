@@ -12,7 +12,8 @@ export default defineConfig({
             data: "/src/data",
             images: "/src/images",
             modal: "/src/components/Modal",
-            src: "."
+            services: "/src/services",
+            src: ".",
         }
     },
 })

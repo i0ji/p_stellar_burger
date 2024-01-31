@@ -5,17 +5,19 @@ import BurgerIngredients from "components/BurgerIngredients/BurgerIngredients.ts
 import BurgerConstructor from "components/BurgerConstructor/BurgerConstructor.tsx";
 import {getIngredients} from "src/utils/burger-api.ts";
 
-function App() {
+export default function App() {
 
     const [ingredientsData, setIngredientsData] = useState([]);
-    const [error,setError] = useState(null)
+    const [error, setError] = useState(null)
 
     useEffect(() => {
         getIngredients()
             .then(data => setIngredientsData(data))
-            .catch(err => setError(err.message));
+            .catch(err => {
+                setError(err.message);
+                console.error(err);
+            });
     }, []);
-
 
     return (
         <>
@@ -29,18 +31,18 @@ function App() {
                 className={appStyles.burger_builder}
             >
                 {
-                    ingredientsData.length &&
-                    <>
-
-                        <BurgerIngredients ingredientsData={ingredientsData}/>
-
-                        <BurgerConstructor ingredientsData={ingredientsData}/>
-
-                    </>
+                    error ? (
+                        <p>Произошла ошибка: {error}</p>
+                    ) : (
+                        ingredientsData.length > 0 && (
+                            <>
+                                <BurgerIngredients ingredientsData={ingredientsData}/>
+                                <BurgerConstructor ingredientsData={ingredientsData}/>
+                            </>
+                        )
+                    )
                 }
             </main>
         </>
     )
 }
-
-export default App;

@@ -28,7 +28,8 @@
       "images/*": ["images/*"],
       "data/*": ["data/*"],
       "modal/*": ["components/Modal/*"],
-      "src/*" : ["./*"],
+      "services/*": ["services/*"],
+      "src/*" : ["./*"]
     }
   },
   "include": ["src"],
