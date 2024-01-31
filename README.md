@@ -30,8 +30,8 @@ Following the checklist and technical specifications of the first sprint:
 <b>b:</b> sprint2/step-1<br> 
 <b>v:</b> 0.1.6
 
-31.01.24
+<h3>31.01-11.02</h3>
 <b>b:</b> sprint2/step-1<br>
-<b>v:</b> 0.1.6.1
+<b>v:</b> 0.1.6.1<br>
 Starting Context task.
 
