@@ -26,6 +26,7 @@ export interface IOrderDetailsProps {
 
 export interface IModalOverlayProps extends  IOrderDetailsProps {
     children?: React.ReactNode,
+    id?: string;
 }
 
 export interface IIngredientDetailsProps extends IOrderDetailsProps {
@@ -40,8 +41,4 @@ export interface IIngredientDetailsProps extends IOrderDetailsProps {
 export interface IIngredientGroupProps {
     type: string;
     ingredients: IIngredient[];
-}
-
-export interface IBurgerIngredientProps {
-    ingredientsData: IIngredient[];
 }

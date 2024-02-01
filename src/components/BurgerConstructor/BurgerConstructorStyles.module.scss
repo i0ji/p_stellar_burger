@@ -12,8 +12,8 @@
 
     .constructor_item_top,
     .constructor_item_bottom {
-      width: 88%;
       align-self: center;
+      margin-right: 15px;
 
       svg {
         margin-left: 17px;
@@ -23,7 +23,7 @@
     .constructor_order {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 5px;
       overflow-x: hidden;
       overflow-y: scroll;
     }
