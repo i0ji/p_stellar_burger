@@ -2,29 +2,29 @@ import burgerConstructorStyles from "./BurgerConstructorStyles.module.scss";
 import {Button, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import {IIngredient} from "src/Interfaces";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useReducer, useState} from "react";
 import OrderDetails from "modal/OrderDetails/OrderDetails.tsx";
 import Modal from "modal/Modal.tsx";
 import {OrderDetailsContext} from "services/orderDetailsContext.ts";
 import {createOrder} from "utils/order-api.ts";
+import {BurgerConstructorContext} from "services/constructorContext.ts";
 
-export default function BurgerConstructor({ingredientsData, bunData}: {
-	ingredientsData: IIngredient[],
-	bunData: IIngredient[]
-}) {
+export default function BurgerConstructor() {
 	
-	const [isVisible, setIsVisible] = useState(false);
+	const [isVisible, toggleVisibility] = useReducer(isVisible => !isVisible, false);
 	const [orderNumber, setOrderNumber] = useState(null);
 	
 	const orderNumberContext = orderNumber;
 	
+	const {contextData, bunData} = useContext(BurgerConstructorContext);
+	
 	// ------ GET ORDER IDS ------
-	function getIDs(data: IIngredient[]): (string| undefined)[] {
+	function getIDs(data: IIngredient[]): (string | undefined)[] {
 		if (data) return data.map(item => item._id)
-		else return []
+		else return [];
 	}
 	
-	const randomIDs: (string| undefined)[] = getIDs(ingredientsData);
+	const randomIDs: (string | undefined)[] = getIDs(contextData);
 	
 	// ------ MODAL OPENING/CLOSING LOGIC ------
 	
@@ -42,18 +42,17 @@ export default function BurgerConstructor({ingredientsData, bunData}: {
 			.catch(error => {
 				console.error('Got this error:', error);
 			});
-		setIsVisible(true);
+		toggleVisibility();
 	}
 	
-	
 	function handleCloseModal() {
-		setIsVisible(false);
+		toggleVisibility();
 	}
 	
 	// ------ TOTAL PRICE LOGIC ------
-	function totalAmount(ingredientsData: IIngredient[], bunData: IIngredient[]): number {
+	function totalAmount(contextData: IIngredient[], bunData: IIngredient[]): number {
 		return (
-			ingredientsData
+			contextData
 				.map(ingredientItem => ingredientItem.price || 0)
 				.reduce((acc, current) => acc + current, 0)
 			+ bunData
@@ -64,8 +63,8 @@ export default function BurgerConstructor({ingredientsData, bunData}: {
 	
 	// ------ CALCULATING TOTAL AMOUNT ON RENDER ------
 	useEffect(() => {
-		totalAmount(ingredientsData, bunData)
-	}, [ingredientsData, bunData]);
+		totalAmount(contextData, bunData)
+	}, [contextData, bunData]);
 	
 	return (
 		<section className={burgerConstructorStyles.constructor_block}>
@@ -89,7 +88,7 @@ export default function BurgerConstructor({ingredientsData, bunData}: {
 				{/* ----- SCROLLED INNER INGREDIENTS ----- */}
 				<div className={burgerConstructorStyles.constructor_order}>
 					
-					{ingredientsData.map((ingredientItem: IIngredient, i) => (
+					{contextData.map((ingredientItem: IIngredient, i: number) => (
 						<div
 							className={burgerConstructorStyles.constructor_order_item}
 							key={i}
@@ -120,7 +119,7 @@ export default function BurgerConstructor({ingredientsData, bunData}: {
 			
 			{/* ----- PRICE ----- */}
 			<div className={burgerConstructorStyles.price_info}>
-				<h1 className="text text_type_main-large pr-3">{totalAmount(ingredientsData, bunData)}</h1>
+				<h1 className="text text_type_main-large pr-3">{totalAmount(contextData, bunData)}</h1>
 				<CurrencyIcon type="primary"/>
 				<Button
 					extraClass="ml-3"

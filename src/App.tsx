@@ -6,12 +6,13 @@ import BurgerConstructor from "components/BurgerConstructor/BurgerConstructor.ts
 import {getIngredients} from "utils/burger-api.ts";
 import {IIngredient} from "src/Interfaces";
 import {IngredientsContext} from "services/ingredientsContext.ts";
+import {BurgerConstructorContext} from "services/constructorContext.ts";
 
 export default function App() {
+	
 	const [state, setState] = useState({
 		ingredientsData: [], error: null
 	});
-	
 	
 	const {ingredientsData, error} = state;
 	
@@ -53,26 +54,31 @@ export default function App() {
 		return randomData.slice(0, qty);
 	}
 	
-	return (<>
-		{/* ----- APP HEADER -----*/}
+	const contextData = randomData(ingredientsData, 7);
+	
+	return (
 		
-		<AppHeader/>
-		
-		{/* ----- TWO MAIN BLOCKS -----*/}
-		
-		<main className={appStyles.burger_builder}>
-			{state.error ? (<p>Произошла ошибка: {error}</p>) : (ingredientsData.length > 0 && (<>
-				
-				<IngredientsContext.Provider value={state.ingredientsData}>
-					<BurgerIngredients/>
-					{/*<BurgerIngredients ingredientsData={ingredientsData}/>*/}
-				</IngredientsContext.Provider>
-				
-				<BurgerConstructor
-					ingredientsData={randomData(ingredientsData, 7)}
-					bunData={bunData}
-				/>
-			</>))}
-		</main>
-	</>)
+		<>
+			{/* ----- APP HEADER -----*/}
+			
+			<AppHeader/>
+			
+			{/* ----- TWO MAIN BLOCKS -----*/}
+			
+			<main className={appStyles.burger_builder}>
+				{state.error ? (<p>Произошла ошибка: {error}</p>) : (ingredientsData.length > 0 && (
+					<>
+						<IngredientsContext.Provider value={state.ingredientsData}>
+							<BurgerIngredients/>
+							{/*<BurgerIngredients ingredientsData={ingredientsData}/>*/}
+						</IngredientsContext.Provider>
+						
+						<BurgerConstructorContext.Provider value={{contextData, bunData}}>
+							<BurgerConstructor/>
+						</BurgerConstructorContext.Provider>
+					</>
+				))}
+			</main>
+		</>
+	)
 }
