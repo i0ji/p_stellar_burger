@@ -12,6 +12,7 @@ export default defineConfig({
             data: "/src/data",
             utils: "/src/utils/",
             images: "/src/images",
+            hooks: "/src/hooks",
             modal: "/src/components/Modal",
             services: "/src/services",
             src: ".",

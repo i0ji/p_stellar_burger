@@ -29,6 +29,7 @@
       "data/*": ["data/*"],
       "modal/*": ["components/Modal/*"],
       "utils/*": ["utils/*"],
+      "hooks/*": ["hooks/*"],
       "services/*": ["services/*"],
       "src/*" : ["./*"]
     }

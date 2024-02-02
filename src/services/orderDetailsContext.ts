@@ -1,3 +1,3 @@
 import React from "react";
 
-export const OrderDetailsContext = React.createContext([]);
+export const OrderDetailsContext = React.createContext(``);
