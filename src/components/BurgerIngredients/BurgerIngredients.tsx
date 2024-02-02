@@ -2,9 +2,8 @@ import React, {useRef, useMemo, useContext} from "react";
 import burgerIngredientsStyles from "./BurgerIngredientsStyles.module.scss";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "components/BurgerIngredients/IngredientGroup/IngredientGroup.tsx";
-import {BurgerIngredientsContext} from "services/ingredientsContext.ts";
+import {IngredientsContext} from "services/ingredientsContext.ts";
 import {IIngredient} from "src/Interfaces";
-
 
 enum TabValues {
 	Bun = "bun",
@@ -12,11 +11,12 @@ enum TabValues {
 	Main = "main",
 }
 
-//{ingredientsData}: { ingredientsData: IIngredient[] }
 export default function BurgerIngredients() {
 	
-	const ingredientsDataContext = useContext(BurgerIngredientsContext);
+	const ingredientsDataContext = useContext(IngredientsContext);
 	
+	
+	// ------ SCROLL LOGIC ------
 	const [current, setCurrent] = React.useState(TabValues.Bun);
 	
 	const bunRef = useRef<HTMLDivElement>(null);
@@ -40,6 +40,7 @@ export default function BurgerIngredients() {
 			main: ingredientsDataContext.filter((item: IIngredient) => item.type === "main"),
 		};
 	}, [ingredientsDataContext]);
+	
 	
 	const handleTabClick = (value: TabValues) => {
 		if (value !== current) {
@@ -66,16 +67,22 @@ export default function BurgerIngredients() {
 			
 			{/* ----- INGREDIENT GROUPS MENU ----- */}
 			<div className={burgerIngredientsStyles.ingredients_menu}>
-				<Tab value={TabValues.Bun} active={current === TabValues.Bun}
-				     onClick={() => handleTabClick(TabValues.Bun)}>
+				<Tab
+					value={TabValues.Bun} active={current === TabValues.Bun}
+					onClick={() => handleTabClick(TabValues.Bun)}
+				>
 					Булки
 				</Tab>
-				<Tab value={TabValues.Sauce} active={current === TabValues.Sauce}
-				     onClick={() => handleTabClick(TabValues.Sauce)}>
+				<Tab
+					value={TabValues.Sauce} active={current === TabValues.Sauce}
+					onClick={() => handleTabClick(TabValues.Sauce)}
+				>
 					Соусы
 				</Tab>
-				<Tab value={TabValues.Main} active={current === TabValues.Main}
-				     onClick={() => handleTabClick(TabValues.Main)}>
+				<Tab
+					value={TabValues.Main} active={current === TabValues.Main}
+					onClick={() => handleTabClick(TabValues.Main)}
+				>
 					Начинки
 				</Tab>
 			</div>

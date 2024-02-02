@@ -45,5 +45,10 @@
     display: flex;
     align-items: center;
     justify-content: end;
+
+    svg {
+      width: 33px;
+      height: auto;
+    }
   }
 }

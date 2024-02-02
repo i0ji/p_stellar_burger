@@ -28,6 +28,7 @@
       "images/*": ["images/*"],
       "data/*": ["data/*"],
       "modal/*": ["components/Modal/*"],
+      "utils/*": ["utils/*"],
       "services/*": ["services/*"],
       "src/*" : ["./*"]
     }

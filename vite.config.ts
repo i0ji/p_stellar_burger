@@ -10,6 +10,7 @@ export default defineConfig({
             components: "/src/components",
             styles: "/src/styles",
             data: "/src/data",
+            utils: "/src/utils/",
             images: "/src/images",
             modal: "/src/components/Modal",
             services: "/src/services",

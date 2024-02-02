@@ -3,16 +3,15 @@ import appStyles from './App.module.scss';
 import AppHeader from "components/AppHeader/AppHeader.tsx";
 import BurgerIngredients from "components/BurgerIngredients/BurgerIngredients.tsx";
 import BurgerConstructor from "components/BurgerConstructor/BurgerConstructor.tsx";
-import {getIngredients} from "src/utils/burger-api.ts";
+import {getIngredients} from "utils/burger-api.ts";
 import {IIngredient} from "src/Interfaces";
-
-import {BurgerIngredientsContext} from "services/ingredientsContext.ts";
-
+import {IngredientsContext} from "services/ingredientsContext.ts";
 
 export default function App() {
 	const [state, setState] = useState({
 		ingredientsData: [], error: null
 	});
+	
 	
 	const {ingredientsData, error} = state;
 	
@@ -28,8 +27,22 @@ export default function App() {
 			});
 	}, []);
 	
-
-	{ /* ----- DATA RANDOMIZER ----- */
+	
+	{ /* ----- BUN ARRAY  ----- */
+	}
+	const bunData: IIngredient[] = ingredientsData.sort(function (a: IIngredient, b: IIngredient) {
+		const aType = a.type ?? '';
+		const bType = b.type ?? '';
+		if (aType < bType) {
+			return -1;
+		}
+		if (aType > bType) {
+			return 1;
+		}
+		return 0;
+	}).slice(0, 2);
+	
+	{ /* ----- ARRAY RANDOMIZER ----- */
 	}
 	
 	function randomData(data: IIngredient[], qty: number) {
@@ -50,14 +63,14 @@ export default function App() {
 		<main className={appStyles.burger_builder}>
 			{state.error ? (<p>Произошла ошибка: {error}</p>) : (ingredientsData.length > 0 && (<>
 				
-				<BurgerIngredientsContext.Provider value={state.ingredientsData}>
+				<IngredientsContext.Provider value={state.ingredientsData}>
 					<BurgerIngredients/>
 					{/*<BurgerIngredients ingredientsData={ingredientsData}/>*/}
-				</BurgerIngredientsContext.Provider>
+				</IngredientsContext.Provider>
 				
 				<BurgerConstructor
 					ingredientsData={randomData(ingredientsData, 7)}
-					fixedData={ingredientsData}
+					bunData={bunData}
 				/>
 			</>))}
 		</main>

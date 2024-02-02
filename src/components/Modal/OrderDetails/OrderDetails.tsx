@@ -1,12 +1,16 @@
 import orderDetailsStyles from "./OrderDetailsStyles.module.scss";
 import done_png from "images/Modal/done.png";
+import {useContext} from "react";
+import {OrderDetailsContext} from "services/orderDetailsContext.ts";
 
 export default function OrderDetails() {
 
+    const orederNumber = useContext(OrderDetailsContext);
+    
     return (
         <>
             <div className={orderDetailsStyles.orders_modal}>
-                <h1 className="text text_type_digits-large mb-8">034567</h1>
+                <h1 className="text text_type_digits-large mb-8">{orderNumber}</h1>
                 <p className="text text_type_main-medium mb-15">идентификатор заказа</p>
                 <img
                     className="mb-15"
