@@ -1,14 +1,8 @@
-export const ingredientsDataUrl = 'https://norma.nomoreparties.space/api/ingredients';
+import {checkResponse} from "utils/check-response.ts";
+import {INGREDIENTS_DATA_URL} from "utils/routs.ts";
 
 export function getIngredients() {
-    return fetch(ingredientsDataUrl)
-        .then((res) => {
-            if (!res.ok) {
-                throw new Error(
-                    `NO BURGERS! CUZ OF: ${res.status} ARGHHHHHH!`
-                );
-            }
-            return res.json();
-        })
+    return fetch(INGREDIENTS_DATA_URL)
+        .then(checkResponse)
         .then(data => data.data);
 }

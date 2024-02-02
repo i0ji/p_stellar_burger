@@ -1,16 +1,28 @@
 .ingredients_block {
   composes: mt-10 from global;
+
   display: flex;
   flex-direction: column;
+
   width: 50%;
+
+
+  scrollbar-color: red;
+
+
 
   .ingredients_list {
     overflow-x: hidden;
     overflow-y: scroll;
   }
 
+
   .ingredients_list::-webkit-scrollbar-track {
     margin-bottom: 52px;
+  }
+
+  .ingredients_list::-webkit-scrollbar-button {
+    display: none;
   }
 }
 

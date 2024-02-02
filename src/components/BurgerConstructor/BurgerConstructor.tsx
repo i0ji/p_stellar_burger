@@ -2,7 +2,7 @@ import burgerConstructorStyles from "./BurgerConstructorStyles.module.scss";
 import {Button, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import {IIngredient} from "src/Interfaces";
-import {useContext, useEffect, useReducer, useState} from "react";
+import {useContext, useEffect, useReducer, useState, useCallback} from "react";
 import OrderDetails from "modal/OrderDetails/OrderDetails.tsx";
 import Modal from "modal/Modal.tsx";
 import {OrderDetailsContext} from "services/orderDetailsContext.ts";
@@ -28,8 +28,11 @@ export default function BurgerConstructor() {
 	
 	// ------ MODAL OPENING/CLOSING LOGIC ------
 	
+	const handleOpenModal = useCallback(() => {
+		toggleVisibility();
+	}, []);
 	
-	function handleOpenModal() {
+	const handleCloseModal = useCallback(() => {
 		createOrder(randomIDs)
 			.then(responseData => {
 				if (responseData.success) {
@@ -43,11 +46,28 @@ export default function BurgerConstructor() {
 				console.error('Got this error:', error);
 			});
 		toggleVisibility();
-	}
+	}, []);
 	
-	function handleCloseModal() {
-		toggleVisibility();
-	}
+	
+	// function handleOpenModal() {
+	// 	createOrder(randomIDs)
+	// 		.then(responseData => {
+	// 			if (responseData.success) {
+	// 				console.log(responseData.order.number);
+	// 				setOrderNumber(responseData.order.number);
+	// 			} else {
+	// 				console.error('YOU WILL NOT GET FOOD:', responseData);
+	// 			}
+	// 		})
+	// 		.catch(error => {
+	// 			console.error('Got this error:', error);
+	// 		});
+	// 	toggleVisibility();
+	// }
+	//
+	// function handleCloseModal() {
+	// 	toggleVisibility();
+	// }
 	
 	// ------ TOTAL PRICE LOGIC ------
 	function totalAmount(contextData: IIngredient[], bunData: IIngredient[]): number {
@@ -74,7 +94,6 @@ export default function BurgerConstructor() {
 			>
 				{/* ----- TOP BUN ----- */}
 				<div className={burgerConstructorStyles.constructor_order_item}>
-					<DragIcon type="secondary"/>
 					<ConstructorElement
 						extraClass={`${burgerConstructorStyles.constructor_item_top}`}
 						type="top"
@@ -100,19 +119,18 @@ export default function BurgerConstructor() {
 								price={ingredientItem.price || 0}
 							/>
 						</div>
-					))}я
+					))}
 				
 				</div>
 				{/*----- BOTTOM BUN ----- */}
 				<div className={burgerConstructorStyles.constructor_order_item}>
-					<DragIcon type="secondary"/>
 					<ConstructorElement
 						extraClass={`${burgerConstructorStyles.constructor_item_bottom}`}
 						type="bottom"
 						isLocked={true}
-						text={`${bunData[1].name} (низ)`}
-						price={bunData[1].price ?? 0}
-						thumbnail={bunData[1].image_mobile}
+						text={`${bunData[0].name} (низ)`}
+						price={bunData[0].price ?? 0}
+						thumbnail={bunData[0].image_mobile}
 					/>
 				</div>
 			</div>

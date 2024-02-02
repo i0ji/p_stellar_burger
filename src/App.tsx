@@ -57,7 +57,6 @@ export default function App() {
 	const contextData = randomData(ingredientsData, 7);
 	
 	return (
-		
 		<>
 			{/* ----- APP HEADER -----*/}
 			

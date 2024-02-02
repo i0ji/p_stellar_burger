@@ -1,4 +1,5 @@
-export const orderUrl = 'https://norma.nomoreparties.space/api/orders'
+import {checkResponse} from "utils/check-response.ts";
+import {ORDER_URL} from "utils/routs.ts";
 
 export function createOrder(ingredientIds: string[]) {
 	
@@ -6,18 +7,12 @@ export function createOrder(ingredientIds: string[]) {
 		ingredients: ingredientIds
 	};
 	
-	return fetch(orderUrl, {
+	return fetch(ORDER_URL, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify(requestBody),
 	})
-		.then(response => {
-			if (!response.ok) {
-				throw new Error('Something went wrong');
-			}
-			return response.json();
-		})
-		
+		.then(checkResponse)
 }
