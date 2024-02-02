@@ -6,7 +6,7 @@ export function createOrder(ingredientIds: string[]) {
 		ingredients: ingredientIds
 	};
 	
-	fetch(orderUrl, {
+	return fetch(orderUrl, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -19,15 +19,5 @@ export function createOrder(ingredientIds: string[]) {
 			}
 			return response.json();
 		})
-		.then(responseData => {
-			if (responseData.success) {
-				console.log(responseData.order.number);
-				return responseData.order.number;
-			} else {
-				console.error('YOU WILL NOT GET FOOD:', responseData);
-			}
-		})
-		.catch(error => {
-			console.error('Got this error:', error);
-		});
+		
 }

@@ -16,18 +16,32 @@ export default function BurgerConstructor({ingredientsData, bunData}: {
 	const [isVisible, setIsVisible] = useState(false);
 	const [orderNumber, setOrderNumber] = useState(null);
 	
+	const orderNumberContext = orderNumber;
+	
 	// ------ GET ORDER IDS ------
-	function getIDs(data: IIngredient[]): string[] {
-		return data.map(item => item._id)
+	function getIDs(data: IIngredient[]): (string| undefined)[] {
+		if (data) return data.map(item => item._id)
+		else return []
 	}
 	
-	const randomIDs: string[] = getIDs(ingredientsData);
+	const randomIDs: (string| undefined)[] = getIDs(ingredientsData);
 	
 	// ------ MODAL OPENING/CLOSING LOGIC ------
 	
 	
 	function handleOpenModal() {
-		createOrder(randomIDs);
+		createOrder(randomIDs)
+			.then(responseData => {
+				if (responseData.success) {
+					console.log(responseData.order.number);
+					setOrderNumber(responseData.order.number);
+				} else {
+					console.error('YOU WILL NOT GET FOOD:', responseData);
+				}
+			})
+			.catch(error => {
+				console.error('Got this error:', error);
+			});
 		setIsVisible(true);
 	}
 	
@@ -37,7 +51,7 @@ export default function BurgerConstructor({ingredientsData, bunData}: {
 	}
 	
 	// ------ TOTAL PRICE LOGIC ------
-	function totalAmount(ingredientsData: IIngredient[], bunData: IIngredient[]): number[] {
+	function totalAmount(ingredientsData: IIngredient[], bunData: IIngredient[]): number {
 		return (
 			ingredientsData
 				.map(ingredientItem => ingredientItem.price || 0)
@@ -122,7 +136,7 @@ export default function BurgerConstructor({ingredientsData, bunData}: {
 			{isVisible &&
                 <>
                     <Modal onClose={handleCloseModal}>
-                        <OrderDetailsContext.Provider value={orderNumber}>
+                        <OrderDetailsContext.Provider value={orderNumberContext!}>
                             <OrderDetails/>
                         </OrderDetailsContext.Provider>
                     </Modal>

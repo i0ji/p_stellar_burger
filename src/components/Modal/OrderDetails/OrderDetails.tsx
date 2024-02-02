@@ -5,12 +5,12 @@ import {OrderDetailsContext} from "services/orderDetailsContext.ts";
 
 export default function OrderDetails() {
 
-    const orederNumber = useContext(OrderDetailsContext);
+    const orderNumberContext = useContext(OrderDetailsContext);
     
     return (
         <>
             <div className={orderDetailsStyles.orders_modal}>
-                <h1 className="text text_type_digits-large mb-8">{orderNumber}</h1>
+                <h1 className="text text_type_digits-large mb-8">{orderNumberContext}</h1>
                 <p className="text text_type_main-medium mb-15">идентификатор заказа</p>
                 <img
                     className="mb-15"
