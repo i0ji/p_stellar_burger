@@ -15,7 +15,6 @@ export default function BurgerConstructor({ingredientsData, bunData}: {
 
     const {isVisible, orderNumber, openModal, closeModal} = useModal(() => createOrder(randomIDs));
 
-
     function getIDs(data: IIngredient[]): (string | undefined)[] {
         if (data) return data.map(item => item._id)
         else return [];

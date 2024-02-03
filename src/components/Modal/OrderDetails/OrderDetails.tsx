@@ -1,7 +1,7 @@
 import orderDetailsStyles from "./OrderDetailsStyles.module.scss";
 import done_png from "images/Modal/done.png";
 
-export default function OrderDetails(orderNumber) {
+export default function OrderDetails({orderNumber}: { orderNumber: number }) {
 
     return (
         <>

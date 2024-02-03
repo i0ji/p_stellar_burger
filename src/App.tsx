@@ -9,28 +9,21 @@ import {IIngredient} from "src/Interfaces";
 export default function App() {
 
     const [state, setState] = useState({
-        ingredientsData: [], error: null
+        ingredientsData: [],
+        error: null
     });
 
     const {ingredientsData, error} = state;
 
     useEffect(() => {
         getIngredients()
-            .then(data => setState(data))
-            .catch(err => setState(err.message));
+            .then(data => setState({ingredientsData: data, error: null}))
+            .catch(err => setState({ingredientsData: [], error: err.message}));
     }, []);
 
-    const bunData: IIngredient[] = ingredientsData.sort(function (a: IIngredient, b: IIngredient) {
-        const aType = a.type ?? '';
-        const bType = b.type ?? '';
-        if (aType < bType) {
-            return -1;
-        }
-        if (aType > bType) {
-            return 1;
-        }
-        return 0;
-    }).slice(0, 2);
+    const bunData: IIngredient[] = (ingredientsData as IIngredient[])
+        .filter((ingredient) => ingredient.type === 'bun')
+        .slice(0, 2);
 
     function randomData(data: IIngredient[], qty: number) {
         const innerIngredients = data.filter(elem => elem.type !== 'bun');
