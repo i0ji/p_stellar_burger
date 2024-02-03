@@ -2,50 +2,29 @@ import burgerConstructorStyles from "./BurgerConstructorStyles.module.scss";
 import {Button, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import {IIngredient} from "src/Interfaces";
-import {useCallback, useContext, useEffect, useReducer, useState,} from "react";
+import {useContext, useEffect} from "react";
 import OrderDetails from "modal/OrderDetails/OrderDetails.tsx";
 import Modal from "modal/Modal.tsx";
 import {OrderDetailsContext} from "services/orderDetailsContext.ts";
 import {BurgerConstructorContext} from "services/constructorContext.ts";
 import {createOrder} from "utils/order-api.ts";
+import useModal from "hooks/useModal.ts";
+
 
 export default function BurgerConstructor() {
 
-    const [orderNumber, setOrderNumber] = useState('')
-    const [isVisible, toggleVisibility] = useReducer(isVisible => !isVisible, false);
+    const {isVisible, orderNumber, openModal, closeModal} = useModal(() => createOrder(randomIDs));
+
     const {contextData, bunData} = useContext(BurgerConstructorContext);
-    const randomIDs: string[] = getIDs(contextData).filter(Boolean) as string[];
 
-    const openModal = useCallback(() => {
-        createOrder(randomIDs)
-            .then(responseData => {
-                if (responseData.success) {
-                    console.log(responseData.order.number);
-                    setOrderNumber(responseData.order.number);
-                } else {
-                    console.error('YOU WILL NOT GET FOOD:', responseData);
-                }
-            })
-            .catch(error => {
-                console.error('Got this error:', error);
-            })
-        toggleVisibility();
-    }, [randomIDs]);
-
-    const closeModal = useCallback(() => {
-        toggleVisibility();
-    }, []);
-
-    const orderNumberContext = orderNumber;
-
-
-    // ------ GET ORDER IDS ------
     function getIDs(data: IIngredient[]): (string | undefined)[] {
         if (data) return data.map(item => item._id)
         else return [];
     }
 
-    // ------ MODAL OPENING/CLOSING LOGIC ------
+    const randomIDs: string[] = getIDs(contextData).filter(Boolean) as string[];
+
+    const orderNumberContext = orderNumber;
 
     // ------ TOTAL PRICE LOGIC ------
     function totalAmount(contextData: IIngredient[], bunData: IIngredient[]): number {
