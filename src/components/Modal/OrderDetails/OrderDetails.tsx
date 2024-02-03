@@ -1,12 +1,12 @@
 import orderDetailsStyles from "./OrderDetailsStyles.module.scss";
 import done_png from "images/Modal/done.png";
 
-export default function OrderDetails() {
+export default function OrderDetails(orderNumber) {
 
     return (
         <>
             <div className={orderDetailsStyles.orders_modal}>
-                <h1 className="text text_type_digits-large mb-8">034567</h1>
+                <h1 className="text text_type_digits-large mb-8">{orderNumber}</h1>
                 <p className="text text_type_main-medium mb-15">идентификатор заказа</p>
                 <img
                     className="mb-15"

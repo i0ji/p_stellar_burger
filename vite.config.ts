@@ -1,7 +1,6 @@
 import {defineConfig} from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vitejs.dev/config/
 export default defineConfig({
     plugins: [react()],
     base: './',
@@ -10,9 +9,14 @@ export default defineConfig({
             components: "/src/components",
             styles: "/src/styles",
             data: "/src/data",
+            utils: "/src/utils/",
             images: "/src/images",
+            declarations: "/src/declarations",
+            constants: "/src/declarations/constants/",
+            hooks: "/src/hooks",
             modal: "/src/components/Modal",
-            src: "."
+            services: "/src/services",
+            src: ".",
         }
     },
 })

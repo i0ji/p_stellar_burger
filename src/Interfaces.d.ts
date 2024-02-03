@@ -24,8 +24,9 @@ export interface IOrderDetailsProps {
     onClose: () => void,
 }
 
-export interface IModalOverlayProps extends  IOrderDetailsProps {
+export interface IModalOverlayProps extends IOrderDetailsProps {
     children?: React.ReactNode,
+    id?: string;
 }
 
 export interface IIngredientDetailsProps extends IOrderDetailsProps {
@@ -42,6 +43,13 @@ export interface IIngredientGroupProps {
     ingredients: IIngredient[];
 }
 
-export interface IBurgerIngredientProps {
-    ingredientsData: IIngredient[];
+export interface IResponseData {
+    success: boolean;
+    order: {
+        number: string;
+    };
+}
+
+export interface IRequestFunction {
+    (): Promise<IResponseData>;
 }

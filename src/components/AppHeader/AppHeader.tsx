@@ -4,7 +4,7 @@ import HeaderButton from "./HeaderButton/HeaderButton.tsx";
 
 export default function AppHeader() {
     return (
-        <div className={headerStyles.header}>
+        <header className={headerStyles.header}>
             <nav className={headerStyles.nav}>
                 <HeaderButton typeFor={"builder"}/>
                 <HeaderButton typeFor={"orders"}/>
@@ -15,6 +15,6 @@ export default function AppHeader() {
             <div className={headerStyles.header_profile}>
                 <HeaderButton typeFor={"profile"}/>
             </div>
-        </div>
+        </header>
     );
 }

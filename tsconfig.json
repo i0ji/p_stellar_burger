@@ -25,10 +25,15 @@
     "paths": {
       "components/*" : ["components/*"],
       "styles/*": ["styles/*"],
+      "declarations": ["declarations/*"],
+      "constants": ["declarations/constants/*"],
       "images/*": ["images/*"],
       "data/*": ["data/*"],
       "modal/*": ["components/Modal/*"],
-      "src/*" : ["./*"],
+      "utils/*": ["utils/*"],
+      "hooks/*": ["hooks/*"],
+      "services/*": ["services/*"],
+      "src/*" : ["./*"]
     }
   },
   "include": ["src"],
