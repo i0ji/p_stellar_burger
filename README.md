@@ -35,3 +35,20 @@ Following the checklist and technical specifications of the first sprint:
 <b>v:</b> 0.1.6.1<br>
 Starting Context task.
 
+<h3>03.01</h3>
+<b>b:</b> sprint2/step-1<br>
+<b>v:</b> 0.1.6.3<br>
+
+Multiple code edits:
+* Style edits:
+* * Removed some incorrect markup;
+* * Alignment of design elements;
+* * Header tag changed to semantically - correct "header"; 
+* added custom hook to manage orderModal state and orderID request;
+* Added "utils" and "services" folders for storing requests and context, respectively;
+* Could not upgrade request function which depends on the method passed to it -> will be next step;
+* Added checkResponse function to simplify the code;
+* Changed id binding from array position to native _id property of the mapped object
+
+
+
