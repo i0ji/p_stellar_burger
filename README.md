@@ -49,6 +49,3 @@ Multiple code edits:
 * Could not upgrade request function which depends on the method passed to it -> will be next step;
 * Added checkResponse function to simplify the code;
 * Changed id binding from array position to native _id property of the mapped object
-
-
-
