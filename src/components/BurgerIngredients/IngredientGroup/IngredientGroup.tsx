@@ -5,27 +5,31 @@ import {IIngredient, IIngredientCardProps, IIngredientGroupProps} from "src/Inte
 import IngredientDetails from "modal/IngredientDetails/IngredientDetails.tsx";
 import Modal from "modal/Modal.tsx";
 
-
 export default function IngredientGroup({type, ingredients}: IIngredientGroupProps) {
+    const [selectedIngredient, setSelectedIngredient] = useState<IIngredient | null>(null);
 
-    { /* ----- INGREDIENT ITEM CARD   ----- */
-    }
+
+
+
+    // ------------ INGREDIENT ITEM CARD ------------
+
     const IngredientCard: React.FC<IIngredientCardProps> = ({onOpenModal, image, price, name}) => {
 
         return (
-                <div className={ingredientGroupStyles.ingredient_card} onClick={onOpenModal}>
-                    <img src={image} alt={name}/>
-                    <p className="text text_type_main-default pt-1">
-                        <CurrencyIcon type="primary"/>
-                        {price}
-                    </p>
-                    <p className="text text_type_main-default pt1">{name}</p>
-                </div>
+            <div
+                className={ingredientGroupStyles.ingredient_card}
+                onClick={onOpenModal}>
+                <img src={image} alt={name}/>
+                <p className="text text_type_main-default pt-1">
+                    <CurrencyIcon type="primary"/>
+                    {price}
+                </p>
+                <p className="text text_type_main-default pt1">{name}</p>
+            </div>
         );
     };
 
-    const [selectedIngredient, setSelectedIngredient] = useState<IIngredient | null>(null);
-
+    // ------------ INGREDIENT MODAL OPEN/CLOSE LOGIC ------------
     const handleOpenModal = (ingredient: IIngredient) => {
         setSelectedIngredient(ingredient);
     };
@@ -53,7 +57,6 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
                 <Modal onClose={handleCloseModal}>
                     <IngredientDetails
                         onClose={handleCloseModal}
-                        // ingredients={selectedIngredient}
                         image={selectedIngredient.image || ""}
                         name={selectedIngredient.name}
                         proteins={selectedIngredient.proteins || 0}
