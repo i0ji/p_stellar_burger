@@ -16,6 +16,8 @@ export default defineConfig({
             hooks: "/src/hooks",
             modal: "/src/components/Modal",
             services: "/src/services",
+            actions: "/src/services/actions",
+            reducers: "/src/services/reducers",
             src: ".",
         }
     },
