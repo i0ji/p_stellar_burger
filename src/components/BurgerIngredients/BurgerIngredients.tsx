@@ -13,6 +13,15 @@ enum TabValues {
 export default function BurgerIngredients({ingredientsData}: {ingredientsData: IIngredient[] }) {
 
     const [current, setCurrent] = React.useState(TabValues.Bun);
+    const filteredIngredients = useMemo(() => {
+        return {
+            bun: ingredientsData.filter((item) => item.type === "bun"),
+            sauce: ingredientsData.filter((item) => item.type === "sauce"),
+            main: ingredientsData.filter((item) => item.type === "main"),
+        };
+    }, [ingredientsData]);
+
+    // ------------ TAB SWITCH LOGIC ------------
 
     const bunRef = useRef<HTMLDivElement>(null);
     const sauceRef = useRef<HTMLDivElement>(null);
@@ -27,14 +36,6 @@ export default function BurgerIngredients({ingredientsData}: {ingredientsData: I
             });
         }
     };
-
-    const filteredIngredients = useMemo(() => {
-        return {
-            bun: ingredientsData.filter((item) => item.type === "bun"),
-            sauce: ingredientsData.filter((item) => item.type === "sauce"),
-            main: ingredientsData.filter((item) => item.type === "main"),
-        };
-    }, [ingredientsData]);
 
     const handleTabClick = (value: TabValues) => {
         if (value !== current) {
