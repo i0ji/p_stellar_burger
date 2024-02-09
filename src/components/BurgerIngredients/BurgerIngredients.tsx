@@ -2,7 +2,7 @@ import React, {useRef, useMemo} from "react";
 import burgerIngredientsStyles from "./BurgerIngredientsStyles.module.scss";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "components/BurgerIngredients/IngredientGroup/IngredientGroup.tsx";
-import {IIngredient} from "src/Interfaces";
+import {useSelector} from "react-redux";
 
 enum TabValues {
 	Bun = "bun",
@@ -10,15 +10,18 @@ enum TabValues {
 	Main = "main",
 }
 
-export default function BurgerIngredients({ingredientsData}: { ingredientsData: IIngredient[] }) {
+export default function BurgerIngredients() {
+	
+	// --------------- GET DATA FROM STORE ---------------
+	const ingredientsData = useSelector(state => state.ingredientsList)
 	
 	// --------------- INGREDIENTS FILTERED ARRAYS ---------------
 	const [current, setCurrent] = React.useState(TabValues.Bun);
 	const filteredIngredients = useMemo(() => {
 		return {
-			bun: ingredientsData.filter((item) => item.type === "bun"),
-			sauce: ingredientsData.filter((item) => item.type === "sauce"),
-			main: ingredientsData.filter((item) => item.type === "main"),
+			bun:  Array.isArray(ingredientsData) ? ingredientsData.filter((item) => item.type === "bun") : [],
+			sauce: Array.isArray(ingredientsData) ? ingredientsData.filter((item) => item.type === "sauce"): [],
+			main: Array.isArray(ingredientsData) ? ingredientsData.filter((item) => item.type === "main"): [],
 		};
 	}, [ingredientsData]);
 	

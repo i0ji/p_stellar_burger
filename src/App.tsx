@@ -4,40 +4,41 @@ import AppHeader from "components/AppHeader/AppHeader.tsx";
 import BurgerIngredients from "components/BurgerIngredients/BurgerIngredients.tsx";
 import BurgerConstructor from "components/BurgerConstructor/BurgerConstructor.tsx";
 
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchIngredients } from 'services/slices/burgerSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {fetchIngredients} from 'services/slices/ingredientsListSlice.ts';
 import {IBurgerState, IIngredient} from "src/Interfaces";
 
 export default function App() {
-
-
-    const dispatch = useDispatch();
-    const { ingredients: ingredientsData, status, error }: IBurgerState = useSelector((state: { burger: IBurgerState }) => state.burger);
-
-    useEffect(() => {
-        dispatch(fetchIngredients());
-    }, [dispatch]);
-
-    // Обработка статуса запроса и данных
-    if (status === 'loading') {
-        return <p className={AppStyles.status}>Загрузка...</p>;
-    }
-
-    if (status === 'failed') {
-        return <p className={AppStyles.status}>Ошибка: {error}</p>;
-    }
-
-    const bunData: IIngredient[] = (ingredientsData as IIngredient[])
-        .filter((ingredient) => ingredient.type === 'bun')
-        .slice(0, 2);
-
-    function randomData(data: IIngredient[], qty: number) {
-        const innerIngredients = data.filter(elem => elem.type !== 'bun');
-
-        const randomData = [...innerIngredients].sort(() => .5 - Math.random());
-
-        return randomData.slice(0, qty);
-    }
+	
+	const dispatch = useDispatch();
+	const {ingredients: ingredientsData, status, error}: IBurgerState = useSelector((state: {
+		burger: IBurgerState
+	}) => state.burger);
+	
+	useEffect(() => {
+		dispatch(fetchIngredients());
+	}, [dispatch]);
+	
+	
+	// --------------- STATUSES ---------------
+	if (status === 'loading') {
+		return <p className={AppStyles.status}>Загрузка...</p>;
+	}
+	
+	if (status === 'failed') {
+		return <p className={AppStyles.status}>Ошибка: {error}</p>;
+	}
+	
+	//
+	const bunData: IIngredient[] = (ingredientsData as IIngredient[])
+		.filter((ingredient) => ingredient.type === 'bun')
+		.slice(0, 2);
+	
+	function randomData(data: IIngredient[], qty: number) {
+		const innerIngredients = data.filter(elem => elem.type !== 'bun');
+		const randomData = [...innerIngredients].sort(() => .5 - Math.random());
+		return randomData.slice(0, qty);
+	}
 	
 	return (
 		<>
@@ -45,12 +46,11 @@ export default function App() {
 			
 			<AppHeader/>
 			
-			{/* --------------- TWO MAIN BLOCKS --------------- */}
-			
+			{/* --------------- MAIN BLOCKS --------------- */}
 			<main className={AppStyles.burger_builder}>
 				{error ? (<p>Произошла ошибка: {error}</p>) : (ingredientsData.length > 0 && (
 					<>
-						<BurgerIngredients ingredientsData={ingredientsData}/>
+						<BurgerIngredients/>
 						
 						<BurgerConstructor
 							ingredientsData={randomData(ingredientsData, 7)}

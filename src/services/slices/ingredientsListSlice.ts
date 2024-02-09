@@ -1,19 +1,20 @@
-// burgerSlice.js
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { INGREDIENTS_DATA_URL } from 'utils/routs';
-import { checkResponse } from 'utils/check-response';
+import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+import {INGREDIENTS_DATA_URL} from 'utils/routs';
+import {checkResponse} from 'utils/check-response';
 
-// Асинхронное действие для загрузки ингредиентов
 export const fetchIngredients = createAsyncThunk('burger/fetchIngredients', async () => {
 	const response = await fetch(INGREDIENTS_DATA_URL);
 	const data = await checkResponse(response);
 	return data.data;
 });
 
-// Создание slice (редьюсер и экшены)
-const burgerSlice = createSlice({
+const ingredientsListSlice = createSlice({
 	name: 'burger',
-	initialState: { ingredients: [], status: 'idle', error: null },
+	initialState: {
+		ingredients: [],
+		status: 'idle',
+		error: null
+	},
 	reducers: {},
 	extraReducers: (builder) => {
 		builder
@@ -32,7 +33,7 @@ const burgerSlice = createSlice({
 });
 
 // Экспорт экшенов
-export const { setIngredientsError, setIngredientsLoading } = burgerSlice.actions;
+export const {setIngredientsError, setIngredientsLoading} = ingredientsListSlice.actions;
 
 // Экспорт редьюсера
-export default burgerSlice.reducer;
+export default ingredientsListSlice.reducer;

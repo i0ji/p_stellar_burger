@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import burgerReducer from 'services/slices/burgerSlice';
+import ingredientsListSlice from 'services/slices/ingredientsListSlice.ts';
 
 const store = configureStore({
 	reducer: {
-		burger: burgerReducer,
+		ingredients: ingredientsListSlice,
 	},
 });
 
