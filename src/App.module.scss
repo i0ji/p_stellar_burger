@@ -7,3 +7,11 @@
   display: flex;
   justify-content: space-between;
 }
+
+.status {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  font-size: 30px;
+}

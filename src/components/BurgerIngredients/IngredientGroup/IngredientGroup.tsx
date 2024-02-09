@@ -7,12 +7,9 @@ import Modal from "modal/Modal.tsx";
 
 export default function IngredientGroup({type, ingredients}: IIngredientGroupProps) {
     const [selectedIngredient, setSelectedIngredient] = useState<IIngredient | null>(null);
-
-
-
-
-    // ------------ INGREDIENT ITEM CARD ------------
-
+    
+    
+    // ----------------- INGREDIENT ITEM CARD -----------------
     const IngredientCard: React.FC<IIngredientCardProps> = ({onOpenModal, image, price, name}) => {
 
         return (
@@ -29,7 +26,7 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
         );
     };
 
-    // ------------ INGREDIENT MODAL OPEN/CLOSE LOGIC ------------
+    // ----------------- INGREDIENT MODAL OPEN/CLOSE LOGIC -----------------
     const handleOpenModal = (ingredient: IIngredient) => {
         setSelectedIngredient(ingredient);
     };
@@ -42,7 +39,7 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
         <div className={ingredientGroupStyles.ingredient_list}>
             <h3 className="text text_type_main-medium pb-6">{type}</h3>
 
-            {/* ----- MAPPING INGREDIENTS FOR EACH GROUP ----- */}
+            {/* --------------- MAPPING INGREDIENTS FOR EACH GROUP --------------- */}
             {ingredients.map((ingredientItem: IIngredient, i) => (
                 <IngredientCard
                     key={i}
@@ -51,9 +48,8 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
                 />
             ))}
 
-            {/* ----- MODAL ENTER ----- */}
+            {/* --------------- MODAL ENTER --------------- */}
             {selectedIngredient && (
-
                 <Modal onClose={handleCloseModal}>
                     <IngredientDetails
                         onClose={handleCloseModal}
@@ -65,7 +61,6 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
                         fat={selectedIngredient.fat || 0}
                     />
                 </Modal>
-
             )}
         </div>
     );

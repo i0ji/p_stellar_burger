@@ -1,5 +1,5 @@
 import {useEffect} from "react";
-import appStyles from './App.module.scss';
+import AppStyles from './App.module.scss';
 import AppHeader from "components/AppHeader/AppHeader.tsx";
 import BurgerIngredients from "components/BurgerIngredients/BurgerIngredients.tsx";
 import BurgerConstructor from "components/BurgerConstructor/BurgerConstructor.tsx";
@@ -20,11 +20,11 @@ export default function App() {
 
     // Обработка статуса запроса и данных
     if (status === 'loading') {
-        return <p>Loading...</p>;
+        return <p className={AppStyles.status}>Загрузка...</p>;
     }
 
     if (status === 'failed') {
-        return <p>Error: {error}</p>;
+        return <p className={AppStyles.status}>Ошибка: {error}</p>;
     }
 
     const bunData: IIngredient[] = (ingredientsData as IIngredient[])
@@ -38,18 +38,16 @@ export default function App() {
 
         return randomData.slice(0, qty);
     }
-
-
-
+	
 	return (
 		<>
-			{/* ----- APP HEADER -----*/}
+			{/* --------------- APP HEADER --------------- */}
 			
 			<AppHeader/>
 			
-			{/* ----- TWO MAIN BLOCKS -----*/}
+			{/* --------------- TWO MAIN BLOCKS --------------- */}
 			
-			<main className={appStyles.burger_builder}>
+			<main className={AppStyles.burger_builder}>
 				{error ? (<p>Произошла ошибка: {error}</p>) : (ingredientsData.length > 0 && (
 					<>
 						<BurgerIngredients ingredientsData={ingredientsData}/>
