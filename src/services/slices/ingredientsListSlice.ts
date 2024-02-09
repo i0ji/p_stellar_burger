@@ -32,8 +32,6 @@ const ingredientsListSlice = createSlice({
 	},
 });
 
-// Экспорт экшенов
 export const {setIngredientsError, setIngredientsLoading} = ingredientsListSlice.actions;
 
-// Экспорт редьюсера
 export default ingredientsListSlice.reducer;

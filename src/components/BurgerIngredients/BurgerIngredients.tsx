@@ -3,6 +3,7 @@ import burgerIngredientsStyles from "./BurgerIngredientsStyles.module.scss";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "components/BurgerIngredients/IngredientGroup/IngredientGroup.tsx";
 import {useSelector} from "react-redux";
+import {IBurgerState} from "src/Interfaces";
 
 enum TabValues {
 	Bun = "bun",
@@ -13,7 +14,9 @@ enum TabValues {
 export default function BurgerIngredients() {
 	
 	// --------------- GET DATA FROM STORE ---------------
-	const ingredientsData = useSelector(state => state.ingredientsList)
+	const {ingredients: ingredientsData}: IBurgerState = useSelector((state: {
+		ingredients: IBurgerState
+	}) => state.ingredients);
 	
 	// --------------- INGREDIENTS FILTERED ARRAYS ---------------
 	const [current, setCurrent] = React.useState(TabValues.Bun);
@@ -24,8 +27,7 @@ export default function BurgerIngredients() {
 			main: Array.isArray(ingredientsData) ? ingredientsData.filter((item) => item.type === "main"): [],
 		};
 	}, [ingredientsData]);
-	
-	
+
 	// ----------------- TAB SWITCH LOGIC -----------------
 	const bunRef = useRef<HTMLDivElement>(null);
 	const sauceRef = useRef<HTMLDivElement>(null);
@@ -58,7 +60,8 @@ export default function BurgerIngredients() {
 		}
 	};
 	
-	
+
+
 	return (
 		<section className={burgerIngredientsStyles.ingredients_block}>
 			<h1 className="text text_type_main-large pb-10">Соберите бургер</h1>

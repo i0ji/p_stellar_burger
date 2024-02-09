@@ -12,8 +12,8 @@ export default function App() {
 	
 	const dispatch = useDispatch();
 	const {ingredients: ingredientsData, status, error}: IBurgerState = useSelector((state: {
-		burger: IBurgerState
-	}) => state.burger);
+		ingredients: IBurgerState
+	}) => state.ingredients);
 	
 	useEffect(() => {
 		dispatch(fetchIngredients());
