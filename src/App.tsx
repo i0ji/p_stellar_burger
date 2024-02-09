@@ -5,8 +5,8 @@ import BurgerIngredients from "components/BurgerIngredients/BurgerIngredients.ts
 import BurgerConstructor from "components/BurgerConstructor/BurgerConstructor.tsx";
 
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchIngredients} from 'services/slices/ingredientsListSlice.ts';
-import {IBurgerState, IIngredient} from "src/Interfaces";
+import {fetchIngredients} from 'services/slices/ingredientsSlice.ts';
+import {IBurgerState, IIngredient} from "utils/interfaces/interfaces";
 
 export default function App() {
 	

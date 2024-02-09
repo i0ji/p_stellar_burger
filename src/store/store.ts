@@ -1,10 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit';
-import ingredientsListSlice from 'services/slices/ingredientsListSlice.ts';
+import {configureStore} from '@reduxjs/toolkit';
+import ingredientsListSlice from 'slices/ingredientsSlice.ts';
 
 const store = configureStore({
-	reducer: {
-		ingredients: ingredientsListSlice,
-	},
+    reducer: {
+        ingredients: ingredientsListSlice,
+    },
 });
 
 export default store;

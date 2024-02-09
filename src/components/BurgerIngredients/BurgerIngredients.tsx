@@ -3,7 +3,7 @@ import burgerIngredientsStyles from "./BurgerIngredientsStyles.module.scss";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "components/BurgerIngredients/IngredientGroup/IngredientGroup.tsx";
 import {useSelector} from "react-redux";
-import {IBurgerState} from "src/Interfaces";
+import {IBurgerState} from "interfaces/interfaces";
 
 enum TabValues {
 	Bun = "bun",
@@ -59,8 +59,6 @@ export default function BurgerIngredients() {
 			}
 		}
 	};
-	
-
 
 	return (
 		<section className={burgerIngredientsStyles.ingredients_block}>

@@ -6,6 +6,7 @@ export default defineConfig({
     base: './',
     resolve: {
         alias: {
+            store: "/src/store",
             components: "/src/components",
             styles: "/src/styles",
             data: "/src/data",
@@ -13,11 +14,13 @@ export default defineConfig({
             images: "/src/images",
             declarations: "/src/declarations",
             constants: "/src/declarations/constants/",
+            slices: "/src/services/slices",
             hooks: "/src/hooks",
             modal: "/src/components/Modal",
             services: "/src/services",
             actions: "/src/services/actions",
             reducers: "/src/services/reducers",
+            interfaces: "/src/utils/interfaces",
             src: ".",
         }
     },

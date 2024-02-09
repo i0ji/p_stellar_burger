@@ -1,5 +1,5 @@
 import {useState, useCallback, useReducer} from 'react';
-import {IRequestFunction} from "src/Interfaces";
+import {IRequestFunction} from "utils/interfaces/interfaces";
 
 export default function useModal(serverRequestFunction: IRequestFunction) {
     const [isVisible, toggleVisibility] = useReducer((isVisible) => !isVisible, false);

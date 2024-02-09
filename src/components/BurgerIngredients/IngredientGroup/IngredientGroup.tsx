@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import ingredientGroupStyles from "./IngredientGroupStyles.module.scss";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {IIngredient, IIngredientCardProps, IIngredientGroupProps} from "src/Interfaces";
+import {IIngredient, IIngredientCardProps, IIngredientGroupProps} from "interfaces/interfaces";
 import IngredientDetails from "modal/IngredientDetails/IngredientDetails.tsx";
 import Modal from "modal/Modal.tsx";
 

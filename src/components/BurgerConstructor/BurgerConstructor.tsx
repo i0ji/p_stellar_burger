@@ -2,7 +2,7 @@ import burgerConstructorStyles from "./BurgerConstructorStyles.module.scss";
 import {useEffect} from "react";
 import {Button, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
-import {IIngredient} from "src/Interfaces";
+import {IIngredient} from "interfaces/interfaces";
 import OrderDetails from "modal/OrderDetails/OrderDetails.tsx";
 import Modal from "modal/Modal.tsx";
 import useModal from "hooks/useModal.ts";

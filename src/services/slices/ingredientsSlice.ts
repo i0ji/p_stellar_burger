@@ -2,14 +2,14 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {INGREDIENTS_DATA_URL} from 'utils/routs';
 import {checkResponse} from 'utils/check-response';
 
-export const fetchIngredients = createAsyncThunk('burger/fetchIngredients', async () => {
+export const fetchIngredients = createAsyncThunk('ingredientsListSlice/fetchIngredients', async () => {
 	const response = await fetch(INGREDIENTS_DATA_URL);
 	const data = await checkResponse(response);
 	return data.data;
 });
 
 const ingredientsListSlice = createSlice({
-	name: 'burger',
+	name: 'ingredientsListSlice',
 	initialState: {
 		ingredients: [],
 		status: 'idle',
