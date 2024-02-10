@@ -5,7 +5,7 @@ import constructorSlice from "slices/constructorSlice.ts";
 const store = configureStore({
     reducer: {
         ingredients: ingredientsListSlice,
-        constructor: constructorSlice
+        constructorSlice: constructorSlice
     }
 });
 

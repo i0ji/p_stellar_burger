@@ -33,6 +33,4 @@ const ingredientsListSlice = createSlice({
     },
 });
 
-export const {setIngredientsError, setIngredientsLoading} = ingredientsListSlice.actions;
-
 export default ingredientsListSlice.reducer;

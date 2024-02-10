@@ -8,6 +8,9 @@ import {useDispatch, useSelector} from 'react-redux';
 import {fetchIngredients} from 'services/slices/ingredientsSlice.ts';
 import {IBurgerState} from "interfaces/sliceInterfaces";
 
+import {DndProvider} from 'react-dnd';
+import {HTML5Backend} from 'react-dnd-html5-backend';
+
 
 export default function App() {
 
@@ -34,7 +37,7 @@ export default function App() {
 
 
     return (
-        <>
+        <DndProvider backend={HTML5Backend}>
             {/* --------------- APP HEADER --------------- */}
 
             <AppHeader/>
@@ -45,10 +48,10 @@ export default function App() {
                     <>
                         <BurgerIngredients/>
 
-                        {/*<BurgerConstructor/>*/}
+                        <BurgerConstructor/>
                     </>
                 ))}
             </main>
-        </>
+        </DndProvider>
     )
 }

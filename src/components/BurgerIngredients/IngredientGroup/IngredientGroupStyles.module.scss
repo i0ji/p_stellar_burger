@@ -1,6 +1,7 @@
 .ingredient_item {
   width: 50%;
 }
+
 .ingredient_list {
   composes: pb-10 from global;
 
@@ -29,5 +30,9 @@
     svg {
       padding-right: 6px;
     }
+  }
+
+  &.dragging {
+    opacity: 0.5;
   }
 }

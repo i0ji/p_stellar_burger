@@ -4,17 +4,27 @@ import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {IIngredient, IIngredientCardProps, IIngredientGroupProps} from "interfaces/interfaces";
 import IngredientDetails from "modal/IngredientDetails/IngredientDetails.tsx";
 import Modal from "modal/Modal.tsx";
+import {useDrag} from "react-dnd";
 
 export default function IngredientGroup({type, ingredients}: IIngredientGroupProps) {
     const [selectedIngredient, setSelectedIngredient] = useState<IIngredient | null>(null);
-    
-    
+
+
     // ----------------- INGREDIENT ITEM CARD -----------------
     const IngredientCard: React.FC<IIngredientCardProps> = ({onOpenModal, image, price, name}) => {
+        const [{ isDragging }, drag] = useDrag({
+            type: 'ingredient',
+            item: { name, price, image },
+            collect: (monitor) => ({
+                isDragging: !!monitor.isDragging(),
+            }),
+        });
+
 
         return (
             <div
-                className={ingredientGroupStyles.ingredient_card}
+                ref={drag}
+                className={`${ingredientGroupStyles.ingredient_card} ${isDragging ? ingredientGroupStyles.dragging : ''}`}
                 onClick={onOpenModal}>
                 <img src={image} alt={name}/>
                 <p className="text text_type_main-default pt-1">
