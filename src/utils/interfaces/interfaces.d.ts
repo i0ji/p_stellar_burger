@@ -4,6 +4,7 @@ export interface IIngredient {
     image_mobile: string,
     "id"?: string,
     "_id"?: string,
+    "index?": string,
     "name": string,
     "type"?: string,
     "proteins"?: number,

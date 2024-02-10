@@ -23,18 +23,23 @@ const constructorSlice = createSlice({
                 addedIngredients: [...state.addedIngredients, action.payload],
             };
         },
-        replaceIngredient: (state, action: PayloadAction<{ dragIndex: number; hoverIndex: number }>) => {
-            const {dragIndex, hoverIndex} = action.payload;
-            const draggedIngredient = state.addedIngredients[dragIndex];
-
+        replaceIngredient: (state, action: PayloadAction<{ dragIndex: number; hoverIndex: number; ingredient: IIngredient }>) => {
+            const { dragIndex, hoverIndex, ingredient } = action.payload;
             const newIngredients = [...state.addedIngredients];
-            newIngredients.splice(dragIndex, 1);
-            newIngredients.splice(hoverIndex, 0, draggedIngredient);
 
-            return {
-                ...state,
-                addedIngredients: newIngredients,
-            };
+            // Убедитесь, что hoverIndex не выходит за пределы массива
+            const adjustedHoverIndex = Math.min(Math.max(hoverIndex, 0), newIngredients.length);
+
+            // Если ингредиент перемещается в конец, добавьте его в конец массива
+            if (adjustedHoverIndex === newIngredients.length) {
+                newIngredients.push(ingredient);
+            } else {
+                // Вставьте ингредиент в нужное место массива
+                newIngredients.splice(dragIndex, 1);
+                newIngredients.splice(adjustedHoverIndex, 0, ingredient);
+            }
+
+            state.addedIngredients = newIngredients;
         },
         removeIngredient: (state, action) => {
             state.addedIngredients = state.addedIngredients.filter(ingredient => ingredient.id !== action.payload);
