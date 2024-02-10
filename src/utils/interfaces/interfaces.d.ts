@@ -2,6 +2,7 @@ import React from "react";
 
 export interface IIngredient {
     image_mobile: string,
+    "id"?: string,
     "_id"?: string,
     "name": string,
     "type"?: string,

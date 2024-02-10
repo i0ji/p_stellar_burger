@@ -3,13 +3,13 @@ import {IIngredient} from 'interfaces/interfaces';
 
 interface ConstructorState {
     totalAmount: number;
-    ingredients: IIngredient[]; // Замените any на тип вашего массива ингредиентов
-    addedIngredients: IIngredient[]; // Уточните тип, если это возможно
+    ingredients: IIngredient[];
+    addedIngredients: IIngredient[];
 }
 
 const initialState: ConstructorState = {
     totalAmount: 0,
-    ingredients: [], // Замените на начальное значение, если требуется
+    ingredients: [],
     addedIngredients: [],
 };
 
@@ -23,17 +23,25 @@ const constructorSlice = createSlice({
                 addedIngredients: [...state.addedIngredients, action.payload],
             };
         },
-        removeIngredient: (state, action: PayloadAction<string>) => {
+        replaceIngredient: (state, action: PayloadAction<{ dragIndex: number; hoverIndex: number }>) => {
+            const {dragIndex, hoverIndex} = action.payload;
+            const draggedIngredient = state.addedIngredients[dragIndex];
+
+            const newIngredients = [...state.addedIngredients];
+            newIngredients.splice(dragIndex, 1);
+            newIngredients.splice(hoverIndex, 0, draggedIngredient);
+
             return {
                 ...state,
-                addedIngredients: state.addedIngredients.filter(
-                    (ingredient) => ingredient._id !== action.payload
-                ),
+                addedIngredients: newIngredients,
             };
+        },
+        removeIngredient: (state, action) => {
+            state.addedIngredients = state.addedIngredients.filter(ingredient => ingredient.id !== action.payload);
         },
     },
 });
 
-export const {addIngredient, removeIngredient} = constructorSlice.actions;
+export const {addIngredient, replaceIngredient, removeIngredient} = constructorSlice.actions;
 
 export default constructorSlice.reducer;
