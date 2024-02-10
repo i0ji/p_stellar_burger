@@ -23,9 +23,12 @@
       gap: 5px;
       overflow-x: hidden;
       overflow-y: scroll;
+      border: 1px solid red;
+      min-height: 30px;
     }
 
     .constructor_order_item {
+
       padding-right: 10px;
       display: flex;
       justify-content: space-between;

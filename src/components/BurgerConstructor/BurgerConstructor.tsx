@@ -2,7 +2,7 @@ import burgerConstructorStyles from "./BurgerConstructorStyles.module.scss";
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
-import {addIngredient, removeIngredient} from "slices/constructorSlice.ts";
+import {addIngredient, removeIngredient, updateBun} from "slices/constructorSlice.ts";
 import {CurrencyIcon, Button, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import useModal from "hooks/useModal.ts";
 import {createOrder} from "utils/order-api.ts";
@@ -24,12 +24,12 @@ export default function BurgerConstructor() {
     const dispatch = useDispatch();
 
     // --------------- DND LOGIC ---------------
-    const [, drop] = useDrop({
-        accept: 'ingredient',
-        drop: (item: IIngredient) => {
-            dispatch(addIngredient(item));
-        }
-    });
+    // const [, drop] = useDrop({
+    //     accept: 'ingredient',
+    //     drop: (item: IIngredient) => {
+    //         dispatch(addIngredient(item));
+    //     }
+    // });
 
     const handleRemoveIngredient = (id: string) => {
         console.log(id)
@@ -44,18 +44,46 @@ export default function BurgerConstructor() {
 
 
     // --------------- DND LOGIC ---------------
+    // const [, dropBuns] = useDrop({
+    //     accept: 'bun',  // Принимаем только элементы с типом 'bun'
+    //     drop: (item) => {
+    //         // Обрабатываем перетаскивание булок здесь
+    //         dispatch(addIngredient(item));
+    //     },
+    // });
+
+    const [, dropInnerIngredients] = useDrop({
+        accept: 'ingredient',  // Принимаем только элементы с типом 'ingredient'
+        drop: (item) => {
+            // Обрабатываем перетаскивание внутренних ингредиентов здесь
+            dispatch(addIngredient(item));
+        },
+    });
+
+    const [, dropBuns] = useDrop({
+        accept: 'bun',
+        drop: (item) => {
+            // Проверяем тип перетаскиваемого элемента
+            if (item.type === 'bun') {
+                // Определяем, это верхняя или нижняя булка
+                const bunType = item.position === 'top' ? 'topBun' : 'bottomBun';
+
+                // Заменяем булку в состоянии
+                dispatch(updateBun({bunType, bun: item}));
+            }
+        },
+    });
 
 
     return (
         <section
             className={burgerConstructorStyles.constructor_block}
-            ref={drop}
         >
 
             <div className={`${burgerConstructorStyles.constructor_list} mb-10`}>
 
                 {/* --------------- TOP BUN --------------- */}
-                <div className={burgerConstructorStyles.constructor_order_item}>
+                <div className={burgerConstructorStyles.constructor_order_item} ref={dropBuns}>
                     <ConstructorElement
                         extraClass={`${burgerConstructorStyles.constructor_item_top}`}
                         type="top"
@@ -68,7 +96,7 @@ export default function BurgerConstructor() {
 
 
                 {/* --------------- INNER INGREDIENTS --------------- */}
-                <div className={burgerConstructorStyles.constructor_order}>
+                <div className={burgerConstructorStyles.constructor_order} ref={dropInnerIngredients}>
                     {addedIngredients.map((ingredient: IIngredient, index) => (
                         <div
                             className={burgerConstructorStyles.constructor_order_item}
@@ -86,7 +114,7 @@ export default function BurgerConstructor() {
                 </div>
 
                 {/* --------------- BOTTOM BUN --------------- */}
-                <div className={burgerConstructorStyles.constructor_order_item}>
+                <div className={burgerConstructorStyles.constructor_order_item} ref={dropBuns}>
                     <ConstructorElement
                         extraClass={`${burgerConstructorStyles.constructor_item_bottom}`}
                         type="bottom"
