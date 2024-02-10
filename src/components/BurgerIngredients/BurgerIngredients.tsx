@@ -59,13 +59,6 @@ export default function BurgerIngredients() {
     };
 
 
-
-
-
-
-
-
-
 // ... (previous code)// ... (previous code)// ... (previous code)// ... (previous code)
     const [activeTab, setActiveTab] = React.useState(TabValues.Bun);
     const handleScroll = () => {
@@ -89,13 +82,6 @@ export default function BurgerIngredients() {
             container?.removeEventListener("scroll", handleScroll);
         };
     }, []);
-
-
-
-
-
-
-
 
 
     return (
