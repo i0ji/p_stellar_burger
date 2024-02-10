@@ -6,8 +6,19 @@ export interface IIngredientsListSlice {
     error: string | null;
 }
 
-
 export interface IngredientsState {
     ingredientsData: IIngredient[];
     bunData: IIngredient[];
+}
+
+export interface IBurgerState {
+    ingredients: IIngredient[];
+    status: string;
+    error: string | null;
+}
+
+export interface IConstructorState {
+    ingredients: IIngredient[],
+    totalPrice: number,
+    randomIngredients: IIngredientp[]
 }

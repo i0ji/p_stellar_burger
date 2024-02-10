@@ -3,7 +3,6 @@ import burgerIngredientsStyles from "./BurgerIngredientsStyles.module.scss";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "components/BurgerIngredients/IngredientGroup/IngredientGroup.tsx";
 import {useSelector} from "react-redux";
-import {IBurgerState} from "interfaces/interfaces";
 
 enum TabValues {
 	Bun = "bun",
@@ -14,9 +13,7 @@ enum TabValues {
 export default function BurgerIngredients() {
 	
 	// --------------- GET DATA FROM STORE ---------------
-	const {ingredients: ingredientsData}: IBurgerState = useSelector((state: {
-		ingredients: IBurgerState
-	}) => state.ingredients);
+	const {ingredients: ingredientsData} = useSelector(state => state.ingredients);
 	
 	// --------------- INGREDIENTS FILTERED ARRAYS ---------------
 	const [current, setCurrent] = React.useState(TabValues.Bun);

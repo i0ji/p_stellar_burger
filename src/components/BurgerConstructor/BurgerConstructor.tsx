@@ -1,18 +1,29 @@
 import burgerConstructorStyles from "./BurgerConstructorStyles.module.scss";
-import {useEffect} from "react";
 import {Button, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import {IIngredient} from "interfaces/interfaces";
 import OrderDetails from "modal/OrderDetails/OrderDetails.tsx";
 import Modal from "modal/Modal.tsx";
+import {useSelector} from "react-redux";
 import useModal from "hooks/useModal.ts";
 import {createOrder} from "utils/order-api.ts";
 
-export default function BurgerConstructor({ingredientsData, bunData}: {
-    ingredientsData: IIngredient[],
-    bunData: IIngredient[]
-}) {
+export default function BurgerConstructor() {
 
+    // --------------- GET DATA AND RANDOMIZE IT ---------------
+    const ingredientsData:IIngredient[] = useSelector((state) => state.ingredientsListSlice);
+
+
+
+    function randomData(data: IIngredient[], qty: number) {
+        const innerIngredients = data.filter(elem => elem.type !== 'bun');
+        const randomData = [...innerIngredients].sort(() => .5 - Math.random());
+        return randomData.slice(0, qty);
+    }
+
+    const randomIngredients: IIngredient[] = randomData(ingredientsData, 5)
+
+    // --------------- MODAL HOOK ---------------
     const {isVisible, orderNumber, openModal, closeModal} = useModal(() => createOrder(randomIDs));
 
     function getIDs(data: IIngredient[]): (string | undefined)[] {
@@ -20,9 +31,14 @@ export default function BurgerConstructor({ingredientsData, bunData}: {
         else return [];
     }
 
-    const randomIDs: string[] = getIDs(ingredientsData).filter(Boolean) as string[];
+    const randomIDs: string[] = getIDs(randomIngredients).filter(Boolean) as string[];
 
-    // ------ CALCULATING TOTAL AMOUNT ON RENDER ------
+    // --------------- TWO BUNS ARRAY ---------------
+    const bunData: IIngredient[] = (ingredientsData as IIngredient[])
+        .filter((ingredient) => ingredient.type === 'bun')
+        .slice(0, 2);
+
+    // --------------- CALCULATING TOTAL AMOUNT ON RANDOM DATA ---------------
     function totalAmount(ingredientsData: IIngredient[], bunData: IIngredient[]): number {
         return (
             ingredientsData
@@ -34,17 +50,14 @@ export default function BurgerConstructor({ingredientsData, bunData}: {
         )
     }
 
-    useEffect(() => {
-        totalAmount(ingredientsData, bunData)
-    }, [ingredientsData, bunData]);
+
 
     return (
         <section className={burgerConstructorStyles.constructor_block}>
 
-            <div
-                className={`${burgerConstructorStyles.constructor_list} mb-10`}
-            >
-                {/* ----- TOP BUN ----- */}
+            <div className={`${burgerConstructorStyles.constructor_list} mb-10`}>
+
+                {/* --------------- TOP BUN --------------- */}
                 <div className={burgerConstructorStyles.constructor_order_item}>
                     <ConstructorElement
                         extraClass={`${burgerConstructorStyles.constructor_item_top}`}
@@ -56,7 +69,7 @@ export default function BurgerConstructor({ingredientsData, bunData}: {
                     />
                 </div>
 
-                {/* ----- SCROLLED INNER INGREDIENTS ----- */}
+                {/* --------------- INNER INGREDIENTS --------------- */}
                 <div className={burgerConstructorStyles.constructor_order}>
 
                     {ingredientsData.map((ingredientItem: IIngredient) => (
@@ -74,7 +87,8 @@ export default function BurgerConstructor({ingredientsData, bunData}: {
                     ))}
 
                 </div>
-                {/*----- BOTTOM BUN ----- */}
+
+                {/* --------------- BOTTOM BUN --------------- */}
                 <div className={burgerConstructorStyles.constructor_order_item}>
                     <ConstructorElement
                         extraClass={`${burgerConstructorStyles.constructor_item_bottom}`}
@@ -85,9 +99,10 @@ export default function BurgerConstructor({ingredientsData, bunData}: {
                         thumbnail={bunData[0].image_mobile}
                     />
                 </div>
+
             </div>
 
-            {/* ----- PRICE ----- */}
+            {/* --------------- PRICE --------------- */}
             <div className={burgerConstructorStyles.price_info}>
                 <h1 className="text text_type_main-large pr-3">{totalAmount(ingredientsData, bunData)}</h1>
                 <CurrencyIcon type="primary"/>
@@ -100,7 +115,7 @@ export default function BurgerConstructor({ingredientsData, bunData}: {
                 >Оформить заказ</Button>
             </div>
 
-            {/* ----- MODAL ENTER ----- */}
+            {/* --------------- MODAL ENTER --------------- */}
 
             {isVisible &&
                 <>

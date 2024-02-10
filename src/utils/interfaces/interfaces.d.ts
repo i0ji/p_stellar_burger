@@ -54,11 +54,3 @@ export interface IResponseData {
 export interface IRequestFunction {
     (): Promise<IResponseData>;
 }
-
-
-/////////////RTK INTERFACES
-export interface IBurgerState {
-    ingredients: IIngredient[];
-    status: string;
-    error: string | null;
-}
