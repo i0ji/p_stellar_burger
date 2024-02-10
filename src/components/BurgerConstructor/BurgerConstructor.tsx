@@ -2,8 +2,8 @@ import burgerConstructorStyles from "./BurgerConstructorStyles.module.scss";
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
-import {addIngredient, setIngredients, removeIngredient} from "slices/constructorSlice.ts";
-import {CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
+import {addIngredient} from "slices/constructorSlice.ts";
+import {CurrencyIcon, Button, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import useModal from "hooks/useModal.ts";
 import {createOrder} from "utils/order-api.ts";
 import Modal from "modal/Modal.tsx";
@@ -54,18 +54,16 @@ export default function BurgerConstructor() {
                 <div className={burgerConstructorStyles.constructor_order}>
                     {addedIngredients.map((ingredient, index) => (
                         <div key={index} className={burgerConstructorStyles.constructor_order_item}>
+                            <DragIcon type="primary"/>
                             <ConstructorElement
                                 type={ingredient.type}
                                 text={ingredient.name}
-                                price={ingredient.price ?? 0}
-                                thumbnail={ingredient.image_mobile}
+                                price={ingredient.price}
+                                thumbnail={ingredient.image}
                             />
                         </div>
                     ))}
                 </div>
-
-
-
 
 
 

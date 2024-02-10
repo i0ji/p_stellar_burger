@@ -20,7 +20,6 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
             }),
         });
 
-
         return (
             <div
                 ref={drag}
