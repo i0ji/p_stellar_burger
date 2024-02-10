@@ -1,9 +1,8 @@
-import React, {useRef} from "react";
 import burgerConstructorStyles from "./BurgerConstructorStyles.module.scss";
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
-import {useDrop, useDrag} from "react-dnd";
-import {addIngredient, removeIngredient, replaceIngredient} from "slices/constructorSlice.ts";
+import {useDrop} from "react-dnd";
+import {addIngredient, removeIngredient} from "slices/constructorSlice.ts";
 import {CurrencyIcon, Button, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import useModal from "hooks/useModal.ts";
 import {createOrder} from "utils/order-api.ts";
@@ -27,51 +26,10 @@ export default function BurgerConstructor() {
     // --------------- DND LOGIC ---------------
     const [, drop] = useDrop({
         accept: 'ingredient',
-        drop: (item: IIngredient, monitor) => {
-            const dragIndex = monitor.getItem()["index?"] !== undefined ? monitor.getItem()["index?"] : 0;
-            const hoverIndex = addedIngredients.length;
-
-            if (item.type === 'inner') {
-                dispatch(replaceIngredient({ dragIndex, hoverIndex, ingredient: item }));
-            } else {
-                if (item.isBun) {
-                    // Проверяем, что в допустимом разделе для булочки
-                    if ((item.type === 'top' && hoverIndex === 0) || (item.type === 'bottom' && hoverIndex === addedIngredients.length - 1)) {
-                        // Обрабатываем здесь логику замены булочки
-                    } else {
-                        console.log("Нельзя перетаскивать булочку в этот раздел");
-                    }
-                } else {
-                    dispatch(addIngredient(item));
-                }
-            }
-        },
+        drop: (item: IIngredient) => {
+            dispatch(addIngredient(item));
+        }
     });
-
-    const ItemTypes = {
-        INGREDIENT: 'ingredient',
-    };
-
-    const DraggableIngredient: React.FC<{ ingredient: IIngredient; index: number }> = ({ingredient, index}) => {
-        const [, drag] = useDrag({
-            type: ItemTypes.INGREDIENT,
-            item: {ingredient, index},
-        });
-
-        return (
-            <div ref={drag}>
-                <div className={burgerConstructorStyles.constructor_order_item}>
-                    <DragIcon type="primary"/>
-                    <ConstructorElement
-                        text={ingredient.name}
-                        price={ingredient.price || 0}
-                        thumbnail={ingredient.image || ''}
-                        handleClose={() => handleRemoveIngredient(ingredient.id)}
-                    />
-                </div>
-            </div>
-        );
-    };
 
     const handleRemoveIngredient = (id: string) => {
         console.log(id)
@@ -86,8 +44,6 @@ export default function BurgerConstructor() {
 
 
     // --------------- DND LOGIC ---------------
-    const topBunRef = useRef(null);
-    const bottomBunRef = useRef(null);
 
 
     return (
@@ -114,7 +70,18 @@ export default function BurgerConstructor() {
                 {/* --------------- INNER INGREDIENTS --------------- */}
                 <div className={burgerConstructorStyles.constructor_order}>
                     {addedIngredients.map((ingredient: IIngredient, index) => (
-                        <DraggableIngredient key={ingredient.id} ingredient={ingredient} index={index}/>
+                        <div
+                            className={burgerConstructorStyles.constructor_order_item}
+                            key={index}
+                        >
+                            <DragIcon type="primary"/>
+                            <ConstructorElement
+                                text={ingredient.name}
+                                price={ingredient.price || 0}
+                                thumbnail={ingredient.image || ''}
+                                handleClose={() => handleRemoveIngredient(ingredient.id)}
+                            />
+                        </div>
                     ))}
                 </div>
 
