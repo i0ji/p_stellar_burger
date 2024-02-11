@@ -2,7 +2,7 @@ import burgerConstructorStyles from "./BurgerConstructorStyles.module.scss";
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
-import {addIngredient, reorderIngredients} from "slices/constructorSlice.ts";
+import {addIngredient,reorderIngredients} from "slices/constructorSlice.ts";
 import {CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import useModal from "hooks/useModal.ts";
 import {createOrder} from "utils/order-api.ts";
@@ -38,30 +38,20 @@ export default function BurgerConstructor() {
     // --------------- NEW DROP LOGIC ---------------
 
     const moveIngredient = useCallback((dragIndex: number, hoverIndex: number) => {
-        addedIngredients((prevCards: IIngredient[]) =>
-            update(prevCards, {
-                $splice: [
-                    [dragIndex, 1],
-                    [hoverIndex, 0, prevCards[dragIndex] as IIngredient],
-                ],
-            }),
-        )
-    }, [addedIngredients])
+        dispatch(reorderIngredients({ dragIndex, hoverIndex }));
+    }, [dispatch]);
 
-
-    const renderIngredients = useCallback(
+    const renderIngredients =
         (ingredient: IIngredient, index: number) => {
             return (
                 <CurrentIngredients
-                    key={index}
-                    image={ingredient.image}
-                    name={ingredient.name}
-                    price={ingredient.price}
-                    id={ingredient.id}
+                    key={ingredient.id}
+                    ingredient={ingredient}
+                    index={index}
                     moveIngredient={moveIngredient}
                 />
             )
-        }, [moveIngredient])
+        }
 
 
     return (

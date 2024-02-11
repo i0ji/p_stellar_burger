@@ -12,8 +12,10 @@ enum TabValues {
 
 export default function BurgerIngredients() {
 
+
     // --------------- GET DATA FROM STORE ---------------
     const {ingredients: ingredientsData} = useSelector(state => state.ingredients);
+
 
     // --------------- INGREDIENTS FILTERED ARRAYS ---------------
 
@@ -25,7 +27,9 @@ export default function BurgerIngredients() {
         };
     }, [ingredientsData]);
 
+
     // ----------------- TAB SWITCH LOGIC -----------------
+
     const [current, setCurrent] = React.useState(TabValues.Bun);
     const bunRef = useRef<HTMLDivElement>(null);
     const sauceRef = useRef<HTMLDivElement>(null);
@@ -58,11 +62,7 @@ export default function BurgerIngredients() {
         }
     };
 
-
-// ... (previous code)// ... (previous code)// ... (previous code)// ... (previous code)
     const [activeTab, setActiveTab] = React.useState(TabValues.Bun);
-
-
 
     return (
         <section
@@ -71,7 +71,9 @@ export default function BurgerIngredients() {
         >
             <h1 className="text text_type_main-large pb-10">Соберите бургер</h1>
 
+
             {/* -------------------- INGREDIENT GROUPS MENU -------------------- */}
+
             <div className={burgerIngredientsStyles.ingredients_menu}>
                 <Tab
                     value={TabValues.Bun}
@@ -96,7 +98,9 @@ export default function BurgerIngredients() {
                 </Tab>
             </div>
 
+
             {/* -------------------- INGREDIENT GROUPS -------------------- */}
+
             <div className={burgerIngredientsStyles.ingredients_list}>
                 <div ref={bunRef}>
                     <IngredientGroup

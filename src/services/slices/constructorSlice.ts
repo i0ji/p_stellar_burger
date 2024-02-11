@@ -30,13 +30,13 @@ const constructorSlice = createSlice({
             state.totalAmount = calculateTotalAmount(state.addedIngredients, state.bun);
         },
         reorderIngredients: (state, action) => {
-            const {from, to} = action.payload;
-            const ingredients = [...state.ingredients];
+            const { dragIndex, hoverIndex } = action.payload;
+            const addedIngredients = [...state.addedIngredients];
 
-            const [movedIngredient] = ingredients.splice(from, 1);
-            ingredients.splice(to, 0, movedIngredient);
+            const [movedIngredient] = addedIngredients.splice(dragIndex, 1);
+            addedIngredients.splice(hoverIndex, 0, movedIngredient);
 
-            state.ingredients = ingredients;
+            state.addedIngredients = addedIngredients;
         },
     },
 });
@@ -48,6 +48,10 @@ const calculateTotalAmount = (addedIngredients: IIngredient[], bun: IIngredient 
     return ingredientsTotal + (bunTotal * 2);
 };
 
-export const {addIngredient, removeIngredient, reorderIngredients} = constructorSlice.actions;
+export const {
+    addIngredient,
+    removeIngredient,
+    reorderIngredients
+} = constructorSlice.actions;
 
 export default constructorSlice.reducer;

@@ -1,33 +1,19 @@
 import CurrentIngredientsStyles from "./CurrentIngredientsStyles.module.scss"
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {IIngredient} from "interfaces/interfaces";
+import {IIngredient, IDragItem} from "interfaces/interfaces";
 import {useDispatch} from "react-redux";
-import {removeIngredient} from "slices/constructorSlice.ts";
+import {removeIngredient, reorderIngredients} from "slices/constructorSlice.ts";
 import {useRef} from "react";
 import {useDrag, useDrop} from "react-dnd";
-import {XYCoord} from "react-dnd";
 
 
-export interface CardProps {
-    id: number;
-    text: string;
-    index: number;
-    moveCard: (dragIndex: number, hoverIndex: number) => void;
-}
-
-interface DragItem {
-    index: number;
-    id: string;
-    type: string;
-}
-
-
-export default function CurrentIngredients(ingredient: IIngredient, moveIngredient, index) {
-
+// export default function CurrentIngredients({ingredient, index}: { ingredient: IIngredient, index: number } ) {
+export default function CurrentIngredients({ ingredient, index, moveIngredient }: { ingredient: IIngredient, index: number, moveIngredient: (dragIndex: number, hoverIndex: number) => void }) {
+    // ...
     const ref = useRef<HTMLDivElement>(null)
 
     const dispatch = useDispatch();
-    const handleRemoveIngredient = (id: string) => {
+    const handleRemoveIngredient = (id: number) => {
         console.log(id)
         dispatch(removeIngredient(id));
     }
@@ -39,7 +25,7 @@ export default function CurrentIngredients(ingredient: IIngredient, moveIngredie
                 handlerId: monitor.getHandlerId(),
             };
         },
-        hover: function (item: DragItem, monitor) {
+        hover: function (item: IDragItem) {
             if (!ref.current) {
                 return;
             }
@@ -48,29 +34,18 @@ export default function CurrentIngredients(ingredient: IIngredient, moveIngredie
             if (dragIndex === hoverIndex) {
                 return;
             }
-            const hoverBoundingRect = ref.current?.getBoundingClientRect();
-
-            const hoverMiddleY =
-                (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-
-            const clientOffset = monitor.getClientOffset();
-
-            const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
-
-            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-                return;
-            }
-            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-                return;
-            }
+            item.index = hoverIndex;
 
             moveIngredient(dragIndex, hoverIndex);
-
-            item.index = hoverIndex;
+         //   dispatch(reorderIngredients(dragIndex, hoverIndex))
         },
-    });
+    } as {
+        accept: string,
+        collect: (monitor: any) => { handlerId: string },
+        hover: (item: IDragItem, monitor: any) => void
+    })
 
-    const [{ isDragging }, drag] = useDrag({
+    const [{isDragging}, drag] = useDrag({
         type: 'ingredients',
         item: () => ({
             id: ingredient.id,

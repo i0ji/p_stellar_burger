@@ -6,7 +6,6 @@ export interface IIngredientsListSlice {
     error: string | null;
 }
 
-
 export interface IBurgerState {
     ingredients: IIngredient[];
     status: string;
@@ -19,3 +18,4 @@ interface ConstructorState {
     addedIngredients: IIngredient[];
     bun: IIngredient | null;
 }
+

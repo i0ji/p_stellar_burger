@@ -47,6 +47,12 @@ export interface IIngredientGroupProps {
     ingredients: IIngredient[];
 }
 
+export interface IDragItem {
+    index: number;
+    id: string;
+    type: string;
+}
+
 export interface IResponseData {
     success: boolean;
     order: {
