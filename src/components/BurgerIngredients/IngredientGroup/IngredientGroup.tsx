@@ -6,9 +6,13 @@ import IngredientDetails from "modal/IngredientDetails/IngredientDetails.tsx";
 import Modal from "modal/Modal.tsx";
 import {useDrag} from "react-dnd";
 import {v4 as uuidv4} from 'uuid';
+import {useDispatch} from "react-redux";
+import {updateSelectedIngredient, resetSelectedIngredient} from "slices/currentIngredientSlice.ts";
 
 export default function IngredientGroup({type, ingredients}: IIngredientGroupProps) {
     const [selectedIngredient, setSelectedIngredient] = useState<IIngredient | null>(null);
+
+    const dispatch = useDispatch();
 
     // ----------------- INGREDIENT ITEM CARD -----------------
     const IngredientCard = ({onOpenModal, image, price, name, type}: IIngredientCardProps) => {
@@ -42,13 +46,14 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
         );
     };
 
-
-// ----------------- INGREDIENT MODAL OPEN/CLOSE LOGIC -----------------
+    // ----------------- INGREDIENT MODAL OPEN/CLOSE LOGIC -----------------
     const handleOpenModal = (ingredient: IIngredient) => {
-        setSelectedIngredient(ingredient);
+        setSelectedIngredient(ingredient)
+        dispatch(updateSelectedIngredient(ingredient));
     };
 
     const handleCloseModal = () => {
+        dispatch(resetSelectedIngredient());
         setSelectedIngredient(null);
     };
 

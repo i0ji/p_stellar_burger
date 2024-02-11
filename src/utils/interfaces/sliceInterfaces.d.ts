@@ -6,10 +6,6 @@ export interface IIngredientsListSlice {
     error: string | null;
 }
 
-export interface IngredientsState {
-    ingredientsData: IIngredient[];
-    bunData: IIngredient[];
-}
 
 export interface IBurgerState {
     ingredients: IIngredient[];
@@ -17,8 +13,10 @@ export interface IBurgerState {
     error: string | null;
 }
 
-export interface IConstructorState {
-    ingredients: IIngredient[],
-    totalPrice: number,
-    randomIngredients: IIngredientp[]
+interface ConstructorState {
+    totalAmount: number;
+    ingredients: IIngredient[];
+    addedIngredients: IIngredient[];
+    bun: IIngredient | null;
+    isScrollbarVisible: boolean,
 }

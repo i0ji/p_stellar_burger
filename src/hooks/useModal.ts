@@ -1,7 +1,11 @@
 import {useState, useCallback, useReducer} from 'react';
 import {IRequestFunction} from "utils/interfaces/interfaces";
+import {useDispatch} from "react-redux";
+import {setOrder} from "slices/orderSlice.ts";
 
 export default function useModal(serverRequestFunction: IRequestFunction) {
+    const dispatch=useDispatch();
+
     const [isVisible, toggleVisibility] = useReducer((isVisible) => !isVisible, false);
     const [orderNumber, setOrderNumber] = useState('');
 
@@ -10,6 +14,7 @@ export default function useModal(serverRequestFunction: IRequestFunction) {
             const responseData = await serverRequestFunction();
             if (responseData.success) {
                 console.log(responseData.order.number);
+                dispatch(setOrder(responseData.order.number))
                 setOrderNumber(responseData.order.number);
                 toggleVisibility();
             } else {
@@ -18,7 +23,7 @@ export default function useModal(serverRequestFunction: IRequestFunction) {
         } catch (error) {
             console.error('Ошибка при выполнении запроса:', error);
         }
-    }, [serverRequestFunction]);
+    }, [dispatch, serverRequestFunction]);
 
     const closeModal = useCallback(() => {
         toggleVisibility();
@@ -26,3 +31,4 @@ export default function useModal(serverRequestFunction: IRequestFunction) {
 
     return {isVisible, orderNumber, openModal, closeModal};
 }
+

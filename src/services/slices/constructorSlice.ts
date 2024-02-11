@@ -1,12 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {IIngredient} from 'interfaces/interfaces';
-
-interface ConstructorState {
-    totalAmount: number;
-    ingredients: IIngredient[];
-    addedIngredients: IIngredient[];
-    bun: IIngredient | null;
-}
+import {ConstructorState} from 'interfaces/sliceInterfaces'
+import {IIngredient} from "interfaces/interfaces";
 
 const initialState: ConstructorState = {
     totalAmount: 0,
@@ -21,22 +15,30 @@ const constructorSlice = createSlice({
     reducers: {
         addIngredient: (state, action: PayloadAction<IIngredient>) => {
             if (action.payload.type === 'bun') {
-                return {
-                    ...state,
-                    bun: action.payload,
-                };
+                state.bun = action.payload;
+            } else {
+                // Используйте Set для уникальных ингредиентов
+                state.addedIngredients = Array.from(new Set([...state.addedIngredients, action.payload]));
             }
-            return {
-                ...state,
-                addedIngredients: [...state.addedIngredients, action.payload],
-            };
+            state.totalAmount = calculateTotalAmount(state.addedIngredients, state.bun);
         },
-        removeIngredient: (state, action) => {
-            state.addedIngredients = state.addedIngredients.filter(ingredient => ingredient.id !== action.payload);
+        removeIngredient: (state, action: PayloadAction<number>) => {
+            const ingredientToRemove = state.addedIngredients.find((ingredient) => ingredient.id === action.payload);
+            if (ingredientToRemove) {
+                state.addedIngredients = state.addedIngredients.filter((ingredient) => ingredient.id !== action.payload);
+            }
+            state.totalAmount = calculateTotalAmount(state.addedIngredients, state.bun);
         },
     },
 });
 
-export const {addIngredient, removeIngredient} = constructorSlice.actions;
+const calculateTotalAmount = (addedIngredients: IIngredient[], bun: IIngredient | null): number => {
+    const ingredientsTotal = addedIngredients.reduce((acc, ingredient) => acc + ingredient.price, 0);
+    const bunTotal = bun ? bun.price : 0;
+
+    return ingredientsTotal + (bunTotal * 2);
+};
+
+export const {addIngredient, removeIngredient } = constructorSlice.actions;
 
 export default constructorSlice.reducer;

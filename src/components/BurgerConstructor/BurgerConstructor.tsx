@@ -12,6 +12,9 @@ import {IIngredient} from "interfaces/interfaces";
 
 export default function BurgerConstructor() {
 
+    const dispatch = useDispatch();
+
+    // --------------- SETTING STATE LOGIC ---------------
     const {addedIngredients, bun} = useSelector((state: {
         constructorSlice: { addedIngredients: IIngredient[]; bun: IIngredient | null };
     }) => state.constructorSlice);
@@ -21,18 +24,14 @@ export default function BurgerConstructor() {
 
     const {isVisible, orderNumber, openModal, closeModal} = useModal(() => createOrder(ingredientsData));
 
-    const dispatch = useDispatch();
+    const totalAmount = useSelector((state) => state.constructorSlice.totalAmount);
+
 
     // --------------- REMOVING INGREDIENT LOGIC ---------------
     const handleRemoveIngredient = (id: string) => {
-        console.log(id)
         dispatch(removeIngredient(id));
     }
 
-    // --------------- CALCULATING AMOUNT LOGIC ---------------
-    const calculateTotalAmount = (): number => {
-        return addedIngredients.reduce((total, ingredient) => total + (ingredient.price || 0), 0);
-    };
 
     // --------------- DROP LOGIC ---------------
     const [, dropIngredients] = useDrop({
@@ -49,13 +48,11 @@ export default function BurgerConstructor() {
             <div
                 className={`${burgerConstructorStyles.constructor_list} mb-10`}
                 ref={dropIngredients}
-                // style={{border: '1px solid green'}}
             >
+
+
                 {/* --------------- TOP BUN --------------- */}
-                <div
-                    // style={{border: '1px solid yellow', minHeight: 30}}
-                    className={burgerConstructorStyles.constructor_order_item}
-                >
+                <div className={burgerConstructorStyles.constructor_order_item}>
                     {bun && (
                         <ConstructorElement
                             extraClass={`${burgerConstructorStyles.constructor_item_top}`}
@@ -68,8 +65,12 @@ export default function BurgerConstructor() {
                     )}
                 </div>
 
+
                 {/* --------------- INNER INGREDIENTS --------------- */}
-                <div className={burgerConstructorStyles.constructor_order}>
+                <div
+                    className={burgerConstructorStyles.constructor_order}
+                    style={{scrollbarWidth : (addedIngredients.length>3) ? 'inherit' : 'none'}}
+                >
                     {addedIngredients.map((ingredient: IIngredient, index) => (
                         <div
                             className={burgerConstructorStyles.constructor_order_item}
@@ -86,11 +87,9 @@ export default function BurgerConstructor() {
                     ))}
                 </div>
 
+
                 {/* --------------- BOTTOM BUN --------------- */}
-                <div
-                    className={burgerConstructorStyles.constructor_order_item}
-                    // style={{border: '1px solid yellow', minHeight: 30}}
-                >
+                <div className={burgerConstructorStyles.constructor_order_item}>
                     {bun && (
                         <ConstructorElement
                             extraClass={`${burgerConstructorStyles.constructor_item_bottom}`}
@@ -101,12 +100,12 @@ export default function BurgerConstructor() {
                             thumbnail={bun.image}
                         />
                     )}
-
                 </div>
+
 
                 {/* --------------- PRICE --------------- */}
                 <div className={burgerConstructorStyles.price_info}>
-                    <h1 className="text text_type_main-large pr-3">{calculateTotalAmount()}</h1>
+                    <h1 className="text text_type_main-large pr-3">{totalAmount}</h1>
                     <CurrencyIcon type="primary"/>
                     <Button
                         extraClass="ml-3"
@@ -118,7 +117,6 @@ export default function BurgerConstructor() {
                 </div>
 
                 {/* --------------- MODAL ENTER --------------- */}
-
                 {isVisible &&
                     <>
                         <Modal onClose={closeModal}>

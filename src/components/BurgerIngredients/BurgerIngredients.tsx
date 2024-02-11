@@ -61,27 +61,7 @@ export default function BurgerIngredients() {
 
 // ... (previous code)// ... (previous code)// ... (previous code)// ... (previous code)
     const [activeTab, setActiveTab] = React.useState(TabValues.Bun);
-    const handleScroll = () => {
-        const bunTop = bunRef.current?.getBoundingClientRect().top || 0;
-        const sauceTop = sauceRef.current?.getBoundingClientRect().top || 0;
-        const mainTop = mainRef.current?.getBoundingClientRect().top || 0;
 
-        if (bunTop >= 0 && bunTop < bunRef.current?.offsetHeight) {
-            setActiveTab(TabValues.Bun);
-        } else if (sauceTop >= 0 && sauceTop < sauceRef.current?.offsetHeight) {
-            setActiveTab(TabValues.Sauce);
-        } else if (mainTop >= 0 && mainTop < mainRef.current?.offsetHeight) {
-            setActiveTab(TabValues.Main);
-        }
-    };
-    useEffect(() => {
-        const container = document.getElementById("burgerIngredientsContainer");
-        container?.addEventListener("scroll", handleScroll);
-
-        return () => {
-            container?.removeEventListener("scroll", handleScroll);
-        };
-    }, []);
 
 
     return (
