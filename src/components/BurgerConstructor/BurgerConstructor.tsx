@@ -1,14 +1,16 @@
 import burgerConstructorStyles from "./BurgerConstructorStyles.module.scss";
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
-import {useDrop} from "react-dnd";
-import {addIngredient, removeIngredient} from "slices/constructorSlice.ts";
-import {CurrencyIcon, Button, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {useDrop, useDrag} from "react-dnd";
+import {addIngredient, removeIngredient, reorderIngredients} from "slices/constructorSlice.ts";
+import {CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import useModal from "hooks/useModal.ts";
 import {createOrder} from "utils/order-api.ts";
 import Modal from "modal/Modal.tsx";
 import OrderDetails from "modal/OrderDetails/OrderDetails.tsx";
 import {IIngredient} from "interfaces/interfaces";
+import {v4 as uuid} from 'uuid';
+import CurrentIngredients from "components/BurgerConstructor/CurrentIngredients/CurrentIngredients.tsx";
 
 export default function BurgerConstructor() {
 
@@ -28,10 +30,6 @@ export default function BurgerConstructor() {
 
 
     // --------------- REMOVING INGREDIENT LOGIC ---------------
-    const handleRemoveIngredient = (id: string) => {
-        dispatch(removeIngredient(id));
-    }
-
 
     // --------------- DROP LOGIC ---------------
     const [, dropIngredients] = useDrop({
@@ -41,6 +39,9 @@ export default function BurgerConstructor() {
         }
     });
 
+
+    // --------------- NEW DROP LOGIC ---------------
+
     return (
         <section
             className={burgerConstructorStyles.constructor_block}
@@ -48,6 +49,7 @@ export default function BurgerConstructor() {
             <div
                 className={`${burgerConstructorStyles.constructor_list} mb-10`}
                 ref={dropIngredients}
+
             >
 
 
@@ -74,19 +76,13 @@ export default function BurgerConstructor() {
                         width: (addedIngredients.length > 3) ? '100%' : '97%',
                     }}
                 >
-                    {addedIngredients.map((ingredient: IIngredient, index) => (
-                        <div
-                            className={burgerConstructorStyles.constructor_order_item}
+                    {addedIngredients.map((ingredient, index) => (
+                        <CurrentIngredients
+                            image={ingredient.image}
+                            name={ingredient.name}
                             key={index}
-                        >
-                            <DragIcon type="primary"/>
-                            <ConstructorElement
-                                text={ingredient.name}
-                                price={ingredient.price || 0}
-                                thumbnail={ingredient.image || ''}
-                                handleClose={() => handleRemoveIngredient(ingredient.id)}
-                            />
-                        </div>
+                            price={ingredient.price}
+                        />
                     ))}
                 </div>
 
