@@ -87,11 +87,12 @@ export default function CurrentIngredients(ingredient: IIngredient) {
         },
     });
 
-    const [{isDragging}, drag] = useDrag({
+    const [{ isDragging }, drag] = useDrag({
         type: 'ingredients',
-        item: () => {
-            return {id, index};
-        },
+        item: () => ({
+            id: ingredient.id, // Use ingredient.id here
+            index,
+        }),
         collect: (monitor: any) => ({
             isDragging: monitor.isDragging(),
         }),
