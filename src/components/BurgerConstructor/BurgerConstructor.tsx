@@ -33,6 +33,12 @@ export default function BurgerConstructor() {
     }
 
 
+    const scrollVisibility = {
+        scrollbarWidth: (addedIngredients.length > 3) ? 'inherit' : 'none',
+        width: (addedIngredients.length > 3) ? '100%' : '98%',
+    }
+
+
     // --------------- DROP LOGIC ---------------
     const [, dropIngredients] = useDrop({
         accept: ['bun', 'ingredient'],
@@ -69,7 +75,10 @@ export default function BurgerConstructor() {
                 {/* --------------- INNER INGREDIENTS --------------- */}
                 <div
                     className={burgerConstructorStyles.constructor_order}
-                    style={{scrollbarWidth : (addedIngredients.length>3) ? 'inherit' : 'none'}}
+                    style={{
+                        scrollbarWidth: (addedIngredients.length > 3) ? 'inherit' : 'none',
+                        width: (addedIngredients.length > 3) ? '100%' : '97%',
+                    }}
                 >
                     {addedIngredients.map((ingredient: IIngredient, index) => (
                         <div
