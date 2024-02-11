@@ -1,10 +1,9 @@
 import React from "react";
 
 export interface IIngredient {
-    image_mobile: string,
     "id"?: string,
     "_id"?: string,
-    "index?": string,
+    "index"?: string,
     "name": string,
     "type"?: string,
     "proteins"?: number,
@@ -13,11 +12,12 @@ export interface IIngredient {
     "calories"?: number,
     "price"?: number,
     "image"?: string,
-    "image_mobile?"?: string,
+    "image_mobile"?: string,
     "image_large?"?: string,
     "__v"?: number,
-    "content"?: string
-    "uuid"?: string
+    "content"?: string,
+    "uuid"?: string,
+    reorderCurrentIngredient: unknown
 }
 
 export interface IIngredientCardProps extends IIngredient {

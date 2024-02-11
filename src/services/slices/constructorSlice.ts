@@ -28,7 +28,16 @@ const constructorSlice = createSlice({
                 state.addedIngredients = state.addedIngredients.filter((ingredient) => ingredient.id !== action.payload);
             }
             state.totalAmount = calculateTotalAmount(state.addedIngredients, state.bun);
-        }
+        },
+        reorderIngredients: (state, action) => {
+            const {from, to} = action.payload;
+            const ingredients = [...state.ingredients];
+
+            const [movedIngredient] = ingredients.splice(from, 1);
+            ingredients.splice(to, 0, movedIngredient);
+
+            state.ingredients = ingredients;
+        },
     },
 });
 
