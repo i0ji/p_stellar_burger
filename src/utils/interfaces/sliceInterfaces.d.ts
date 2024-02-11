@@ -1,7 +1,7 @@
 import {IIngredient} from "utils/interfaces/interfaces";
 
 export interface IIngredientsListSlice {
-    ingredients: IIngredient[]; // Замените any на фактический тип ваших ингредиентов
+    ingredients: IIngredient[];
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
     error: string | null;
 }

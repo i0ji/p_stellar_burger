@@ -5,16 +5,14 @@ interface ConstructorState {
     totalAmount: number;
     ingredients: IIngredient[];
     addedIngredients: IIngredient[];
-    topBun: IIngredient | null;
-    bottomBun: IIngredient | null;
+    bun: IIngredient | null;
 }
 
 const initialState: ConstructorState = {
     totalAmount: 0,
     ingredients: [],
     addedIngredients: [],
-    topBun: null,
-    bottomBun: null,
+    bun: null,
 };
 
 const constructorSlice = createSlice({
@@ -22,6 +20,10 @@ const constructorSlice = createSlice({
     initialState,
     reducers: {
         addIngredient: (state, action: PayloadAction<IIngredient>) => {
+            if (action.payload.type === 'bun') {
+                return {...state, bun: action.payload};
+            }
+
             return {
                 ...state,
                 addedIngredients: [...state.addedIngredients, action.payload],
@@ -30,13 +32,9 @@ const constructorSlice = createSlice({
         removeIngredient: (state, action) => {
             state.addedIngredients = state.addedIngredients.filter(ingredient => ingredient.id !== action.payload);
         },
-        updateBun: (state, action: PayloadAction<{ bunType: 'topBun' | 'bottomBun'; bun: IIngredient }>) => {
-            const { bunType, bun } = action.payload;
-            state[bunType] = bun;
-        },
     },
 });
 
-export const {addIngredient,updateBun, removeIngredient} = constructorSlice.actions;
+export const {addIngredient, removeIngredient} = constructorSlice.actions;
 
 export default constructorSlice.reducer;

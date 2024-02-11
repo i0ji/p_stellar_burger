@@ -2,7 +2,7 @@ import burgerConstructorStyles from "./BurgerConstructorStyles.module.scss";
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
-import {addIngredient, removeIngredient, updateBun} from "slices/constructorSlice.ts";
+import {addIngredient, removeIngredient} from "slices/constructorSlice.ts";
 import {CurrencyIcon, Button, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import useModal from "hooks/useModal.ts";
 import {createOrder} from "utils/order-api.ts";
@@ -12,30 +12,22 @@ import {IIngredient} from "interfaces/interfaces";
 
 export default function BurgerConstructor() {
 
-    const {addedIngredients} = useSelector((state: {
-        constructorSlice: { addedIngredients: IIngredient[] }
+    const {addedIngredients, bun} = useSelector((state: {
+        constructorSlice: { addedIngredients: IIngredient[]; bun: IIngredient | null };
     }) => state.constructorSlice);
     const {ingredients: ingredientsData} = useSelector((state: {
-        ingredients: { ingredients: IIngredient[] }
+        ingredients: { ingredients: IIngredient[] };
     }) => state.ingredients);
 
     const {isVisible, orderNumber, openModal, closeModal} = useModal(() => createOrder(ingredientsData));
 
     const dispatch = useDispatch();
 
-    // --------------- DND LOGIC ---------------
-    // const [, drop] = useDrop({
-    //     accept: 'ingredient',
-    //     drop: (item: IIngredient) => {
-    //         dispatch(addIngredient(item));
-    //     }
-    // });
-
+    // --------------- REMOVING INGREDIENT LOGIC ---------------
     const handleRemoveIngredient = (id: string) => {
         console.log(id)
         dispatch(removeIngredient(id));
     }
-
 
     // --------------- CALCULATING AMOUNT LOGIC ---------------
     const calculateTotalAmount = (): number => {
@@ -43,33 +35,14 @@ export default function BurgerConstructor() {
     };
 
 
-    // --------------- DND LOGIC ---------------
-    // const [, dropBuns] = useDrop({
-    //     accept: 'bun',  // Принимаем только элементы с типом 'bun'
-    //     drop: (item) => {
-    //         // Обрабатываем перетаскивание булок здесь
-    //         dispatch(addIngredient(item));
-    //     },
-    // });
-
-    const [, dropInnerIngredients] = useDrop({
-        accept: 'ingredient',  // Принимаем только элементы с типом 'ingredient'
-        drop: (item) => {
-            // Обрабатываем перетаскивание внутренних ингредиентов здесь
-            dispatch(addIngredient(item));
-        },
-    });
-
-    const [, dropBuns] = useDrop({
-        accept: 'bun',
-        drop: (item) => {
-            // Проверяем тип перетаскиваемого элемента
+    // --------------- DROP LOGIC ---------------
+    const [, dropIngredients] = useDrop({
+        accept: ['bun', 'ingredient'],
+        drop: (item: IIngredient) => {
             if (item.type === 'bun') {
-                // Определяем, это верхняя или нижняя булка
-                const bunType = item.position === 'top' ? 'topBun' : 'bottomBun';
-
-                // Заменяем булку в состоянии
-                dispatch(updateBun({bunType, bun: item}));
+                dispatch(addIngredient(item));
+            } else if (item.type === 'ingredient') {
+                dispatch(addIngredient(item));
             }
         },
     });
@@ -80,23 +53,34 @@ export default function BurgerConstructor() {
             className={burgerConstructorStyles.constructor_block}
         >
 
-            <div className={`${burgerConstructorStyles.constructor_list} mb-10`}>
+            <div
+                className={`${burgerConstructorStyles.constructor_list} mb-10`}
+                ref={dropIngredients}
+                style={{border: '1px solid green'}}
+            >
 
                 {/* --------------- TOP BUN --------------- */}
-                <div className={burgerConstructorStyles.constructor_order_item} ref={dropBuns}>
-                    <ConstructorElement
-                        extraClass={`${burgerConstructorStyles.constructor_item_top}`}
-                        type="top"
-                        isLocked={true}
-                        text={`${ingredientsData[0].name} (верх)`}
-                        price={ingredientsData[0].price ?? 0}
-                        thumbnail={ingredientsData[0].image_mobile}
-                    />
+                <div
+                    style={{border: '1px solid yellow', minHeight: 30}}
+                    className={burgerConstructorStyles.constructor_order_item}
+                >
+                    {bun && (
+                        <ConstructorElement
+                            extraClass={`${burgerConstructorStyles.constructor_item_top}`}
+                            type="top"
+                            isLocked={true}
+                            text={`${bun.name} (верх)`}
+                            price={bun.price ?? 0}
+                            thumbnail={bun.image_mobile}
+                        />
+                    )}
                 </div>
 
 
                 {/* --------------- INNER INGREDIENTS --------------- */}
-                <div className={burgerConstructorStyles.constructor_order} ref={dropInnerIngredients}>
+                <div
+                    className={burgerConstructorStyles.constructor_order}
+                >
                     {addedIngredients.map((ingredient: IIngredient, index) => (
                         <div
                             className={burgerConstructorStyles.constructor_order_item}
@@ -114,42 +98,46 @@ export default function BurgerConstructor() {
                 </div>
 
                 {/* --------------- BOTTOM BUN --------------- */}
-                <div className={burgerConstructorStyles.constructor_order_item} ref={dropBuns}>
-                    <ConstructorElement
-                        extraClass={`${burgerConstructorStyles.constructor_item_bottom}`}
-                        type="bottom"
-                        isLocked={true}
-                        text={`${ingredientsData[0].name} (низ)`}
-                        price={ingredientsData[0].price ?? 0}
-                        thumbnail={ingredientsData[0].image_mobile}
-                    />
+                <div
+                    className={burgerConstructorStyles.constructor_order_item}
+                    style={{border: '1px solid yellow', minHeight: 30}}
+                >
+                    {bun && (
+                        <ConstructorElement
+                            extraClass={`${burgerConstructorStyles.constructor_item_bottom}`}
+                            type="bottom"
+                            isLocked={true}
+                            text={`${bun.name} (низ)`}
+                            price={bun.price ?? 0}
+                            thumbnail={bun.image_mobile}
+                        />
+                    )}
+
                 </div>
 
+                {/* --------------- PRICE --------------- */}
+                <div className={burgerConstructorStyles.price_info}>
+                    <h1 className="text text_type_main-large pr-3">{calculateTotalAmount()}</h1>
+                    <CurrencyIcon type="primary"/>
+                    <Button
+                        extraClass="ml-3"
+                        size="large"
+                        type="primary"
+                        htmlType="button"
+                        onClick={openModal}
+                    >Оформить заказ</Button>
+                </div>
+
+                {/* --------------- MODAL ENTER --------------- */}
+
+                {isVisible &&
+                    <>
+                        <Modal onClose={closeModal}>
+                            <OrderDetails orderNumber={orderNumber}/>
+                        </Modal>
+                    </>
+                }
             </div>
-
-            {/* --------------- PRICE --------------- */}
-            <div className={burgerConstructorStyles.price_info}>
-                <h1 className="text text_type_main-large pr-3">{calculateTotalAmount()}</h1>
-                <CurrencyIcon type="primary"/>
-                <Button
-                    extraClass="ml-3"
-                    size="large"
-                    type="primary"
-                    htmlType="button"
-                    onClick={openModal}
-                >Оформить заказ</Button>
-            </div>
-
-            {/* --------------- MODAL ENTER --------------- */}
-
-            {isVisible &&
-                <>
-                    <Modal onClose={closeModal}>
-                        <OrderDetails orderNumber={orderNumber}/>
-                    </Modal>
-                </>
-            }
-
         </section>
-    );
+    )
 }
