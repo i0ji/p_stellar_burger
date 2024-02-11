@@ -1,7 +1,7 @@
 import burgerConstructorStyles from "./BurgerConstructorStyles.module.scss";
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
-import {useDrop, useDrag} from "react-dnd";
+import {useDrop} from "react-dnd";
 import {addIngredient, reorderIngredients} from "slices/constructorSlice.ts";
 import {CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import useModal from "hooks/useModal.ts";
@@ -10,12 +10,10 @@ import Modal from "modal/Modal.tsx";
 import OrderDetails from "modal/OrderDetails/OrderDetails.tsx";
 import {IIngredient} from "interfaces/interfaces";
 import CurrentIngredients from "components/BurgerConstructor/CurrentIngredients/CurrentIngredients.tsx";
-import {useCallback, useRef} from "react";
-import {XYCoord} from 'dnd-core'
+import {useCallback} from "react";
+import update from 'immutability-helper'
 
 export default function BurgerConstructor() {
-
-    const ref=useRef()
 
     const dispatch = useDispatch();
 
@@ -40,70 +38,31 @@ export default function BurgerConstructor() {
     // --------------- NEW DROP LOGIC ---------------
 
     const moveIngredient = useCallback((dragIndex: number, hoverIndex: number) => {
-        dispatch(reorderIngredients(dragIndex, hoverIndex));
-    }, [dispatch]);
+        addedIngredients((prevCards: IIngredient[]) =>
+            update(prevCards, {
+                $splice: [
+                    [dragIndex, 1],
+                    [hoverIndex, 0, prevCards[dragIndex] as IIngredient],
+                ],
+            }),
+        )
+    }, [addedIngredients])
 
-    const [{ isDragging }, drag] = useDrag({
-        type: 'ingredient',
-        item: () => {
-            return { type: 'ingredient' };
-        },
-        collect: (monitor) => ({
-            isDragging: monitor.isDragging(),
-        }),
-    });
 
-    const [, drop] = useDrop({
-        accept: 'ingredient',
-        hover: (item: { index: number; type: string }, monitor: DropTargetMonitor) => {
-            if (!ref.current) {
-                return;
-            }
-            const dragIndex = item.index;
-            const hoverIndex = index;
-
-            // Не перемещайте элементы на тот же индекс
-            if (dragIndex === hoverIndex) {
-                return;
-            }
-
-            // Определите прямоугольник на экране
-            const hoverBoundingRect = ref.current.getBoundingClientRect();
-
-            // Получите вертикальную середину
-            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-
-            // Определите позицию мыши
-            const clientOffset = monitor.getClientOffset();
-
-            // Получите пиксели до верхней части
-            const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
-
-            // Выполните перемещение только тогда, когда мышь пересекла половину высоты элемента
-            // При перетаскивании вниз перемещайте только тогда, когда курсор ниже 50%
-            // При перетаскивании вверх перемещайте только тогда, когда курсор выше 50%
-
-            // Перетаскивание вниз
-            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-                return;
-            }
-
-            // Перетаскивание вверх
-            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-                return;
-            }
-
-            // Выполните перемещение
-            moveIngredient(dragIndex, hoverIndex);
-
-            // Обновите индекс элемента в мониторе (изменение происходит на стороне клиента)
-            item.index = hoverIndex;
-        },
-    });
-
-    drag(drop(ref));
-    const opacity = isDragging ? 0.5 : 1;
-
+    const renderIngredients = useCallback(
+        (ingredient: IIngredient, index: number) => {
+            return (
+                <CurrentIngredients
+                    key={index}
+                    image={ingredient.image}
+                    name={ingredient.name}
+                    price={ingredient.price}
+                    id={ingredient.id}
+                    reorderCurrentIngredient={reorderIngredients}
+                    moveIngredient={moveIngredient}
+                />
+            )
+        }, [moveIngredient])
 
 
     return (
@@ -113,7 +72,6 @@ export default function BurgerConstructor() {
             <div
                 className={`${burgerConstructorStyles.constructor_list} mb-10`}
                 ref={dropIngredients}
-
             >
 
 
@@ -139,17 +97,9 @@ export default function BurgerConstructor() {
                         scrollbarWidth: (addedIngredients.length > 3) ? 'inherit' : 'none',
                         width: (addedIngredients.length > 3) ? '100%' : '97%',
                     }}
-                    ref={ref}
                 >
                     {addedIngredients.map((ingredient, index) => (
-                        <CurrentIngredients
-                            image={ingredient.image}
-                            name={ingredient.name}
-                            key={index}
-                            price={ingredient.price}
-                            id={ingredient.id}
-                            reorderCurrentIngredient={reorderIngredients}
-                         />
+                        renderIngredients(ingredient, index)
                     ))}
                 </div>
 

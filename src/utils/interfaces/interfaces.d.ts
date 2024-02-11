@@ -17,7 +17,7 @@ export interface IIngredient {
     "__v"?: number,
     "content"?: string,
     "uuid"?: string,
-    reorderCurrentIngredient: unknown
+    "moveIngredient"?: (dragIndex: number, hoverIndex: number) => void
 }
 
 export interface IIngredientCardProps extends IIngredient {
