@@ -2,7 +2,7 @@ import CurrentIngredientsStyles from "./CurrentIngredientsStyles.module.scss"
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {IIngredient, IDragItem} from "interfaces/interfaces";
 import {useDispatch} from "react-redux";
-import {removeIngredient, reorderIngredients} from "slices/constructorSlice.ts";
+import {removeIngredient} from "slices/constructorSlice.ts";
 import {useRef} from "react";
 import {useDrag, useDrop} from "react-dnd";
 
