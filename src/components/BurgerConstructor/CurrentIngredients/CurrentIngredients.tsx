@@ -7,6 +7,7 @@ import {removeIngredient} from "slices/constructorSlice.ts";
 export default function CurrentIngredients(ingredient: IIngredient) {
     const dispatch = useDispatch();
     const handleRemoveIngredient = (id: string) => {
+        console.log(id)
         dispatch(removeIngredient(id));
     }
 
@@ -19,7 +20,7 @@ export default function CurrentIngredients(ingredient: IIngredient) {
                 text={ingredient.name}
                 price={ingredient.price || 0}
                 thumbnail={ingredient.image || ''}
-                handleClose={() => handleRemoveIngredient(ingredient.id)}
+                handleClose={() => handleRemoveIngredient(ingredient.id || '')}
             />
         </div>
     );

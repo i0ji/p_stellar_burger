@@ -1,16 +1,16 @@
 import burgerConstructorStyles from "./BurgerConstructorStyles.module.scss";
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
-import {useDrop, useDrag} from "react-dnd";
-import {addIngredient, removeIngredient, reorderIngredients} from "slices/constructorSlice.ts";
+import {useDrop} from "react-dnd";
+import {addIngredient} from "slices/constructorSlice.ts";
 import {CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import useModal from "hooks/useModal.ts";
 import {createOrder} from "utils/order-api.ts";
 import Modal from "modal/Modal.tsx";
 import OrderDetails from "modal/OrderDetails/OrderDetails.tsx";
 import {IIngredient} from "interfaces/interfaces";
-import {v4 as uuid} from 'uuid';
 import CurrentIngredients from "components/BurgerConstructor/CurrentIngredients/CurrentIngredients.tsx";
+import {v4 as uuid} from 'uuid'
 
 export default function BurgerConstructor() {
 
@@ -28,9 +28,6 @@ export default function BurgerConstructor() {
 
     const totalAmount = useSelector((state) => state.constructorSlice.totalAmount);
 
-
-    // --------------- REMOVING INGREDIENT LOGIC ---------------
-
     // --------------- DROP LOGIC ---------------
     const [, dropIngredients] = useDrop({
         accept: ['bun', 'ingredient'],
@@ -38,7 +35,6 @@ export default function BurgerConstructor() {
             dispatch(addIngredient(item));
         }
     });
-
 
     // --------------- NEW DROP LOGIC ---------------
 
@@ -82,6 +78,7 @@ export default function BurgerConstructor() {
                             name={ingredient.name}
                             key={index}
                             price={ingredient.price}
+                            id={ingredient.id}
                         />
                     ))}
                 </div>

@@ -17,6 +17,7 @@ export interface IIngredient {
     "image_large?"?: string,
     "__v"?: number,
     "content"?: string
+    "uuid"?: string
 }
 
 export interface IIngredientCardProps extends IIngredient {
