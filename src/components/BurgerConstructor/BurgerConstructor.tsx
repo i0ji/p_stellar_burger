@@ -34,34 +34,26 @@ export default function BurgerConstructor() {
         return addedIngredients.reduce((total, ingredient) => total + (ingredient.price || 0), 0);
     };
 
-
     // --------------- DROP LOGIC ---------------
     const [, dropIngredients] = useDrop({
         accept: ['bun', 'ingredient'],
         drop: (item: IIngredient) => {
-            if (item.type === 'bun') {
-                dispatch(addIngredient(item));
-            } else if (item.type === 'ingredient') {
-                dispatch(addIngredient(item));
-            }
-        },
+            dispatch(addIngredient(item));
+        }
     });
-
 
     return (
         <section
             className={burgerConstructorStyles.constructor_block}
         >
-
             <div
                 className={`${burgerConstructorStyles.constructor_list} mb-10`}
                 ref={dropIngredients}
-                style={{border: '1px solid green'}}
+                // style={{border: '1px solid green'}}
             >
-
                 {/* --------------- TOP BUN --------------- */}
                 <div
-                    style={{border: '1px solid yellow', minHeight: 30}}
+                    // style={{border: '1px solid yellow', minHeight: 30}}
                     className={burgerConstructorStyles.constructor_order_item}
                 >
                     {bun && (
@@ -71,16 +63,13 @@ export default function BurgerConstructor() {
                             isLocked={true}
                             text={`${bun.name} (верх)`}
                             price={bun.price ?? 0}
-                            thumbnail={bun.image_mobile}
+                            thumbnail={bun.image}
                         />
                     )}
                 </div>
 
-
                 {/* --------------- INNER INGREDIENTS --------------- */}
-                <div
-                    className={burgerConstructorStyles.constructor_order}
-                >
+                <div className={burgerConstructorStyles.constructor_order}>
                     {addedIngredients.map((ingredient: IIngredient, index) => (
                         <div
                             className={burgerConstructorStyles.constructor_order_item}
@@ -100,7 +89,7 @@ export default function BurgerConstructor() {
                 {/* --------------- BOTTOM BUN --------------- */}
                 <div
                     className={burgerConstructorStyles.constructor_order_item}
-                    style={{border: '1px solid yellow', minHeight: 30}}
+                    // style={{border: '1px solid yellow', minHeight: 30}}
                 >
                     {bun && (
                         <ConstructorElement
@@ -109,7 +98,7 @@ export default function BurgerConstructor() {
                             isLocked={true}
                             text={`${bun.name} (низ)`}
                             price={bun.price ?? 0}
-                            thumbnail={bun.image_mobile}
+                            thumbnail={bun.image}
                         />
                     )}
 

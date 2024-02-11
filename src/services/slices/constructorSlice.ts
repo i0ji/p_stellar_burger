@@ -21,9 +21,11 @@ const constructorSlice = createSlice({
     reducers: {
         addIngredient: (state, action: PayloadAction<IIngredient>) => {
             if (action.payload.type === 'bun') {
-                return {...state, bun: action.payload};
+                return {
+                    ...state,
+                    bun: action.payload,
+                };
             }
-
             return {
                 ...state,
                 addedIngredients: [...state.addedIngredients, action.payload],
