@@ -33,12 +33,6 @@ export default function BurgerConstructor() {
     }
 
 
-    const scrollVisibility = {
-        scrollbarWidth: (addedIngredients.length > 3) ? 'inherit' : 'none',
-        width: (addedIngredients.length > 3) ? '100%' : '98%',
-    }
-
-
     // --------------- DROP LOGIC ---------------
     const [, dropIngredients] = useDrop({
         accept: ['bun', 'ingredient'],

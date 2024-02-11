@@ -18,5 +18,4 @@ interface ConstructorState {
     ingredients: IIngredient[];
     addedIngredients: IIngredient[];
     bun: IIngredient | null;
-    isScrollbarVisible: boolean,
 }

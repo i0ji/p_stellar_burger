@@ -28,7 +28,7 @@ const constructorSlice = createSlice({
                 state.addedIngredients = state.addedIngredients.filter((ingredient) => ingredient.id !== action.payload);
             }
             state.totalAmount = calculateTotalAmount(state.addedIngredients, state.bun);
-        },
+        }
     },
 });
 
@@ -39,6 +39,6 @@ const calculateTotalAmount = (addedIngredients: IIngredient[], bun: IIngredient 
     return ingredientsTotal + (bunTotal * 2);
 };
 
-export const {addIngredient, removeIngredient } = constructorSlice.actions;
+export const {addIngredient, removeIngredient, reorderIngredients} = constructorSlice.actions;
 
 export default constructorSlice.reducer;
