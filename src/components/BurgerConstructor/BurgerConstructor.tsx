@@ -58,7 +58,6 @@ export default function BurgerConstructor() {
                     name={ingredient.name}
                     price={ingredient.price}
                     id={ingredient.id}
-                    reorderCurrentIngredient={reorderIngredients}
                     moveIngredient={moveIngredient}
                 />
             )

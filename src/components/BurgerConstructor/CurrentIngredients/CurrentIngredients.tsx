@@ -22,7 +22,7 @@ interface DragItem {
 }
 
 
-export default function CurrentIngredients(ingredient: IIngredient, moveIngredient) {
+export default function CurrentIngredients(ingredient: IIngredient, moveIngredient, index) {
 
     const ref = useRef<HTMLDivElement>(null)
 
@@ -73,7 +73,7 @@ export default function CurrentIngredients(ingredient: IIngredient, moveIngredie
     const [{ isDragging }, drag] = useDrag({
         type: 'ingredients',
         item: () => ({
-            id: ingredient.id, // Use ingredient.id here
+            id: ingredient.id,
             index,
         }),
         collect: (monitor: any) => ({
