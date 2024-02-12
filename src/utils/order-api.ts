@@ -7,7 +7,7 @@ export function createOrder(ingredientIds: string[]) {
         ingredients: ingredientIds
     };
 
-    return fetch(BASE_URL, {
+    return fetch(`${BASE_URL}/orders`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
