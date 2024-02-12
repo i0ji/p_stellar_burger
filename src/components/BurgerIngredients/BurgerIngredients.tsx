@@ -16,11 +16,9 @@ enum TabValues {
 
 export default function BurgerIngredients() {
 	
-
 	
 	// --------------- GET DATA FROM STORE ---------------
 	
-
 	const {ingredients: ingredientsData} = useSelector(state => state.ingredients);
 	
 	
