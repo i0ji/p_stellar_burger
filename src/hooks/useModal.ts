@@ -1,21 +1,19 @@
-import {useState, useCallback, useReducer} from 'react';
-import {IRequestFunction} from "utils/interfaces/interfaces";
-import {useDispatch} from "react-redux";
-import {createOrder} from "slices/orderSlice.ts";
+import {useCallback, useReducer} from 'react';
+import {useDispatch} from 'react-redux';
+import {updateOrderNumber} from "slices/orderSlice.ts";
 
-export default function useModal(serverRequestFunction: IRequestFunction) {
+export default function useModal(requestFunction) {
     const dispatch = useDispatch();
 
     const [isVisible, toggleVisibility] = useReducer((isVisible) => !isVisible, false);
-    const [orderNumber, setOrderNumber] = useState('');
 
     const openModal = useCallback(async () => {
         try {
-            const responseData = await serverRequestFunction();
+            const responseData = await requestFunction();
             if (responseData.success) {
+                console.log('it`s ok for now')
                 console.log(responseData.order.number);
-                dispatch(setOrder(responseData.order.number))
-                setOrderNumber(responseData.order.number);
+                dispatch(updateOrderNumber(responseData.order.number))
                 toggleVisibility();
             } else {
                 console.error('YOU WILL NOT GET FOOD:', responseData);
@@ -23,11 +21,12 @@ export default function useModal(serverRequestFunction: IRequestFunction) {
         } catch (error) {
             console.error('Ошибка при выполнении запроса:', error);
         }
-    }, [dispatch, serverRequestFunction]);
+    }, [requestFunction]);
 
     const closeModal = useCallback(() => {
         toggleVisibility();
     }, []);
 
-    return {isVisible, orderNumber, openModal, closeModal};
+    return {isVisible, openModal, closeModal};
 }
+

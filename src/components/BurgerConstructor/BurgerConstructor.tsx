@@ -2,19 +2,18 @@ import burgerConstructorStyles from "./BurgerConstructorStyles.module.scss";
 import {ConstructorElement, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {useDispatch, useSelector} from "react-redux";
-import {useCallback} from "react";
+import {useCallback, useEffect} from "react";
 import {useDrop} from "react-dnd";
 import useModal from "hooks/useModal.ts";
 
 import {addIngredient, reorderIngredients} from "slices/constructorSlice.ts"
-import {updateIds} from "slices/orderSlice.ts"
+import {createOrder, updateIds} from "slices/orderSlice.ts"
 
 import CurrentIngredients from "components/BurgerConstructor/CurrentIngredients/CurrentIngredients.tsx";
 import Modal from "modal/Modal.tsx";
 import OrderDetails from "modal/OrderDetails/OrderDetails.tsx";
 
 import {IIngredient} from "interfaces/interfaces";
-
 
 export default function BurgerConstructor() {
 
@@ -27,9 +26,6 @@ export default function BurgerConstructor() {
         constructorSlice: { addedIngredients: IIngredient[]; bun: IIngredient | null };
     }) => state.constructorSlice);
 
-    const {ingredients: ingredientsData} = useSelector((state: {
-        ingredients: { ingredients: IIngredient[] };
-    }) => state.ingredients);
 
     // --------------- CURRENT IDS ---------------
     const ingredientIDs = useSelector(state => state.constructorSlice.addedIngredients).map((elem: IIngredient) => elem.id);
@@ -38,10 +34,16 @@ export default function BurgerConstructor() {
     if (bunIDs) {
         ingredientIDs.push(bunIDs.id)
     }
-    dispatch(updateIds(ingredientIDs));
 
-    const {isVisible, orderNumber, openModal, closeModal} = useModal(() => dispatch(ingredientIDs));
+    // --------------- NEW ID STATE AND MODAL LOGIC ---------------
+    // useEffect(() => {
+    //     dispatch(updateIds(ingredientIDs));
+    // }, [dispatch, ingredientIDs]);
 
+    const {isVisible, openModal, closeModal} = useModal(() => createOrder(ingredientIDs));
+
+
+    // --------------- TOTAL AMOUNT ---------------
     const totalAmount = useSelector((state) => state.constructorSlice.totalAmount);
 
 
@@ -53,9 +55,6 @@ export default function BurgerConstructor() {
             dispatch(addIngredient(item));
         }
     });
-
-
-    // --------------- NEW DROP LOGIC ---------------
 
     const moveIngredient = useCallback((dragIndex: number, hoverIndex: number) => {
         dispatch(reorderIngredients({dragIndex, hoverIndex}));
