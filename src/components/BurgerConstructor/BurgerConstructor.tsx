@@ -2,16 +2,18 @@ import burgerConstructorStyles from "./BurgerConstructorStyles.module.scss";
 import {ConstructorElement, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {useDispatch, useSelector} from "react-redux";
-import {useCallback, useEffect} from "react";
+import {useCallback} from "react";
 import {useDrop} from "react-dnd";
 import useModal from "hooks/useModal.ts";
 
 import {addIngredient, reorderIngredients} from "slices/constructorSlice.ts"
-import {createOrder, updateIds} from "slices/orderSlice.ts"
+import {createOrder} from "slices/orderSlice.ts"
 
 import CurrentIngredients from "components/BurgerConstructor/CurrentIngredients/CurrentIngredients.tsx";
 import Modal from "modal/Modal.tsx";
 import OrderDetails from "modal/OrderDetails/OrderDetails.tsx";
+
+import {updateIds} from "slices/orderSlice.ts";
 
 import {IIngredient} from "interfaces/interfaces";
 
@@ -34,13 +36,10 @@ export default function BurgerConstructor() {
     if (bunIDs) {
         ingredientIDs.push(bunIDs.id)
     }
+    dispatch(updateIds(ingredientIDs))
 
     // --------------- NEW ID STATE AND MODAL LOGIC ---------------
-    // useEffect(() => {
-    //     dispatch(updateIds(ingredientIDs));
-    // }, [dispatch, ingredientIDs]);
-
-    const {isVisible, openModal, closeModal} = useModal(() => createOrder(ingredientIDs));
+    const {isVisible, openModal, closeModal} = useModal(ingredientIDs);
 
 
     // --------------- TOTAL AMOUNT ---------------
@@ -150,7 +149,7 @@ export default function BurgerConstructor() {
                 {isVisible &&
                     <>
                         <Modal onClose={closeModal}>
-                            <OrderDetails orderNumber={orderNumber}/>
+                            <OrderDetails/>
                         </Modal>
                     </>
                 }

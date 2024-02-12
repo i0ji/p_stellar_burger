@@ -53,7 +53,7 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
                 ref={drag}
                 className={`${ingredientGroupStyles.ingredient_card} ${isDragging ? ingredientGroupStyles.dragging : ''}`}
                 onClick={onOpenModal}
-            >wdddad
+            >
                 <img src={image} alt={name}/>
                 <p className="text text_type_main-default pt-1">
                     <CurrencyIcon type="primary"/>
