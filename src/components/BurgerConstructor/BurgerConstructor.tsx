@@ -1,23 +1,31 @@
 import burgerConstructorStyles from "./BurgerConstructorStyles.module.scss";
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
+
 import {useDispatch, useSelector} from "react-redux";
+import {useCallback} from "react";
 import {useDrop} from "react-dnd";
+import useModal from "hooks/useModal.ts";
+
 import {addIngredient,reorderIngredients} from "slices/constructorSlice.ts";
 import {CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
-import useModal from "hooks/useModal.ts";
+
 import {createOrder} from "utils/order-api.ts";
+
+import CurrentIngredients from "components/BurgerConstructor/CurrentIngredients/CurrentIngredients.tsx";
 import Modal from "modal/Modal.tsx";
 import OrderDetails from "modal/OrderDetails/OrderDetails.tsx";
+
 import {IIngredient} from "interfaces/interfaces";
-import CurrentIngredients from "components/BurgerConstructor/CurrentIngredients/CurrentIngredients.tsx";
-import {useCallback} from "react";
-import update from 'immutability-helper'
+
+
 
 export default function BurgerConstructor() {
 
     const dispatch = useDispatch();
 
+    
     // --------------- SETTING STATE LOGIC ---------------
+    
     const {addedIngredients, bun} = useSelector((state: {
         constructorSlice: { addedIngredients: IIngredient[]; bun: IIngredient | null };
     }) => state.constructorSlice);
@@ -27,7 +35,9 @@ export default function BurgerConstructor() {
     const {isVisible, orderNumber, openModal, closeModal} = useModal(() => createOrder(ingredientsData));
     const totalAmount = useSelector((state) => state.constructorSlice.totalAmount);
 
+    
     // --------------- DROP LOGIC ---------------
+    
     const [, dropIngredients] = useDrop({
         accept: ['bun', 'ingredient'],
         drop: (item: IIngredient) => {
@@ -35,6 +45,7 @@ export default function BurgerConstructor() {
         }
     });
 
+    
     // --------------- NEW DROP LOGIC ---------------
 
     const moveIngredient = useCallback((dragIndex: number, hoverIndex: number) => {
@@ -52,8 +63,7 @@ export default function BurgerConstructor() {
                 />
             )
         }
-
-
+        
     return (
         <section
             className={burgerConstructorStyles.constructor_block}
@@ -65,6 +75,7 @@ export default function BurgerConstructor() {
 
 
                 {/* --------------- TOP BUN --------------- */}
+                
                 <div className={burgerConstructorStyles.constructor_order_item}>
                     {bun && (
                         <ConstructorElement
@@ -80,6 +91,7 @@ export default function BurgerConstructor() {
 
 
                 {/* --------------- INNER INGREDIENTS --------------- */}
+                
                 <div
                     className={burgerConstructorStyles.constructor_order}
                     style={{
@@ -94,6 +106,7 @@ export default function BurgerConstructor() {
 
 
                 {/* --------------- BOTTOM BUN --------------- */}
+                
                 <div className={burgerConstructorStyles.constructor_order_item}>
                     {bun && (
                         <ConstructorElement
@@ -109,6 +122,7 @@ export default function BurgerConstructor() {
 
 
                 {/* --------------- PRICE --------------- */}
+                
                 <div className={burgerConstructorStyles.price_info}>
                     <h1 className="text text_type_main-large pr-3">{totalAmount}</h1>
                     <CurrencyIcon type="primary"/>
@@ -121,7 +135,9 @@ export default function BurgerConstructor() {
                     >Оформить заказ</Button>
                 </div>
 
+                
                 {/* --------------- MODAL ENTER --------------- */}
+                
                 {isVisible &&
                     <>
                         <Modal onClose={closeModal}>
