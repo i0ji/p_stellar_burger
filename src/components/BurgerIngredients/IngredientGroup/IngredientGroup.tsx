@@ -20,9 +20,6 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
 	
 	const addedIngredients = useSelector(state => state.constructorSlice.addedIngredients);
 	const bunIngredients = useSelector(state => state.constructorSlice.bun);
-
-	
-
 	
 	
 	// ----------------- INGREDIENT ITEM CARD -----------------
@@ -49,13 +46,14 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
 			return ingredient.name === name ? count + 1 : count;
 		}, 0);
 		
+		const isCurrentBun = bunIngredients && bunIngredients.name === name && bunIngredients.price === price;
+		
 		return (
 			<div
 				ref={drag}
 				className={`${ingredientGroupStyles.ingredient_card} ${isDragging ? ingredientGroupStyles.dragging : ''}`}
 				onClick={onOpenModal}
 			>
-				
 				<img src={image} alt={name}/>
 				<p className="text text_type_main-default pt-1">
 					<CurrencyIcon type="primary"/>
@@ -63,6 +61,7 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
 				</p>
 				<p className="text text_type_main-default pt1">{name}</p>
 				{(ingredientCount > 0) ? <span>{ingredientCount}</span> : null}
+				{isCurrentBun && <span>2</span>}
 			</div>
 		);
 	};
@@ -86,20 +85,19 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
 			<h3 className="text text_type_main-medium pb-6">{type}</h3>
 			
 			{/* --------------- MAPPING INGREDIENTS FOR EACH GROUP --------------- */}
+			
 			{ingredients.map((ingredientItem: IIngredient, i) => (
-					
-					
 					<IngredientCard
 						key={i}
 						{...ingredientItem}
 						onOpenModal={() => handleOpenModal(ingredientItem)}
 					/>
-				
 				)
 			)}
 			
-			{/* --------------- MODAL ENTER --------------- */
-			}
+			
+			{/* --------------- MODAL ENTER --------------- */}
+			
 			{
 				selectedIngredient && (
 					<Modal onClose={handleCloseModal}>
