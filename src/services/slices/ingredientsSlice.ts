@@ -14,7 +14,7 @@ const ingredientsListSlice = createSlice({
 	initialState: {
 		ingredients: [],
 		status: 'idle',
-		error: null
+		error: null,
 	} as IIngredientsListSlice,
 	reducers: {},
 	extraReducers: (builder) => {
