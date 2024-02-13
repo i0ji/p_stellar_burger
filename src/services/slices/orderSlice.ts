@@ -15,9 +15,7 @@ export const createOrder = createAsyncThunk('orderSlice/createOrder', async (ing
 		body: JSON.stringify(requestBody),
 	});
 	
-	const data = await response.json(); // Предполагается, что сервер возвращает JSON с числовым результатом
-	// Если сервер возвращает просто число, можете использовать data напрямую
-	
+	const data = await response.json();
 	return data.data.orderNumber;
 });
 
