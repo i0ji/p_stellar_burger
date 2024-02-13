@@ -16,7 +16,7 @@ export const createOrder = createAsyncThunk('orderSlice/createOrder', async (ing
 	});
 	
 	const data = await response.json();
-	return data.data.number;
+	return data.order.number;
 });
 
 
@@ -32,7 +32,7 @@ export const orderSlice = createSlice({
 		updateIds: (state, action) => {
 			state.IDs = action.payload;
 		},
-		addOrderId: (state, action) => {
+		updateOrderNumber: (state, action) => {
 			state.orderNumber = action.payload
 		}
 	},
@@ -51,5 +51,5 @@ export const orderSlice = createSlice({
 			})
 	},
 });
-export const {updateIds, addOrderId} = orderSlice.actions;
+export const {updateIds, updateOrderNumber} = orderSlice.actions;
 export default orderSlice.reducer;
