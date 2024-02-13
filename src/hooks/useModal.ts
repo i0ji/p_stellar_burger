@@ -1,6 +1,6 @@
 import {useCallback, useReducer} from 'react';
 import {useDispatch} from "react-redux";
-import {createOrder, updateIds, updateOrderNumber} from "slices/orderSlice.ts";
+import {createOrder, updateOrderNumber} from "slices/orderSlice.ts";
 
 export default function useModal(IDs: string[]) {
     const dispatch = useDispatch();
@@ -8,11 +8,7 @@ export default function useModal(IDs: string[]) {
 
     const openModal = useCallback(async () => {
         try {
-            const actionResult = await dispatch(createOrder(IDs));
-            const orderNumber = actionResult;
-            console.log(IDs);
-            console.log('Order Number:', orderNumber.payload);
-
+            const orderNumber = dispatch(createOrder(IDs));
             dispatch(updateOrderNumber(orderNumber.payload))
             toggleVisibility();
         } catch (error) {
