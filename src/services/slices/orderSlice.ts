@@ -33,7 +33,7 @@ export const orderSlice = createSlice({
     },
     reducers: {
         updateIds: (state, action) => {
-            state.IDs = action.payload; // Присваиваем новое значение полю IDs
+            state.IDs = action.payload;
         },
     },
     extraReducers: (builder) => {
