@@ -26,7 +26,7 @@ a:hover {
 }
 
 html {
-  max-width: 1260px;
+  max-width: 1400px;
   margin: 0 auto;
   background-color: $bg_main;
   scroll-behavior: smooth;
@@ -34,8 +34,7 @@ html {
 }
 
 body {
-  composes: pb-4 from global;
-  height: 90vh;
+  max-height: 100vh;
   overflow: hidden;
   display: flex;
   justify-content: center;

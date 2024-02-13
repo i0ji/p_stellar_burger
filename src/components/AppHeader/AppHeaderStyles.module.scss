@@ -1,6 +1,10 @@
+@import "styles/theme_colors";
+
 .header {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+
+  background-color: $bg_modal;
 
   composes: p-4 from global;
 
