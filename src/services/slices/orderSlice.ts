@@ -16,7 +16,7 @@ export const createOrder = createAsyncThunk('orderSlice/createOrder', async (ing
 	});
 	
 	const data = await response.json();
-	return data.data.orderNumber;
+	return data.data.number;
 });
 
 

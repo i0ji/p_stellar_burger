@@ -3430,13 +3430,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"immutability-helper@npm:^3.1.1":
-  version: 3.1.1
-  resolution: "immutability-helper@npm:3.1.1"
-  checksum: daf4f3a696b8735c5d2c9b1bac42908b66bfc18ea5484bccf6658f3e622e1486663b5ef781e1a407ee81183e16942e8b2596cc859ea94d522ba07731c2845f0e
-  languageName: node
-  linkType: hard
-
 "immutable@npm:^4.0.0":
   version: 4.3.5
   resolution: "immutable@npm:4.3.5"
@@ -4122,7 +4115,6 @@ __metadata:
     eslint: "npm:^8.55.0"
     eslint-plugin-react-hooks: "npm:^4.6.0"
     eslint-plugin-react-refresh: "npm:^0.4.5"
-    immutability-helper: "npm:^3.1.1"
     prop-types: "npm:^15.8.1"
     react: "npm:^18.2.0"
     react-dnd: "npm:^16.0.1"

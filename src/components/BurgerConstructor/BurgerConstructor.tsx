@@ -28,11 +28,11 @@ export default function BurgerConstructor() {
 	}) => state.constructorSlice);
 	
 	// --------------- CURRENT IDS ---------------
-	const ingredientIDs = useSelector(state => state.constructorSlice.addedIngredients).map((elem: IIngredient) => elem.id);
+	const ingredientIDs = useSelector(state => state.constructorSlice.addedIngredients).map((elem: IIngredient) => elem._id);
 	const bunIDs = useSelector(state => state.constructorSlice.bun);
 	
 	if (bunIDs) {
-		ingredientIDs.push(bunIDs.id)
+		ingredientIDs.push(bunIDs._id)
 	}
 	useEffect(() => {
 		dispatch(updateIds(ingredientIDs));
