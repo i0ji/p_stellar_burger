@@ -1,13 +1,13 @@
 .constructor_block {
   composes: mt-25 pl-5 pr-5 pb-10 from global;
   width: 50%;
-  height: 110%;
+  height: 75vh;
 
   .constructor_list {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    height: 80%;
+    height: 95%;
 
 
     .constructor_item_top,

@@ -1,4 +1,4 @@
-import React, {useRef, useMemo} from "react";
+import React, {useRef , useState, useMemo, useEffect} from "react";
 
 import burgerIngredientsStyles from "./BurgerIngredientsStyles.module.scss";
 
@@ -33,15 +33,55 @@ export default function BurgerIngredients() {
 	}, [ingredientsData]);
 	
 	
-	// ----------------- TAB SWITCH LOGIC -----------------
-	
-	const [current, setCurrent] = React.useState(TabValues.Bun);
-	
+	// ----------------- NEW TAB SWITCH LOGIC -----------------
+	// const [current, setCurrent] = React.useState(TabValues.Bun);
+
 	const bunRef = useRef<HTMLDivElement>(null);
 	const sauceRef = useRef<HTMLDivElement>(null);
 	const mainRef = useRef<HTMLDivElement>(null);
 	
-	const scrollToRef = (ref: React.RefObject<HTMLDivElement>) => {
+	
+	const [current, setCurrent] = React.useState(TabValues.Bun);
+	const [bunVisible, setBunVisible] = useState(false);
+	const [sauceVisible, setSauceVisible] = useState(false);
+	const [mainVisible, setMainVisible] = useState(false);
+	
+	const updateVisibility = (ref, setVisible) => {
+		if (ref.current) {
+			const rect = ref.current.getBoundingClientRect();
+			setVisible(
+				rect.top >= 0 &&
+				rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+			);
+		}
+	};
+	
+	useEffect(() => {
+		const handleScroll = () => {
+			updateVisibility(bunRef, setBunVisible);
+			updateVisibility(sauceRef, setSauceVisible);
+			updateVisibility(mainRef, setMainVisible);
+		};
+		
+		window.addEventListener("scroll", handleScroll);
+		
+		// Cleanup event listener
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, [bunRef, sauceRef, mainRef]);
+	
+	useEffect(() => {
+		if (bunVisible) {
+			setCurrent(TabValues.Bun);
+		} else if (sauceVisible) {
+			setCurrent(TabValues.Sauce);
+		} else if (mainVisible) {
+			setCurrent(TabValues.Main);
+		}
+	}, [bunVisible, sauceVisible, mainVisible]);
+	
+	const scrollToRef = (ref) => {
 		if (ref && ref.current) {
 			ref.current.scrollIntoView({
 				behavior: "smooth",
@@ -50,7 +90,8 @@ export default function BurgerIngredients() {
 			});
 		}
 	};
-	const handleTabClick = (value: TabValues) => {
+	
+	const handleTabClick = (value) => {
 		if (value !== current) {
 			setCurrent(value);
 			switch (value) {
@@ -69,7 +110,59 @@ export default function BurgerIngredients() {
 		}
 	};
 	
-	return (
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// ----------------- TAB SWITCH LOGIC -----------------
+	
+	// const [current, setCurrent] = React.useState(TabValues.Bun);
+	//
+	// const bunRef = useRef<HTMLDivElement>(null);
+	// const sauceRef = useRef<HTMLDivElement>(null);
+	// const mainRef = useRef<HTMLDivElement>(null);
+	//
+	// const scrollToRef = (ref: React.RefObject<HTMLDivElement>) => {
+	// 	if (ref && ref.current) {
+	// 		ref.current.scrollIntoView({
+	// 			behavior: "smooth",
+	// 			block: "start",
+	// 			inline: "nearest",
+	// 		});
+	// 	}
+	// };
+	// const handleTabClick = (value: TabValues) => {
+	// 	if (value !== current) {
+	// 		setCurrent(value);
+	// 		switch (value) {
+	// 			case TabValues.Bun:
+	// 				scrollToRef(bunRef);
+	// 				break;
+	// 			case TabValues.Sauce:
+	// 				scrollToRef(sauceRef);
+	// 				break;
+	// 			case TabValues.Main:
+	// 				scrollToRef(mainRef);
+	// 				break;
+	// 			default:
+	// 				break;
+	// 		}
+	// 	}
+	// };
+	//
+	
+	
+	 return (
 		<section
 			className={burgerIngredientsStyles.ingredients_block}
 			id="burgerIngredientsContainer"
