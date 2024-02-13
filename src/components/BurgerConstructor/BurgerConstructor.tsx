@@ -38,8 +38,7 @@ export default function BurgerConstructor() {
 		dispatch(updateIds(ingredientIDs));
 	}, [dispatch, addedIngredients, ingredientIDs]);
 	
-	
-	const {isVisible, orderNumber, openModal, closeModal} = useModal(() => dispatch(ingredientIDs));
+	const {isVisible, openModal, closeModal} = useModal(ingredientIDs);
 	
 	const totalAmount = useSelector((state) => state.constructorSlice.totalAmount);
 	
@@ -150,7 +149,7 @@ export default function BurgerConstructor() {
 				{isVisible &&
                     <>
                         <Modal onClose={closeModal}>
-                            <OrderDetails orderNumber={orderNumber}/>
+                            <OrderDetails/>
                         </Modal>
                     </>
 				}
