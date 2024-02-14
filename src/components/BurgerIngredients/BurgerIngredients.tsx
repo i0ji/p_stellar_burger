@@ -28,11 +28,13 @@ export default function BurgerIngredients() {
 	const mainRef = useRef<HTMLDivElement>(null);
 	
 	
+	const observerArea = document.getElementById('burgerIngredientGroups')
+	
 	useEffect(() => {
 		const options = {
-			root: null,
-			rootMargin: "10px 0px -10px 0px",
-			threshold: .47,
+			root: observerArea,
+			rootMargin: "-50px 0px -450px 0px",
+			threshold: 0,
 		};
 		
 		const observer = new IntersectionObserver((entries) => {
@@ -67,7 +69,7 @@ export default function BurgerIngredients() {
 		return () => {
 			observer.disconnect();
 		};
-	}, [bunRef, sauceRef, mainRef]);
+	}, [bunRef, sauceRef, mainRef, observerArea]);
 	
 	const scrollToRef = (ref: React.RefObject<HTMLDivElement>) => {
 		if (ref && ref.current) {
@@ -80,7 +82,10 @@ export default function BurgerIngredients() {
 	};
 	
 	return (
-		<section className={burgerIngredientsStyles.ingredients_block} id="burgerIngredientsContainer">
+		<section
+			className={burgerIngredientsStyles.ingredients_block}
+			id="burgerIngredientsContainer"
+		>
 			<h1 className="text text_type_main-large pb-10">Соберите бургер</h1>
 			
 			<div className={burgerIngredientsStyles.ingredients_menu}>
@@ -95,7 +100,10 @@ export default function BurgerIngredients() {
 				</Tab>
 			</div>
 			
-			<div className={burgerIngredientsStyles.ingredients_list}>
+			<div
+				className={burgerIngredientsStyles.ingredients_list}
+				id="burgerIngredientGroups"
+			>
 				<div id="bunSection" ref={bunRef}>
 					<IngredientGroup type="Булки" ingredients={filteredIngredients.bun}/>
 				</div>

@@ -12,8 +12,8 @@ export default function useModal(IDs: string[]) {
 			const orderNumber = dispatch(createOrder(IDs));
 			dispatch(updateOrderNumber(orderNumber.payload));
 			toggleVisibility();
-		} catch (error: Error) {
-			console.error('Error creating order:', error.message);
+		} catch (error: any) {
+			console.error('При создании заказа произошла ошибка:', error.message);
 		}
 	}, [dispatch, IDs]);
 	
