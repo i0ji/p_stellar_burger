@@ -1,39 +1,50 @@
-First sprint
-16.01-28.01
-19.01.24 b:main/0.0.1 yarn/vite/react-ts/sass/git empty proj init
-20.01.24 b:step-1/0.0.1 alias/components added
+<h1>First sprint</h1>
+<h3>16.01-28.01</h3>
+19.01.24 <b>b</b>:main/0.0.1:
+yarn/vite/react-ts/sass/git empty proj init;
 
-21.01.24 base markup/button effects/
+20.01.24:
+<b>b:</b>step-1/0.0.1:
+alias/components added;
 
-28.01.24 All main functions are set: API request, modals, tab scroll to ingredient groups
+21.01.24:
+base markup/button effects;
 
-29.01.24 Pull request accepted by reviewer; Following the checklist and technical specifications of the first sprint:
+28.01.24:
+All main functions are set:
+API request, modals, tab scroll to ingredient groups;
 
-Main layout and markup done;
-Two modlas are ready; One with static data and another with data got from API;
-API request separated in separate .ts file and have a failure check on loading;
-Multiple SCSS, logic and markup settings were refactored while adding new features;
+29.01.24:
+Pull request accepted by reviewer;
+Following the checklist and technical specifications of the first sprint:
 
-Second sprint.
-29.01-11.02
-b: sprint2/step-1
-v: 0.1.6
-31.01-11.02
-b: sprint2/step-1
-v: 0.1.6.1
-Starting Context task.
-03.01
-b: sprint2/step-1
-v: 0.1.6.3
-Multiple code edits:
+* The main layout and markup is done;
+* Two modals are ready; One with static data and another with data got from API;
+* API request separated in separate .ts file and have a failure check on loading;
+* Multiple SCSS, logic and markup settings were refactored while adding new features;
 
-Style edits:
-Removed some incorrect markup;
-Alignment of design elements;
-Header tag changed to semantically - correct "header";
-added custom hook to manage orderModal state and orderID request;
-Added "utils" and "services" folders for storing requests and context, respectively;
-Could not upgrade request function which depends on the method passed to it -> will be next step;
-Added checkResponse function to simplify the code;
-Changed id binding from array position to native _id property of the mapped object
+<br>
+<h1>Second sprint.</h1>
+<h3>29.01-11.02</h3>
+30.01.24: <b>b:</b>sprint2/step-1
+<b>v:</b> 0.1.6.1: started Context and theory tasks;<br>
 
+Style and code edits:
+
+* Removed some incorrect markup;
+* Alignment of design elements;
+* Header tag changed to semantically – correct "header";
+* added custom hook to manage orderModal state and orderID request;
+* Added "utils" and "services" folders for storing requests and context, respectively;
+* Added checkResponse function to simplify the code;
+* Changed ID binding from array position to native _id property of the mapped object;
+
+04.02.24: **b**:sprint2/step-2/**v**:0.1.6: Reviewer accepted changes; started Redux/DND tasks;<br>
+06.02.24: **b**:sprint2/step-2/**v**:0.1.6: Small CSS edits, preparing the proj to Redux, yarn and package.json updated;<br>
+07.02.24 **b**:sprint2/step-2/**v**: 0.1.6.4: DND lib added, some OrderDetails type issues fixed;<br>
+08.02.24 **b**:sprint2/step-2/**v**: 0.1.6.4: Fetch function wrote and set via RTK; Base slice and store logic set;<br>
+09.02.24 **b**:sprint2/step-2/**v**: 0.1.6.4: Rollback and refactoring; First global state(ingredientsList) set;<br>
+10.02.24 **b**:sprint2/step-2/**v**: 0.1.6.5: Second state, totalAmount func, adding/removing elements logic set;<br>
+11.02.24 **b**:sprint2/step-2/**v**: 0.1.6.6: Reorder logic, some markup changes to display content correctly; <b>MERGE REQUEST sent</b>;<br>
+12.02.24 **b**:sprint2/step-2/**v**: 0.1.6.6: Working on the list of improvements; bun counter; URL routs;<br>
+13.02.24 **b**:sprint2/step-2/**v**: 0.1.6.7: UI changes; scroll implementation via IOA; order number logic; <b>MERGE REQUEST sent</b>;<br>
