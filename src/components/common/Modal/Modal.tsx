@@ -12,7 +12,10 @@ const modalPlacement = document.querySelector('#modals');
 export default function Modal({onClose, children, selectedIngredient }: { onClose?: () => void, children: React.ReactNode, selectedIngredient?: null | IIngredient }) {
 	
 	useEffect(() => {
-		const closeOnEscapeKey = (e: KeyboardEvent) => (e.key === "Escape" ? onClose() : null);
+		
+		const closeOnEscapeKey = (e: KeyboardEvent) => {if (onClose) (e.key === "Escape" ? onClose() : null);}
+		
+		
 		document.body.addEventListener("keydown", closeOnEscapeKey);
 		
 		return () => {
