@@ -1,29 +1,39 @@
 @import "styles/theme_colors";
 
 .header {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  composes: p-4 from global;
+  border-radius: 0 0 30px 30px;
 
   background-color: $bg_modal;
 
-  composes: p-4 from global;
-
   height: 88px;
-  width: 100%;
 
   nav {
-    display: flex;
-    flex-direction: row;
-    flex-grow: 0;
-  }
+    max-width: 1240px;
+    margin: 0 auto;
 
-  &_logo {
-    display: flex;
-    justify-content: center;
-  }
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 
-  &_profile {
-    display: flex;
-    justify-content: end;
+    ul {
+      list-style-type: none;
+      display: flex;
+      justify-content: space-between;
+
+      li {
+        width: 50%;
+      }
+    }
+
+    .header_logo {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .header_profile {
+      display: flex;
+      justify-content: right;
+    }
   }
 }

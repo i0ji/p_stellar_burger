@@ -20,18 +20,16 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
                         <BurgerIcon
                             type={isActive ? "primary" : "secondary"}
                         />
-                        <div className={headerButtonStyles.button_wrapper}>
-                            <Button
-                                onMouseEnter={buttonHovered}
-                                onMouseLeave={buttonHovered}
-                                extraClass={`${headerButtonPaddings} ${headerButtonStyles.header_button_disabled}`}
-                                htmlType="button"
-                                type="secondary"
-                                size="medium"
-                            >
-                                Конструктор
-                            </Button>
-                        </div>
+                        <Button
+                            onMouseEnter={buttonHovered}
+                            onMouseLeave={buttonHovered}
+                            extraClass={`${headerButtonPaddings} ${headerButtonStyles.header_button_disabled}`}
+                            htmlType="button"
+                            type="secondary"
+                            size="medium"
+                        >
+                            Конструктор
+                        </Button>
                     </div>
                 </a>
             )
@@ -41,7 +39,6 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
                 <a href="#">
                     <div
                         className={headerButtonStyles.header_button}
-
                     >
                         <ListIcon
                             type={isActive ? "primary" : "secondary"}
@@ -61,7 +58,6 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
             )
         case 'profile':
             return (
-
                 <a href="#">
                     <div
                         className={headerButtonStyles.header_button}

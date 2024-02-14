@@ -35,13 +35,19 @@
   flex-flow: column;
   align-items: center;
 
+
+  img {
+    transition: all ease-in .2s;
+    transform: scale(1);
+  }
+
   p {
     display: flex;
     align-items: center;
     text-align: center;
 
     svg {
-      padding-right: 6px;
+      padding-left: 6px;
     }
   }
 
@@ -67,3 +73,16 @@
     background-color: $scroll_active;
   }
 }
+
+.ingredient_card:hover {
+
+  img {
+    transform: scale(1.2);
+  }
+
+  p {
+    color: $scroll_active;
+  }
+}
+
+

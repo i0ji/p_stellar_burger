@@ -3,7 +3,9 @@
 .header_button {
   display: flex;
   align-items: center;
-
+  justify-content: space-around;
+  border-radius: 35px;
+  padding-left: 10px;
 
   svg {
     transition: .6s all;
@@ -12,4 +14,8 @@
   &_disabled {
     color: $theme_light;
   }
+}
+
+.header_button:hover {
+  box-shadow: 0 0 13px 1px $theme_light;
 }

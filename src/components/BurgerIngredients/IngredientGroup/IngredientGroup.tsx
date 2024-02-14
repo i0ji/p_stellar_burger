@@ -56,9 +56,9 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
 				onClick={onOpenModal}
 			>
 				<img src={image} alt={name}/>
-				<p className="text text_type_main-default pt-1">
-					<CurrencyIcon type="primary"/>
+				<p className="text text_type_digits-default">
 					{price}
+					<CurrencyIcon type="primary"/>
 				</p>
 				<p className="text text_type_main-default pt1">{name}</p>
 				{(ingredientCount > 0) ? <span className="text text_type_digits-default">
