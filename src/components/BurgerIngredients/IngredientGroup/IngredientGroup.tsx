@@ -5,8 +5,8 @@ import {useDrag} from "react-dnd";
 import ingredientGroupStyles from "./IngredientGroupStyles.module.scss";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {IIngredient, IIngredientCardProps, IIngredientGroupProps} from "interfaces/interfaces";
-import IngredientDetails from "modal/IngredientDetails/IngredientDetails.tsx";
-import Modal from "modal/Modal.tsx";
+import IngredientDetails from "components/common/Modal/IngredientDetails/IngredientDetails.tsx";
+import Modal from "components/common/Modal/Modal.tsx";
 
 import {v4 as uuidv4} from 'uuid';
 

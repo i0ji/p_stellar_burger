@@ -10,6 +10,7 @@ import {IBurgerState} from "interfaces/sliceInterfaces";
 
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
+import Loader from "components/common/Loader/Loader.tsx";
 
 export default function App() {
 	
@@ -27,7 +28,7 @@ export default function App() {
 	
 	// --------------- STATUSES ---------------
 	if (status === 'loading') {
-		return <p className={AppStyles.status}>Загрузка...</p>;
+		return <Loader/>;
 	}
 	
 	if (status === 'failed') {

@@ -1,0 +1,56 @@
+@import "styles/theme_colors";
+
+.message {
+  background-color: $theme_white;
+  width: calc(100% - 3em);
+  max-width: 24em;
+  padding: 1em 1em 1em 1.5em;
+  border-left-width: 6px;
+  border-left-style: solid;
+  border-radius: 3px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  line-height: 1.5;
+  z-index: 300;
+  opacity: 1!important;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+  & + & {
+    margin-top: 2em;
+
+  }
+
+  &:before {
+    color: $theme_white;
+    width: 1.5em;
+    height: 1.5em;
+    position: absolute;
+    top: 1em;
+    left: -3px;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    font-weight: bold;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  p {
+    margin: 0 0 1em;
+    color: $bg_main;;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.messageError {
+  border-left-color: $scroll_active;
+
+  &:before {
+    background-color: $scroll_active;
+    content: "‼";
+  }
+}

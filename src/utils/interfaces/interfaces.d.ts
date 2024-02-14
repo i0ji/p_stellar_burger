@@ -25,7 +25,7 @@ export interface IIngredientCardProps extends IIngredient {
 }
 
 export interface IOrderDetailsProps {
-    onClose: () => void,
+    onClose?: () => void,
 }
 
 export interface IModalOverlayProps extends IOrderDetailsProps {
