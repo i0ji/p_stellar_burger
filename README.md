@@ -48,10 +48,13 @@ REQUEST sent</b>;<br>
 13.02.24 **b**:sprint2/step-2/**v**: 0.1.6.7: UI changes; scroll implementation via IOA; order number logic; <b>MERGE
 REQUEST sent</b>;<br>
 14.02.24 **b**:sprint2/step-2/**v**: 0.1.6.7.1: Added checkResponse method to my orderNumber request;
+_______ **b**:sprint2/step-2/**v**: 0.1.7.1: Fixing type issues; edits based on reviewers' comments; added preloader and
+a error message common components wrapped by modalOverlay and set it logic;<br>
 
 <h1>Third sprint</h1>
 <h3>12.02-25.02</h3>
 <b>b:sprint3/step-1<br>
 v:1.7.0</b>
 
-14.02.24 **b**:sprint3/step-1/**v**: 0.1.7.0: Fixing type issues; edits based on reviewers' comments<br>
+14.02.24 **b**:sprint3/step-1/**v**: 0.1.7.1
+
