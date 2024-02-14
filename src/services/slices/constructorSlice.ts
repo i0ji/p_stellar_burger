@@ -18,7 +18,6 @@ const constructorSlice = createSlice({
 			if (action.payload.type === 'bun') {
 				state.bun = action.payload;
 			} else {
-				// Используйте Set для уникальных ингредиентов
 				state.addedIngredients = Array.from(new Set([...state.addedIngredients, action.payload]));
 			}
 			state.totalAmount = calculateTotalAmount(state.addedIngredients, state.bun);
@@ -39,15 +38,18 @@ const constructorSlice = createSlice({
 			
 			state.addedIngredients = addedIngredients;
 		},
-		resetIngredients: (state, action: PayloadAction<IIngredient>) => {
+		resetIngredients: (state) => {
 			state.addedIngredients = [];
+			state.bun = null;
+			state.totalAmount = 0;
 		}
 	},
 });
 
 const calculateTotalAmount = (addedIngredients: IIngredient[], bun: IIngredient | null): number => {
-	const ingredientsTotal = addedIngredients.reduce((acc, ingredient) => acc + ingredient.price, 0);
-	const bunTotal = bun ? bun.price : 0;
+	
+	const ingredientsTotal = addedIngredients?.reduce((acc, ingredient) => acc + (ingredient?.price || 0), 0) || 0;
+	const bunTotal = bun?.price || 0;
 	
 	return ingredientsTotal + (bunTotal * 2);
 };

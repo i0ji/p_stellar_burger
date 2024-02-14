@@ -10,17 +10,17 @@ export default function useModal(IDs: string[]) {
 	const openModal = useCallback(async () => {
 		try {
 			const orderNumber = dispatch(createOrder(IDs));
-			dispatch(updateOrderNumber(orderNumber.payload))
-			toggleVisibility()
-		} catch (error) {
+			dispatch(updateOrderNumber(orderNumber.payload));
+			toggleVisibility();
+		} catch (error: Error) {
 			console.error('Error creating order:', error.message);
 		}
 	}, [dispatch, IDs]);
 	
 	const closeModal = useCallback(() => {
-		dispatch(resetIngredients);
+		dispatch(resetIngredients());
 		toggleVisibility();
-	}, []);
+	}, [dispatch]);
 	
 	return {isVisible, openModal, closeModal};
 }

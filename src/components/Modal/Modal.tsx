@@ -5,11 +5,11 @@ import modalStyles from "./ModalStyles.module.scss"
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import ModalOverlay from "modal/ModalOverlay/ModalOverlay.tsx";
-
+import {IIngredient} from "interfaces/interfaces";
 
 const modalPlacement = document.querySelector('#modals');
 
-export default function Modal({onClose, children}: { onClose: () => void, children: React.ReactNode }) {
+export default function Modal({onClose, children, selectedIngredient }: { onClose: () => void, children: React.ReactNode, selectedIngredient : null | IIngredient }) {
 	
 	useEffect(() => {
 		const closeOnEscapeKey = (e: KeyboardEvent) => (e.key === "Escape" ? onClose() : null);
@@ -26,7 +26,8 @@ export default function Modal({onClose, children}: { onClose: () => void, childr
 			(
 				<>
 					<ModalOverlay onClose={onClose}/>
-					<div className={modalStyles.modal}>
+					<div
+						className={`${modalStyles.modal} ${selectedIngredient ? modalStyles.fadeIn : modalStyles.fadeOut}`}>
 						<div className={modalStyles.modal_btn}>
 							<CloseIcon
 								type="primary"

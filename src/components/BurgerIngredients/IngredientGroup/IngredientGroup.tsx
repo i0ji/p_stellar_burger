@@ -36,7 +36,7 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
 				_id
 			},
 			collect: (monitor) => ({
-				isDragging: !!monitor.isDragging(),
+				isDragging: monitor.isDragging(),
 			}),
 		});
 		
@@ -105,7 +105,10 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
 			
 			{
 				selectedIngredient && (
-					<Modal onClose={handleCloseModal}>
+					<Modal
+						onClose={handleCloseModal}
+						selectedIngredient={selectedIngredient}
+					>
 						<IngredientDetails
 							onClose={handleCloseModal}
 							image={selectedIngredient.image || ""}
