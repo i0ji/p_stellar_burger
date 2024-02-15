@@ -1,16 +1,18 @@
-import {useEffect} from "react";
+import {fetchIngredients} from 'services/slices/ingredientsSlice.ts';
+
+import {DndProvider} from 'react-dnd';
+import {HTML5Backend} from 'react-dnd-html5-backend';
+
 import AppStyles from './App.module.scss';
+import {IBurgerState} from "interfaces/sliceInterfaces";
+
+import Loader from "components/common/Loader/Loader.tsx";
 import AppHeader from "components/AppHeader/AppHeader.tsx";
 import BurgerIngredients from "components/BurgerIngredients/BurgerIngredients.tsx";
 import BurgerConstructor from "components/BurgerConstructor/BurgerConstructor.tsx";
 
+import {useEffect} from "react";
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchIngredients} from 'services/slices/ingredientsSlice.ts';
-import {IBurgerState} from "interfaces/sliceInterfaces";
-
-import {DndProvider} from 'react-dnd';
-import {HTML5Backend} from 'react-dnd-html5-backend';
-import Loader from "components/common/Loader/Loader.tsx";
 
 export default function App() {
 
@@ -44,16 +46,16 @@ export default function App() {
 
             {/* --------------- MAIN BLOCKS --------------- */}
 
-                <main className={AppStyles.burger_builder}>
-                    {error ? (<p>Произошла ошибка: {error}</p>) : (ingredientsData.length > 0 && (
-                        <>
-                            <BurgerIngredients/>
+            <main className={AppStyles.burger_builder}>
+                {error ? (<p>Произошла ошибка: {error}</p>) : (ingredientsData.length > 0 && (
+                    <>
+                        <BurgerIngredients/>
 
-                            <BurgerConstructor/>
-                        </>
-                    ))}
+                        <BurgerConstructor/>
+                    </>
+                ))}
 
-                </main>
+            </main>
 
 
         </DndProvider>
