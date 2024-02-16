@@ -18,12 +18,13 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
                 <a href="#">
                     <div className={headerButtonStyles.header_button}>
                         <BurgerIcon
-                            type={isActive ? "primary" : "secondary"}
+                            type={isActive ? 'primary' : "secondary"}
                         />
                         <Button
                             onMouseEnter={buttonHovered}
                             onMouseLeave={buttonHovered}
-                            extraClass={`${headerButtonPaddings} ${headerButtonStyles.header_button_disabled}`}
+                            style={{color:isActive ? '#F2F2F2' : "#8585AD"}}
+                            extraClass={`${headerButtonStyles.header_button_color} ${headerButtonPaddings}`}
                             htmlType="button"
                             type="secondary"
                             size="medium"
@@ -46,6 +47,7 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
                         <Button
                             onMouseEnter={buttonHovered}
                             onMouseLeave={buttonHovered}
+                            style={{color:isActive ? '#F2F2F2' : "#8585AD"}}
                             extraClass={`${headerButtonPaddings} ${headerButtonStyles.header_button_disabled}`}
                             htmlType="button"
                             type="secondary"
@@ -68,6 +70,7 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
                         <Button
                             onMouseEnter={buttonHovered}
                             onMouseLeave={buttonHovered}
+                            style={{color:isActive ? '#F2F2F2' : "#8585AD"}}
                             extraClass={`${headerButtonPaddings} ${headerButtonStyles.header_button_disabled}`}
                             htmlType="button"
                             type="secondary"

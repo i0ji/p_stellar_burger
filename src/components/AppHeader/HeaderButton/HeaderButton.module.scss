@@ -6,13 +6,10 @@
   justify-content: space-around;
   border-radius: 35px;
   padding-left: 10px;
+  color: $theme_light;
 
   svg {
     transition: .6s all;
-  }
-
-  &_disabled {
-    color: $theme_light;
   }
 }
 
