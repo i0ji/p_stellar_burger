@@ -6,7 +6,7 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
-    /* Bundler mode */
+    /* ------------------ Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
@@ -14,21 +14,42 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
-    /* Linting */
+    /* ------------------ Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
-    /* Alias */
+    /* ------------------ Alias */
     "baseUrl": "src",
     "paths": {
+      /* ------ MAIN */
+      "src/*" : ["./*"],
+      "store/*": ["store/*"],
       "components/*" : ["components/*"],
+      "data/*": ["data/*"],
+
+      /* ------ MODAL */
+      "modal/*": ["components/Modal/*"],
+
+      /* ------ HOOK */
+      "hooks/*": ["hooks/*"],
+
+      /* ------ STYLES/ASSETS */
       "styles/*": ["styles/*"],
       "images/*": ["images/*"],
-      "data/*": ["data/*"],
-      "modal/*": ["components/Modal/*"],
-      "src/*" : ["./*"],
+
+      /* ------ CONSTANTS */
+      "declarations": ["declarations/*"],
+      "constants": ["declarations/constants/*"],
+
+      /* ------ UTILS/SERVICES */
+      "utils/*": ["utils/*"],
+      "interfaces/*": ["utils/interfaces/*"],
+      "services/*": ["services/*"],
+      "actions/*": ["services/actions/*"],
+      "reducers/*": ["services/reducers/*"],
+      "slices/*": ["services/slices/*"],
     }
   },
   "include": ["src"],

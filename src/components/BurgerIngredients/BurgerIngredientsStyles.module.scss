@@ -7,10 +7,7 @@
   .ingredients_list {
     overflow-x: hidden;
     overflow-y: scroll;
-  }
-
-  .ingredients_list::-webkit-scrollbar-track {
-    margin-bottom: 52px;
+    height: 90%;
   }
 }
 

@@ -26,15 +26,19 @@ a:hover {
 }
 
 html {
-  max-width: 1260px;
-  margin: 0 auto;
+  height: 100vh;
   background-color: $bg_main;
   scroll-behavior: smooth;
-
 }
 
 body {
-  composes: pb-4 from global;
-  height: 90vh;
+  max-height: 100vh;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#root {
+  composes: p-4 from global;
 }

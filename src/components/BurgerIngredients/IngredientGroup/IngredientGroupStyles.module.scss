@@ -1,6 +1,9 @@
+@import "styles/theme_colors";
+
 .ingredient_item {
   width: 50%;
 }
+
 .ingredient_list {
   composes: pb-10 from global;
 
@@ -11,15 +14,32 @@
   width: 100%;
   display: flex;
   flex-flow: row wrap;
+
+  .ingredient_item_wrapper {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
 }
 
 .ingredient_card {
-  width: 50%;
   composes: pb-8 from global;
+
+  width: 50%;
+
+  position: relative;
 
   display: flex;
   flex-flow: column;
   align-items: center;
+
+
+  img {
+    transition: all ease-in .2s;
+    transform: scale(1);
+  }
 
   p {
     display: flex;
@@ -27,7 +47,42 @@
     text-align: center;
 
     svg {
-      padding-right: 6px;
+      padding-left: 6px;
     }
   }
+
+  &.dragging {
+
+    opacity: .5;
+  }
+
+  span {
+    position: absolute;
+    right: 15%;
+    top: 5%;
+
+    width: 32px;
+    height: 32px;
+
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: $scroll_active;
+  }
 }
+
+.ingredient_card:hover {
+
+  img {
+    transform: scale(1.2);
+  }
+
+  p {
+    color: $scroll_active;
+  }
+}
+
+

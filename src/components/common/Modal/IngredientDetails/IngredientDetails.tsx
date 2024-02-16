@@ -1,9 +1,9 @@
 import ingredientDetailsStyles from "./IngredientDetailsStyles.module.scss"
-import {IIngredientDetailsProps} from "src/Interfaces";
+import {IIngredientDetailsProps} from "interfaces/interfaces";
 
 export default function IngredientDetails(props: IIngredientDetailsProps) {
 
-    const { image, fat, name, calories, proteins, carbohydrates} = props;
+    const {image, fat, name, calories, proteins, carbohydrates} = props;
 
     return (
         <>

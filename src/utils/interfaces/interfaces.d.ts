@@ -1,8 +1,9 @@
 import React from "react";
 
 export interface IIngredient {
-    image_mobile: string,
+    "id"?: string,
     "_id"?: string,
+    "index"?: string,
     "name": string,
     "type"?: string,
     "proteins"?: number,
@@ -11,9 +12,12 @@ export interface IIngredient {
     "calories"?: number,
     "price"?: number,
     "image"?: string,
-    "image_mobile?"?: string,
+    "image_mobile"?: string,
     "image_large?"?: string,
     "__v"?: number,
+    "content"?: string,
+    "uuid"?: string,
+    "moveIngredient"?: (dragIndex: number, hoverIndex: number) => void
 }
 
 export interface IIngredientCardProps extends IIngredient {
@@ -21,11 +25,12 @@ export interface IIngredientCardProps extends IIngredient {
 }
 
 export interface IOrderDetailsProps {
-    onClose: () => void,
+    onClose?: () => void,
 }
 
-export interface IModalOverlayProps extends  IOrderDetailsProps {
+export interface IModalOverlayProps extends IOrderDetailsProps {
     children?: React.ReactNode,
+    id?: string;
 }
 
 export interface IIngredientDetailsProps extends IOrderDetailsProps {
@@ -42,6 +47,19 @@ export interface IIngredientGroupProps {
     ingredients: IIngredient[];
 }
 
-export interface IBurgerIngredientProps {
-    ingredientsData: IIngredient[];
+export interface IDragItem {
+    index: number;
+    id: string;
+    type: string;
+}
+
+export interface IResponseData {
+    success: boolean;
+    order: {
+        number: string;
+    };
+}
+
+export interface IRequestFunction {
+    (): Promise<IResponseData>;
 }
