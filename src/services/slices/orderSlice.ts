@@ -46,7 +46,7 @@ export const orderSlice = createSlice({
 			})
 			.addCase(createOrder.rejected, (state, action) => {
 				state.status = 'failed';
-				state.error = action.error.message !== undefined ? action.error.message : '' || null;
+				state.error = action.error.message !== undefined ? action.error.message : '';
 			})
 	},
 });
