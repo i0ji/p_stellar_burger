@@ -1,85 +1,87 @@
 import headerButtonStyles from './HeaderButton.module.scss';
 import {Button, BurgerIcon, ListIcon, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useState} from "react";
+import {NavLink} from "react-router-dom";
+import 'styles/_theme_colors.scss'
 
 export default function HeaderButton({typeFor}: { typeFor: string }) {
 
-    const [isActive, setIsActive] = useState(false);
+    const headerButtonPaddings: string = "p-1";
 
-    const headerButtonPaddings: string = "pb-4 pt-4 pl-2 pr-5";
-
-    const buttonHovered = () => {
-        setIsActive(!isActive);
-    }
+    const activeState = ({isActive}: { isActive: boolean }) => {
+        return {
+            color: isActive ? 'white' : 'red',
+        };
+    };
 
     switch (typeFor) {
         case 'builder':
             return (
-                <a href="#">
-                    <div className={headerButtonStyles.header_button}>
-                        <BurgerIcon
-                            type={isActive ? 'primary' : "secondary"}
-                        />
-                        <Button
-                            onMouseEnter={buttonHovered}
-                            onMouseLeave={buttonHovered}
-                            style={{color:isActive ? '#F2F2F2' : "#8585AD"}}
-                            extraClass={`${headerButtonStyles.header_button_color} ${headerButtonPaddings}`}
-                            htmlType="button"
-                            type="secondary"
-                            size="medium"
-                        >
-                            Конструктор
-                        </Button>
-                    </div>
-                </a>
+                <NavLink
+                    className={headerButtonStyles.header_button}
+                    to="/constructor"
+                    style={activeState}
+                >
+                    <BurgerIcon
+                        type={"secondary"}
+                    />
+                    <Button
+                        extraClass={`${headerButtonPaddings} text text_type_main-default`}
+                        htmlType="button"
+                        type="secondary"
+                        size="medium"
+
+                    >
+                        Конструктор
+                    </Button>
+                </NavLink>
+
             )
+
+        // case 'builder':
+        //
+
         case 'orders':
             return (
+                <NavLink
+                    className={headerButtonStyles.header_button}
+                    to="/"
+                    style={activeState}
 
-                <a href="#">
-                    <div
-                        className={headerButtonStyles.header_button}
+                >
+                    <ListIcon
+                        type="secondary"
+                    />
+                    <Button
+                        extraClass={`${headerButtonPaddings} text text_type_main-default`}
+                        htmlType="button"
+                        type="secondary"
+                        size="medium"
                     >
-                        <ListIcon
-                            type={isActive ? "primary" : "secondary"}
-                        />
-                        <Button
-                            onMouseEnter={buttonHovered}
-                            onMouseLeave={buttonHovered}
-                            style={{color:isActive ? '#F2F2F2' : "#8585AD"}}
-                            extraClass={`${headerButtonPaddings} ${headerButtonStyles.header_button_disabled}`}
-                            htmlType="button"
-                            type="secondary"
-                            size="medium"
-                        >
-                            Лента заказов
-                        </Button>
-                    </div>
-                </a>
+                        Конструктор
+                    </Button>
+                </NavLink>
             )
         case 'profile':
             return (
-                <a href="#">
-                    <div
-                        className={headerButtonStyles.header_button}
+                <NavLink
+                    className={headerButtonStyles.header_button}
+                    to="/login"
+                    style={activeState}
+                >
+                    <ProfileIcon
+                        type="secondary"
+                    />
+                    <Button
+                        extraClass={`${headerButtonPaddings} text text_type_main-default`}
+                        htmlType="button"
+                        type="secondary"
+                        size="medium"
                     >
-                        <ProfileIcon
-                            type={isActive ? "primary" : "secondary"}
-                        />
-                        <Button
-                            onMouseEnter={buttonHovered}
-                            onMouseLeave={buttonHovered}
-                            style={{color:isActive ? '#F2F2F2' : "#8585AD"}}
-                            extraClass={`${headerButtonPaddings} ${headerButtonStyles.header_button_disabled}`}
-                            htmlType="button"
-                            type="secondary"
-                            size="medium"
-                        >
-                            Личный кабинет
-                        </Button>
-                    </div>
-                </a>
+                        Конструктор
+                    </Button>
+                </NavLink>
             )
     }
 }
+
+

@@ -42,9 +42,12 @@ export default function BurgerBuilder() {
 			{error ? (<p>Произошла ошибка: {error}</p>) : (ingredientsData.length > 0 && (
 				<section className={burgerBuilderStyles.burger_builder}>
 					<DndProvider backend={HTML5Backend}>
+
+						<div className={burgerBuilderStyles.container}>
 						<BurgerIngredients/>
 						
 						<BurgerConstructor/>
+						</div>
 					</DndProvider>
 				</section>
 			))}

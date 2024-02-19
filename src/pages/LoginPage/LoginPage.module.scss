@@ -7,11 +7,15 @@
     max-height: 80vh;
     margin: 0 auto;
 
-    border: 1px solid red;
+    height: 100vh;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+
+    border: 1px solid red;
+
+    flex-direction: column;
+
   }
 }
 

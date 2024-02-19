@@ -1,15 +1,14 @@
 @import "styles/theme_colors";
 
 .header {
-  composes: p-4 from global;
-  border-radius: 0 0 30px 30px;
+  composes: pt-4 pb-4 from global;
 
   background-color: $bg_modal;
 
   height: 88px;
 
   nav {
-    max-width: 1240px;
+    max-width: 1280px;
     margin: 0 auto;
 
     display: grid;
@@ -21,7 +20,7 @@
       justify-content: space-between;
 
       li {
-        width: 50%;
+        width: 48%;
       }
     }
 

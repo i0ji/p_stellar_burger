@@ -40,6 +40,5 @@ body {
 }
 
 #root {
-  composes: p-4 from global;
-  border: 1px solid yellow;
+  width: 100%;
 }
