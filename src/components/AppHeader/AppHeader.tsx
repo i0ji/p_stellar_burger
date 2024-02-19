@@ -12,7 +12,9 @@ export default function AppHeader() {
 			<nav className={headerStyles.nav}>
 				<ul>
 					<li>
-						<NavLink to="/constructor">
+						<NavLink
+							to="/constructor"
+						>
 							<HeaderButton typeFor={"builder"}/>
 						</NavLink>
 					</li>
@@ -24,7 +26,9 @@ export default function AppHeader() {
 					<Logo/>
 				</div>
 				<div className={headerStyles.header_profile}>
-					<HeaderButton typeFor={"profile"}/>
+					<NavLink to="/login">
+						<HeaderButton typeFor={"profile"}/>
+					</NavLink>
 				</div>
 			</nav>
 		</header>

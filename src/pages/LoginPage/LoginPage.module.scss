@@ -1,0 +1,24 @@
+.login_section {
+  composes: pl-4 pr-4 from global;
+
+
+  form {
+    max-width: 1240px;
+    max-height: 80vh;
+    margin: 0 auto;
+
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.status {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  font-size: 30px;
+}

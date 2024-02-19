@@ -1,12 +1,17 @@
 import burgerBuilderStyles from "./BurgerBuilder.module.scss"
+import {IBurgerState} from "interfaces/sliceInterfaces";
+
+import Loader from "components/common/Loader/Loader.tsx";
 import BurgerIngredients from "components/BurgerIngredients/BurgerIngredients.tsx";
 import BurgerConstructor from "components/BurgerConstructor/BurgerConstructor.tsx";
-import {useDispatch, useSelector} from "react-redux";
-import {IBurgerState} from "interfaces/sliceInterfaces";
-import {useEffect} from "react";
-import {fetchIngredients} from "slices/ingredientsSlice.ts";
-import Loader from "components/common/Loader/Loader.tsx";
 
+import {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+
+import {fetchIngredients} from "slices/ingredientsSlice.ts";
+
+import {DndProvider} from 'react-dnd';
+import {HTML5Backend} from "react-dnd-html5-backend";
 
 export default function BurgerBuilder() {
 	
@@ -35,11 +40,13 @@ export default function BurgerBuilder() {
 	return (
 		<main>
 			{error ? (<p>Произошла ошибка: {error}</p>) : (ingredientsData.length > 0 && (
-				<>
-					<BurgerIngredients/>
-					
-					<BurgerConstructor/>
-				</>
+				<section className={burgerBuilderStyles.burger_builder}>
+					<DndProvider backend={HTML5Backend}>
+						<BurgerIngredients/>
+						
+						<BurgerConstructor/>
+					</DndProvider>
+				</section>
 			))}
 		</main>
 	);
