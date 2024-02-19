@@ -57,7 +57,7 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
                         type="secondary"
                         size="medium"
                     >
-                        Конструктор
+                        Лента заказов
                     </Button>
                 </NavLink>
             )
@@ -77,7 +77,7 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
                         type="secondary"
                         size="medium"
                     >
-                        Конструктор
+                        Личный кабинет
                     </Button>
                 </NavLink>
             )
