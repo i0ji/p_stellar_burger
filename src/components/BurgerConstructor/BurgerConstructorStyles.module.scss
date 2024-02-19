@@ -13,16 +13,11 @@
     .constructor_item_top,
     .constructor_item_bottom,
     .constructor_item_initial_bun {
-      width: 90%;
+      width: 89%;
       align-self: center;
       margin-right: 15px;
       margin-left: 30px;
       display: flex;
-      align-items: center;
-
-      span {
-        margin-left: 5px;
-      }
     }
 
     .constructor_item_initial_bun {
@@ -51,14 +46,7 @@
     .constructor_item_top svg:last-child,
     .constructor_item_bottom svg:last-child,
     .constructor_item_initial_bun {
-      margin-left: 5px;
-      margin-right: 10px;
-    }
-
-    .constructor_item_top span:nth-child(3) svg,
-    .constructor_item_bottom span:nth-child(3) svg,
-    .constructor_item_initial_bun span:nth-child(3) svg {
-      margin: 0 19px 0 9px;
+      margin: 0 5px;
     }
 
     .constructor_order {
@@ -67,7 +55,6 @@
       gap: 5px;
       overflow-x: hidden;
       overflow-y: scroll;
-      //min-height: 30px;
     }
   }
 
