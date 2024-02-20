@@ -1,14 +1,12 @@
 @import "styles/theme_colors";
 
 .section {
-  max-height: 80vh;
+  margin: 0 auto;
+  height: calc(100vh - 90px);
+  max-width: 1240px;
 
   form {
-    max-width: 1240px;
-    max-height: 80vh;
-
-    margin: 0 auto;
-    height: 100vh;
+    height: 100%;
 
     display: flex;
     justify-content: center;
@@ -17,14 +15,8 @@
   }
 
   .not_found {
+    height: 90vh;
     position: relative;
-
-    max-width: 1240px;
-    max-height: 80vh;
-
-    margin: 0 auto;
-    height: 100vh;
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -43,7 +35,7 @@
     .astro_loading {
       position: absolute;
       left: 11.3%;
-      top: 23.5%;
+      top: 24%;
 
       opacity: .3;
     }
@@ -55,6 +47,49 @@
     h1, p {
       text-shadow: 0 0 10px $scroll_active,
       0 0 14px $scroll_active
+    }
+  }
+}
+
+.profile_section {
+  margin: 0 auto;
+  height: calc(100vh - 90px);
+  max-width: 1240px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .profile_block {
+    position: relative;
+
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+
+    .profile_buttons {
+      position: absolute;
+      left: 0;
+
+      width: 30%;
+
+      display: flex;
+      flex-direction: column;
+
+
+      button {
+        color: $theme_light;
+      }
+
+      button:hover,
+      button:active {
+        color: $theme_white;
+      }
+
+      p {
+        opacity: .4;
+      }
     }
   }
 }

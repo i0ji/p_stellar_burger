@@ -1,0 +1,49 @@
+@import "styles/theme_colors";
+
+.ingredients_details {
+  height: 570px;
+  width: 640px;
+
+  background-color: $bg_modal;
+  color: $theme_white;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 40px;
+
+  &_title {
+    width: 100%;
+    height: 10%;
+
+    display: flex;
+    justify-content: space-between;
+  }
+
+  img {
+    width: 65%;
+  }
+
+  &_features {
+    width: 100%;
+    height: 20%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    .feature {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+
+      p {
+        color: $theme_light;
+      }
+    }
+  }
+}
+

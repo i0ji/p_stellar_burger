@@ -6,6 +6,8 @@ import IngredientGroup from "components/BurgerIngredients/IngredientGroup/Ingred
 
 import React, {useRef, useEffect, useMemo, useState} from "react";
 import {useSelector} from "react-redux";
+import { useNavigate } from 'react-router-dom';
+
 
 enum TabValues {
     Bun = "bun",
@@ -29,8 +31,10 @@ export default function BurgerIngredients() {
     const bunRef = useRef<HTMLDivElement>(null);
     const sauceRef = useRef<HTMLDivElement>(null);
     const mainRef = useRef<HTMLDivElement>(null);
-
-
+    
+    const navigate = useNavigate();
+    
+    
     const observerArea = document.getElementById('burgerIngredientGroups')
 
     useEffect(() => {
@@ -108,14 +112,15 @@ export default function BurgerIngredients() {
                 id="burgerIngredientGroups"
             >
                 <div id="bunSection" ref={bunRef}>
-                    <IngredientGroup type="Булки" ingredients={filteredIngredients.bun}/>
+                    <IngredientGroup type="Булки" ingredients={filteredIngredients.bun} navigate={navigate}/>
                 </div>
                 <div id="sauceSection" ref={sauceRef}>
-                    <IngredientGroup type="Соусы" ingredients={filteredIngredients.sauce}/>
+                    <IngredientGroup type="Соусы" ingredients={filteredIngredients.sauce} navigate={navigate}/>
                 </div>
                 <div id="mainSection" ref={mainRef}>
-                    <IngredientGroup type="Начинки" ingredients={filteredIngredients.main}/>
+                    <IngredientGroup type="Начинки" ingredients={filteredIngredients.main} navigate={navigate}/>
                 </div>
+                
             </div>
         </section>
     );

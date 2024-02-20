@@ -4,7 +4,9 @@ import {IIngredientDetailsProps} from "interfaces/interfaces";
 export default function IngredientDetails(props: IIngredientDetailsProps) {
 
     const {image, fat, name, calories, proteins, carbohydrates} = props;
-
+    
+    
+    
     return (
         <>
             <div className={ingredientDetailsStyles.ingredients_modal}>
