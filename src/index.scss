@@ -19,10 +19,13 @@
 
 a, a:link, a:visited {
   text-decoration: none;
+  color: $scroll_active;
 }
 
-a:hover {
+a:hover,
+a:active {
   text-decoration: none;
+  opacity: .7;
 }
 
 html {

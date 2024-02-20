@@ -1,18 +1,60 @@
+@import "styles/theme_colors";
+
 .section {
   max-height: 80vh;
-
 
   form {
     max-width: 1240px;
     max-height: 80vh;
-    margin: 0 auto;
 
+    margin: 0 auto;
     height: 100vh;
+
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+  }
 
+  .not_found {
+    position: relative;
+
+    max-width: 1240px;
+    max-height: 80vh;
+
+    margin: 0 auto;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
 
+    .astronaut {
+      position: absolute;
+      top: 29%;
+      left: 10%;
+
+      height: 330px;
+
+      opacity: .7;
+    }
+
+    .astro_loading {
+      position: absolute;
+      left: 11.3%;
+      top: 23.5%;
+
+      opacity: .3;
+    }
+
+    h1 {
+      font-size: 340px;
+    }
+
+    h1, p {
+      text-shadow: 0 0 10px $scroll_active,
+      0 0 14px $scroll_active
+    }
   }
 }

@@ -103,8 +103,8 @@ export default function BurgerConstructor() {
                 className={`${burgerConstructorStyles.constructor_list} mb-10`}
                 ref={dropIngredients}
             >
-
-
+                
+                
                 {/* --------------- TOP BUN --------------- */}
 
                 {!isBun ? <InitialBun pos={"top"}/> :
@@ -156,8 +156,8 @@ export default function BurgerConstructor() {
 
                 {/* --------------- PRICE --------------- */}
 
-                <div className={burgerConstructorStyles.price_info}>
-                    <h1 className="text text_type_main-large pr-3">{totalAmount}</h1>
+                <div className={`mt-4 ${burgerConstructorStyles.price_info}`}>
+                    <h1 className="text text_type_digits-medium pr-3">{totalAmount}</h1>
                     <CurrencyIcon type="primary"/>
                     <Button
                         disabled={!bun}
