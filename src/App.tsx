@@ -1,9 +1,9 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 
 import AppHeader from "components/AppHeader/AppHeader.tsx";
 import {
 	LoginPage,
-	BurgerBuilder,
+	HomePage,
 	NotFound404,
 	RegisterPage,
 	ForgotPage,
@@ -15,21 +15,16 @@ export default function App() {
 	
 	return (
 		<>
-			<BrowserRouter>
-				<AppHeader/>
-				<Routes>
-					<Route path="/login" element={<LoginPage/>}/>
-					<Route path="/forgot-password" element={<ForgotPage/>}/>
-					<Route path="/register" element={<RegisterPage/>}/>
-					<Route path="/profile" element={<ProfilePage/>}/>
-					<Route path="/" element={<BurgerBuilder/>}>
-						<Route path="/ingredient/:productID" element={<IngredientDetailsPage/>}/>
-					</Route>
-					<Route path="*" element={<NotFound404/>}/>
-				
-				</Routes>
-			</BrowserRouter>
-		
+			<AppHeader/>
+			<Routes>
+				<Route path="/" element={<HomePage/>}/>
+				<Route path="/login" element={<LoginPage/>}/>
+				<Route path="/forgot-password" element={<ForgotPage/>}/>
+				<Route path="/register" element={<RegisterPage/>}/>
+				<Route path="/profile" element={<ProfilePage/>}/>
+				<Route path="/ingredient/:productID" element={<IngredientDetailsPage/>}/>
+				<Route path="*" element={<NotFound404/>}/>
+			</Routes>
 		</>
 	)
 }

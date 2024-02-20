@@ -5,7 +5,7 @@ import Modal from "components/common/Modal/ModalOverlay/ModalOverlay.tsx";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 
 
-export default function IngredientDetailsPage(onCloseDetailsPage) {
+export default function IngredientDetailsPage(handleCloseDetailsPage) {
 	
 	const ingredient = useSelector(state => state.currentIngredientSlice.selectedIngredient)
 	
@@ -15,7 +15,7 @@ export default function IngredientDetailsPage(onCloseDetailsPage) {
 				<Button
 					htmlType="button"
 					type="primary"
-				onClick={onCloseDetailsPage}/>
+				onClick={() => handleCloseDetailsPage}/>
 				<h3 className="text text_type_main-large">Детали ингредиента</h3>
 				<img
 					src={ingredient.image}

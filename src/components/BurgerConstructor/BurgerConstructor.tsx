@@ -1,7 +1,7 @@
 import {addIngredient, reorderIngredients} from "slices/constructorSlice.ts"
 import {updateIds} from "slices/orderSlice.ts"
 
-import burgerConstructorStyles from "./BurgerConstructorStyles.module.scss";
+import styles from "./BurgerConstructorStyles.module.scss";
 import awaitSpinner from "images/common/loading.svg"
 import {IIngredient} from "interfaces/interfaces";
 
@@ -84,7 +84,7 @@ export default function BurgerConstructor() {
 
         return (
             <ConstructorElement
-                extraClass={burgerConstructorStyles.constructor_item_initial_bun}
+                extraClass={styles.constructor_item_initial_bun}
                 text={'Перетащите сюда булочку'}
                 type={pos}
                 isLocked={true}
@@ -97,10 +97,10 @@ export default function BurgerConstructor() {
 
     return (
         <section
-            className={burgerConstructorStyles.constructor_block}
+            className={styles.constructor_block}
         >
             <div
-                className={`${burgerConstructorStyles.constructor_list} mb-10`}
+                className={`${styles.constructor_list} mb-10`}
                 ref={dropIngredients}
             >
                 
@@ -108,10 +108,10 @@ export default function BurgerConstructor() {
                 {/* --------------- TOP BUN --------------- */}
 
                 {!isBun ? <InitialBun pos={"top"}/> :
-                    <div className={burgerConstructorStyles.constructor_order_item}>
+                    <div className={styles.constructor_order_item}>
                         {bun && (
                             <ConstructorElement
-                                extraClass={`${burgerConstructorStyles.constructor_item_top}`}
+                                extraClass={`${styles.constructor_item_top}`}
                                 type="top"
                                 isLocked={true}
                                 text={`${bun.name} (верх)`}
@@ -125,7 +125,7 @@ export default function BurgerConstructor() {
                 {/* --------------- INNER INGREDIENTS --------------- */}
 
                 <div
-                    className={burgerConstructorStyles.constructor_order}
+                    className={styles.constructor_order}
                     style={{
                         scrollbarWidth: (addedIngredients.length > 3) ? 'inherit' : 'none',
                         width: (addedIngredients.length > 3) ? '100%' : '97%',
@@ -140,10 +140,10 @@ export default function BurgerConstructor() {
                 {/* --------------- BOTTOM BUN --------------- */}
 
                 {!isBun ? <InitialBun pos={'bottom'}/> :
-                    <div className={burgerConstructorStyles.constructor_order_item}>
+                    <div className={styles.constructor_order_item}>
                         {bun && (
                             <ConstructorElement
-                                extraClass={`${burgerConstructorStyles.constructor_item_bottom}`}
+                                extraClass={`${styles.constructor_item_bottom}`}
                                 type="bottom"
                                 isLocked={true}
                                 text={`${bun.name} (низ)`}
@@ -156,7 +156,7 @@ export default function BurgerConstructor() {
 
                 {/* --------------- PRICE --------------- */}
 
-                <div className={`mt-4 ${burgerConstructorStyles.price_info}`}>
+                <div className={`mt-4 ${styles.price_info}`}>
                     <h1 className="text text_type_digits-medium pr-3">{totalAmount}</h1>
                     <CurrencyIcon type="primary"/>
                     <Button

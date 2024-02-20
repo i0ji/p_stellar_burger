@@ -1,4 +1,4 @@
-import ingredientDetailsStyles from "./IngredientDetailsStyles.module.scss"
+import styles from "./IngredientDetailsStyles.module.scss"
 import {IIngredientDetailsProps} from "interfaces/interfaces";
 
 export default function IngredientDetails(props: IIngredientDetailsProps) {
@@ -9,7 +9,7 @@ export default function IngredientDetails(props: IIngredientDetailsProps) {
     
     return (
         <>
-            <div className={ingredientDetailsStyles.ingredients_modal}>
+            <div className={styles.ingredients_modal}>
                 <div className={ingredientDetailsStyles.ingredients_modal_title}>
                     <h3 className="text text_type_main-large">Детали ингредиента</h3>
                 </div>

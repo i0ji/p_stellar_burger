@@ -1,6 +1,6 @@
 import {updateSelectedIngredient, resetSelectedIngredient} from "slices/currentIngredientSlice.ts";
 
-import ingredientGroupStyles from "./IngredientGroupStyles.module.scss";
+import styles from "./IngredientGroupStyles.module.scss";
 import {IIngredient, IIngredientCardProps, IIngredientGroupProps} from "interfaces/interfaces";
 
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -55,7 +55,7 @@ export default function IngredientGroup({type, ingredients, navigate}: IIngredie
 		return (
 			<div
 				ref={drag}
-				className={`${ingredientGroupStyles.ingredient_card} ${isDragging ? ingredientGroupStyles.dragging : ''}`}
+				className={`${styles.ingredient_card} ${isDragging ? styles.dragging : ''}`}
 				onClick={onOpenDetailsPage}
 			>
 				<img src={image} alt={name}/>
@@ -91,7 +91,7 @@ export default function IngredientGroup({type, ingredients, navigate}: IIngredie
 	
 	return (
 		<>
-			<div className={ingredientGroupStyles.ingredient_list}>
+			<div className={styles.ingredient_list}>
 				<h3 className="text text_type_main-medium pb-6">{type}</h3>
 				
 				{/* --------------- MAPPING INGREDIENTS FOR EACH GROUP --------------- */}

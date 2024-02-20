@@ -1,6 +1,6 @@
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 
-import burgerIngredientsStyles from "./BurgerIngredientsStyles.module.scss";
+import styles from "./BurgerIngredientsStyles.module.scss"
 
 import IngredientGroup from "components/BurgerIngredients/IngredientGroup/IngredientGroup.tsx";
 
@@ -90,12 +90,12 @@ export default function BurgerIngredients() {
 
     return (
         <section
-            className={burgerIngredientsStyles.ingredients_block}
+            className={styles.ingredients_block}
             id="burgerIngredientsContainer"
         >
             <h1 className="text text_type_main-large pb-10">Соберите бургер</h1>
 
-            <div className={burgerIngredientsStyles.ingredients_menu}>
+            <div className={styles.ingredients_menu}>
                 <Tab value={TabValues.Bun} active={current === TabValues.Bun} onClick={() => scrollToRef(bunRef)}>
                     Булки
                 </Tab>
@@ -108,7 +108,7 @@ export default function BurgerIngredients() {
             </div>
 
             <div
-                className={burgerIngredientsStyles.ingredients_list}
+                className={styles.ingredients_list}
                 id="burgerIngredientGroups"
             >
                 <div id="bunSection" ref={bunRef}>

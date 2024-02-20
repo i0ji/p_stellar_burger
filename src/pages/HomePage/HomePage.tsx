@@ -13,7 +13,7 @@ import {fetchIngredients} from "slices/ingredientsSlice.ts";
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from "react-dnd-html5-backend";
 
-export default function BurgerBuilder() {
+export default function HomePage() {
 	
 	const dispatch = useDispatch();
 	
@@ -42,11 +42,11 @@ export default function BurgerBuilder() {
 			{error ? (<p>Произошла ошибка: {error}</p>) : (ingredientsData.length > 0 && (
 				<section className={burgerBuilderStyles.burger_builder}>
 					<DndProvider backend={HTML5Backend}>
-
-						<div className={burgerBuilderStyles.container}>
-						<BurgerIngredients/>
 						
-						<BurgerConstructor/>
+						<div className={burgerBuilderStyles.container}>
+							<BurgerIngredients/>
+							
+							<BurgerConstructor/>
 						</div>
 					</DndProvider>
 				</section>

@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {createPortal} from "react-dom";
 
-import modalStyles from "./ModalStyles.module.scss"
+import styles from "./ModalStyles.module.scss"
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import ModalOverlay from "components/common/Modal/ModalOverlay/ModalOverlay.tsx";
@@ -35,8 +35,8 @@ export default function Modal({onClose, children, selectedIngredient,}: {
 				<>
 					<ModalOverlay onClose={onClose}/>
 					<div
-						className={modalStyles.modal}>
-						<div className={modalStyles.modal_btn}>
+						className={styles.modal}>
+						<div className={styles.modal_btn}>
 							<CloseIcon
 								type="primary"
 								onClick={onClose}
