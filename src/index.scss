@@ -17,15 +17,12 @@
   box-sizing: border-box;
 }
 
-a, a:link, a:visited {
+a,
+a:link,
+a:visited,
+a:active,
+a:hover {
   text-decoration: none;
-  color: $scroll_active;
-}
-
-a:hover,
-a:active {
-  text-decoration: none;
-  opacity: .7;
 }
 
 html {

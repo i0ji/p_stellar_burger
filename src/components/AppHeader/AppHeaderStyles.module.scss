@@ -21,7 +21,7 @@
       justify-content: space-between;
 
       li {
-        width: 48%;
+        width: 45%;
       }
     }
 
@@ -29,6 +29,10 @@
       display: flex;
       justify-content: center;
       text-align: center;
+    }
+
+    .header_logo > a:hover {
+      box-shadow: none;
     }
 
     .header_profile {
@@ -44,6 +48,8 @@
   a:hover {
     box-shadow: 0 0 6px 1px $theme_light;
   }
+
+
 
   a[class="active"] {
     display: flex;

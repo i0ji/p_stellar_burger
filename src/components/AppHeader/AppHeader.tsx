@@ -20,7 +20,8 @@ export default function AppHeader() {
 					</li>
 				</ul>
 				<div className={styles.header_logo}>
-					<Link to="/">
+					<Link
+						to="/">
 						<Logo/>
 					</Link>
 				</div>
