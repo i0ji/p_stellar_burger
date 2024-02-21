@@ -1,31 +1,26 @@
-import headerButtonStyles from './HeaderButton.module.scss';
-
 import {Button, BurgerIcon, ListIcon, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {NavLink} from "react-router-dom";
+import {useState} from "react";
 
 export default function HeaderButton({typeFor}: { typeFor: string }) {
 	
-	const headerButtonPaddings: string = "p-1";
-	
-	const activeState = ({isActive}: { isActive: boolean }) => {
-		return {
-			color: isActive ? 'white' : 'red',
-		};
-	};
+	const [activeTab, setActiveTab] = useState(typeFor === 'builder');
 	
 	switch (typeFor) {
 		case 'builder':
 			return (
 				<NavLink
-					className={headerButtonStyles.header_button}
+					className={({isActive}: { isActive: boolean }) => {
+						setActiveTab(isActive);
+						return isActive ? 'active' : 'not_active';
+					}}
 					to="/"
-					style={activeState}
 				>
 					<BurgerIcon
-						type={"secondary"}
+						type={activeTab ? 'primary' : 'secondary'}
 					/>
 					<Button
-						extraClass={`${headerButtonPaddings} text text_type_main-default`}
+						extraClass='p-1 text text_type_main-default'
 						htmlType="button"
 						type="secondary"
 						size="medium"
@@ -35,22 +30,20 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
 				</NavLink>
 			
 			)
-		
-		// case 'builder':
-		//
-		
 		case 'orders':
 			return (
 				<NavLink
-					className={headerButtonStyles.header_button}
+					className={({isActive}: { isActive: boolean }) => {
+						setActiveTab(isActive);
+						return isActive ? 'active' : 'not_active';
+					}}
 					to="/xxxx"
-					style={activeState}
 				>
 					<ListIcon
-						type="secondary"
+						type={activeTab ? 'primary' : 'secondary'}
 					/>
 					<Button
-						extraClass={`${headerButtonPaddings} text text_type_main-default`}
+						extraClass='p-1 text text_type_main-default'
 						htmlType="button"
 						type="secondary"
 						size="medium"
@@ -62,15 +55,17 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
 		case 'profile':
 			return (
 				<NavLink
-					className={headerButtonStyles.header_button}
+					className={({isActive}: { isActive: boolean }) => {
+						setActiveTab(isActive);
+						return isActive ? 'active' : 'not_active';
+					}}
 					to="/login"
-					style={activeState}
 				>
 					<ProfileIcon
-						type="secondary"
+						type={activeTab ? 'primary' : 'secondary'}
 					/>
 					<Button
-						extraClass={`${headerButtonPaddings} text text_type_main-default`}
+						extraClass='p-1 text text_type_main-default'
 						htmlType="button"
 						type="secondary"
 						size="medium"

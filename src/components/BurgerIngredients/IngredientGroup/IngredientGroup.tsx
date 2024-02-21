@@ -10,17 +10,16 @@ import {useDispatch, useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 
 import {v4 as uuidv4} from 'uuid';
-import Modal from "components/common/Modal/Modal.tsx";
 
 import {IngredientDetailsPage} from "pages/index.ts";
+import {useNavigate} from "react-router-dom";
 
 
-export default function IngredientGroup({type, ingredients, navigate}: IIngredientGroupProps) {
-	
-	const [selectedIngredient, setSelectedIngredient] = useState<IIngredient | null>(null);
+export default function IngredientGroup({type, ingredients}: IIngredientGroupProps) {
 	
 	const dispatch = useDispatch();
 	
+	const navigate = useNavigate();
 	
 	const addedIngredients = useSelector(state => state.constructorSlice.addedIngredients);
 	const bunIngredients = useSelector(state => state.constructorSlice.bun);
@@ -78,8 +77,9 @@ export default function IngredientGroup({type, ingredients, navigate}: IIngredie
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	
 	const handleOpenDetailsModal = (ingredient: IIngredient) => {
+		navigate(`${ingredient._id}`)
 		dispatch(updateSelectedIngredient(ingredient));
-		navigate(`/ingredient/${ingredient._id}`);
+
 		setIsModalOpen(true);
 	};
 	

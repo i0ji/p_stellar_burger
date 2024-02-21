@@ -44,6 +44,10 @@ export interface IIngredientDetailsProps extends IOrderDetailsProps {
 	calories: number,
 }
 
+export interface IRouteParam {
+	userID: string | undefined;
+}
+
 export interface IIngredientGroupProps {
 	type: string;
 	ingredients: IIngredient[];
@@ -54,15 +58,4 @@ export interface IDragItem {
 	index: number;
 	id: string;
 	type: string;
-}
-
-export interface IResponseData {
-	success: boolean;
-	order: {
-		number: string;
-	};
-}
-
-export interface IRequestFunction {
-	(): Promise<IResponseData>;
 }

@@ -39,7 +39,6 @@ export default function BurgerConstructor() {
     const totalAmount = useSelector(state => state.constructorSlice.totalAmount);
     // --------------- BUNS STATE
     const isBun = useSelector(state => state.constructorSlice.bun);
-    console.log(isBun)
 
 
     // --------------- CURRENT ID ---------------
