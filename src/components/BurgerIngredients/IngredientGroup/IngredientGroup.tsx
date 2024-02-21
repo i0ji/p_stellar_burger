@@ -42,7 +42,6 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
 			}),
 		});
 		
-		
 		// ----------------- INGREDIENTS COUNTER -----------------
 		
 		const ingredientCount = addedIngredients.reduce((count: number, ingredient: IIngredient) => {

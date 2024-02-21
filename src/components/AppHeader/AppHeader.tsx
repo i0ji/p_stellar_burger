@@ -1,6 +1,6 @@
 import styles from './AppHeaderStyles.module.scss';
 
-import HeaderButton from "./HeaderButton/HeaderButton.tsx";
+import HeaderButton from "./HeaderButton.tsx";
 import {Link} from "react-router-dom";
 
 

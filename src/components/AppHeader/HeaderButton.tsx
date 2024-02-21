@@ -59,7 +59,7 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
 						setActiveTab(isActive);
 						return isActive ? 'active' : 'not_active';
 					}}
-					to="/login"
+					to="/profile"
 				>
 					<ProfileIcon
 						type={activeTab ? 'primary' : 'secondary'}
@@ -76,5 +76,3 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
 			)
 	}
 }
-
-

@@ -1,4 +1,4 @@
-import {Routes, Route, useParams} from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 
 import AppHeader from "components/AppHeader/AppHeader.tsx";
 import {
@@ -12,10 +12,7 @@ import {
 } from "./pages"
 
 export default function App() {
-	
-	let productID = useParams();
-	console.log(productID);
-	
+
 	return (
 		<>
 			<AppHeader/>
@@ -27,6 +24,9 @@ export default function App() {
 				<Route path="/profile" element={<ProfilePage/>}/>
 				<Route path="/:productID" element={<IngredientDetailsPage/>}/>
 				<Route path="*" element={<NotFound404/>}/>
+			</Routes>
+			<Routes>
+				<Route path="/:productID" element={<IngredientDetailsPage/>}/>
 			</Routes>
 		</>
 	)
