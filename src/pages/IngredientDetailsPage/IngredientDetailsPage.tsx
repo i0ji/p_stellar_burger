@@ -4,7 +4,6 @@ import {useSelector} from "react-redux";
 import {useCallback, useEffect} from "react";
 import {useParams, useNavigate} from "react-router-dom";
 import {IIngredient} from "interfaces/interfaces";
-import ModalOverlay from "components/common/Modal/ModalOverlay/ModalOverlay.tsx";
 import Modal from "components/common/Modal/Modal.tsx";
 
 export default function IngredientDetailsPage() {
