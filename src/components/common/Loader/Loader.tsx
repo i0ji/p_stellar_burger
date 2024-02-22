@@ -1,9 +1,9 @@
 import loaderStyles from "./Loader.module.scss"
-import ModalOverlay from "components/common/Modal/ModalOverlay/ModalOverlay.tsx";
+import Modal from "components/common/Modal/Modal.tsx";
 
 export default function Loader() {
 	return (
-		<ModalOverlay>
+		<Modal>
 			<div style={{
 				position: 'absolute',
 				zIndex: '500',
@@ -12,6 +12,6 @@ export default function Loader() {
 			}}>
 				<span className={loaderStyles.loader}></span>
 			</div>
-		</ModalOverlay>
+		</Modal>
 	);
 }

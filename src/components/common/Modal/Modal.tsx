@@ -1,49 +1,59 @@
 import React, {useEffect} from "react";
-import {createPortal} from "react-dom";
 
 import styles from "./ModalStyles.module.scss"
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
-import ModalOverlay from "components/common/Modal/ModalOverlay/ModalOverlay.tsx";
-import {IIngredient} from "interfaces/interfaces";
+import {IIngredient, IModalOverlayProps} from "interfaces/interfaces";
+import {useSelector} from "react-redux";
 
-const modalPlacement = document.querySelector('#root');
-
-export default function Modal({onClose, children, selectedIngredient,}: {
-	onClose?: () => void,
-	children: React.ReactNode,
-	selectedIngredient?: null | IIngredient
+export default function Modal({onClose, children}: {
+    onClose?: () => void,
+    children: React.ReactNode,
+    selectedIngredient?: null | IIngredient
 }) {
-	
-	useEffect(() => {
-		
-		const closeOnEscapeKey = (e: KeyboardEvent) => {
-			if (onClose) (e.key === "Escape" ? onClose() : null);
-		}
-		
-		document.body.addEventListener("keydown", closeOnEscapeKey);
-		
-		return () => {
-			document.body.removeEventListener("keydown", closeOnEscapeKey);
-		};
-	}, [onClose]);
-	
-	if (modalPlacement)
-		
-		return createPortal(
-			(
-				<>
-					<ModalOverlay onClose={onClose}/>
-					<div
-						className={styles.modal}>
-						<div className={styles.modal_btn}>
-							<CloseIcon
-								type="primary"
-								onClick={onClose}
-							/>
-						</div>
-						{children}
-					</div>
-				</>
-			), modalPlacement);
+
+    useEffect(() => {
+        const closeOnEscapeKey = (e: KeyboardEvent) => {
+            if (onClose) (e.key === "Escape" ? onClose() : null);
+        }
+
+        document.body.addEventListener("keydown", closeOnEscapeKey);
+
+        return () => {
+            document.body.removeEventListener("keydown", closeOnEscapeKey);
+        };
+    }, [onClose]);
+
+    function ModalOverlay(props: IModalOverlayProps) {
+
+        const hasError = useSelector(state => state.orderSlice.error);
+
+        return (
+            <div
+                className={`${styles.modal_overlay} ${hasError && styles.modal_error}`}
+                onClick={props.onClose}
+            >
+                {props.children}
+            </div>
+        );
+    }
+
+
+
+
+    return (
+        <>
+            <ModalOverlay onClose={onClose}/>
+            <div
+                className={styles.modal}>
+                <div className={styles.modal_btn}>
+                    <CloseIcon
+                        type="primary"
+                        onClick={onClose}
+                    />
+                </div>
+                {children}
+            </div>
+        </>
+    )
 }

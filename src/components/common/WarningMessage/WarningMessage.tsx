@@ -1,17 +1,17 @@
 import styles from "./WarningMessage.module.scss"
-import ModalOverlay from "components/common/Modal/ModalOverlay/ModalOverlay.tsx";
+import Modal from "components/common/Modal/Modal.tsx";
 
 export default function WarningMessage() {
 	
 	return (
-		<ModalOverlay>
+		<Modal>
 			<div
 				className={`${styles.message} ${styles.messageError}`}
 			>
 				<p>Произошла какая-то непонятная нам ошибка!
 					<br/>Но Вы не переживайте - Ваши деньги за бургер мы получили!</p>
 			</div>
-		</ModalOverlay>
+		</Modal>
 	
 	);
 }
