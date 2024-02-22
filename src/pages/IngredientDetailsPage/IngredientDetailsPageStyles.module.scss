@@ -1,8 +1,12 @@
 @import "styles/theme_colors";
 
 .ingredients_details {
-  height: 570px;
-  width: 640px;
+  height: 640px;
+  width: 720px;
+
+  position: fixed;
+  left: calc(50% - 360px);
+  top: calc(50% - 320px);
 
   background-color: $bg_modal;
   color: $theme_white;
@@ -15,11 +19,16 @@
   border-radius: 40px;
 
   &_title {
-    width: 100%;
+    width: 80%;
     height: 10%;
 
     display: flex;
     justify-content: space-between;
+    align-items: center;
+
+    svg:hover {
+      fill: $theme_white;
+    }
   }
 
   img {

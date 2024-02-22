@@ -1,23 +1,21 @@
 import {Button, BurgerIcon, ListIcon, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {NavLink} from "react-router-dom";
-import {useState} from "react";
 
 export default function HeaderButton({typeFor}: { typeFor: string }) {
 	
-	const [activeTab, setActiveTab] = useState(typeFor === 'builder');
+	const activeStyle = ({isActive}: { isActive: boolean }) => {
+		return isActive ? 'active' : 'not_active';
+	}
 	
 	switch (typeFor) {
 		case 'builder':
 			return (
 				<NavLink
-					className={({isActive}: { isActive: boolean }) => {
-						setActiveTab(isActive);
-						return isActive ? 'active' : 'not_active';
-					}}
+					className={activeStyle}
 					to="/"
 				>
 					<BurgerIcon
-						type={activeTab ? 'primary' : 'secondary'}
+						type='primary'
 					/>
 					<Button
 						extraClass='p-1 text text_type_main-default'
@@ -28,19 +26,15 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
 						Конструктор
 					</Button>
 				</NavLink>
-			
 			)
 		case 'orders':
 			return (
 				<NavLink
-					className={({isActive}: { isActive: boolean }) => {
-						setActiveTab(isActive);
-						return isActive ? 'active' : 'not_active';
-					}}
+					className={activeStyle}
 					to="/xxxx"
 				>
 					<ListIcon
-						type={activeTab ? 'primary' : 'secondary'}
+						type='secondary'
 					/>
 					<Button
 						extraClass='p-1 text text_type_main-default'
@@ -55,14 +49,11 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
 		case 'profile':
 			return (
 				<NavLink
-					className={({isActive}: { isActive: boolean }) => {
-						setActiveTab(isActive);
-						return isActive ? 'active' : 'not_active';
-					}}
+					className={activeStyle}
 					to="/login"
 				>
 					<ProfileIcon
-						type={activeTab ? 'primary' : 'secondary'}
+						type='primary'
 					/>
 					<Button
 						extraClass='p-1 text text_type_main-default'

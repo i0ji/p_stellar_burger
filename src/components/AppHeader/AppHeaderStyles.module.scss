@@ -7,7 +7,6 @@
 
   height: 88px;
 
-
   nav {
     max-width: 1280px;
     margin: 0 auto;
@@ -17,6 +16,7 @@
 
     ul {
       list-style-type: none;
+
       display: flex;
       justify-content: space-between;
 
@@ -29,10 +29,10 @@
       display: flex;
       justify-content: center;
       text-align: center;
-    }
 
-    .header_logo > a:hover {
-      box-shadow: none;
+      a:hover {
+        box-shadow: none;
+      }
     }
 
     .header_profile {
@@ -42,20 +42,28 @@
       button {
         margin-left: 10px;
       }
+
+      a:hover {
+        color: $theme_white;
+      }
     }
   }
 
   a:hover {
     box-shadow: 0 0 6px 1px $theme_light;
+
+    button {
+      color: $theme_white;
+    }
   }
-
-
 
   a[class="active"] {
     display: flex;
     align-items: center;
     justify-content: space-around;
+
     border-radius: 35px;
+
     padding: 10px;
 
     button {
@@ -63,27 +71,26 @@
     }
 
     svg {
+      fill: $theme_white;
       transition: .6s all;
     }
   }
 
   a[class="not_active"] {
+    padding: 10px;
+
     display: flex;
     align-items: center;
     justify-content: space-around;
+
     border-radius: 35px;
-    padding: 10px;
 
     button {
       color: $theme_light;
     }
 
-    button:hover {
-      opacity: 1;
-      color: $theme_light;
-    }
-
     svg {
+      fill: $theme_light;
       transition: .6s all;
     }
   }

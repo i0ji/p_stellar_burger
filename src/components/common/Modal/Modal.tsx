@@ -7,7 +7,7 @@ import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "components/common/Modal/ModalOverlay/ModalOverlay.tsx";
 import {IIngredient} from "interfaces/interfaces";
 
-const modalPlacement = document.querySelector('#modals');
+const modalPlacement = document.querySelector('#root');
 
 export default function Modal({onClose, children, selectedIngredient,}: {
 	onClose?: () => void,
