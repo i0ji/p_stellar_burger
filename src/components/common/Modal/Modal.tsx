@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 
 import styles from "./ModalStyles.module.scss"
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -11,6 +11,16 @@ export default function Modal({onClose, children}: {
     children: React.ReactNode,
     selectedIngredient?: null | IIngredient
 }) {
+
+    // --------------- FADE IN/OUT ANIMATION  ---------------
+
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+        return () => setMounted(false);
+    }, []);
+
 
     useEffect(() => {
         const closeOnEscapeKey = (e: KeyboardEvent) => {
@@ -27,10 +37,12 @@ export default function Modal({onClose, children}: {
     function ModalOverlay(props: IModalOverlayProps) {
 
         const hasError = useSelector(state => state.orderSlice.error);
+        console.log(hasError)
+
 
         return (
             <div
-                className={`${styles.modal_overlay} ${hasError && styles.modal_error}`}
+                className={`${styles.modal_overlay}  ${mounted ? styles.fadeIn : styles.fadeOut} ${hasError && styles.modal_error}`}
                 onClick={props.onClose}
             >
                 {props.children}
@@ -38,19 +50,16 @@ export default function Modal({onClose, children}: {
         );
     }
 
-
-
-
     return (
         <>
             <ModalOverlay onClose={onClose}/>
             <div
                 className={styles.modal}>
                 <div className={styles.modal_btn}>
-                    <CloseIcon
+                    {!hasError && <CloseIcon
                         type="primary"
-                        onClick={onClose}
-                    />
+                        onClick={onClose}/>
+                    }
                 </div>
                 {children}
             </div>

@@ -1,4 +1,4 @@
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, useNavigate} from 'react-router-dom';
 
 import AppHeader from "components/AppHeader/AppHeader.tsx";
 import {
@@ -8,21 +8,32 @@ import {
     RegisterPage,
     ForgotPage,
     ProfilePage,
-    IngredientDetailsModal,
-    IngredientDetailsDefault
+    IngredientDetails,
 } from "./pages"
 
-import {useLocation} from "react-router-dom";
 import Modal from "components/common/Modal/Modal.tsx";
 
+import {useDispatch} from "react-redux";
+import {useLocation} from "react-router-dom";
+import {useCallback, useEffect} from "react";
+
+import {fetchIngredients} from "slices/ingredientsSlice.ts";
+
 export default function App() {
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchIngredients());
+    }, []);
 
     const location = useLocation();
     const state = location.state as { background?: Location };
 
-    const handleCloseModal = () => {
-
-    }
+    const handleCloseModal = useCallback(() => {
+        navigate(-1)
+    }, [navigate])
 
     return (
         <>
@@ -33,7 +44,7 @@ export default function App() {
                 <Route path="/forgot-password" element={<ForgotPage/>}/>
                 <Route path="/register" element={<RegisterPage/>}/>
                 <Route path="/profile" element={<ProfilePage/>}/>
-                <Route path="/ingredient/:id" element={<IngredientDetailsDefault/>}/>
+                <Route path="/ingredient/:id" element={<IngredientDetails/>}/>
                 <Route path="*" element={<NotFound404/>}/>
             </Routes>
 
@@ -41,7 +52,7 @@ export default function App() {
                 <Routes>
                     <Route path="/ingredient/:id" element={
                         <Modal onClose={handleCloseModal}>
-                            <IngredientDetailsModal/>
+                            <IngredientDetails/>
                         </Modal>
                     }/>
                 </Routes>

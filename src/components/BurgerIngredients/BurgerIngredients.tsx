@@ -1,6 +1,6 @@
-import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-
 import styles from "./BurgerIngredientsStyles.module.scss"
+
+import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import IngredientGroup from "components/BurgerIngredients/IngredientGroup/IngredientGroup.tsx";
 
@@ -14,6 +14,7 @@ enum TabValues {
 }
 
 export default function BurgerIngredients() {
+
 	const {ingredients: ingredientsData} = useSelector((state) => state.ingredients);
 	
 	const filteredIngredients = useMemo(() => {
@@ -23,7 +24,10 @@ export default function BurgerIngredients() {
 			main: Array.isArray(ingredientsData) ? ingredientsData.filter((item) => item.type === "main") : [],
 		};
 	}, [ingredientsData]);
-	
+
+
+	// --------------- SCROLL LOGIC  ---------------
+
 	const [current, setCurrent] = useState(TabValues.Bun);
 	
 	const bunRef = useRef<HTMLDivElement>(null);
