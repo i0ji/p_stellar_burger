@@ -34,11 +34,15 @@ export default function Modal({onClose, children}: {
         };
     }, [onClose]);
 
+
+    // --------------- ERROR CHECK  ---------------
+
+    const hasError = useSelector(state => state.orderSlice.error);
+    console.log(`We have a error: ${hasError}`)
+
+
+    // --------------- MODAL OVERLAY  ---------------
     function ModalOverlay(props: IModalOverlayProps) {
-
-        const hasError = useSelector(state => state.orderSlice.error);
-        console.log(hasError)
-
 
         return (
             <div

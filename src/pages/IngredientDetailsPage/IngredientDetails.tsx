@@ -11,20 +11,16 @@ import burgerBuilderStyles from "pages/HomePage/BurgerBuilder.module.scss";
 export default function IngredientDetails() {
 
     const {id} = useParams<{ "id"?: string }>();
+
     const {ingredients: ingredientsData, status, error}: IBurgerState = useSelector((state: {
         ingredients: IBurgerState
     }) => state.ingredients);
-
-    console.log(id)
-    console.log(ingredientsData)
 
     function getIngredient(id: string) {
         return ingredientsData.filter((ingredient: IIngredient) => ingredient._id === id);
     }
 
     const [ingredient] = getIngredient(id ?? '')
-
-    console.log(ingredient)
 
 
     // --------------- FADE IN/OUT ANIMATION  ---------------
@@ -47,8 +43,6 @@ export default function IngredientDetails() {
     }
 
     return (
-
-
 
 
         <div className={styles.ingredients_details}>
@@ -92,20 +86,3 @@ export default function IngredientDetails() {
         </div>
     )
 }
-//
-//
-//
-// {(isLoaded === 'loading') && !hasError &&
-// <Loader/>
-// }
-//
-// {isLoaded === 'failed' && <WarningMessage/>}
-//
-//
-// {(isLoaded === 'succeeded') && isVisible &&
-// <>
-//     <Modal onClose={closeModal}>
-//         <OrderDetails/>
-//     </Modal>
-// </>
-// }
