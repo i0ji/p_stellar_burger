@@ -2,15 +2,13 @@ import styles from "./ModalStyles.module.scss"
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {useSelector} from "react-redux";
-import React, {useEffect, useState,} from "react";
+import React, {useEffect} from "react";
 
 export default function Modal({onClose, children}: {
     onClose?: () => void,
     children: React.ReactNode,
 }) {
 
-
-    const [shouldRender, setRender] = useState(show);
 
     // --------------- ERROR CHECK ---------------
 
@@ -31,20 +29,15 @@ export default function Modal({onClose, children}: {
         };
     }, [onClose]);
 
-
-
-
-
-
     return (
         <>
             <div
-                className={`${styles.modal_overlay} ${hasError && styles.modal_error}`}
+                className={`${styles.modal_overlay} ${styles.overlayFadeIn} ${hasError && styles.modal_error}`}
                 onClick={onClose}
             >
             </div>
             <div
-                className={styles.modal}>
+                className={`${styles.modal} ${styles.fadeIn}`}>
                 <div className={styles.modal_btn}>
                     {!hasError && <CloseIcon
                         type="primary"
@@ -54,21 +47,6 @@ export default function Modal({onClose, children}: {
                 </div>
                 {children}
             </div>
-
-
-            return shouldRender ? (
-            <div
-                style={{
-                    animation: `${show ? "fadeIn" : "fadeOut"} 1s`,
-                }}
-                onAnimationEnd={() => {
-                    if (!show) setRender(false);
-                }}
-            >
-                {children}
-            </div>
-            ) : null;
-
 
         </>
     )

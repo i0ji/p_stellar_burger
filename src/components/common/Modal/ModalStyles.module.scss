@@ -21,14 +21,14 @@
   opacity: 1;
 }
 
-.modal {how to make smooth mount and unmount react
+.modal {
   position: fixed;
 
   z-index: 200;
   top: 50%;
   left: 50%;
 
-  transition: .5s all;
+  //transition: .5s all;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 
@@ -56,20 +56,48 @@
   animation: fadeOut .3s ease-in-out;
 }
 
+.overlayFadeIn {
+  animation: overlayFadeIn .3s ease-in-out;
+}
+
+.overlayFadeOut {
+  animation: overlayFadeOut .3s ease-in-out;
+}
+
+
 @keyframes fadeIn {
-  0 % {
+  from {
     opacity: 0;
   }
-  100 % {
+  to {
     opacity: 1;
   }
 }
 
 @keyframes fadeOut {
-  0 % {
+  from {
     opacity: 1;
   }
-  100 % {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.6;
+  }
+}
+
+@keyframes overlayFadeOut {
+  from {
+    opacity: 0.6;
+  }
+  to {
+
     opacity: 0;
   }
 }

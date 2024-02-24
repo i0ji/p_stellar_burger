@@ -12,7 +12,6 @@ import {updateSelectedIngredient} from "slices/currentIngredientSlice.ts";
 import {v4 as uuidv4} from 'uuid';
 
 import {Link} from "react-router-dom";
-import {useState} from "react";
 
 export default function IngredientGroup({type, ingredients}: IIngredientGroupProps) {
 
@@ -24,7 +23,6 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
 
     const onUpdateSelectedIngredient = (ingredient: IIngredient) => {
         dispatch(updateSelectedIngredient(ingredient));
-        setShow(show => !show);
     }
 
     // ----------------- INGREDIENT ITEM CARD -----------------
@@ -75,25 +73,6 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
             </div>
         );
     };
-
-
-    // ----------------- INGREDIENT ITEM CARD -----------------
-    // ----------------- INGREDIENT ITEM CARD -----------------
-    // ----------------- INGREDIENT ITEM CARD -----------------
-    // ----------------- INGREDIENT ITEM CARD -----------------
-
-
-    const [show, setShow] = useState(false);
-
-
-
-
-    // ----------------- INGREDIENT ITEM CARD -----------------
-    // ----------------- INGREDIENT ITEM CARD -----------------
-    // ----------------- INGREDIENT ITEM CARD -----------------
-    // ----------------- INGREDIENT ITEM CARD -----------------
-
-
 
 
     return (

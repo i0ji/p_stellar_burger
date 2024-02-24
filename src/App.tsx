@@ -15,7 +15,7 @@ import Modal from "components/common/Modal/Modal.tsx";
 
 import {useDispatch} from "react-redux";
 import {useLocation} from "react-router-dom";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect} from "react";
 
 
 import {fetchIngredients} from "slices/ingredientsSlice.ts";
@@ -32,7 +32,7 @@ export default function App() {
     }, []);
 
     const handleCloseModal = useCallback(() => {
-        navigate(-1)
+        navigate(-1);
     }, [navigate]);
 
 
