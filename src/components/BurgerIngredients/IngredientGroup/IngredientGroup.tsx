@@ -22,7 +22,6 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
     const addedIngredients = useSelector(state => state.constructorSlice.addedIngredients);
     const bunIngredients = useSelector(state => state.constructorSlice.bun);
 
-
     const onUpdateSelectedIngredient = (ingredient: IIngredient) => {
         dispatch(updateSelectedIngredient(ingredient))
     }

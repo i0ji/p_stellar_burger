@@ -1,10 +1,13 @@
-import React, {useEffect, useState} from "react";
-
 import styles from "./ModalStyles.module.scss"
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
+import Fade from "components/common/Fade/Fade.tsx";
+
 import {IIngredient, IModalOverlayProps} from "interfaces/interfaces";
+
+import React, {useEffect} from "react";
 import {useSelector} from "react-redux";
+
 
 export default function Modal({onClose, children}: {
     onClose?: () => void,
@@ -12,15 +15,11 @@ export default function Modal({onClose, children}: {
     selectedIngredient?: null | IIngredient
 }) {
 
+
     // --------------- FADE IN/OUT ANIMATION  ---------------
 
-    const [mounted, setMounted] = useState(false);
 
-    useEffect(() => {
-        setMounted(true);
-        return () => setMounted(false);
-    }, []);
-
+    // --------------- CLOSING LOGIC ---------------
 
     useEffect(() => {
         const closeOnEscapeKey = (e: KeyboardEvent) => {
@@ -38,15 +37,15 @@ export default function Modal({onClose, children}: {
     // --------------- ERROR CHECK  ---------------
 
     const hasError = useSelector(state => state.orderSlice.error);
-    console.log(`We have a error: ${hasError}`)
 
 
     // --------------- MODAL OVERLAY  ---------------
+
     function ModalOverlay(props: IModalOverlayProps) {
 
         return (
             <div
-                className={`${styles.modal_overlay}  ${mounted ? styles.fadeIn : styles.fadeOut} ${hasError && styles.modal_error}`}
+                className={`${styles.modal_overlay} ${hasError && styles.modal_error}`}
                 onClick={props.onClose}
             >
                 {props.children}
@@ -56,17 +55,17 @@ export default function Modal({onClose, children}: {
 
     return (
         <>
-            <ModalOverlay onClose={onClose}/>
-            <div
-                className={styles.modal}>
-                <div className={styles.modal_btn}>
-                    {!hasError && <CloseIcon
-                        type="primary"
-                        onClick={onClose}/>
-                    }
+                <ModalOverlay onClose={onClose}/>
+                <div
+                    className={styles.modal}>
+                    <div className={styles.modal_btn}>
+                        {!hasError && <CloseIcon
+                            type="primary"
+                            onClick={onClose}/>
+                        }
+                    </div>
+                    {children}
                 </div>
-                {children}
-            </div>
         </>
     )
 }

@@ -1,14 +1,16 @@
 import styles from "pages/IngredientDetailsPage/IngredientDetailsStyles.module.scss";
 import {useSelector} from "react-redux";
-import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useParams, useLocation} from "react-router-dom";
 import {IIngredient} from "interfaces/interfaces";
 import {IBurgerState} from "interfaces/sliceInterfaces";
 import Loader from "components/common/Loader/Loader.tsx";
 import burgerBuilderStyles from "pages/HomePage/BurgerBuilder.module.scss";
+import {useState} from "react";
 
 
 export default function IngredientDetails() {
+
+    // --------------- VARS & STATES ---------------
 
     const {id} = useParams<{ "id"?: string }>();
 
@@ -16,24 +18,22 @@ export default function IngredientDetails() {
         ingredients: IBurgerState
     }) => state.ingredients);
 
-    function getIngredient(id: string) {
-        return ingredientsData.filter((ingredient: IIngredient) => ingredient._id === id);
-    }
-
-    const [ingredient] = getIngredient(id ?? '')
+    const [ingredient] = ingredientsData.filter((ingredient: IIngredient) => ingredient._id === id);
 
 
-    // --------------- FADE IN/OUT ANIMATION  ---------------
 
-    const [mounted, setMounted] = useState(false);
+    // --------------- SETTING BACKGROUND ---------------
 
-    useEffect(() => {
-        setMounted(true);
-        return () => setMounted(false);
-    }, []);
+    const location = useLocation();
+
+    const modalBackground = (location.key === 'default') ? styles.transparent : styles.dark;
+
+
+
 
 
     // --------------- STATUSES ---------------
+
     if (status === 'loading') {
         return <Loader/>;
     }
@@ -42,12 +42,12 @@ export default function IngredientDetails() {
         return <p className={burgerBuilderStyles.status}>Ошибка: {error}</p>;
     }
 
+
     return (
 
-
-        <div className={styles.ingredients_details}>
-
-
+        <div
+            className={`${styles.ingredients_details} ${modalBackground}`}
+        >
             {error ? (<p>Произошла ошибка: {error}</p>) : (ingredientsData.length > 0 && (
 
                 <>
@@ -79,10 +79,7 @@ export default function IngredientDetails() {
                         </div>
                     </div>
                 </>
-
             ))}
-
-
         </div>
     )
 }

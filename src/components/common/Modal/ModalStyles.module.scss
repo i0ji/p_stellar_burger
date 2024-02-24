@@ -48,12 +48,12 @@
   }
 }
 
-.fade-in {
-  animation: fadeIn 0.5s ease-in-out forwards;
+.fadeIn {
+  animation: fadeIn .3s;
 }
 
-.fade-out {
-  animation: fadeOut 0.5s ease-in-out forwards;
+.fadeOut {
+  animation: fadeOut .3s;
 }
 
 @keyframes fadeIn {
@@ -73,3 +73,5 @@
     opacity: 0;
   }
 }
+
+

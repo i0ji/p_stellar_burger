@@ -4,13 +4,10 @@
   height: 640px;
   width: 720px;
 
-
-
   position: fixed;
   left: calc(50% - 360px);
   top: calc(50% - 320px);
 
-  background-color: $bg_modal;
   color: $theme_white;
 
   display: flex;
@@ -66,32 +63,10 @@
   -ms-animation: fadeIn 5s;
 }
 
-
-.fadeIn {
-  animation: fadeIn .3s;
+.transparent {
+  background-color: transparent;
 }
 
-.fadeOut {
-  animation: fadeOut .3s;
+.dark {
+  background-color: $bg_modal;
 }
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeOut {
-  100% {
-    opacity: 1;
-  }
-  0% {
-    opacity: 0;
-  }
-}
-
-
-
