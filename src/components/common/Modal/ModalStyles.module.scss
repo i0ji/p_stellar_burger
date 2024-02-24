@@ -21,7 +21,7 @@
   opacity: 1;
 }
 
-.modal {
+.modal {how to make smooth mount and unmount react
   position: fixed;
 
   z-index: 200;
@@ -48,28 +48,28 @@
   }
 }
 
-.modal_fadeIn {
+.fadeIn {
   animation: fadeIn .3s ease-in-out;
 }
 
-.modal_fadeOut {
+.fadeOut {
   animation: fadeOut .3s ease-in-out;
 }
 
 @keyframes fadeIn {
-  from {
+  0 % {
     opacity: 0;
   }
-  to {
+  100 % {
     opacity: 1;
   }
 }
 
 @keyframes fadeOut {
-  from {
+  0 % {
     opacity: 1;
   }
-  to {
+  100 % {
     opacity: 0;
   }
 }
