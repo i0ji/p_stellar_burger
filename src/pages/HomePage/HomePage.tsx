@@ -1,4 +1,4 @@
-import burgerBuilderStyles from "./BurgerBuilder.module.scss"
+import styles from "./HomePageStyles.module.scss"
 import {IBurgerState} from "interfaces/sliceInterfaces";
 
 import Loader from "components/common/Loader/Loader.tsx";
@@ -23,17 +23,17 @@ export default function HomePage() {
     }
 
     if (status === 'failed') {
-        return <p className={burgerBuilderStyles.status}>Ошибка: {error}</p>;
+        return <p className={styles.status}>Ошибка: {error}</p>;
     }
 
 
     return (
         <main>
             {error ? (<p>Произошла ошибка: {error}</p>) : (ingredientsData.length > 0 && (
-                <section className={burgerBuilderStyles.burger_builder}>
+                <section className={styles.burger_builder}>
                     <DndProvider backend={HTML5Backend}>
 
-                        <div className={burgerBuilderStyles.container}>
+                        <div className={styles.container}>
                             <BurgerIngredients/>
 
                             <BurgerConstructor/>

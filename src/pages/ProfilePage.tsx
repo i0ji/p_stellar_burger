@@ -1,13 +1,13 @@
-import profilePageStyles from "./FormsPage.module.scss"
+import styles from "./FormsPage.module.scss"
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link} from "react-router-dom";
 
 export default function ProfilePage() {
 	return (
-		<section className={profilePageStyles.profile_section}>
+		<section className={styles.profile_section}>
 			
-			<div className={profilePageStyles.profile_block}>
-				<div className={profilePageStyles.profile_buttons}>
+			<div className={styles.profile_block}>
+				<div className={styles.profile_buttons}>
 					<Link to='/xxxx' className='mb-10'>
 						<Button
 							extraClass={`text text_type_main-medium`}

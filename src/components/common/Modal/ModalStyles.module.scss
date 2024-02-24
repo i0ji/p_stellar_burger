@@ -48,12 +48,12 @@
   }
 }
 
-.fadeIn {
-  animation: fadeIn .3s;
+.modal_fadeIn {
+  animation: fadeIn .3s ease-in-out;
 }
 
-.fadeOut {
-  animation: fadeOut .3s;
+.modal_fadeOut {
+  animation: fadeOut .3s ease-in-out;
 }
 
 @keyframes fadeIn {
@@ -73,5 +73,3 @@
     opacity: 0;
   }
 }
-
-

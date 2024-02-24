@@ -1,4 +1,4 @@
-import loginFormStyles from "pages/FormsPage.module.scss"
+import styles from "pages/FormsPage.module.scss"
 
 import {Link} from "react-router-dom";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -6,7 +6,7 @@ import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
 export default function LoginPage() {
     return (
-        <section className={loginFormStyles.section}>
+        <section className={styles.section}>
             <form>
                 <h1 className="text text text_type_main-medium pb-6">Вход</h1>
                 <Input

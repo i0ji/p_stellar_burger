@@ -4,11 +4,12 @@ import {useParams, useLocation} from "react-router-dom";
 import {IIngredient} from "interfaces/interfaces";
 import {IBurgerState} from "interfaces/sliceInterfaces";
 import Loader from "components/common/Loader/Loader.tsx";
-import burgerBuilderStyles from "pages/HomePage/BurgerBuilder.module.scss";
+import burgerBuilderStyles from "pages/HomePage/HomePageStyles.module.scss";
 import {useState} from "react";
 
 
 export default function IngredientDetails() {
+
 
     // --------------- VARS & STATES ---------------
 
@@ -21,15 +22,11 @@ export default function IngredientDetails() {
     const [ingredient] = ingredientsData.filter((ingredient: IIngredient) => ingredient._id === id);
 
 
-
     // --------------- SETTING BACKGROUND ---------------
 
     const location = useLocation();
 
     const modalBackground = (location.key === 'default') ? styles.transparent : styles.dark;
-
-
-
 
 
     // --------------- STATUSES ---------------
@@ -39,9 +36,8 @@ export default function IngredientDetails() {
     }
 
     if (status === 'failed') {
-        return <p className={burgerBuilderStyles.status}>Ошибка: {error}</p>;
+        return <p className={styles.status}>Ошибка: {error}</p>;
     }
-
 
     return (
 

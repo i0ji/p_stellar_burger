@@ -57,10 +57,6 @@
 
 .fade-in-image {
   animation: fadeIn 5s;
-  -webkit-animation: fadeIn 5s;
-  -moz-animation: fadeIn 5s;
-  -o-animation: fadeIn 5s;
-  -ms-animation: fadeIn 5s;
 }
 
 .transparent {
@@ -69,4 +65,12 @@
 
 .dark {
   background-color: $bg_modal;
+}
+
+.status {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  font-size: 30px;
 }

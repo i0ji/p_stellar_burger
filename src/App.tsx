@@ -15,7 +15,8 @@ import Modal from "components/common/Modal/Modal.tsx";
 
 import {useDispatch} from "react-redux";
 import {useLocation} from "react-router-dom";
-import {useCallback, useEffect} from "react";
+import {useCallback, useEffect, useState} from "react";
+
 
 import {fetchIngredients} from "slices/ingredientsSlice.ts";
 
@@ -23,17 +24,17 @@ export default function App() {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location = useLocation();
+    const state = location.state as { background?: Location };
 
     useEffect(() => {
         dispatch(fetchIngredients());
     }, []);
 
-    const location = useLocation();
-    const state = location.state as { background?: Location };
-
     const handleCloseModal = useCallback(() => {
         navigate(-1)
-    }, [navigate])
+    }, [navigate]);
+
 
     return (
         <>
@@ -51,7 +52,9 @@ export default function App() {
             {state?.background && (
                 <Routes>
                     <Route path="/ingredient/:id" element={
-                        <Modal onClose={handleCloseModal}>
+                        <Modal
+                            onClose={handleCloseModal}
+                        >
                             <IngredientDetails/>
                         </Modal>
                     }/>
