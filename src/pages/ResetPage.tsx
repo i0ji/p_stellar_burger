@@ -3,7 +3,7 @@ import styles from "pages/Pages.module.scss"
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
-import {resetPassword} from "utils/resetPassword.ts";
+import {resetPassword} from "utils/api.ts";
 
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
@@ -12,7 +12,7 @@ export default function ResetPage() {
 
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');
-const navigate=useNavigate();
+    const navigate = useNavigate();
 
     const handleSavePassword = async () => {
         try {

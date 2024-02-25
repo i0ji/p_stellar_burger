@@ -4,13 +4,14 @@ import {Link, useNavigate} from "react-router-dom";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
-import {forgotPassword} from "utils/forgotPassword.ts"
+import {forgotPassword} from "utils/api.ts"
 
 import {useState} from "react";
 
 export default function ForgotPage() {
 
     const [email, setEmail] = useState('');
+
     const navigate = useNavigate();
 
 

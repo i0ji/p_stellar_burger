@@ -19,7 +19,7 @@ interface ConstructorState {
     bun: IIngredient | null;
 }
 
-export interface IRegisterUserData {
+export interface IUserData {
     email: string;
     password: string;
     name: string;

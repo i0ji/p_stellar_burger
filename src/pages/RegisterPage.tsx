@@ -4,31 +4,28 @@ import {Link} from "react-router-dom";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
-import {registerUser} from "utils/registerUser.ts";
+import {registerUser} from "utils/api.ts";
 
-import {useState} from "react";
+import {useForm} from "hooks/useForm.ts";
 
 
 export default function RegisterPage() {
 
-
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
+    const {values, handleChange} = useForm({});
 
     const handleRegister = async () => {
         try {
-            const response = await registerUser(email, password, name);
+            const response = await registerUser(values);
 
             if (response.success) {
-                console.log('User successfully registered:', response.message);
+                console.log('Пользователь успешгл зарегистрировался:', response.message);
                 // --------------- SUCCESS REGISTER
             } else {
-                console.error('Error during user registration:', response.message);
+                console.error('Ошибка при регистрации:', response.message);
                 // --------------- ERROR HANDLE
             }
         } catch (error) {
-            console.error('Error during user registration:', error);
+            console.error('Ошибка при регистрации:', error);
             // --------------- ERROR HANDLE
         }
     };
@@ -38,33 +35,33 @@ export default function RegisterPage() {
             <form>
                 <h1 className="text text text_type_main-medium pb-6">Регистрация</h1>
                 <Input
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={handleChange}
                     type={'text'}
                     placeholder={'E-mail'}
                     icon={undefined}
-                    value={email}
+                    value={values.email}
                     error={false}
                     errorText={'Ошибка'}
                     size={'default'}
                     extraClass="mb-6"
                 />
                 <Input
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={handleChange}
                     type={'password'}
                     placeholder={'Пароль'}
                     icon={'ShowIcon'}
-                    value={password}
+                    value={values.password}
                     error={false}
                     errorText={'Ошибка'}
                     size={'default'}
                     extraClass="mb-6"
                 />
                 <Input
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={handleChange}
                     type={'text'}
                     placeholder={'Имя'}
                     icon={undefined}
-                    value={name}
+                    value={values.name}
                     error={false}
                     errorText={'Ошибка'}
                     size={'default'}

@@ -4,32 +4,35 @@ import {Link} from "react-router-dom";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
+import {useForm} from "hooks/useForm.ts";
+
 export default function LoginPage() {
+
+
+    const {values, handleChange} = useForm({});
+
+
     return (
         <section className={styles.section}>
             <form>
                 <h1 className="text text text_type_main-medium pb-6">Вход</h1>
                 <Input
-                    onChange={() => {
-                        console.log('INPUT 1')
-                    }}
+                    onChange={handleChange}
                     type={'text'}
                     placeholder={'E-mail'}
                     icon={undefined}
-                    value={''}
+                    value={values.email}
                     error={false}
                     errorText={'Ошибка'}
                     size={'default'}
                     extraClass="mb-6"
                 />
                 <Input
-                    onChange={() => {
-                        console.log('INPUT 1')
-                    }}
+                    onChange={handleChange}
                     type={'text'}
                     placeholder={'Пароль'}
                     icon={'ShowIcon'}
-                    value={''}
+                    value={values.password}
                     error={false}
                     errorText={'Ошибка'}
                     size={'default'}
@@ -38,7 +41,9 @@ export default function LoginPage() {
                 <Button
                     htmlType="button"
                     extraClass="mb-20"
-                    type="primary">
+                    type="primary"
+
+                >
                     Войти
                 </Button>
 
