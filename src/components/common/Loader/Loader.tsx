@@ -1,17 +1,19 @@
-import loaderStyles from "./Loader.module.scss"
-import Modal from "components/common/Modal/Modal.tsx";
+import styles from './Loader.module.scss'
+import loading from "images/common/loading.svg"
 
 export default function Loader() {
-	return (
-		<Modal>
-			<div style={{
-				position: 'absolute',
-				zIndex: '500',
-				top: '50%',
-				left: '50%'
-			}}>
-				<span className={loaderStyles.loader}></span>
-			</div>
-		</Modal>
-	);
+    return (
+        <>
+            <div className={styles.loader}/>
+            <div
+                style={{
+                    position: 'absolute',
+                    zIndex: '500',
+                    top: 'calc(50% - 100px)',
+                    left: 'calc(50% - 100px)'
+                }}>
+                <img src={loading} alt="ЗАГРУЗКА..."/>
+            </div>
+        </>
+    );
 }

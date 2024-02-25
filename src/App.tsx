@@ -12,13 +12,15 @@ import {
 } from "./pages"
 
 import Modal from "components/common/Modal/Modal.tsx";
+import {UnAuth} from "components/ProtectedRoute/ProtectedRoute.tsx";
+import {Auth} from "components/ProtectedRoute/ProtectedRoute.tsx";
 
 import {useDispatch} from "react-redux";
 import {useLocation} from "react-router-dom";
 import {useCallback, useEffect} from "react";
 
-
 import {fetchIngredients} from "slices/ingredientsSlice.ts";
+
 
 export default function App() {
 
@@ -41,10 +43,16 @@ export default function App() {
             <AppHeader/>
             <Routes location={state?.background || location}>
                 <Route path="/" element={<HomePage/>}/>
-                <Route path="/login" element={<LoginPage/>}/>
+
+                <Route path="/login" element={<UnAuth component={<LoginPage/>}/>}/>
+                <Route path="/register" element={<UnAuth component={<RegisterPage/>}/>}/>
+                <Route path="/profile" element={<Auth component={<ProfilePage/>}/>}/>
+
                 <Route path="/forgot-password" element={<ForgotPage/>}/>
-                <Route path="/register" element={<RegisterPage/>}/>
-                <Route path="/profile" element={<ProfilePage/>}/>
+
+                {/*<Route path="/login" element={<LoginPage/>}/>*/}
+                {/*<Route path="/register" element={<RegisterPage/>}/>*/}
+                {/*<Route path="/profile" element={<ProfilePage/>}/>*/}
                 <Route path="/ingredient/:id" element={<IngredientDetails/>}/>
                 <Route path="*" element={<NotFound404/>}/>
             </Routes>

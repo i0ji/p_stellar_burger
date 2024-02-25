@@ -26,7 +26,6 @@ export default function HomePage() {
         return <p className={styles.status}>Ошибка: {error}</p>;
     }
 
-
     return (
         <main>
             {error ? (<p>Произошла ошибка: {error}</p>) : (ingredientsData.length > 0 && (
