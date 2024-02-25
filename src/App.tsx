@@ -9,6 +9,8 @@ import {
     ForgotPage,
     ProfilePage,
     IngredientDetails,
+    ResetPage,
+    SuccessPage
 } from "./pages"
 
 import Modal from "components/common/Modal/Modal.tsx";
@@ -42,19 +44,23 @@ export default function App() {
         <>
             <AppHeader/>
             <Routes location={state?.background || location}>
+
                 <Route path="/" element={<HomePage/>}/>
 
-                <Route path="/login" element={<UnAuth component={<LoginPage/>}/>}/>
-                <Route path="/register" element={<UnAuth component={<RegisterPage/>}/>}/>
-                <Route path="/profile" element={<Auth component={<ProfilePage/>}/>}/>
+                {/*<Route path="/login" element={<UnAuth component={<LoginPage/>}/>}/>*/}
+                {/*<Route path="/register" element={<UnAuth component={<RegisterPage/>}/>}/>*/}
+                {/*<Route path="/forgot-password" element={<UnAuth component={<ForgotPage/>}/>}/>*/}
+                {/*<Route path="/reset-password" element={<Auth component={<ResetPage/>}/>}/>*/}
+                {/*<Route path="/profile" element={<Auth component={<ProfilePage/>}/>}/>*/}
 
+                <Route path="/login" element={<LoginPage/>}/>
+                <Route path="/register" element={<RegisterPage/>}/>
                 <Route path="/forgot-password" element={<ForgotPage/>}/>
-
-                {/*<Route path="/login" element={<LoginPage/>}/>*/}
-                {/*<Route path="/register" element={<RegisterPage/>}/>*/}
-                {/*<Route path="/profile" element={<ProfilePage/>}/>*/}
+                <Route path="/reset-password" element={<ResetPage/>}/>
+                <Route path="/profile" element={<ProfilePage/>}/>
                 <Route path="/ingredient/:id" element={<IngredientDetails/>}/>
                 <Route path="*" element={<NotFound404/>}/>
+                <Route path="/reset-success" element={<SuccessPage/>}/>
             </Routes>
 
             {state?.background && (

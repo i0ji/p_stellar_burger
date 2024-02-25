@@ -1,8 +1,13 @@
-import styles from "./FormsPage.module.scss"
+import styles from "./Pages.module.scss"
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 export default function ProfilePage() {
+
+	const location = useLocation();
+
+
+
 	return (
 		<section className={styles.profile_section}>
 			

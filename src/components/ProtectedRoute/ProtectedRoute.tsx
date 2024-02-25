@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import {Navigate, useLocation} from "react-router-dom";
 import Loader from "components/common/Loader/Loader.tsx";
 
-function ProtectedRoute({unAuth = false, component}: { unAuth: boolean, component: React.ReactNode }) {
+function ProtectedRoute({unAuth = false, component}: { unAuth?: boolean, component: React.ReactNode }) {
 
     const user = useSelector(state => state.user.user);
     const isAuthChecked = useSelector(state => state.user.isAuthChecked);

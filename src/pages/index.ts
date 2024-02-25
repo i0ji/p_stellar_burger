@@ -3,8 +3,10 @@ import LoginPage from "pages/LoginPage.tsx";
 import NotFound404 from "pages/NotFound404.tsx";
 import RegisterPage from "pages/RegisterPage.tsx";
 import ForgotPage from "pages/ForgotPage.tsx";
+import ResetPage from "pages/ResetPage.tsx";
 import ProfilePage from "pages/ProfilePage.tsx"
 import IngredientDetails from "pages/IngredientDetailsPage/IngredientDetails.tsx"
+import SuccessPage from "pages/SuccessPage.tsx";
 
 export {
     LoginPage,
@@ -14,4 +16,6 @@ export {
     RegisterPage,
     ProfilePage,
     IngredientDetails,
+    ResetPage,
+    SuccessPage
 };

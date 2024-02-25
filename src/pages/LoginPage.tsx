@@ -1,4 +1,4 @@
-import styles from "pages/FormsPage.module.scss"
+import styles from "pages/Pages.module.scss"
 
 import {Link} from "react-router-dom";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";

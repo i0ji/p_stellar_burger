@@ -1,4 +1,4 @@
-import styles from "./FormsPage.module.scss"
+import styles from "./Pages.module.scss"
 
 import {Link} from "react-router-dom";
 
