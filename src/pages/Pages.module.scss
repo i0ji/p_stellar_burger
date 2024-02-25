@@ -90,6 +90,10 @@
       p {
         opacity: .4;
       }
+
+      .active  {
+        color: $theme_white
+      }
     }
   }
 }

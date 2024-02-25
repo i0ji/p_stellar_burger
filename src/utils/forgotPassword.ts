@@ -14,8 +14,7 @@ export const forgotPassword = async (email: string): Promise<any> => {
             body: JSON.stringify(requestBody),
         });
 
-        const data = await response.json();
-        return data;
+        return await response.json();
     } catch (error) {
         console.error('Error during password reset:', error);
         throw error;

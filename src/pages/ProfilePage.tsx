@@ -1,21 +1,22 @@
 import styles from "./Pages.module.scss"
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useLocation} from "react-router-dom";
+import {isAction} from "@reduxjs/toolkit";
 
 export default function ProfilePage() {
 
 	const location = useLocation();
 
-
+	const isActive = location.pathname === '/profile'
 
 	return (
 		<section className={styles.profile_section}>
 			
 			<div className={styles.profile_block}>
 				<div className={styles.profile_buttons}>
-					<Link to='/xxxx' className='mb-10'>
+					<Link to='/profile' className='mb-10'>
 						<Button
-							extraClass={`text text_type_main-medium`}
+							extraClass={`text text_type_main-medium ${isActive ? styles.active : ''}`}
 							htmlType="button"
 							type="secondary"
 							size="medium"
@@ -23,7 +24,10 @@ export default function ProfilePage() {
 							Профиль
 						</Button>
 					</Link>
-					<Link to='/orders' className='mb-10'>
+					<Link
+						to='/orders'
+						className='mb-10'
+					>
 						<Button
 							extraClass={`text text_type_main-medium`}
 							htmlType="button"
