@@ -10,8 +10,6 @@ import {useDispatch, useSelector} from "react-redux";
 
 import {loginAsync} from "slices/authSlice.ts";
 import {useForm} from "hooks/useForm.ts";
-import WarningMessage from "components/common/WarningMessage/WarningMessage.tsx";
-import Loader from "components/common/Loader/Loader.tsx";
 
 export default function LoginPage() {
 	
@@ -21,11 +19,11 @@ export default function LoginPage() {
 	
 	
 	const handleLogin = () => {
-		const credentials = {
+		const userData = {
 			email: values.email,
 			password: values.password,
 		};
-		dispatch(loginAsync(credentials));
+		dispatch(loginAsync(userData));
 	};
 	
 	const {values, handleChange} = useForm({});
@@ -39,14 +37,16 @@ export default function LoginPage() {
 			console.log('Получен refreshToken:', authState.refreshToken);
 		}
 	}, [authState.status, authState.accessToken, authState.refreshToken]);
-	
-	
+
+
 	if (authState.status === 'succeeded') {
-		return navigate('/');
+		navigate('/'); // You should navigate programmatically instead of returning the result of navigate
+		return null; // Return null or another JSX element here
 	}
-		
+
 	if (authState.status === 'failed') {
-		return navigate('/warning');
+		navigate('/warning'); // Similarly, navigate programmatically here
+		return null; // Return null or another JSX element here
 	}
 	
 	
