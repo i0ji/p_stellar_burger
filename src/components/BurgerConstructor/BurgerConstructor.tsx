@@ -102,8 +102,8 @@ export default function BurgerConstructor() {
                 className={`${styles.constructor_list} mb-10`}
                 ref={dropIngredients}
             >
-                
-                
+
+
                 {/* --------------- TOP BUN --------------- */}
 
                 {!isBun ? <InitialBun pos={"top"}/> :

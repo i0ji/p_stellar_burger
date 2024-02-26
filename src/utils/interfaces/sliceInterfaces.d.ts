@@ -19,3 +19,14 @@ interface ConstructorState {
     bun: IIngredient | null;
 }
 
+export interface IUserData {
+    email: string;
+    password: string;
+    name: string;
+}
+
+export interface IResetData {
+    password: string,
+    token: string
+}
+

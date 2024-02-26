@@ -1,49 +1,53 @@
-import React, {useEffect} from "react";
-import {createPortal} from "react-dom";
-
 import styles from "./ModalStyles.module.scss"
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
-import ModalOverlay from "components/common/Modal/ModalOverlay/ModalOverlay.tsx";
-import {IIngredient} from "interfaces/interfaces";
+import {useSelector} from "react-redux";
+import React, {useEffect} from "react";
 
-const modalPlacement = document.querySelector('#root');
-
-export default function Modal({onClose, children, selectedIngredient,}: {
-	onClose?: () => void,
-	children: React.ReactNode,
-	selectedIngredient?: null | IIngredient
+export default function Modal({onClose, children}: {
+    onClose?: () => void,
+    children: React.ReactNode,
 }) {
-	
-	useEffect(() => {
-		
-		const closeOnEscapeKey = (e: KeyboardEvent) => {
-			if (onClose) (e.key === "Escape" ? onClose() : null);
-		}
-		
-		document.body.addEventListener("keydown", closeOnEscapeKey);
-		
-		return () => {
-			document.body.removeEventListener("keydown", closeOnEscapeKey);
-		};
-	}, [onClose]);
-	
-	if (modalPlacement)
-		
-		return createPortal(
-			(
-				<>
-					<ModalOverlay onClose={onClose}/>
-					<div
-						className={styles.modal}>
-						<div className={styles.modal_btn}>
-							<CloseIcon
-								type="primary"
-								onClick={onClose}
-							/>
-						</div>
-						{children}
-					</div>
-				</>
-			), modalPlacement);
+
+
+    // --------------- ERROR CHECK ---------------
+
+    const hasError = useSelector(state => state.orderSlice.error);
+
+
+    // --------------- CLOSING LOGIC ---------------
+
+    useEffect(() => {
+        const closeOnEscapeKey = (e: KeyboardEvent) => {
+            if (onClose) (e.key === "Escape" ? onClose() : null);
+        }
+
+        document.body.addEventListener("keydown", closeOnEscapeKey);
+
+        return () => {
+            document.body.removeEventListener("keydown", closeOnEscapeKey);
+        };
+    }, [onClose]);
+
+    return (
+        <>
+            <div
+                className={`${styles.modal_overlay} ${styles.overlayFadeIn} ${hasError && styles.modal_error}`}
+                onClick={onClose}
+            >
+            </div>
+            <div
+                className={`${styles.modal} ${styles.fadeIn}`}>
+                <div className={styles.modal_btn}>
+                    {!hasError && <CloseIcon
+                        type="primary"
+                        onClick={onClose}
+                    />
+                    }
+                </div>
+                {children}
+            </div>
+
+        </>
+    )
 }

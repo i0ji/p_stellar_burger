@@ -1,29 +1,69 @@
+@import 'styles/theme_colors';
+
+.modal_overlay {
+  position: fixed;
+  z-index: 100;
+  overflow: auto;
+
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+
+  background-color: #000000;
+  opacity: .6;
+}
+
+.modal_error {
+  opacity: 1;
+}
+
 .modal {
   position: fixed;
 
   z-index: 200;
   top: 50%;
   left: 50%;
+
+  //transition: .5s all;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 
   width: 720px;
 
   svg {
+    transition: .5s all;
     cursor: pointer;
     position: absolute;
+    z-index: 300;
     right: 40px;
-    top: 80px;
+    top: -280px;
+  }
+
+  svg:hover {
+    fill: $scroll_active;
   }
 }
 
-.fade-in {
-  animation: fadeIn 0.5s ease-in-out forwards;
+.rn sdev {
+  animation: fadeIn .3s ease-in-out;
 }
 
-.fade-out {
-  animation: fadeOut 0.5s ease-in-out forwards;
+.fadeOut {
+  animation: fadeOut .3s ease-in-out;
 }
+
+.overlayFadeIn {
+  animation: overlayFadeIn .3s ease-in-out;
+}
+
+.overlayFadeOut {
+  animation: overlayFadeOut .3s ease-in-out;
+}
+
 
 @keyframes fadeIn {
   from {
@@ -39,6 +79,25 @@
     opacity: 1;
   }
   to {
+    opacity: 0;
+  }
+}
+
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.6;
+  }
+}
+
+@keyframes overlayFadeOut {
+  from {
+    opacity: 0.6;
+  }
+  to {
+
     opacity: 0;
   }
 }

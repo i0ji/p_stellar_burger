@@ -8,7 +8,6 @@
   left: calc(50% - 360px);
   top: calc(50% - 320px);
 
-  background-color: $bg_modal;
   color: $theme_white;
 
   display: flex;
@@ -56,3 +55,22 @@
   }
 }
 
+.fade-in-image {
+  animation: fadeIn 5s;
+}
+
+.transparent {
+  background-color: transparent;
+}
+
+.dark {
+  background-color: $bg_modal;
+}
+
+.status {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  font-size: 30px;
+}
