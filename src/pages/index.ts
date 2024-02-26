@@ -7,15 +7,17 @@ import ResetPage from "pages/ResetPage.tsx";
 import ProfilePage from "pages/ProfilePage.tsx"
 import IngredientDetails from "pages/IngredientDetailsPage/IngredientDetails.tsx"
 import SuccessPage from "pages/SuccessPage.tsx";
+import Warning from "pages/Warning.tsx";
 
 export {
-    LoginPage,
-    HomePage,
-    NotFound404,
-    ForgotPage,
-    RegisterPage,
-    ProfilePage,
-    IngredientDetails,
-    ResetPage,
-    SuccessPage
+	LoginPage,
+	HomePage,
+	NotFound404,
+	ForgotPage,
+	RegisterPage,
+	ProfilePage,
+	IngredientDetails,
+	ResetPage,
+	SuccessPage,
+	Warning
 };

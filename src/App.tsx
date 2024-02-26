@@ -10,7 +10,8 @@ import {
     ProfilePage,
     IngredientDetails,
     ResetPage,
-    SuccessPage
+    SuccessPage,
+    Warning
 } from "./pages"
 
 import Modal from "components/common/Modal/Modal.tsx";
@@ -60,6 +61,7 @@ export default function App() {
                 <Route path="/profile" element={<ProfilePage/>}/>
                 <Route path="/ingredient/:id" element={<IngredientDetails/>}/>
                 <Route path="*" element={<NotFound404/>}/>
+                <Route path="/warning" element={<Warning/>}/>
                 <Route path="/reset-success" element={<SuccessPage/>}/>
             </Routes>
 

@@ -67,8 +67,6 @@ export default function ResetPage() {
                     type="primary">
                     Сохранить
                 </Button>
-
-                {/*<p>Вспомнили пароль? <Link to="/login">Войти</Link></p>*/}
             </form>
         </section>
     );
