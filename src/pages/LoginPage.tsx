@@ -10,44 +10,38 @@ import {useDispatch, useSelector} from "react-redux";
 
 import {loginAsync} from "slices/authSlice.ts";
 import {useForm} from "hooks/useForm.ts";
-import WarningMessage from "components/common/WarningMessage/WarningMessage.tsx";
-import Loader from "components/common/Loader/Loader.tsx";
 
 export default function LoginPage() {
-	
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const authState = useSelector(state => state.authSlice);
+	const {values, handleChange} = useForm({});
 	
+	console.log(authState);
 	
 	const handleLogin = () => {
-		const credentials = {
+		const userData = {
 			email: values.email,
 			password: values.password,
 		};
-		dispatch(loginAsync(credentials));
+		dispatch(loginAsync(userData));
 	};
 	
-	const {values, handleChange} = useForm({});
-	
-	
 	useEffect(() => {
-		if (authState.status === 'succeeded') {
-			// Действия, которые нужно выполнить при успешной авторизации
+		const handleSuccessfulLogin = () => {
 			console.log('Авторизация прошла успешно');
 			console.log('Получен accessToken:', authState.accessToken);
 			console.log('Получен refreshToken:', authState.refreshToken);
-		}
-	}, [authState.status, authState.accessToken, authState.refreshToken]);
-	
-	
-	if (authState.status === 'succeeded') {
-		return navigate('/');
-	}
+			navigate('/');
+		};
 		
-	if (authState.status === 'failed') {
-		return navigate('/warning');
-	}
+		if (authState.status === 'succeeded') {
+			handleSuccessfulLogin();
+		} else if (authState.status === 'failed') {
+			console.error('Ошибка авторизации:', authState.error); // Log or display the error
+			navigate('/warning');
+		}
+	}, [authState.status, authState.accessToken, authState.refreshToken, authState.error, navigate]);
 	
 	
 	return (

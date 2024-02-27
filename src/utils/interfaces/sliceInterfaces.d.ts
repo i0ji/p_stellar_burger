@@ -25,8 +25,15 @@ export interface IUserData {
     name: string;
 }
 
-export interface IResetData {
+
+export interface IUserData {
+    email: string,
     password: string,
-    token: string
+    success?: boolean,
+    refreshToken?: string,
+    user?: {
+        email: string,
+        name: string
+    }
 }
 

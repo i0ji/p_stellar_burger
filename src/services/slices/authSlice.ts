@@ -1,8 +1,8 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {checkResponse} from 'utils/check-response.ts';
 import {BASE_URL} from 'utils/routs.ts';
-import {IUserData} from 'interfaces/sliceInterfaces';
 
+import {IUserData} from "interfaces/sliceInterfaces";
 
 // --------------- REFRESH ---------------
 
@@ -55,38 +55,34 @@ export const fetchWithRefreshThunk = createAsyncThunk(
 
 // --------------- LOGIN ---------------
 
-const loginAsync = createAsyncThunk('auth/login', (credentials) => {
+
+const loginAsync = createAsyncThunk('auth/login', async (userData: IUserData) => {
 	const requestOptions = {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify(credentials),
+		body: JSON.stringify(userData),
 	};
-	
-
-	return fetch(`${BASE_URL}/auth/login`, requestOptions)
-		.then((response) => {
-			if (!response.ok) {
-				throw new Error(response.statusText);
-			}
-			return response.json();
-		})
-		.then((data) => {
-			localStorage.setItem('accessToken', data.accessToken);
-			localStorage.setItem('refreshToken', data.refreshToken);
-			return data.user;
-		})
-		.catch((error) => {
-			throw error;
-		});
+	try {
+		const response = await fetch(`${BASE_URL}/auth/login`, requestOptions);
+		if (!response.ok) {
+			throw new Error(response.statusText);
+		}
+		const data = await response.json();
+		localStorage.setItem('accessToken', data.accessToken);
+		localStorage.setItem('refreshToken', data.refreshToken);
+		return data.user;
+	} catch (error) {
+		throw error;
+	}
 });
 
 
 // --------------- RESET PASSWORD ---------------
 export const resetPasswordThunk = createAsyncThunk(
 	'auth/resetPassword',
-	async (password: string, token: string): Promise<any> => {
+	async (password: string, token: string) => {
 		const requestBody = {
 			password: password,
 			token: token,
@@ -135,7 +131,7 @@ export const registerUserThunk = createAsyncThunk(
 
 export const forgotPasswordThunk = createAsyncThunk(
 	'auth/forgotPassword',
-	async (email: string): Promise<any> => {
+	async (email: string) => {
 		const requestBody = {
 			email: email,
 		};
@@ -166,31 +162,23 @@ const authSlice = createSlice({
 		user: null,
 		status: 'idle',
 		error: null,
+		isAuth: false,
 	},
 	reducers: {
+		setUser(state, action) {
+			state.user = action.payload;
+			state.isAuth = !!action.payload;
+			state.isAuth = true;
+		},
 		logout: (state) => {
 			localStorage.removeItem('accessToken');
 			localStorage.removeItem('refreshToken');
 			state.user = null;
+			state.isAuth = false;
 		},
 	},
 	extraReducers: (builder) => {
 		builder
-			.addCase(refreshTokenThunk.fulfilled, (state, action) => {
-				// Обработка успешного обновления токена
-			})
-			.addCase(fetchWithRefreshThunk.fulfilled, (state, action) => {
-				// Обработка успешного запроса с обновленным токеном
-			})
-			.addCase(resetPasswordThunk.fulfilled, (state, action) => {
-				// Обработка успешного сброса пароля
-			})
-			.addCase(registerUserThunk.fulfilled, (state, action) => {
-				// Обработка успешной регистрации пользователя
-			})
-			.addCase(forgotPasswordThunk.fulfilled, (state, action) => {
-				// Обработка успешного запроса на восстановление пароля
-			})
 			.addCase(loginAsync.pending, (state) => {
 				state.status = 'loading';
 			})
@@ -198,6 +186,7 @@ const authSlice = createSlice({
 				state.status = 'succeeded';
 				state.user = action.payload;
 				state.error = null;
+				state.isAuth = true;
 			})
 			.addCase(loginAsync.rejected, (state, action) => {
 				state.status = 'failed';
@@ -206,8 +195,25 @@ const authSlice = createSlice({
 	},
 });
 
-export const {logout} = authSlice.actions;
+export const {setUser, logout} = authSlice.actions;
 
 export {loginAsync};
 
 export default authSlice.reducer;
+
+
+// .addCase(refreshTokenThunk.fulfilled, (state, action) => {
+//     // Обработка успешного обновления токена
+// })
+// .addCase(fetchWithRefreshThunk.fulfilled, (state, action) => {
+//     // Обработка успешного запроса с обновленным токеном
+// })
+// .addCase(resetPasswordThunk.fulfilled, (state, action) => {
+//     // Обработка успешного сброса пароля
+// })
+// .addCase(registerUserThunk.fulfilled, (state, action) => {
+//     // Обработка успешной регистрации пользователя
+// })
+// .addCase(forgotPasswordThunk.fulfilled, (state, action) => {
+//     // Обработка успешного запроса на восстановление пароля
+// })
