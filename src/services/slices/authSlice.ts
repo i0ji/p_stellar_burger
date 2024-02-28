@@ -5,7 +5,7 @@ import {BASE_URL} from 'utils/routs.ts';
 import {IUserData} from "interfaces/sliceInterfaces";
 
 // --------------- REFRESH ---------------
-export const refreshTokenThunk = createAsyncThunk('auth/refreshToken', async () => {
+export const refreshToken = createAsyncThunk('auth/refreshToken', async () => {
     const response = await fetch(`${BASE_URL}/auth/token`, {
         method: 'POST',
         headers: {
@@ -38,7 +38,7 @@ export const fetchWithRefreshThunk = createAsyncThunk(
             return await checkResponse(res);
         } catch (err) {
             if (err.message === 'jwt expired') {
-                const refreshData = await refreshTokenThunk();
+                const refreshData = await refreshToken();
                 options.headers.authorization = refreshData.accessToken;
                 const res = await fetch(url, options);
                 return await checkResponse(res);
@@ -75,7 +75,7 @@ const getUser = createAsyncThunk('auth/login', async (userData: IUserData) => {
 
 
 // --------------- RESET PASSWORD ---------------
-export const resetPasswordThunk = createAsyncThunk(
+export const resetPassword = createAsyncThunk(
     'auth/resetPassword',
     async (password: string, token: string) => {
         const requestBody = {
@@ -102,7 +102,7 @@ export const resetPasswordThunk = createAsyncThunk(
 
 
 // --------------- REGISTER ---------------
-export const registerUserThunk = createAsyncThunk(
+export const registerUser = createAsyncThunk(
     'auth/registerUser',
     async (userData: IUserData) => {
         try {
@@ -122,7 +122,7 @@ export const registerUserThunk = createAsyncThunk(
 
 
 // --------------- FORGOT PASSWORD ---------------
-export const forgotPasswordThunk = createAsyncThunk(
+export const forgotPassword = createAsyncThunk(
     'auth/forgotPassword',
     async (email: string) => {
         const requestBody = {
@@ -148,20 +148,22 @@ export const forgotPasswordThunk = createAsyncThunk(
 
 // --------------- AUTH CHECK ---------------
 export const checkUserAuth = () => {
-    return (dispatch) => {
-        if (localStorage.getItem('accesToken')) {
-            dispatch(getUser)
-                .catch(() => {
-                    localStorage.removeItem('refreshToken');
-                    localStorage.removeItem('accessToken');
-                    dispatch(setUser(null));
-                })
-                .finally(() => dispatch(setAuthChecked(true)));
+    return async (dispatch) => {
+        if (localStorage.getItem('accessToken')) {
+            try {
+                await dispatch(getUser);
+            } catch (error) {
+                localStorage.removeItem('refreshToken');
+                localStorage.removeItem('accessToken');
+                dispatch(setUser(null));
+            } finally {
+                dispatch(setAuthChecked(true));
+            }
         } else {
             dispatch(setAuthChecked(true));
         }
-    }
-}
+    };
+};
 
 
 // --------------- AUTH SLICE  ---------------
@@ -204,8 +206,21 @@ const authSlice = createSlice({
             .addCase(getUser.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.error.message;
+            })
+            .addCase(registerUser.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(registerUser.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.user = action.payload;
+                state.error = null;
+                state.isAuth = true;
+            })
+            .addCase(registerUser.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.error.message;
             });
-    },
+    }
 });
 
 
@@ -216,18 +231,18 @@ export {getUser};
 export default authSlice.reducer;
 
 
-// .addCase(refreshTokenThunk.fulfilled, (state, action) => {
+// .addCase(refreshToken.fulfilled, (state, action) => {
 //     // Обработка успешного обновления токена
 // })
 // .addCase(fetchWithRefreshThunk.fulfilled, (state, action) => {
 //     // Обработка успешного запроса с обновленным токеном
 // })
-// .addCase(resetPasswordThunk.fulfilled, (state, action) => {
+// .addCase(resetPassword.fulfilled, (state, action) => {
 //     // Обработка успешного сброса пароля
 // })
-// .addCase(registerUserThunk.fulfilled, (state, action) => {
+// .addCase(registerUser.fulfilled, (state, action) => {
 //     // Обработка успешной регистрации пользователя
 // })
-// .addCase(forgotPasswordThunk.fulfilled, (state, action) => {
+// .addCase(forgotPassword.fulfilled, (state, action) => {
 //     // Обработка успешного запроса на восстановление пароля
 // })

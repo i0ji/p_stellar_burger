@@ -8,8 +8,6 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
         return isActive ? 'active' : 'not_active';
     }
 
-    const isLoggedIn = useSelector((state):{state: boolean} => state.authSlice.user)
-
     switch (typeFor) {
         case 'builder':
             return (
@@ -53,7 +51,7 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
             return (
                 <NavLink
                     className={activeStyle}
-                    to={isLoggedIn ? "/profile" : "/login"}
+                    to="/profile"
                 >
                     <ProfileIcon
                         type='primary'

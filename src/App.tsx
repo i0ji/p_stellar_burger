@@ -38,11 +38,9 @@ export default function App() {
 
     useEffect(() => {
         dispatch(fetchIngredients());
-    }, []);
-
-    useEffect(() => {
         dispatch(checkUserAuth());
     }, []);
+
 
     console.log(`userAuth: ${userAuth}`);
     console.log(`isChecked: ${userAuthChecked}`);
@@ -56,25 +54,23 @@ export default function App() {
     return (
         <>
             <AppHeader/>
+
             <Routes location={state?.background || location}>
 
                 <Route path="/" element={<HomePage/>}/>
-
-                {/*<Route path="/profile" element={<UnAuth component={<ProfilePage/>}/>}/>*/}
-                {/*<Route path="/login" element={<Auth component={<LoginPage/>}/>}/>*/}
-                {/*<Route path="/register" element={<UnAuth component={<RegisterPage/>}/>}/>*/}
-                {/*<Route path="/forgot-password" element={<UnAuth component={<ForgotPage/>}/>}/>*/}
-                {/*<Route path="/reset-password" element={<Auth component={<ResetPage/>}/>}/>*/}
-
-
-                <Route path="/login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
-                <Route path="/profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}/>
-
-
                 <Route path="/ingredient/:id" element={<IngredientDetails/>}/>
                 <Route path="*" element={<NotFound404/>}/>
                 <Route path="/warning" element={<Warning/>}/>
-                <Route path="/reset-success" element={<SuccessPage/>}/>
+
+                <Route path="/reset-success" element={<ProtectedRoute unAuth={true} component={<SuccessPage/>}/>}/>
+
+                <Route path="/reset-password" element={<ProtectedRoute unAuth={false} component={<ResetPage/>}/>}/>
+                <Route path="/profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}/>
+
+                <Route path="/login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
+                <Route path="/register" element={<ProtectedRoute unAuth={true} component={<RegisterPage/>}/>}/>
+                <Route path="/forgot-password" element={<ProtectedRoute unAuth={true} component={<ForgotPage/>}/>}/>
+
             </Routes>
 
             {state?.background && (
@@ -90,16 +86,4 @@ export default function App() {
             )}
         </>
     )
-}
-
-
-{/*<Route path="/login" element={<LoginPage/>}/>*/
-}
-{/*<Route path="/register" element={<RegisterPage/>}/>*/
-}
-{/*<Route path="/forgot-password" element={<ForgotPage/>}/>*/
-}
-{/*<Route path="/reset-password" element={<ResetPage/>}/>*/
-}
-{/*<Route path="/profile" element={<ProfilePage/>}/>*/
 }

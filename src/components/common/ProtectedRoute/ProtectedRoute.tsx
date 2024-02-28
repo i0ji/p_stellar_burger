@@ -1,6 +1,6 @@
 import React from "react";
 import {useSelector} from "react-redux";
-import {Navigate, Route, useLocation, useNavigate} from "react-router-dom";
+import {Navigate, useLocation} from "react-router-dom";
 import Loader from "components/common/Loader/Loader.tsx";
 
 export const ProtectedRoute = ({unAuth = false, component}: { unAuth: boolean, component: React.ReactNode }) => {

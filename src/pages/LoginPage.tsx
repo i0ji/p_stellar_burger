@@ -1,5 +1,6 @@
-import styles from "pages/Pages.module.scss"
+import React from "react";
 
+import styles from "pages/Pages.module.scss"
 
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -12,13 +13,11 @@ import {getUser} from "slices/authSlice.ts";
 import {useForm} from "hooks/useForm.ts";
 import {IUserData} from "interfaces/sliceInterfaces";
 
-export default function LoginPage() {
+function LoginPage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const authState = useSelector(state => state.authSlice);
     const {values, handleChange} = useForm({});
-
-    console.log(authState);
 
     const handleLogin = () => {
         const userData: IUserData = {
@@ -44,8 +43,6 @@ export default function LoginPage() {
             }
         }, [authState.status, authState.accessToken, authState.refreshToken, authState.error, navigate]
     )
-    ;
-
 
     return (
         <section className={styles.section}>
@@ -64,7 +61,6 @@ export default function LoginPage() {
                     size={'default'}
                     extraClass="mb-6"
                 />
-
                 <Input
                     onChange={handleChange}
                     name={'password'}
@@ -92,4 +88,6 @@ export default function LoginPage() {
             </form>
         </section>
     );
-}
+};
+
+export default React.memo(LoginPage);

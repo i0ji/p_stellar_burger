@@ -96,21 +96,21 @@ export const resetPassword = async (password: string, token: string): Promise<an
 
 // --------------- REGISTER ---------------
 
-export const registerUser = async (userData: IUserData) => {
-    try {
-        const response = await fetch(`${BASE_URL}/auth/register`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(userData),
-        });
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        throw error;
-    }
-};
+// export const registerUser = async (userData: IUserData) => {
+//     try {
+//         const response = await fetch(`${BASE_URL}/auth/register`, {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify(userData),
+//         });
+//         const data = await response.json();
+//         return data;
+//     } catch (error) {
+//         throw error;
+//     }
+// };
 
 
 // --------------- FORGOT PASSWORD ---------------

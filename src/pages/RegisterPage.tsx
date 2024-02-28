@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
-import {registerUser} from "utils/api.ts";
+import {registerUser} from "slices/authSlice.ts";
 
 import {useForm} from "hooks/useForm.ts";
 
@@ -13,20 +13,25 @@ export default function RegisterPage() {
 
     const {values, handleChange} = useForm({});
 
+
+
+
+
+
     const handleRegister = async () => {
         try {
             const response = await registerUser(values);
 
             if (response.success) {
-                console.log('Пользователь успешгл зарегистрировался:', response.message);
-                // --------------- SUCCESS REGISTER
+                console.log('Пользователь успешно зарегистрирован:', response.message);
+
             } else {
                 console.error('Ошибка при регистрации:', response.message);
-                // --------------- ERROR HANDLE
+
             }
         } catch (error) {
             console.error('Ошибка при регистрации:', error);
-            // --------------- ERROR HANDLE
+            // Handle error actions if needed
         }
     };
 
@@ -39,7 +44,8 @@ export default function RegisterPage() {
                     type={'text'}
                     placeholder={'E-mail'}
                     icon={undefined}
-                    value={values.email}
+                    name={'email'}
+                    value={values.email ?? ''}
                     error={false}
                     errorText={'Ошибка'}
                     size={'default'}
@@ -50,7 +56,8 @@ export default function RegisterPage() {
                     type={'password'}
                     placeholder={'Пароль'}
                     icon={'ShowIcon'}
-                    value={values.password}
+                    name={'password'}
+                    value={values.password ?? ''}
                     error={false}
                     errorText={'Ошибка'}
                     size={'default'}
@@ -61,7 +68,8 @@ export default function RegisterPage() {
                     type={'text'}
                     placeholder={'Имя'}
                     icon={undefined}
-                    value={values.name}
+                    name={'name'}
+                    value={values.name ?? ''}
                     error={false}
                     errorText={'Ошибка'}
                     size={'default'}
