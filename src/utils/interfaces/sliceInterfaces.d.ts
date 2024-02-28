@@ -20,20 +20,16 @@ interface ConstructorState {
 }
 
 export interface IUserData {
-    email: string;
-    password: string;
-    name: string;
+    email?: string;
+    password?: string;
+    name?: string;
 }
 
 
-export interface IUserData {
+export interface IAuthSlice extends IUserData {
     email: string,
     password: string,
     success?: boolean,
     refreshToken?: string,
-    user?: {
-        email: string,
-        name: string
-    }
 }
 

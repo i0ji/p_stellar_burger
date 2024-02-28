@@ -2,7 +2,7 @@ import {addIngredient, reorderIngredients} from "slices/constructorSlice.ts"
 import {updateIds} from "slices/orderSlice.ts"
 
 import styles from "./BurgerConstructorStyles.module.scss";
-import awaitSpinner from "images/common/loading.svg"
+import awaitSpinner from "images/common/awaitSpinner.svg"
 import {IIngredient} from "interfaces/interfaces";
 
 import {ConstructorElement, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
