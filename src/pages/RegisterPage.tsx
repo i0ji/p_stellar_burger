@@ -27,18 +27,15 @@ export default function RegisterPage() {
                 .then((response) => {
                     if (isSuccessResponse(response)) {
                         console.log('Пользователь успешно зарегистрирован:', response.payload.message);
-                        // Add any additional logic or redirect the user if needed
                     } else {
                         console.error('Ошибка при регистрации:', getErrorMessage(response));
                     }
                 })
                 .catch((error) => {
                     console.error('Ошибка при регистрации:', getErrorMessage(error));
-                    // Handle error actions if needed
                 });
         } catch (error) {
             console.error('Ошибка при регистрации:', getErrorMessage(error));
-            // Handle error actions if needed
         }
     };
 

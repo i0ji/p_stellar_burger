@@ -38,7 +38,7 @@ function LoginPage() {
             if (authState.status === 'succeeded') {
                 handleSuccessfulLogin();
             } else if (authState.status === 'failed') {
-                console.error('Ошибка авторизации:', authState.error); // Log or display the error
+                console.error('Ошибка авторизации:', authState.error);
                 navigate('/warning');
             }
         }, [authState.status, authState.accessToken, authState.refreshToken, authState.error, navigate]

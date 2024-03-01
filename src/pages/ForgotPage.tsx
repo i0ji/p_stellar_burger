@@ -6,12 +6,10 @@ import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {forgotPassword} from "utils/api.ts"
 
-//import {useState} from "react";
 import {useForm} from "hooks/useForm.ts";
 
 export default function ForgotPage() {
-	
-	//const [email, setEmail] = useState('');
+
 	
 	const {values, handleChange} = useForm({});
 	
