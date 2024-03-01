@@ -6,6 +6,7 @@ import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {registerUser} from "slices/authSlice.ts";
 
+import {useState} from "react";
 import {useDispatch} from "react-redux";
 import {useForm} from "hooks/useForm.ts";
 
@@ -13,6 +14,13 @@ export default function RegisterPage() {
 
     const dispatch = useDispatch();
     const {values, handleChange} = useForm({});
+
+    const [isPasswordShow, setIsPasswordShow] = useState(false);
+
+    // --------------- PWD VISIBILITY  ---------------
+    const togglePasswordVisibility = () => {
+        setIsPasswordShow(!isPasswordShow);
+    };
 
 
     const isSuccessResponse = (response: unknown): response is { payload: { success: boolean } } =>
@@ -57,7 +65,7 @@ export default function RegisterPage() {
                 />
                 <Input
                     onChange={handleChange}
-                    type={'password'}
+                    type={isPasswordShow ? 'text' : 'password'}
                     placeholder={'Пароль'}
                     icon={'ShowIcon'}
                     name={'password'}
@@ -66,6 +74,7 @@ export default function RegisterPage() {
                     errorText={'Ошибка'}
                     size={'default'}
                     extraClass="mb-6"
+                    onIconClick={togglePasswordVisibility}
                 />
                 <Input
                     onChange={handleChange}
@@ -80,7 +89,7 @@ export default function RegisterPage() {
                     extraClass="mb-6"
                 />
                 <Button
-                    onClick={handleRegister}
+                    onSubmit={handleRegister}
                     htmlType="button"
                     extraClass="mb-20"
                     type="primary">

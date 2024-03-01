@@ -45,7 +45,7 @@ export default function ForgotPage() {
 					extraClass="mb-6"
 				/>
 				<Button
-					onClick={handleForgotPassword}
+					onSubmit={handleForgotPassword}
 					htmlType="button"
 					extraClass="mb-20"
 					type="primary">

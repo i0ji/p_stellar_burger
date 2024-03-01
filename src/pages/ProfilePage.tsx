@@ -58,7 +58,7 @@ export default function ProfilePage() {
                             htmlType="button"
                             type="secondary"
                             size="medium"
-                            onClick={handleLogout}
+                            onSubmit={handleLogout}
                         >
                             Выход
                         </Button>

@@ -77,7 +77,7 @@ function LoginPage() {
                     htmlType="button"
                     extraClass="mb-20"
                     type="primary"
-                    onClick={handleLogin}
+                    onSubmit={handleLogin}
                 >
                     Войти
                 </Button>

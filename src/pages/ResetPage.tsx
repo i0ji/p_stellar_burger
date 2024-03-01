@@ -61,7 +61,7 @@ export default function ResetPage() {
                     extraClass="mb-6"
                 />
                 <Button
-                    onClick={handleSavePassword}
+                    onSubmit={handleSavePassword}
                     htmlType="button"
                     extraClass="mb-20"
                     type="primary">
