@@ -6,31 +6,38 @@ import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {registerUser} from "slices/authSlice.ts";
 
+import {useDispatch} from "react-redux";
 import {useForm} from "hooks/useForm.ts";
-
 
 export default function RegisterPage() {
 
+    const dispatch = useDispatch();
     const {values, handleChange} = useForm({});
 
 
+    const isSuccessResponse = (response: unknown): response is { payload: { success: boolean } } =>
+        typeof response === 'object' && response !== null && 'payload' in response && 'success' in response.payload;
 
+    const getErrorMessage = (error: unknown): string =>
+        typeof error === 'string' ? error : 'An unknown error occurred';
 
-
-
-    const handleRegister = async () => {
+    const handleRegister = () => {
         try {
-            const response = await registerUser(values);
-
-            if (response.success) {
-                console.log('Пользователь успешно зарегистрирован:', response.message);
-
-            } else {
-                console.error('Ошибка при регистрации:', response.message);
-
-            }
+            dispatch(registerUser(values))
+                .then((response) => {
+                    if (isSuccessResponse(response)) {
+                        console.log('Пользователь успешно зарегистрирован:', response.payload.message);
+                        // Add any additional logic or redirect the user if needed
+                    } else {
+                        console.error('Ошибка при регистрации:', getErrorMessage(response));
+                    }
+                })
+                .catch((error) => {
+                    console.error('Ошибка при регистрации:', getErrorMessage(error));
+                    // Handle error actions if needed
+                });
         } catch (error) {
-            console.error('Ошибка при регистрации:', error);
+            console.error('Ошибка при регистрации:', getErrorMessage(error));
             // Handle error actions if needed
         }
     };

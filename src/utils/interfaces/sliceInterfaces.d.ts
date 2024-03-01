@@ -1,5 +1,4 @@
 import {IIngredient} from "utils/interfaces/interfaces";
-import {b} from "vite/dist/node/types.d-jgA8ss1A";
 
 export interface IIngredientsListSlice {
     ingredients: IIngredient[];
