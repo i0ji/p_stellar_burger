@@ -7,7 +7,6 @@ import {logout} from "slices/authSlice.ts";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useForm} from "hooks/useForm.ts";
 import {useDispatch, useSelector} from "react-redux";
-import {IAuthSlice} from "interfaces/sliceInterfaces";
 
 export default function ProfilePage() {
 
@@ -15,14 +14,12 @@ export default function ProfilePage() {
     const dispatch = useDispatch();
     const location = useLocation();
     const isActive = location.pathname === '/profile'
-    const authState = useSelector((state): IAuthSlice => state.authSlice.isAuth);
     const userName = useSelector((state) => state.authSlice.user.name)
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        navigate('/')
         dispatch(logout());
-
+        navigate('/')
     };
 
     return (

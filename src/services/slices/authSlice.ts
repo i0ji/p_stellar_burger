@@ -73,6 +73,25 @@ const getUser = createAsyncThunk('auth/login', async (userData: IUserData) => {
     }
 });
 
+// --------------- REGISTER ---------------
+export const registerUser = createAsyncThunk(
+    'auth/registerUser',
+    async (userData: IUserData) => {
+        try {
+            const response = await fetch(`${BASE_URL}/auth/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            });
+            return await response.json();
+        } catch (error) {
+            throw error;
+        }
+    }
+);
+
 
 // --------------- RESET PASSWORD ---------------
 export const resetPassword = createAsyncThunk(
@@ -95,26 +114,6 @@ export const resetPassword = createAsyncThunk(
             return await response.json();
         } catch (error) {
             console.error('Error during password reset:', error);
-            throw error;
-        }
-    }
-);
-
-
-// --------------- REGISTER ---------------
-export const registerUser = createAsyncThunk(
-    'auth/registerUser',
-    async (userData: IUserData) => {
-        try {
-            const response = await fetch(`${BASE_URL}/auth/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(userData),
-            });
-            return await response.json();
-        } catch (error) {
             throw error;
         }
     }

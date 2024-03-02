@@ -16,13 +16,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {useCallback, useEffect} from "react";
 import {useDrop} from "react-dnd";
 import useModal from "hooks/useModal.ts";
+import {useNavigate} from "react-router-dom";
 
 export default function BurgerConstructor() {
 
     const dispatch = useDispatch();
 
-
-    // --------------- DECLARING STATES/VARS/CONSTANTS  ---------------
+    // --------------- STATES/VARS/CONSTANTS  ---------------
 
     const {addedIngredients, bun} = useSelector((state: {
         constructorSlice: { addedIngredients: IIngredient[]; bun: IIngredient | null };
@@ -39,7 +39,10 @@ export default function BurgerConstructor() {
     const totalAmount = useSelector(state => state.constructorSlice.totalAmount);
     // --------------- BUNS STATE
     const isBun = useSelector(state => state.constructorSlice.bun);
+    //--------------- AUTH STATE
+    const isAuth = useSelector(state => state.authSlice.isAuth);
 
+const navigate = useNavigate();
 
     // --------------- CURRENT ID ---------------
 
@@ -76,6 +79,16 @@ export default function BurgerConstructor() {
             )
         }
 
+
+// --------------- PREVENT FROM ORDER ---------------
+
+    const handlePreventUnauthOrder = () => {
+        if (!isAuth) {
+            return navigate('/login')
+        } else {
+            openModal;
+        }
+    }
 
     // --------------- INITIAL BUN ---------------
 
@@ -164,7 +177,7 @@ export default function BurgerConstructor() {
                         size="large"
                         type="primary"
                         htmlType="button"
-                        onClick={openModal}
+                        onClick={handlePreventUnauthOrder}
                     >Оформить заказ</Button>
                 </div>
 

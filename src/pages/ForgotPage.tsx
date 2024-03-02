@@ -4,7 +4,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
-import {forgotPassword} from "utils/api.ts"
+import {forgotPassword} from "slices/authSlice.ts"
 
 import {useForm} from "hooks/useForm.ts";
 

@@ -30,6 +30,8 @@ export default function RegisterPage() {
         typeof error === 'string' ? error : 'An unknown error occurred';
 
     const handleRegister = () => {
+        event.preventDefault();
+        
         try {
             dispatch(registerUser(values))
                 .then((response) => {
