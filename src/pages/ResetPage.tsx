@@ -5,10 +5,9 @@ import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {resetPassword} from "slices/authSlice.ts";
 
-import {useState} from "react";
+import {useState, useCallback} from "react";
 import {useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
-import {useForm} from "hooks/useForm.ts";
+//import {useForm} from "hooks/useForm.ts";
 
 export default function ResetPage() {
 
@@ -16,8 +15,7 @@ export default function ResetPage() {
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const {values, handleChange} = useForm({});
+    //const {values, handleChange} = useForm({});
 
 
     // --------------- PWD VISIBILITY  ---------------
@@ -26,9 +24,15 @@ export default function ResetPage() {
         setIsPasswordShow(!isPasswordShow);
     };
 
-    console.log(values.token);
-    console.log(values.password);
-    console.log(values);
+    const handleChange = useCallback((e) => {
+        const { name, value } = e.target;
+        if (name === 'password') {
+            setPassword(value);
+        } else if (name === 'token') {
+            setToken(value);
+        }
+    }, []);
+
 
 
     const handleSavePassword = async () => {
@@ -60,7 +64,7 @@ export default function ResetPage() {
                 <h1 className="text text text_type_main-medium pb-6">Смена пароля</h1>
                 <Input
                     // onChange={handleChange}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={handleChange}
                     type={isPasswordShow ? 'text' : 'password'}
                     placeholder={'Введите новый пароль'}
                     icon={'ShowIcon'}
@@ -74,7 +78,7 @@ export default function ResetPage() {
                     onIconClick={togglePasswordVisibility}
                 />
                 <Input
-                    onChange={(e) => setToken(e.target.value)}
+                    onChange={handleChange}
                     // onChange={handleChange}
                     type={'text'}
                     placeholder={'Введите код из письма'}

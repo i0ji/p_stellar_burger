@@ -92,38 +92,7 @@ export const registerUser = createAsyncThunk(
     }
 );
 
-
 // --------------- RESET PASSWORD ---------------
-// export const resetPassword = createAsyncThunk(
-//     'auth/resetPassword',
-//     async ({password, token}: {password: string, token: string}) => {
-//         const requestBody = {
-//             password: password,
-//             token: token,
-//         };
-//
-//         try {
-//             const response = await fetch(`${BASE_URL}/password-reset/reset`, {
-//                 method: 'POST',
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                 },
-//                 body: JSON.stringify(requestBody),
-//             });
-//
-//             if (!response.ok) {
-//                 const errorText = await response.text();
-//                 return Promise.reject({ message: errorText });
-//             }
-//
-//             return await response.json();
-//         } catch (error) {
-//             console.error('Error during password reset:', error);
-//             throw error;
-//         }
-//     }
-// );
-
 export const resetPassword = async (password: string, token: string): Promise<any> => {
     const requestBody = {
         password: password,
