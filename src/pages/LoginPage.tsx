@@ -18,10 +18,13 @@ function LoginPage() {
     const authState = useSelector(state => state.authSlice);
     const {values, handleChange} = useForm({});
 
-    // --------------- PWD VISIBILITY  ---------------
-    const [isPasswordShow, setIsPasswordShow] = useState(false);
     const [errorMessage, setErrorMessage] = useState(false);
 
+    // --------------- PWD VISIBILITY  ---------------
+
+
+
+    const [isPasswordShow, setIsPasswordShow] = useState(false);
     const togglePasswordVisibility = () => {
         setIsPasswordShow(!isPasswordShow);
     };
@@ -60,9 +63,7 @@ function LoginPage() {
 
     return (
         <section className={styles.section}>
-            <form
-                onSubmit={handleLogin}
-            >
+            <form onSubmit={handleLogin}>
                 <Fragment></Fragment>
                 <h1 className="text text text_type_main-medium pb-6">Вход</h1>
                 <Input

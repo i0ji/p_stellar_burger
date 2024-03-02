@@ -61,12 +61,12 @@ export default function App() {
                 <Route path="/ingredient/:id" element={<IngredientDetails/>}/>
                 <Route path="*" element={<NotFound404/>}/>
                 <Route path="/warning" element={<Warning/>}/>
+                <Route path="/reset-password" element={<ResetPage/>}/>
+                <Route path="/reset-success" element={<SuccessPage/>}/>
 
-                <Route path="/reset-success" element={<ProtectedRoute unAuth={true} component={<SuccessPage/>}/>}/>
-
-                <Route path="/reset-password" element={<ProtectedRoute unAuth={false} component={<ResetPage/>}/>}/>
                 <Route path="/profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}/>
 
+                <Route path="/reset-success" element={<ProtectedRoute unAuth={true} component={<SuccessPage/>}/>}/>
                 <Route path="/login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
                 <Route path="/register" element={<ProtectedRoute unAuth={true} component={<RegisterPage/>}/>}/>
                 <Route path="/forgot-password" element={<ProtectedRoute unAuth={true} component={<ForgotPage/>}/>}/>

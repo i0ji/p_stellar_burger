@@ -94,30 +94,57 @@ export const registerUser = createAsyncThunk(
 
 
 // --------------- RESET PASSWORD ---------------
-export const resetPassword = createAsyncThunk(
-    'auth/resetPassword',
-    async (password: string, token: string) => {
-        const requestBody = {
-            password: password,
-            token: token,
-        };
+// export const resetPassword = createAsyncThunk(
+//     'auth/resetPassword',
+//     async ({password, token}: {password: string, token: string}) => {
+//         const requestBody = {
+//             password: password,
+//             token: token,
+//         };
+//
+//         try {
+//             const response = await fetch(`${BASE_URL}/password-reset/reset`, {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify(requestBody),
+//             });
+//
+//             if (!response.ok) {
+//                 const errorText = await response.text();
+//                 return Promise.reject({ message: errorText });
+//             }
+//
+//             return await response.json();
+//         } catch (error) {
+//             console.error('Error during password reset:', error);
+//             throw error;
+//         }
+//     }
+// );
 
-        try {
-            const response = await fetch(`${BASE_URL}/password-reset/reset`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(requestBody),
-            });
+export const resetPassword = async (password: string, token: string): Promise<any> => {
+    const requestBody = {
+        password: password,
+        token: token,
+    };
 
-            return await response.json();
-        } catch (error) {
-            console.error('Error during password reset:', error);
-            throw error;
-        }
+    try {
+        const response = await fetch(`${BASE_URL}/password-reset/reset`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody),
+        });
+
+        return await response.json();
+    } catch (error) {
+        console.error('Error during password reset:', error);
+        throw error;
     }
-);
+};
 
 
 // --------------- FORGOT PASSWORD ---------------
@@ -228,20 +255,3 @@ export const {setAuthChecked, setUser, logout} = authSlice.actions;
 export {getUser};
 
 export default authSlice.reducer;
-
-
-// .addCase(refreshToken.fulfilled, (state, action) => {
-//     // Обработка успешного обновления токена
-// })
-// .addCase(fetchWithRefreshThunk.fulfilled, (state, action) => {
-//     // Обработка успешного запроса с обновленным токеном
-// })
-// .addCase(resetPassword.fulfilled, (state, action) => {
-//     // Обработка успешного сброса пароля
-// })
-// .addCase(registerUser.fulfilled, (state, action) => {
-//     // Обработка успешной регистрации пользователя
-// })
-// .addCase(forgotPassword.fulfilled, (state, action) => {
-//     // Обработка успешного запроса на восстановление пароля
-// })
