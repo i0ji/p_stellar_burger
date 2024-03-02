@@ -42,7 +42,7 @@ export default function BurgerConstructor() {
     //--------------- AUTH STATE
     const isAuth = useSelector(state => state.authSlice.isAuth);
 
-const navigate = useNavigate();
+    const navigate = useNavigate();
 
     // --------------- CURRENT ID ---------------
 
@@ -86,7 +86,8 @@ const navigate = useNavigate();
         if (!isAuth) {
             return navigate('/login')
         } else {
-            openModal;
+            console.log('OPEN MODAL')
+            openModal();
         }
     }
 
@@ -178,6 +179,7 @@ const navigate = useNavigate();
                         type="primary"
                         htmlType="button"
                         onClick={handlePreventUnauthOrder}
+                        // onClick={openModal}
                     >Оформить заказ</Button>
                 </div>
 

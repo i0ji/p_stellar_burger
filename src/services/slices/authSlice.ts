@@ -1,4 +1,5 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+
 import {checkResponse} from 'utils/check-response.ts';
 import {BASE_URL} from 'utils/routs.ts';
 
@@ -73,6 +74,7 @@ const getUser = createAsyncThunk('auth/login', async (userData: IUserData) => {
     }
 });
 
+
 // --------------- REGISTER ---------------
 export const registerUser = createAsyncThunk(
     'auth/registerUser',
@@ -91,6 +93,7 @@ export const registerUser = createAsyncThunk(
         }
     }
 );
+
 
 // --------------- RESET PASSWORD ---------------
 export const resetPassword = async (password: string, token: string): Promise<any> => {
@@ -140,6 +143,7 @@ export const forgotPassword = createAsyncThunk(
         }
     }
 );
+
 
 // --------------- AUTH CHECK ---------------
 export const checkUserAuth = () => {
@@ -217,7 +221,6 @@ const authSlice = createSlice({
             });
     }
 });
-
 
 export const {setAuthChecked, setUser, logout} = authSlice.actions;
 
