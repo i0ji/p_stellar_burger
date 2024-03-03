@@ -17,7 +17,6 @@ export default function ResetPage() {
     const navigate = useNavigate();
     //const {values, handleChange} = useForm({});
 
-
     // --------------- PWD VISIBILITY  ---------------
     const [isPasswordShow, setIsPasswordShow] = useState(false);
     const togglePasswordVisibility = () => {

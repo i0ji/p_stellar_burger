@@ -25,11 +25,14 @@ export interface IUserData {
     name?: string;
 }
 
-
-export interface IAuthSlice extends IUserData {
+export interface IAuthSlice {
+    user: IUserData,
     email: string,
     password: string,
     success?: boolean,
     refreshToken?: string,
 }
 
+export interface IUpdateUserData {
+    editedValues: IUserData
+}

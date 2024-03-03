@@ -41,7 +41,6 @@ export default function App() {
         dispatch(checkUserAuth());
     }, []);
 
-
     console.log(`userAuth: ${userAuth}`);
     console.log(`isChecked: ${userAuthChecked}`);
 

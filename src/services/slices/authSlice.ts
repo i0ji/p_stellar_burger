@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {checkResponse} from 'utils/check-response.ts';
 import {BASE_URL} from 'utils/routs.ts';
-import {getUser, registerUser, logoutUser} from "utils/api.ts"
+import {getUser, registerUser, logoutUser, getUserData, updateUserData} from "utils/api.ts"
 
 // --------------- REFRESH ---------------
 export const refreshToken = createAsyncThunk('auth/refreshToken', async () => {
@@ -27,11 +27,6 @@ export const refreshToken = createAsyncThunk('auth/refreshToken', async () => {
     return refreshData;
 });
 
-
-// --------------- FETCH WITH REFRESH ---------------
-
-
-
 // --------------- AUTH SLICE  ---------------
 const authSlice = createSlice({
     name: 'authSlice',
@@ -41,6 +36,7 @@ const authSlice = createSlice({
         error: null,
         isAuth: false,
         authChecked: false,
+        userData: null,
     },
     reducers: {
         setUser(state, action) {
@@ -95,6 +91,25 @@ const authSlice = createSlice({
                 state.isAuth = false;
             })
             .addCase(logoutUser.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.error.message;
+            })
+            .addCase(getUserData.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.userData = action.payload;
+            })
+            .addCase(getUserData.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.error.message;
+            })
+            .addCase(updateUserData.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(updateUserData.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.userData = action.payload;
+            })
+            .addCase(updateUserData.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.error.message;
             });

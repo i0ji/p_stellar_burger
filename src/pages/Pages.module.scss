@@ -95,5 +95,10 @@
         color: $theme_white
       }
     }
+
+    .profile_update_button {
+      position: fixed;
+      transition: .5s all;
+    }
   }
 }

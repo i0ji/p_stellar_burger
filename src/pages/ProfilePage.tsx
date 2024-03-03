@@ -1,30 +1,77 @@
-import styles from "./Pages.module.scss"
-
+import {useState, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-
+import {Link, useNavigate} from "react-router-dom";
+import {useForm} from "hooks/useForm2.ts";
+import {getUserData, updateUserData} from "utils/api.ts";
 import {logout} from "slices/authSlice.ts";
 
-import {Link, useLocation, useNavigate} from "react-router-dom";
-import {useForm} from "hooks/useForm.ts";
-import {useDispatch, useSelector} from "react-redux";
+import styles from "./Pages.module.scss";
+import {Simulate} from "react-dom/test-utils";
+import submit = Simulate.submit;
+import Loader from "components/common/Loader/Loader.tsx";
 
 export default function ProfilePage() {
-
-    const {values, handleChange} = useForm({});
-    const dispatch = useDispatch();
-    const location = useLocation();
     const isActive = location.pathname === '/profile'
-    const userName = useSelector((state) => state.authSlice.user.name)
+    const {values, handleChange, setValues} = useForm({});
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const userData = useSelector(state => state.authSlice.userData);
 
+    // Добавление состояния для режима редактирования
+    const [isEditing, setIsEditing] = useState(false);
 
-    // TESTING
-    const isAuth = useSelector(state=>state.authSlice.isAuth)
+    const handleEditIconClick = () => {
+        toggleEditing();
+        // Additional logic if needed
+    };
+
+    useEffect(() => {
+        dispatch(getUserData());
+    }, [dispatch]);
+
+    if (!userData) {
+        return <Loader/>
+    }
 
     const handleLogout = () => {
+        navigate('/');
         dispatch(logout());
-        console.log(`isAuth: ${isAuth}`)
-        navigate('/')
+    };
+
+    const handleInputChange = (field, value) => {
+        setValues((prevState) => ({
+            ...prevState,
+            [field]: value,
+        }));
+    };
+
+    const toggleEditing = () => {
+        setIsEditing((prevEditing) => !prevEditing);
+
+        if (!isEditing) {
+            setValues({
+                name: '',
+                email: '',
+                password: '',
+            });
+        }
+    };
+
+    // Функция для сохранения изменений
+    const handleSave = () => {
+        // Send the updated data to the server
+        dispatch(updateUserData(values));
+        toggleEditing(); // Disable editing mode after saving
+    };
+
+
+    console.log(userData)
+
+    // Функция для отмены изменений
+    const handleCancel = () => {
+        toggleEditing(); // Disable editing mode
+        // Additional logic if needed
     };
 
     return (
@@ -67,32 +114,70 @@ export default function ProfilePage() {
                     </Link>
                     <p>В этом разделе вы можете изменить свои персональные данные</p>
                 </div>
-                <form>
-                    <Input
-                        onChange={handleChange}
-                        type={'text'}
-                        placeholder={'Имя'}
-                        icon={'EditIcon'}
-                        name={'name'}
-                        value={userName ?? ''}
-                        error={false}
-                        errorText={'Ошибка'}
-                        size={'default'}
-                        extraClass="mb-6"
-                    />
-                    <Input
-                        onChange={handleChange}
-                        type={'text'}
-                        placeholder={'Пароль'}
-                        icon={'EditIcon'}
-                        name={'password'}
-                        value={values.password ?? ''}
-                        error={false}
-                        errorText={'Ошибка'}
-                        size={'default'}
-                        extraClass="mb-6"
-                    />
-                </form>
+
+                {userData &&
+                    <form>
+                        <Input
+                            onChange={(e) => handleInputChange('name', e.target.value)}
+                            type={'text'}
+                            placeholder={'Имя'}
+                            icon={!isEditing ? 'EditIcon' : undefined}
+                            name={'name'}
+                            value={values.name || userData.name || ''}
+                            error={false}
+                            errorText={'Ошибка'}
+                            size={'default'}
+                            extraClass="mb-6"
+                            onIconClick={toggleEditing}
+                        />
+                        <Input
+                            onChange={(e) => handleInputChange('email', e.target.value)}
+                            type={'text'}
+                            placeholder={'Почта'}
+                            icon={!isEditing ? 'EditIcon' : undefined}
+                            name={'email'}
+                            value={values.email || userData.email || ''}
+                            error={false}
+                            errorText={'Ошибка'}
+                            size={'default'}
+                            extraClass="mb-6"
+                            onIconClick={toggleEditing}
+                        />
+                        <Input
+                            onChange={(e) => handleInputChange('password', e.target.value)}
+                            type={'text'}
+                            placeholder={'Пароль'}
+                            icon={!isEditing ? 'EditIcon' : undefined}
+                            name={'password'}
+                            value={values.password || ''}
+                            error={false}
+                            errorText={'Ошибка'}
+                            size={'default'}
+                            extraClass="mb-6"
+                            onIconClick={toggleEditing}
+                        />
+                        {isEditing && (
+                            <>
+                                <Button
+                                    htmlType="button"
+                                    onClick={handleSave}
+                                    type="primary"
+                                    size="medium"
+                                >
+                                    Сохранить
+                                </Button>
+                                <Button
+                                    htmlType="button"
+                                    onClick={handleCancel}
+                                    type="secondary"
+                                    size="medium"
+                                >
+                                    Отмена
+                                </Button>
+                            </>
+                        )}
+                    </form>
+                }
             </div>
         </section>
     );

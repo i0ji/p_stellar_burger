@@ -4,29 +4,123 @@ import {checkResponse} from "utils/check-response.ts";
 import {refreshToken} from "slices/authSlice.ts";
 import {IUserData} from "interfaces/sliceInterfaces";
 import {setAuthChecked, setUser} from "slices/authSlice.ts";
+import {IAuthSlice} from "interfaces/sliceInterfaces";
+
+const getAccessToken = () => localStorage.getItem('accessToken');
 
 // --------------- LOGIN ---------------
-export const getUser = createAsyncThunk('auth/login', async (userData: IUserData) => {
-    const requestOptions = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-    };
-    try {
-        const response = await fetch(`${BASE_URL}/auth/login`, requestOptions);
-        if (!response.ok) {
-            throw new Error(response.statusText);
+
+export const getUser = createAsyncThunk('auth/login',
+    async (userData: IUserData) => {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+        };
+        try {
+            const response = await fetch(`${BASE_URL}/auth/login`, requestOptions);
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+            const data = await response.json();
+            localStorage.setItem('accessToken', data.accessToken);
+            localStorage.setItem('refreshToken', data.refreshToken);
+            return data.user;
+        } catch (error) {
+            throw error;
         }
+    });
+
+
+// --------------- GET USER DATA ---------------
+
+export const getUserData = createAsyncThunk(
+    'user/fetchUserData',
+    async () => {
+        const token = localStorage.getItem('accessToken');
+
+        if (!token) {
+            throw new Error('Access token not found');
+        }
+
+        const response = await fetch(`${BASE_URL}/auth/user`, {
+            headers: {
+                Authorization: token,
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch user data');
+        }
+
         const data = await response.json();
-        localStorage.setItem('accessToken', data.accessToken);
-        localStorage.setItem('refreshToken', data.refreshToken);
         return data.user;
-    } catch (error) {
-        throw error;
     }
-});
+);
+
+// --------------- UPDATE USER DATA ---------------
+// export const updateUserData = createAsyncThunk(
+//     'user/updateUserData',
+//     async ({ token, updatedData }) => {
+//         const response = await fetch('https://norma.nomoreparties.space/api/auth/user', {
+//             method: 'PATCH',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 Authorization: `Bearer ${token}`,
+//             },
+//             body: JSON.stringify(updatedData),
+//         });
+//
+//         if (!response.ok) {
+//             throw new Error('Failed to update user data');
+//         }
+//
+//         const data = await response.json();
+//         return data.user;
+//     }
+// );
+
+export const updateUserData = createAsyncThunk(
+    'user/updateUserData',
+    async (updatedData) => {
+        const token = localStorage.getItem('accessToken');
+        if (!token) {
+            throw new Error('Нет токена доступа!');
+        }
+
+        const response = await fetch(`${BASE_URL}/auth/user`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: token,
+            },
+            body: JSON.stringify(updatedData),
+        });
+
+        if (!response.ok) {
+            throw new Error('Ошибка при обновлении данных пользователя');
+        }
+
+        const data = await response.json();
+        return data.user;
+    }
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+// --------------- FETCH WITH REFRESH ---------------
 
 export const fetchWithRefreshThunk = createAsyncThunk(
     'auth/fetchWithRefresh',
@@ -47,6 +141,7 @@ export const fetchWithRefreshThunk = createAsyncThunk(
     }
 );
 
+
 // --------------- REGISTER ---------------
 export const registerUser = createAsyncThunk(
     'auth/registerUser',
@@ -66,7 +161,9 @@ export const registerUser = createAsyncThunk(
     }
 );
 
+
 // --------------- RESET PASSWORD ---------------
+
 export const resetPassword = async (password: string, token: string): Promise<any> => {
     const requestBody = {
         password: password,
@@ -89,7 +186,9 @@ export const resetPassword = async (password: string, token: string): Promise<an
     }
 };
 
+
 // --------------- FORGOT PASSWORD ---------------
+
 export const forgotPassword = createAsyncThunk(
     'auth/forgotPassword',
     async (email: string) => {
@@ -114,7 +213,9 @@ export const forgotPassword = createAsyncThunk(
     }
 );
 
+
 // --------------- AUTH CHECK ---------------
+
 export const checkUserAuth = () => {
     return async (dispatch) => {
         if (localStorage.getItem('accessToken')) {
@@ -135,6 +236,7 @@ export const checkUserAuth = () => {
 
 
 // --------------- LOGOUT ---------------
+
 export const logoutUser = createAsyncThunk('auth/logoutUser', async (refreshTokenValue) => {
     const response = await fetch(`${BASE_URL}/auth/logout`, {
         method: 'POST',
