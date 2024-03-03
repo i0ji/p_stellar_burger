@@ -7,7 +7,7 @@ import React, {Fragment, useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
-import {getUser} from "slices/authSlice.ts";
+import {getUser} from "utils/api.ts";
 import {useForm} from "hooks/useForm.ts";
 import {IUserData} from "interfaces/sliceInterfaces";
 
@@ -20,15 +20,13 @@ function LoginPage() {
 
     const [errorMessage, setErrorMessage] = useState(false);
 
+
     // --------------- PWD VISIBILITY  ---------------
-
-
 
     const [isPasswordShow, setIsPasswordShow] = useState(false);
     const togglePasswordVisibility = () => {
         setIsPasswordShow(!isPasswordShow);
     };
-
 
     const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -96,7 +94,7 @@ function LoginPage() {
                         className="pb-6"
                         style={{color: '#b90101'}}
                     >
-                        Неправильный пароль. Попрлбуйте ещё раз.
+                        Неправильный пароль. Попробуйте ещё раз.
                     </p>
                 }
                 <Button

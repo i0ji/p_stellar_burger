@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
-import {registerUser} from "slices/authSlice.ts";
+import {registerUser} from "utils/api.ts";
 
 import {useState} from "react";
 import {useDispatch} from "react-redux";
@@ -14,14 +14,13 @@ export default function RegisterPage() {
 
     const dispatch = useDispatch();
     const {values, handleChange} = useForm({});
-
     const [isPasswordShow, setIsPasswordShow] = useState(false);
+
 
     // --------------- PWD VISIBILITY  ---------------
     const togglePasswordVisibility = () => {
         setIsPasswordShow(!isPasswordShow);
     };
-
 
     const isSuccessResponse = (response: unknown): response is { payload: { success: boolean } } =>
         typeof response === 'object' && response !== null && 'payload' in response && 'success' in response.payload;
@@ -31,7 +30,7 @@ export default function RegisterPage() {
 
     const handleRegister = () => {
         event.preventDefault();
-        
+
         try {
             dispatch(registerUser(values))
                 .then((response) => {
@@ -51,7 +50,9 @@ export default function RegisterPage() {
 
     return (
         <section className={styles.section}>
-            <form>
+            <form
+                onSubmit={handleRegister}
+            >
                 <h1 className="text text text_type_main-medium pb-6">Регистрация</h1>
                 <Input
                     onChange={handleChange}
@@ -91,8 +92,7 @@ export default function RegisterPage() {
                     extraClass="mb-6"
                 />
                 <Button
-                    onSubmit={handleRegister}
-                    htmlType="button"
+                    htmlType="submit"
                     extraClass="mb-20"
                     type="primary">
                     Зарегистрироваться

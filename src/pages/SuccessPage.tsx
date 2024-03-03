@@ -1,7 +1,9 @@
 import styles from "pages/Pages.module.scss"
+
+import {Link} from "react-router-dom";
+
 import {useNavigate} from 'react-router-dom';
 import {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
 
 export default function SuccessPage() {
 
@@ -27,7 +29,7 @@ export default function SuccessPage() {
         <section className={styles.section}>
             <form>
                 <h1 className="text text text_type_main-medium pb-6"> Пароль успешно изменён!</h1>
-                <p>Автоматически вернёмся на главную через: <span
+                <p className="pb-6">Автоматически вернёмся на главную через: <span
                     style={{color: '#b90101'}}
                 >
                     {count}</span> секунд...</p>

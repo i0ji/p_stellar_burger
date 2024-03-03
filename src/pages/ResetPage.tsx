@@ -3,7 +3,7 @@ import styles from "pages/Pages.module.scss"
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
-import {resetPassword} from "slices/authSlice.ts";
+import {resetPassword} from "utils/api.ts";
 
 import {useState, useCallback} from "react";
 import {useNavigate} from "react-router-dom";

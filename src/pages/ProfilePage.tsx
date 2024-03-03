@@ -17,8 +17,13 @@ export default function ProfilePage() {
     const userName = useSelector((state) => state.authSlice.user.name)
     const navigate = useNavigate();
 
+
+    // TESTING
+    const isAuth = useSelector(state=>state.authSlice.isAuth)
+
     const handleLogout = () => {
         dispatch(logout());
+        console.log(`isAuth: ${isAuth}`)
         navigate('/')
     };
 
@@ -55,7 +60,7 @@ export default function ProfilePage() {
                             htmlType="button"
                             type="secondary"
                             size="medium"
-                            onSubmit={handleLogout}
+                            onClick={handleLogout}
                         >
                             Выход
                         </Button>

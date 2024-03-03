@@ -24,7 +24,7 @@ import {useLocation} from "react-router-dom";
 import {useCallback, useEffect} from "react";
 
 import {fetchIngredients} from "slices/ingredientsSlice.ts";
-import {checkUserAuth} from "slices/authSlice.ts";
+import {checkUserAuth} from "utils/api.ts";
 
 
 export default function App() {

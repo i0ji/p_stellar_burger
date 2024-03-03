@@ -1,9 +1,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-
 import {checkResponse} from 'utils/check-response.ts';
 import {BASE_URL} from 'utils/routs.ts';
-
-import {IUserData} from "interfaces/sliceInterfaces";
+import {getUser, registerUser, logoutUser} from "utils/api.ts"
 
 // --------------- REFRESH ---------------
 export const refreshToken = createAsyncThunk('auth/refreshToken', async () => {
@@ -31,138 +29,7 @@ export const refreshToken = createAsyncThunk('auth/refreshToken', async () => {
 
 
 // --------------- FETCH WITH REFRESH ---------------
-export const fetchWithRefreshThunk = createAsyncThunk(
-    'auth/fetchWithRefresh',
-    async (url: URL, options) => {
-        try {
-            const res = await fetch(url, options);
-            return await checkResponse(res);
-        } catch (err) {
-            if (err.message === 'jwt expired') {
-                const refreshData = await refreshToken();
-                options.headers.authorization = refreshData.accessToken;
-                const res = await fetch(url, options);
-                return await checkResponse(res);
-            } else {
-                return Promise.reject(err);
-            }
-        }
-    }
-);
 
-
-// --------------- LOGIN ---------------
-const getUser = createAsyncThunk('auth/login', async (userData: IUserData) => {
-    const requestOptions = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-    };
-    try {
-        const response = await fetch(`${BASE_URL}/auth/login`, requestOptions);
-        if (!response.ok) {
-            throw new Error(response.statusText);
-        }
-        const data = await response.json();
-        localStorage.setItem('accessToken', data.accessToken);
-        localStorage.setItem('refreshToken', data.refreshToken);
-        return data.user;
-    } catch (error) {
-        throw error;
-    }
-});
-
-
-// --------------- REGISTER ---------------
-export const registerUser = createAsyncThunk(
-    'auth/registerUser',
-    async (userData: IUserData) => {
-        try {
-            const response = await fetch(`${BASE_URL}/auth/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(userData),
-            });
-            return await response.json();
-        } catch (error) {
-            throw error;
-        }
-    }
-);
-
-
-// --------------- RESET PASSWORD ---------------
-export const resetPassword = async (password: string, token: string): Promise<any> => {
-    const requestBody = {
-        password: password,
-        token: token,
-    };
-
-    try {
-        const response = await fetch(`${BASE_URL}/password-reset/reset`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(requestBody),
-        });
-
-        return await response.json();
-    } catch (error) {
-        console.error('Error during password reset:', error);
-        throw error;
-    }
-};
-
-
-// --------------- FORGOT PASSWORD ---------------
-export const forgotPassword = createAsyncThunk(
-    'auth/forgotPassword',
-    async (email: string) => {
-        const requestBody = {
-            email: email,
-        };
-
-        try {
-            const response = await fetch(`${BASE_URL}/password-reset`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(requestBody),
-            });
-
-            return await response.json();
-        } catch (error) {
-            console.error('Error during password reset:', error);
-            throw error;
-        }
-    }
-);
-
-
-// --------------- AUTH CHECK ---------------
-export const checkUserAuth = () => {
-    return async (dispatch) => {
-        if (localStorage.getItem('accessToken')) {
-            try {
-                await dispatch(getUser);
-            } catch (error) {
-                localStorage.removeItem('refreshToken');
-                localStorage.removeItem('accessToken');
-                dispatch(setUser(null));
-            } finally {
-                dispatch(setAuthChecked(true));
-            }
-        } else {
-            dispatch(setAuthChecked(true));
-        }
-    };
-};
 
 
 // --------------- AUTH SLICE  ---------------
@@ -218,12 +85,22 @@ const authSlice = createSlice({
             .addCase(registerUser.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.error.message;
+            })
+            .addCase(logoutUser.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(logoutUser.fulfilled, (state) => {
+                state.status = 'idle';
+                state.user = null;
+                state.isAuth = false;
+            })
+            .addCase(logoutUser.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.error.message;
             });
     }
 });
 
 export const {setAuthChecked, setUser, logout} = authSlice.actions;
-
-export {getUser};
 
 export default authSlice.reducer;
