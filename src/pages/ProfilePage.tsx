@@ -18,12 +18,9 @@ export default function ProfilePage() {
     const navigate = useNavigate();
     const userData = useSelector(state => state.authSlice.userData);
 
-    // Добавление состояния для режима редактирования
     const [isEditing, setIsEditing] = useState(false);
-
     const handleEditIconClick = () => {
         toggleEditing();
-        // Additional logic if needed
     };
 
     useEffect(() => {
@@ -31,7 +28,7 @@ export default function ProfilePage() {
     }, [dispatch]);
 
     if (!userData) {
-        return <Loader/>
+        return <Loader/>;
     }
 
     const handleLogout = () => {
@@ -58,21 +55,18 @@ export default function ProfilePage() {
         }
     };
 
-    // Функция для сохранения изменений
     const handleSave = () => {
-        // Send the updated data to the server
         dispatch(updateUserData(values));
-        toggleEditing(); // Disable editing mode after saving
+        toggleEditing();
     };
 
-
-    console.log(userData)
-
-    // Функция для отмены изменений
     const handleCancel = () => {
-        toggleEditing(); // Disable editing mode
-        // Additional logic if needed
+        toggleEditing();
+        setValues(userData);
     };
+
+    console.log(userData);
+
 
     return (
         <section className={styles.profile_section}>
@@ -123,12 +117,12 @@ export default function ProfilePage() {
                             placeholder={'Имя'}
                             icon={!isEditing ? 'EditIcon' : undefined}
                             name={'name'}
-                            value={values.name || userData.name || ''}
+                            value={isEditing ? values.name : userData.name}
                             error={false}
                             errorText={'Ошибка'}
                             size={'default'}
                             extraClass="mb-6"
-                            onIconClick={toggleEditing}
+                            onIconClick={handleEditIconClick}
                         />
                         <Input
                             onChange={(e) => handleInputChange('email', e.target.value)}
@@ -136,12 +130,12 @@ export default function ProfilePage() {
                             placeholder={'Почта'}
                             icon={!isEditing ? 'EditIcon' : undefined}
                             name={'email'}
-                            value={values.email || userData.email || ''}
+                            value={isEditing ? values.email : userData.email}
                             error={false}
                             errorText={'Ошибка'}
                             size={'default'}
                             extraClass="mb-6"
-                            onIconClick={toggleEditing}
+                            onIconClick={handleEditIconClick}
                         />
                         <Input
                             onChange={(e) => handleInputChange('password', e.target.value)}
@@ -154,7 +148,7 @@ export default function ProfilePage() {
                             errorText={'Ошибка'}
                             size={'default'}
                             extraClass="mb-6"
-                            onIconClick={toggleEditing}
+                            onIconClick={handleEditIconClick}
                         />
                         {isEditing && (
                             <>
@@ -182,3 +176,52 @@ export default function ProfilePage() {
         </section>
     );
 }
+
+
+// const handleEditIconClick = () => {
+//     toggleEditing();
+// };
+//
+// useEffect(() => {
+//     dispatch(getUserData());
+// }, [dispatch]);
+//
+// if (!userData) {
+//     return <Loader/>
+// }
+//
+// const handleLogout = () => {
+//     navigate('/');
+//     dispatch(logout());
+// };
+//
+// const handleInputChange = (field, value) => {
+//     setValues((prevState) => ({
+//         ...prevState,
+//         [field]: value,
+//     }));
+// };
+//
+// const toggleEditing = () => {
+//     setIsEditing((prevEditing) => !prevEditing);
+//
+//     if (!isEditing) {
+//         setValues({
+//             name: '',
+//             email: '',
+//             password: '',
+//         });
+//     }
+// };
+//
+// const handleSave = () => {
+//     toggleEditing();
+//     dispatch(updateUserData(values));
+// };
+//
+// console.log(userData)
+//
+// const handleCancel = () => {
+//     toggleEditing();
+//     setValues(userData);
+// };
