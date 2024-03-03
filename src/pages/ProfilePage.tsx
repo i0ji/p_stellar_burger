@@ -7,18 +7,17 @@ import {getUserData, updateUserData} from "utils/api.ts";
 import {logout} from "slices/authSlice.ts";
 
 import styles from "./Pages.module.scss";
-import {Simulate} from "react-dom/test-utils";
-import submit = Simulate.submit;
 import Loader from "components/common/Loader/Loader.tsx";
 
 export default function ProfilePage() {
     const isActive = location.pathname === '/profile'
-    const {values, handleChange, setValues} = useForm({});
+    const {values, setValues} = useForm({});
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const userData = useSelector(state => state.authSlice.userData);
 
     const [isEditing, setIsEditing] = useState(false);
+
     const handleEditIconClick = () => {
         toggleEditing();
     };
@@ -122,7 +121,7 @@ export default function ProfilePage() {
                             errorText={'Ошибка'}
                             size={'default'}
                             extraClass="mb-6"
-                            onIconClick={handleEditIconClick}
+                            onIconClick={() => handleEditIconClick('name')}
                         />
                         <Input
                             onChange={(e) => handleInputChange('email', e.target.value)}
@@ -135,7 +134,7 @@ export default function ProfilePage() {
                             errorText={'Ошибка'}
                             size={'default'}
                             extraClass="mb-6"
-                            onIconClick={handleEditIconClick}
+                            onIconClick={() => handleEditIconClick('email')}
                         />
                         <Input
                             onChange={(e) => handleInputChange('password', e.target.value)}
@@ -148,7 +147,7 @@ export default function ProfilePage() {
                             errorText={'Ошибка'}
                             size={'default'}
                             extraClass="mb-6"
-                            onIconClick={handleEditIconClick}
+                            onIconClick={() => handleEditIconClick('password')}
                         />
                         {isEditing && (
                             <>
