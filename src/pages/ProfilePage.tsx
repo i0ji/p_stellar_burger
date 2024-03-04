@@ -11,61 +11,49 @@ import Loader from "components/common/Loader/Loader.tsx";
 
 export default function ProfilePage() {
     const isActive = location.pathname === '/profile'
-    const {values, setValues} = useForm({});
+    const {values, handleChange, setValues} = useForm({});
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const userData = useSelector(state => state.authSlice.userData);
 
     const [isEditing, setIsEditing] = useState(false);
+    const [editingField, setEditingField] = useState(null);
 
-    const handleEditIconClick = () => {
-        toggleEditing();
-    };
-
+    // --------------- GET USER DATA
     useEffect(() => {
         dispatch(getUserData());
     }, [dispatch]);
-
+    //  --------------- LOADER
     if (!userData) {
         return <Loader/>;
     }
-
+    //  --------------- LOGOUT
     const handleLogout = () => {
         navigate('/');
         dispatch(logout());
     };
 
-    const handleInputChange = (field, value) => {
-        setValues((prevState) => ({
-            ...prevState,
-            [field]: value,
-        }));
-    };
-
-    const toggleEditing = () => {
-        setIsEditing((prevEditing) => !prevEditing);
-
+    //  --------------- NEW PROFILE LOGIC ---------------
+    const handleEditIconClick = (fieldName) => {
         if (!isEditing) {
-            setValues({
-                name: '',
-                email: '',
-                password: '',
-            });
+            setEditingField(fieldName);
+            setIsEditing(true);
         }
-    };
+    }
 
     const handleSave = () => {
-        dispatch(updateUserData(values));
-        toggleEditing();
+        dispatch(updateUserData({[editingField]: values[editingField]}));
+        setEditingField(null);
+        setIsEditing(false);
     };
 
     const handleCancel = () => {
-        toggleEditing();
         setValues(userData);
+        setEditingField(null);
+        setIsEditing(false);
     };
 
-    console.log(userData);
-
+    console.log(userData)
 
     return (
         <section className={styles.profile_section}>
@@ -111,46 +99,46 @@ export default function ProfilePage() {
                 {userData &&
                     <form>
                         <Input
-                            onChange={(e) => handleInputChange('name', e.target.value)}
                             type={'text'}
                             placeholder={'Имя'}
-                            icon={!isEditing ? 'EditIcon' : undefined}
                             name={'name'}
-                            value={isEditing ? values.name : userData.name}
                             error={false}
                             errorText={'Ошибка'}
                             size={'default'}
                             extraClass="mb-6"
+                            value={(editingField == 'name') && values.name || userData.name}
+                            onChange={handleChange}
                             onIconClick={() => handleEditIconClick('name')}
+                            icon={(editingField == 'name') ? undefined : 'EditIcon'}
                         />
                         <Input
-                            onChange={(e) => handleInputChange('email', e.target.value)}
                             type={'text'}
                             placeholder={'Почта'}
-                            icon={!isEditing ? 'EditIcon' : undefined}
                             name={'email'}
-                            value={isEditing ? values.email : userData.email}
                             error={false}
                             errorText={'Ошибка'}
                             size={'default'}
                             extraClass="mb-6"
+                            value={(editingField == 'email') && values.email || userData.email}
+                            onChange={handleChange}
                             onIconClick={() => handleEditIconClick('email')}
+                            icon={(editingField == 'email') ? undefined : 'EditIcon'}
                         />
                         <Input
-                            onChange={(e) => handleInputChange('password', e.target.value)}
                             type={'text'}
                             placeholder={'Пароль'}
-                            icon={!isEditing ? 'EditIcon' : undefined}
                             name={'password'}
-                            value={values.password || ''}
                             error={false}
                             errorText={'Ошибка'}
                             size={'default'}
                             extraClass="mb-6"
+                            value={(editingField == 'password') && values.password || ''}
+                            onChange={handleChange}
                             onIconClick={() => handleEditIconClick('password')}
+                            icon={(editingField == 'password') ? undefined : 'EditIcon'}
                         />
-                        {isEditing && (
-                            <>
+                        {isEditing && editingField && (
+                            <div className={styles.profile_update_button}>
                                 <Button
                                     htmlType="button"
                                     onClick={handleSave}
@@ -167,7 +155,7 @@ export default function ProfilePage() {
                                 >
                                     Отмена
                                 </Button>
-                            </>
+                            </div>
                         )}
                     </form>
                 }
@@ -175,52 +163,3 @@ export default function ProfilePage() {
         </section>
     );
 }
-
-
-// const handleEditIconClick = () => {
-//     toggleEditing();
-// };
-//
-// useEffect(() => {
-//     dispatch(getUserData());
-// }, [dispatch]);
-//
-// if (!userData) {
-//     return <Loader/>
-// }
-//
-// const handleLogout = () => {
-//     navigate('/');
-//     dispatch(logout());
-// };
-//
-// const handleInputChange = (field, value) => {
-//     setValues((prevState) => ({
-//         ...prevState,
-//         [field]: value,
-//     }));
-// };
-//
-// const toggleEditing = () => {
-//     setIsEditing((prevEditing) => !prevEditing);
-//
-//     if (!isEditing) {
-//         setValues({
-//             name: '',
-//             email: '',
-//             password: '',
-//         });
-//     }
-// };
-//
-// const handleSave = () => {
-//     toggleEditing();
-//     dispatch(updateUserData(values));
-// };
-//
-// console.log(userData)
-//
-// const handleCancel = () => {
-//     toggleEditing();
-//     setValues(userData);
-// };

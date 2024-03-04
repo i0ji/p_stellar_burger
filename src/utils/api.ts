@@ -4,9 +4,7 @@ import {checkResponse} from "utils/check-response.ts";
 import {refreshToken} from "slices/authSlice.ts";
 import {IUserData} from "interfaces/sliceInterfaces";
 import {setAuthChecked, setUser} from "slices/authSlice.ts";
-import {IAuthSlice} from "interfaces/sliceInterfaces";
 
-const getAccessToken = () => localStorage.getItem('accessToken');
 
 // --------------- LOGIN ---------------
 
@@ -60,27 +58,8 @@ export const getUserData = createAsyncThunk(
     }
 );
 
+
 // --------------- UPDATE USER DATA ---------------
-// export const updateUserData = createAsyncThunk(
-//     'user/updateUserData',
-//     async ({ token, updatedData }) => {
-//         const response = await fetch('https://norma.nomoreparties.space/api/auth/user', {
-//             method: 'PATCH',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//                 Authorization: `Bearer ${token}`,
-//             },
-//             body: JSON.stringify(updatedData),
-//         });
-//
-//         if (!response.ok) {
-//             throw new Error('Failed to update user data');
-//         }
-//
-//         const data = await response.json();
-//         return data.user;
-//     }
-// );
 
 export const updateUserData = createAsyncThunk(
     'user/updateUserData',
@@ -107,17 +86,6 @@ export const updateUserData = createAsyncThunk(
         return data.user;
     }
 );
-
-
-
-
-
-
-
-
-
-
-
 
 
 // --------------- FETCH WITH REFRESH ---------------
