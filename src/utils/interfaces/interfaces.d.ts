@@ -1,5 +1,3 @@
-import React from "react";
-
 export interface IIngredient {
 	"id"?: string,
 	"_id"?: string,
@@ -26,28 +24,6 @@ export interface IIngredientCardProps extends IIngredient {
 	onCloseDetailsPage?: () => void
 }
 
-export interface IOrderDetailsProps {
-	onClose?: () => void,
-}
-
-export interface IModalOverlayProps extends IOrderDetailsProps {
-	children?: React.ReactNode,
-	id?: string;
-}
-
-export interface IIngredientDetailsProps extends IOrderDetailsProps {
-	image: string,
-	fat: number,
-	proteins: number,
-	name: string,
-	carbohydrates: number,
-	calories: number,
-}
-
-export interface IRouteParam {
-	userID: string | undefined;
-}
-
 export interface IIngredientGroupProps {
 	type: string;
 	ingredients: IIngredient[];
@@ -58,4 +34,12 @@ export interface IDragItem {
 	index: number;
 	id: string;
 	type: string;
+}
+
+export interface IRequestOptions {
+	method: string;
+	headers: {
+		[key: string]: string;
+	};
+	body?: string;
 }

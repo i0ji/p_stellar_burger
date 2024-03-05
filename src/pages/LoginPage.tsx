@@ -10,12 +10,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {getUser} from "utils/api.ts";
 import {useForm} from "hooks/useForm.ts";
 import {IUserData} from "interfaces/sliceInterfaces";
+import {RootState} from "interfaces/rootState.ts";
 
 function LoginPage() {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const authState = useSelector(state => state.authSlice);
+    const authState = useSelector((state: RootState) => state.authSlice);
     const {values, handleChange} = useForm({});
 
     const [errorMessage, setErrorMessage] = useState(false);

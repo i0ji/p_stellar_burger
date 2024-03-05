@@ -1,4 +1,6 @@
 import {IIngredient} from "utils/interfaces/interfaces";
+import {types} from "sass";
+import Error = types.Error;
 
 export interface IIngredientsListSlice {
     ingredients: IIngredient[];
@@ -30,12 +32,15 @@ export interface IUserData {
 }
 
 export interface IAuthSlice {
+    status: string;
     user: IUserData,
     userData: IUserData,
     isAuth: boolean;
     success?: boolean,
     refreshToken?: string,
+    accessToken: string,
     authChecked: boolean,
+    error: Error,
 }
 
 export interface IOrderSlice {

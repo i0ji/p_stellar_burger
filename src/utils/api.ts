@@ -1,8 +1,14 @@
-import {BASE_URL} from "utils/routs.ts";
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {checkResponse} from "utils/check-response.ts";
-import {IUserData} from "interfaces/sliceInterfaces";
+import {Dispatch} from "@reduxjs/toolkit";
+
+import {BASE_URL} from "utils/routs.ts";
 import {setAuthChecked, setUser} from "slices/authSlice.ts";
+import {checkResponse} from "utils/check-response.ts";
+
+import {IRequestOptions} from "interfaces/interfaces";
+import {IUserData} from "interfaces/sliceInterfaces";
+
+
 
 
 // --------------- REFRESH ---------------
@@ -29,7 +35,7 @@ export const refreshToken = async () => {
 
 // --------------- FETCH WITH REFRESH ---------------
 
-export const fetchWithRefresh = async (url, options) => {
+export const fetchWithRefresh = async (url: URL, options:IRequestOptions) => {
     try {
         const res = await fetch(url, options);
         return await checkResponse(res);
@@ -150,7 +156,7 @@ export const registerUser = createAsyncThunk(
 
 // --------------- RESET PASSWORD ---------------
 
-export const resetPassword = async (password: string, token: string): Promise<any> => {
+export const resetPassword = async (password: string, token: string) => {
     const requestBody = {
         password: password,
         token: token,
@@ -200,7 +206,7 @@ export const forgotPassword = createAsyncThunk(
 );
 
 export const checkUserAuth = () => {
-    return async (dispatch) => {
+    return async (dispatch: Dispatch) => {
         const accessToken = localStorage.getItem('accessToken');
 
         if (accessToken) {
