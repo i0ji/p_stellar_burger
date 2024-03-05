@@ -6,13 +6,17 @@ export interface IIngredientsListSlice {
     error: string | null;
 }
 
+export interface ICurrentIngredientSlice {
+    selectedIngredient: IIngredient;
+}
+
 export interface IBurgerState {
     ingredients: IIngredient[];
     status: string;
     error: string | null;
 }
 
-interface ConstructorState {
+interface IConstructorSlice {
     totalAmount: number;
     ingredients: IIngredient[];
     addedIngredients: IIngredient[];
@@ -27,12 +31,15 @@ export interface IUserData {
 
 export interface IAuthSlice {
     user: IUserData,
-    email: string,
-    password: string,
+    isAuth: boolean;
     success?: boolean,
     refreshToken?: string,
+    authChecked: boolean,
 }
 
-export interface IUpdateUserData {
-    editedValues: IUserData
+export interface IOrderSlice {
+    orderNumber: string | number | null,
+    IDs: string[],
+    status: string,
+    error: null,
 }

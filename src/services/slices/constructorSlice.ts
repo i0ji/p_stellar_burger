@@ -1,8 +1,10 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {ConstructorState} from 'interfaces/sliceInterfaces'
+import {IConstructorSlice} from 'interfaces/sliceInterfaces'
 import {IIngredient} from "interfaces/interfaces";
 
-const initialState: ConstructorState = {
+
+
+const initialState: IConstructorSlice = {
     totalAmount: 0,
     ingredients: [],
     addedIngredients: [],

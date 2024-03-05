@@ -14,5 +14,4 @@ const store = configureStore({
         authSlice: authSlice,
     }
 });
-
 export default store;

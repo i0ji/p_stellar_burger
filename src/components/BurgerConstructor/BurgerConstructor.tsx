@@ -4,6 +4,7 @@ import {updateIds} from "slices/orderSlice.ts"
 import styles from "./BurgerConstructorStyles.module.scss";
 import awaitSpinner from "images/common/awaitSpinner.svg"
 import {IIngredient} from "interfaces/interfaces";
+import {RootState} from "interfaces/rootState.ts";
 
 import {ConstructorElement, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import CurrentIngredients from "components/BurgerConstructor/CurrentIngredients/CurrentIngredients.tsx";
@@ -28,19 +29,19 @@ export default function BurgerConstructor() {
         constructorSlice: { addedIngredients: IIngredient[]; bun: IIngredient | null };
     }) => state.constructorSlice);
     // --------------- PRELOADER CONSTANTS
-    const isLoaded = useSelector(state => state.orderSlice.status);
-    const hasError = useSelector(state => state.orderSlice.error);
+    const isLoaded = useSelector((state: RootState) => state.orderSlice.status);
+    const hasError = useSelector((state: RootState) => state.orderSlice.error);
     // --------------- CURRENT IDS
-    const ingredientIDs = useSelector(state => state.constructorSlice.addedIngredients).map((elem: IIngredient) => elem._id);
-    const bunIDs = useSelector(state => state.constructorSlice.bun);
+    const ingredientIDs = useSelector((state: RootState) => state.constructorSlice.addedIngredients).map((elem: IIngredient) => elem._id);
+    const bunIDs = useSelector((state: RootState) => state.constructorSlice.bun);
     // --------------- MODAL
     const {isVisible, openModal, closeModal} = useModal(ingredientIDs);
     // --------------- TOTAL AMOUNT
-    const totalAmount = useSelector(state => state.constructorSlice.totalAmount);
+    const totalAmount = useSelector((state: RootState) => state.constructorSlice.totalAmount);
     // --------------- BUNS STATE
-    const isBun = useSelector(state => state.constructorSlice.bun);
+    const isBun = useSelector((state: RootState) => state.constructorSlice.bun);
     //--------------- AUTH STATE
-    const isAuth = useSelector(state => state.authSlice.isAuth);
+    const isAuth = useSelector((state: RootState) => state.authSlice.isAuth);
 
     const navigate = useNavigate();
 
