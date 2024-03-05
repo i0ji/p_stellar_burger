@@ -1,13 +1,16 @@
-import {useState, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from "./Pages.module.scss";
+
 import {Link, useNavigate} from "react-router-dom";
 import {useForm} from "hooks/useForm2.ts";
+import {useState, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+
+import Loader from "components/common/Loader/Loader.tsx";
+import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
+
 import {getUserData, updateUserData} from "utils/api.ts";
 import {logout} from "slices/authSlice.ts";
 
-import styles from "./Pages.module.scss";
-import Loader from "components/common/Loader/Loader.tsx";
 
 export default function ProfilePage() {
     const isActive = location.pathname === '/profile'
@@ -16,6 +19,7 @@ export default function ProfilePage() {
     const navigate = useNavigate();
     const userData = useSelector(state => state.authSlice.userData);
 
+    const [showUpdateButtons, setShowUpdateButtons] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [editingField, setEditingField] = useState(null);
 
@@ -39,18 +43,23 @@ export default function ProfilePage() {
             setEditingField(fieldName);
             setIsEditing(true);
         }
+        setShowUpdateButtons(true);
     }
 
     const handleSave = () => {
         dispatch(updateUserData({[editingField]: values[editingField]}));
         setEditingField(null);
         setIsEditing(false);
+        setShowUpdateButtons(false);
     };
 
     const handleCancel = () => {
+        setShowUpdateButtons(false);
         setValues(userData);
-        setEditingField(null);
-        setIsEditing(false);
+        setTimeout(() => {
+            setEditingField(null);
+            setIsEditing(false);
+        }, 250);
     };
 
     console.log(userData)
@@ -138,7 +147,8 @@ export default function ProfilePage() {
                             icon={(editingField == 'password') ? undefined : 'EditIcon'}
                         />
                         {isEditing && editingField && (
-                            <div className={styles.profile_update_button}>
+                            <div
+                                className={`${styles.profile_update_button} ${showUpdateButtons ? styles.fadeIn : styles.fadeOut}`}>
                                 <Button
                                     htmlType="button"
                                     onClick={handleSave}

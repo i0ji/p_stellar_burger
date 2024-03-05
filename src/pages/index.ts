@@ -8,6 +8,7 @@ import ProfilePage from "pages/ProfilePage.tsx"
 import IngredientDetails from "pages/IngredientDetailsPage/IngredientDetails.tsx"
 import SuccessPage from "pages/SuccessPage.tsx";
 import Warning from "pages/Warning.tsx";
+import OrdersPage from "pages/OrdersPage/OrdersPage.tsx";
 
 export {
 	LoginPage,
@@ -19,5 +20,6 @@ export {
 	IngredientDetails,
 	ResetPage,
 	SuccessPage,
-	Warning
+	Warning,
+	OrdersPage
 };

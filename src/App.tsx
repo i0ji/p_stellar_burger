@@ -12,7 +12,8 @@ import {
     IngredientDetails,
     ResetPage,
     SuccessPage,
-    Warning
+    Warning,
+    OrdersPage
 } from "./pages";
 
 import {ProtectedRoute} from "components/common/ProtectedRoute/ProtectedRoute.tsx"
@@ -57,7 +58,7 @@ export default function App() {
     }, [navigate]);
 
     if (ingredientsStatus == 'loading') {
-        return <Loader/>
+        return <Loader/>;
     }
 
     return (
@@ -74,6 +75,7 @@ export default function App() {
                 <Route path="/reset-success" element={<SuccessPage/>}/>
 
                 <Route path="/profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}/>
+                <Route path="/orders" element={<ProtectedRoute unAuth={false} component={<OrdersPage/>}/>}/>
 
                 <Route path="/reset-success" element={<ProtectedRoute unAuth={true} component={<SuccessPage/>}/>}/>
                 <Route path="/login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>

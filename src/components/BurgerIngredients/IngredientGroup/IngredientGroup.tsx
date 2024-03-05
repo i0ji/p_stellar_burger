@@ -1,6 +1,7 @@
 import styles from "./IngredientGroupStyles.module.scss";
 import {IIngredient, IIngredientCardProps, IIngredientGroupProps} from "interfaces/interfaces";
 
+import {Link} from "react-router-dom";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {useLocation} from "react-router-dom";
@@ -11,7 +12,7 @@ import {updateSelectedIngredient} from "slices/currentIngredientSlice.ts";
 
 import {v4 as uuidv4} from 'uuid';
 
-import {Link} from "react-router-dom";
+
 
 export default function IngredientGroup({type, ingredients}: IIngredientGroupProps) {
 
@@ -81,7 +82,7 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
                 <h3 className="text text_type_main-medium pb-6">{type}</h3>
 
 
-                {/* --------------- MAPPING INGREDIENTS FOR EACH GROUP --------------- */}
+                {/* --------------- MAPPING INGREDIENTS --------------- */}
 
                 {ingredients.map((ingredientItem: IIngredient, i) => (
                     <Link

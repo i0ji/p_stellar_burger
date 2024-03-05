@@ -28,7 +28,6 @@
   top: 50%;
   left: 50%;
 
-  //transition: .5s all;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 
@@ -46,10 +45,6 @@
   svg:hover {
     fill: $scroll_active;
   }
-}
-
-.rn sdev {
-  animation: fadeIn .3s ease-in-out;
 }
 
 .fadeOut {

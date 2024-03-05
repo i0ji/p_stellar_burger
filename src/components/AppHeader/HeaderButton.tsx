@@ -32,7 +32,7 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
             return (
                 <NavLink
                     className={activeStyle}
-                    to="/xxxx"
+                    to="/orders"
                 >
                     <ListIcon
                         type='secondary'
