@@ -47,10 +47,10 @@ export default function App() {
     }, []);
 
 
-    console.log(`refresh:`, localStorage.getItem('refreshToken'));
-    console.log('access:', localStorage.getItem('accessToken'));
-    console.log(`userAuth: ${userAuth}`);
-    console.log(`isChecked: ${userAuthChecked}`);
+    console.log(`Refresh token:`, localStorage.getItem('refreshToken'));
+    console.log('Access Token:', localStorage.getItem('accessToken'));
+    console.log(`User Auth: ${userAuth}`);
+    console.log(`Auth is checked: ${userAuthChecked}`);
 
 
     const handleCloseModal = useCallback(() => {

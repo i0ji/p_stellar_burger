@@ -3,29 +3,6 @@ import {checkResponse} from 'utils/check-response.ts';
 import {BASE_URL} from 'utils/routs.ts';
 import {getUser, registerUser, logoutUser, getUserData, updateUserData} from "utils/api.ts"
 
-// --------------- REFRESH ---------------
-export const refreshToken = createAsyncThunk('auth/refreshToken', async () => {
-    const response = await fetch(`${BASE_URL}/auth/token`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-        },
-        body: JSON.stringify({
-            token: localStorage.getItem('refreshToken'),
-        }),
-    });
-
-    const refreshData = await checkResponse(response);
-
-    if (!refreshData.success) {
-        return Promise.reject(refreshData);
-    }
-
-    localStorage.setItem('refreshToken', refreshData.refreshToken);
-    localStorage.setItem('accessToken', refreshData.accessToken);
-
-    return refreshData;
-});
 
 // --------------- AUTH SLICE  ---------------
 const authSlice = createSlice({

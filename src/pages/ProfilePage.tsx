@@ -1,8 +1,8 @@
 import styles from "./Pages.module.scss";
 
 import {Link, useNavigate} from "react-router-dom";
-import {useForm} from "hooks/useForm2.ts";
-import {useState, useEffect} from 'react';
+import {useForm} from "hooks/useForm.ts";
+import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import Loader from "components/common/Loader/Loader.tsx";
@@ -12,7 +12,7 @@ import {getUserData, updateUserData} from "utils/api.ts";
 import {logout} from "slices/authSlice.ts";
 
 
-export default function ProfilePage() {
+const ProfilePage = () => {
     const isActive = location.pathname === '/profile'
     const {values, handleChange, setValues} = useForm({});
     const dispatch = useDispatch();
@@ -33,8 +33,8 @@ export default function ProfilePage() {
     }
     //  --------------- LOGOUT
     const handleLogout = () => {
-        navigate('/');
         dispatch(logout());
+        navigate('/');
     };
 
     //  --------------- NEW PROFILE LOGIC ---------------
@@ -46,11 +46,21 @@ export default function ProfilePage() {
         setShowUpdateButtons(true);
     }
 
-    const handleSave = () => {
-        dispatch(updateUserData({[editingField]: values[editingField]}));
+    // const handleSave = () => {
+    //     setShowUpdateButtons(false);
+    //     dispatch(updateUserData({[editingField]: values[editingField]}));
+    //     setTimeout(() => {
+    //         setEditingField(null);
+    //         setIsEditing(false);
+    //     }, 250);
+    // };
+
+    const handleSave = async () => {
+        setShowUpdateButtons(false);
+        await dispatch(updateUserData({ [editingField]: values[editingField] }));
+        await dispatch(getUserData());
         setEditingField(null);
         setIsEditing(false);
-        setShowUpdateButtons(false);
     };
 
     const handleCancel = () => {
@@ -115,7 +125,8 @@ export default function ProfilePage() {
                             errorText={'Ошибка'}
                             size={'default'}
                             extraClass="mb-6"
-                            value={(editingField == 'name') && values.name || userData.name}
+                            value={(editingField === 'name') ? (values.name || '') : userData.name}
+
                             onChange={handleChange}
                             onIconClick={() => handleEditIconClick('name')}
                             icon={(editingField == 'name') ? undefined : 'EditIcon'}
@@ -173,3 +184,5 @@ export default function ProfilePage() {
         </section>
     );
 }
+
+export default React.memo(ProfilePage);

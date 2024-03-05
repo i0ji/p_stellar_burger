@@ -1,9 +1,48 @@
 import {BASE_URL} from "utils/routs.ts";
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {checkResponse} from "utils/check-response.ts";
-import {refreshToken} from "slices/authSlice.ts";
 import {IUserData} from "interfaces/sliceInterfaces";
 import {setAuthChecked, setUser} from "slices/authSlice.ts";
+
+// --------------- REFRESH ---------------
+export const refreshToken = async () => {
+    const response = await fetch(`${BASE_URL}/auth/token`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify({
+            token: localStorage.getItem("refreshToken"),
+        }),
+    });
+    const refreshData = await checkResponse(response);
+    if (!refreshData.success) {
+        return Promise.reject(refreshData);
+    }
+    localStorage.setItem("refreshToken", refreshData.refreshToken);
+    localStorage.setItem("accessToken", refreshData.accessToken);
+    return refreshData;
+};
+
+// --------------- FETCH WITH REFRESH ---------------
+
+
+export const fetchWithRefresh = async (url, options) => {
+    try {
+        const res = await fetch(url, options);
+        return await checkResponse(res);
+    } catch (err) {
+        if (err.message === "jwt expired") {
+            const refreshData = await refreshToken();
+            options.headers.authorization = refreshData.accessToken;
+            const res = await fetch(url, options);
+            return await checkResponse(res);
+        } else {
+            return Promise.reject(err);
+        }
+    }
+};
+
 
 
 // --------------- LOGIN ---------------
@@ -43,18 +82,18 @@ export const getUserData = createAsyncThunk(
             throw new Error('Access token not found');
         }
 
-        const response = await fetch(`${BASE_URL}/auth/user`, {
-            headers: {
-                Authorization: token,
-            },
-        });
+        try {
+            // Замените fetch на fetchWithRefresh
+            const response = await fetchWithRefresh(`${BASE_URL}/auth/user`, {
+                headers: {
+                    Authorization: token,
+                },
+            });
 
-        if (!response.ok) {
-            throw new Error('Failed to fetch user data');
+            return response.user;
+        } catch (error) {
+            throw error;
         }
-
-        const data = await response.json();
-        return data.user;
     }
 );
 
@@ -69,7 +108,7 @@ export const updateUserData = createAsyncThunk(
             throw new Error('Нет токена доступа!');
         }
 
-        const response = await fetch(`${BASE_URL}/auth/user`, {
+        const response = await fetchWithRefresh(`${BASE_URL}/auth/user`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -88,29 +127,8 @@ export const updateUserData = createAsyncThunk(
 );
 
 
-// --------------- FETCH WITH REFRESH ---------------
-
-export const fetchWithRefreshThunk = createAsyncThunk(
-    'auth/fetchWithRefresh',
-    async (url: URL, options) => {
-        try {
-            const res = await fetch(url, options);
-            return await checkResponse(res);
-        } catch (err) {
-            if (err.message === 'jwt expired') {
-                const refreshData = await refreshToken();
-                options.headers.authorization = refreshData.accessToken;
-                const res = await fetch(url, options);
-                return await checkResponse(res);
-            } else {
-                return Promise.reject(err);
-            }
-        }
-    }
-);
-
-
 // --------------- REGISTER ---------------
+
 export const registerUser = createAsyncThunk(
     'auth/registerUser',
     async (userData: IUserData) => {
@@ -181,70 +199,12 @@ export const forgotPassword = createAsyncThunk(
     }
 );
 
-
-// --------------- AUTH CHECK ---------------
-
-// export const checkUserAuth = () => {
-//     return async (dispatch) => {
-//         if (localStorage.getItem('accessToken')) {
-//             try {
-//                 await dispatch(getUser);
-//             } catch (error) {
-//                 localStorage.removeItem('refreshToken');
-//                 localStorage.removeItem('accessToken');
-//                 dispatch(setUser(null));
-//             } finally {
-//                 dispatch(setAuthChecked(true));
-//             }
-//         } else {
-//             dispatch(setAuthChecked(true));
-//         }
-//     };
-// };
-// const getTokenExpirationTime = (token) => {
-//     try {
-//         const decodedToken = JSON.parse(atob(token.split('.')[1]));
-//         return decodedToken.exp * 1000; // Convert to milliseconds
-//     } catch (error) {
-//         console.error('Error decoding token:', error);
-//         return null;
-//     }
-// };
-// export const checkUserAuth = () => {
-//     return async (dispatch) => {
-//         const accessToken = localStorage.getItem('accessToken');
-//         const refreshToken = localStorage.getItem('refreshToken');
-//
-//         if (accessToken) {
-//             try {
-//                 const expirationTime = getTokenExpirationTime(accessToken);
-//
-//
-//                 if (expirationTime && expirationTime < Date.now()) {
-//
-//                     await dispatch(refreshToken());
-//                     await dispatch(getUser);
-//                 }
-//             } catch (error) {
-//                 localStorage.removeItem('refreshToken');
-//                 localStorage.removeItem('accessToken');
-//                 dispatch(setUser(null));
-//             } finally {
-//                 dispatch(setAuthChecked(true));
-//             }
-//         } else {
-//             dispatch(setAuthChecked(true));
-//         }
-//     };
-// };
-
 export const checkUserAuth = () => {
     return async (dispatch) => {
         const accessToken = localStorage.getItem('accessToken');
 
         if (accessToken) {
             try {
-                // Check if the access token is still valid
                 const response = await fetch(`${BASE_URL}/auth/user`, {
                     headers: {
                         Authorization: accessToken,
@@ -252,11 +212,9 @@ export const checkUserAuth = () => {
                 });
 
                 if (!response.ok) {
-                    // If not valid, try refreshing the tokens
                     await dispatch(refreshToken());
                 }
 
-                // Fetch user data with the new access token or the existing one
                 const userResponse = await fetch(`${BASE_URL}/auth/user`, {
                     headers: {
                         Authorization: accessToken,
@@ -266,12 +224,10 @@ export const checkUserAuth = () => {
                 if (userResponse.ok) {
                     const userData = await userResponse.json();
 
-                    // Dispatch action to update user data in the Redux store
                     dispatch(setUser(userData));
                 }
 
             } catch (error) {
-                // Handle errors, e.g., logout user
                 localStorage.removeItem('refreshToken');
                 localStorage.removeItem('accessToken');
                 dispatch(setUser(null));

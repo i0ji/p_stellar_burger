@@ -5,7 +5,7 @@ import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {resetPassword} from "utils/api.ts";
 
-import {useState, useCallback} from "react";
+import React, {useState, useCallback} from "react";
 import {useNavigate} from "react-router-dom";
 //import {useForm} from "hooks/useForm.ts";
 
@@ -23,7 +23,7 @@ export default function ResetPage() {
         setIsPasswordShow(!isPasswordShow);
     };
 
-    const handleChange = useCallback((e) => {
+    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         if (name === 'password') {
             setPassword(value);
@@ -34,23 +34,21 @@ export default function ResetPage() {
 
 
 
-    const handleSavePassword = async () => {
-        try {
-            const response = await resetPassword(password, token);
-
-            if (response.success) {
-                console.log('Password successfully reset:', response.success);
-                console.log('Password successfully reset:', response.message);
-                navigate('/reset-success');
-                // --------------- PWD RESET
-            } else {
-                console.error('Ошибка при восстановлении пароля:', response.message);
-                // --------------- ERROR HANDLE
-            }
-        } catch (error) {
-            console.error('Ошибка при восстановлении пароля:', error);
-            // --------------- ERROR HANDLE
-        }
+    const handleSavePassword = (e: React.FormEvent) => {
+        e.preventDefault();
+        resetPassword(password, token)
+            .then((response) => {
+                if (response.success) {
+                    console.log('Password successfully reset:', response.success);
+                    console.log('Password successfully reset:', response.message);
+                    navigate('/reset-success');
+                } else {
+                    console.error('Ошибка при восстановлении пароля:', response.message);
+                }
+            })
+            .catch((error) => {
+                console.error('Ошибка при восстановлении пароля:', error);
+            });
     };
 
 
@@ -58,7 +56,7 @@ export default function ResetPage() {
         <section className={styles.section}>
             <form onSubmit={(e) => {
                 e.preventDefault();
-                handleSavePassword();
+                handleSavePassword(e);
             }}>
                 <h1 className="text text text_type_main-medium pb-6">Смена пароля</h1>
                 <Input

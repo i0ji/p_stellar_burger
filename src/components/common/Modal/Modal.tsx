@@ -2,25 +2,21 @@ import styles from "./ModalStyles.module.scss"
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {useSelector} from "react-redux";
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 
 export default function Modal({onClose, children}: {
     onClose?: () => void,
     children: React.ReactNode,
 }) {
 
-    const [showModal, setShowModal] = useState(false);
-
     // --------------- ERROR CHECK ---------------
 
-    const hasError = useSelector(state => state.orderSlice.error);
+    const hasError = useSelector((state) => state.orderSlice.error);
 
 
     // --------------- CLOSING LOGIC ---------------
 
     useEffect(() => {
-        setShowModal(false);
-
         setTimeout(() => {
             const closeOnEscapeKey = (e: KeyboardEvent) => {
                 if (onClose) (e.key === "Escape" ? onClose() : null);
@@ -38,12 +34,12 @@ export default function Modal({onClose, children}: {
     return (
         <>
             <div
-                className={`${styles.modal_overlay} ${showModal ? styles.overlayFadeIn : styles.modal_overlay} ${hasError && styles.modal_error}`}
+                className={`${styles.modal_overlay}  ${hasError && styles.modal_error}`}
                 onClick={onClose}
             >
             </div>
             <div
-                className={`${styles.modal} ${showModal ? styles.fadeIn : styles.fadeOut}`}>
+                className={`${styles.modal}`}>
                 <div className={styles.modal_btn}>
                     {!hasError && <CloseIcon
                         type="primary"
