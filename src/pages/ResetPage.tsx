@@ -7,7 +7,6 @@ import {resetPassword} from "utils/api.ts";
 
 import React, {useState, useCallback} from "react";
 import {useNavigate} from "react-router-dom";
-//import {useForm} from "hooks/useForm.ts";
 
 export default function ResetPage() {
 
@@ -15,7 +14,6 @@ export default function ResetPage() {
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');
     const navigate = useNavigate();
-    //const {values, handleChange} = useForm({});
 
     // --------------- PWD VISIBILITY  ---------------
     const [isPasswordShow, setIsPasswordShow] = useState(false);
@@ -31,8 +29,6 @@ export default function ResetPage() {
             setToken(value);
         }
     }, []);
-
-
 
     const handleSavePassword = (e: React.FormEvent) => {
         e.preventDefault();
@@ -60,14 +56,12 @@ export default function ResetPage() {
             }}>
                 <h1 className="text text text_type_main-medium pb-6">Смена пароля</h1>
                 <Input
-                    // onChange={handleChange}
                     onChange={handleChange}
                     type={isPasswordShow ? 'text' : 'password'}
                     placeholder={'Введите новый пароль'}
                     icon={'ShowIcon'}
                     name={'password'}
                     value={password}
-                    // value={values.password ?? ''}
                     error={false}
                     errorText={'Ошибка'}
                     size={'default'}
@@ -76,13 +70,11 @@ export default function ResetPage() {
                 />
                 <Input
                     onChange={handleChange}
-                    // onChange={handleChange}
                     type={'text'}
                     placeholder={'Введите код из письма'}
                     icon={undefined}
                     name={'token'}
                     value={token}
-                    // value={values.token ?? ''}
                     error={false}
                     errorText={'Ошибка'}
                     size={'default'}

@@ -179,7 +179,6 @@ export default function BurgerConstructor() {
                         type="primary"
                         htmlType="button"
                         onClick={handlePreventUnauthOrder}
-                        // onClick={openModal}
                     >Оформить заказ</Button>
                 </div>
 

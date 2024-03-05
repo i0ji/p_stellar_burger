@@ -4,7 +4,9 @@ import {checkResponse} from "utils/check-response.ts";
 import {IUserData} from "interfaces/sliceInterfaces";
 import {setAuthChecked, setUser} from "slices/authSlice.ts";
 
+
 // --------------- REFRESH ---------------
+
 export const refreshToken = async () => {
     const response = await fetch(`${BASE_URL}/auth/token`, {
         method: "POST",
@@ -24,8 +26,8 @@ export const refreshToken = async () => {
     return refreshData;
 };
 
-// --------------- FETCH WITH REFRESH ---------------
 
+// --------------- FETCH WITH REFRESH ---------------
 
 export const fetchWithRefresh = async (url, options) => {
     try {
@@ -42,7 +44,6 @@ export const fetchWithRefresh = async (url, options) => {
         }
     }
 };
-
 
 
 // --------------- LOGIN ---------------
@@ -83,7 +84,6 @@ export const getUserData = createAsyncThunk(
         }
 
         try {
-            // Замените fetch на fetchWithRefresh
             const response = await fetchWithRefresh(`${BASE_URL}/auth/user`, {
                 headers: {
                     Authorization: token,
@@ -239,7 +239,6 @@ export const checkUserAuth = () => {
         }
     };
 };
-
 
 
 // --------------- LOGOUT ---------------

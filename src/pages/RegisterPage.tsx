@@ -22,30 +22,9 @@ export default function RegisterPage() {
         setIsPasswordShow(!isPasswordShow);
     };
 
-
-    // const isSuccessResponse = (response: unknown): response is { payload: { success: boolean } } =>
-    //     typeof response === 'object' && response !== null && 'payload' in response && 'success' in response.payload;
-    //
-    // const getErrorMessage = (error: unknown): string =>
-    //     typeof error === 'string' ? error : 'An unknown error occurred';
-
     const handleRegister = (e) => {
         e.preventDefault();
         dispatch(registerUser(values))
-
-        // .then((response) => {
-        //     if (isSuccessResponse(response)) {
-        //         console.log('Пользователь успешно зарегистрирован:', response.payload.message);
-        //     } else {
-        //         console.error('Ошибка при регистрации:', getErrorMessage(response));
-        //     }
-        // })
-        //         .catch((error) => {
-        //             console.error('Ошибка при регистрации:', getErrorMessage(error));
-        //         });
-        // } catch (error) {
-        //     console.error('Ошибка при регистрации:', getErrorMessage(error));
-        // }
     }
 
     return (

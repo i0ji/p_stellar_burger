@@ -46,18 +46,9 @@ const ProfilePage = () => {
         setShowUpdateButtons(true);
     }
 
-    // const handleSave = () => {
-    //     setShowUpdateButtons(false);
-    //     dispatch(updateUserData({[editingField]: values[editingField]}));
-    //     setTimeout(() => {
-    //         setEditingField(null);
-    //         setIsEditing(false);
-    //     }, 250);
-    // };
-
     const handleSave = async () => {
         setShowUpdateButtons(false);
-        await dispatch(updateUserData({ [editingField]: values[editingField] }));
+        await dispatch(updateUserData({[editingField]: values[editingField]}));
         await dispatch(getUserData());
         setEditingField(null);
         setIsEditing(false);

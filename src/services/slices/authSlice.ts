@@ -1,6 +1,4 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {checkResponse} from 'utils/check-response.ts';
-import {BASE_URL} from 'utils/routs.ts';
+import {createSlice} from '@reduxjs/toolkit';
 import {getUser, registerUser, logoutUser, getUserData, updateUserData} from "utils/api.ts"
 
 
