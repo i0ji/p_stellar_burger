@@ -31,6 +31,7 @@ export interface IUserData {
 
 export interface IAuthSlice {
     user: IUserData,
+    userData: IUserData,
     isAuth: boolean;
     success?: boolean,
     refreshToken?: string,

@@ -1,8 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {getUser, registerUser, logoutUser, getUserData, updateUserData} from "utils/api.ts"
 
-
-// --------------- AUTH SLICE  ---------------
 const authSlice = createSlice({
     name: 'authSlice',
     initialState: {
@@ -24,6 +22,7 @@ const authSlice = createSlice({
             state.user = null;
             state.isAuth = false;
             state.status = 'idle';
+            state.userData = null;
         },
         setAuthChecked(state, action) {
             state.authChecked = action.payload;

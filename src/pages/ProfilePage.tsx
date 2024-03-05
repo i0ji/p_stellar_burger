@@ -2,7 +2,7 @@ import styles from "./Pages.module.scss";
 
 import {Link, useNavigate} from "react-router-dom";
 import {useForm} from "hooks/useForm.ts";
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect, SetStateAction} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import Loader from "components/common/Loader/Loader.tsx";
@@ -10,23 +10,24 @@ import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components"
 
 import {getUserData, updateUserData} from "utils/api.ts";
 import {logout} from "slices/authSlice.ts";
+import {RootState} from "interfaces/rootState.ts";
 
 
-const ProfilePage = () => {
+export default function ProfilePage() {
     const isActive = location.pathname === '/profile'
     const {values, handleChange, setValues} = useForm({});
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const userData = useSelector(state => state.authSlice.userData);
+    const userData = useSelector((state: RootState) => state.authSlice.userData);
 
     const [showUpdateButtons, setShowUpdateButtons] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [editingField, setEditingField] = useState(null);
 
-    // --------------- GET USER DATA
+    // // --------------- GET USER DATA
     useEffect(() => {
         dispatch(getUserData());
-    }, [dispatch]);
+    }, []);
     //  --------------- LOADER
     if (!userData) {
         return <Loader/>;
@@ -38,7 +39,7 @@ const ProfilePage = () => {
     };
 
     //  --------------- NEW PROFILE LOGIC ---------------
-    const handleEditIconClick = (fieldName) => {
+    const handleEditIconClick = (fieldName: SetStateAction<null>) => {
         if (!isEditing) {
             setEditingField(fieldName);
             setIsEditing(true);
@@ -175,5 +176,3 @@ const ProfilePage = () => {
         </section>
     );
 }
-
-export default React.memo(ProfilePage);

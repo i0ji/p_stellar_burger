@@ -130,7 +130,7 @@ export default function BurgerConstructor() {
                                 isLocked={true}
                                 text={`${bun.name} (верх)`}
                                 price={bun.price ?? 0}
-                                thumbnail={bun.image}
+                                thumbnail={bun.image || ''}
                             />
                         )}
                     </div>}
@@ -162,7 +162,7 @@ export default function BurgerConstructor() {
                                 isLocked={true}
                                 text={`${bun.name} (низ)`}
                                 price={bun.price ?? 0}
-                                thumbnail={bun.image}
+                                thumbnail={bun.image || ''}
                             />
                         )}
                     </div>}

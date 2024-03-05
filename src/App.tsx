@@ -26,7 +26,7 @@ import {useLocation} from "react-router-dom";
 import {useCallback, useEffect} from "react";
 
 import {fetchIngredients} from "slices/ingredientsSlice.ts";
-import {checkUserAuth} from "utils/api.ts";
+import {checkUserAuth, getUserData} from "utils/api.ts";
 
 
 export default function App() {
@@ -39,11 +39,12 @@ export default function App() {
     const userAuthChecked = useSelector(state => state.authSlice.authChecked);
     const ingredientsStatus = useSelector(state => state.ingredients.status);
 
-    console.log('ingredients loading status:',ingredientsStatus);
+    console.log('ingredients loading status:', ingredientsStatus);
 
     useEffect(() => {
         dispatch(fetchIngredients());
         dispatch(checkUserAuth());
+        dispatch(getUserData());
     }, []);
 
 
