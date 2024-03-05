@@ -25,9 +25,7 @@ export default function BurgerConstructor() {
 
     // --------------- STATES/VARS/CONSTANTS  ---------------
 
-    const {addedIngredients, bun} = useSelector((state: {
-        constructorSlice: { addedIngredients: IIngredient[]; bun: IIngredient | null };
-    }) => state.constructorSlice);
+    const {addedIngredients, bun} = useSelector((state: RootState) => state.constructorSlice);
     // --------------- PRELOADER CONSTANTS
     const isLoaded = useSelector((state: RootState) => state.orderSlice.status);
     const hasError = useSelector((state: RootState) => state.orderSlice.error);

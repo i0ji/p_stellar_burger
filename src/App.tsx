@@ -2,6 +2,8 @@ import {Routes, Route, useNavigate} from 'react-router-dom';
 
 import AppHeader from "components/AppHeader/AppHeader.tsx";
 
+import {RootState} from "interfaces/rootState.ts";
+
 import {
     LoginPage,
     HomePage,
@@ -35,9 +37,9 @@ export default function App() {
     const dispatch = useDispatch();
     const location = useLocation();
     const state = location.state as { background?: Location };
-    const userAuth = useSelector(state => state.authSlice.isAuth);
-    const userAuthChecked = useSelector(state => state.authSlice.authChecked);
-    const ingredientsStatus = useSelector(state => state.ingredients.status);
+    const userAuth = useSelector((state: RootState)=> state.authSlice.isAuth);
+    const userAuthChecked = useSelector((state: RootState)=> state.authSlice.authChecked);
+    const ingredientsStatus = useSelector((state: RootState)=> state.ingredients.status);
 
     console.log('ingredients loading status:', ingredientsStatus);
 

@@ -49,8 +49,8 @@ export default function ProfilePage() {
 
     const handleSave = async () => {
         setShowUpdateButtons(false);
-        await dispatch(updateUserData({[editingField]: values[editingField]}));
-        await dispatch(getUserData());
+        dispatch(updateUserData({[editingField]: values[editingField]}));
+        dispatch(getUserData());
         setEditingField(null);
         setIsEditing(false);
     };
@@ -118,7 +118,6 @@ export default function ProfilePage() {
                             size={'default'}
                             extraClass="mb-6"
                             value={(editingField === 'name') ? (values.name || '') : userData.name}
-
                             onChange={handleChange}
                             onIconClick={() => handleEditIconClick('name')}
                             icon={(editingField == 'name') ? undefined : 'EditIcon'}
@@ -131,7 +130,7 @@ export default function ProfilePage() {
                             errorText={'Ошибка'}
                             size={'default'}
                             extraClass="mb-6"
-                            value={(editingField == 'email') && values.email || userData.email}
+                            value={(editingField === 'email') ? (values.email || '') : userData.email}
                             onChange={handleChange}
                             onIconClick={() => handleEditIconClick('email')}
                             icon={(editingField == 'email') ? undefined : 'EditIcon'}
