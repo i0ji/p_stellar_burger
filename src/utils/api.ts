@@ -184,12 +184,94 @@ export const forgotPassword = createAsyncThunk(
 
 // --------------- AUTH CHECK ---------------
 
+// export const checkUserAuth = () => {
+//     return async (dispatch) => {
+//         if (localStorage.getItem('accessToken')) {
+//             try {
+//                 await dispatch(getUser);
+//             } catch (error) {
+//                 localStorage.removeItem('refreshToken');
+//                 localStorage.removeItem('accessToken');
+//                 dispatch(setUser(null));
+//             } finally {
+//                 dispatch(setAuthChecked(true));
+//             }
+//         } else {
+//             dispatch(setAuthChecked(true));
+//         }
+//     };
+// };
+// const getTokenExpirationTime = (token) => {
+//     try {
+//         const decodedToken = JSON.parse(atob(token.split('.')[1]));
+//         return decodedToken.exp * 1000; // Convert to milliseconds
+//     } catch (error) {
+//         console.error('Error decoding token:', error);
+//         return null;
+//     }
+// };
+// export const checkUserAuth = () => {
+//     return async (dispatch) => {
+//         const accessToken = localStorage.getItem('accessToken');
+//         const refreshToken = localStorage.getItem('refreshToken');
+//
+//         if (accessToken) {
+//             try {
+//                 const expirationTime = getTokenExpirationTime(accessToken);
+//
+//
+//                 if (expirationTime && expirationTime < Date.now()) {
+//
+//                     await dispatch(refreshToken());
+//                     await dispatch(getUser);
+//                 }
+//             } catch (error) {
+//                 localStorage.removeItem('refreshToken');
+//                 localStorage.removeItem('accessToken');
+//                 dispatch(setUser(null));
+//             } finally {
+//                 dispatch(setAuthChecked(true));
+//             }
+//         } else {
+//             dispatch(setAuthChecked(true));
+//         }
+//     };
+// };
+
 export const checkUserAuth = () => {
     return async (dispatch) => {
-        if (localStorage.getItem('accessToken')) {
+        const accessToken = localStorage.getItem('accessToken');
+
+        if (accessToken) {
             try {
-                await dispatch(getUser);
+                // Check if the access token is still valid
+                const response = await fetch(`${BASE_URL}/auth/user`, {
+                    headers: {
+                        Authorization: accessToken,
+                    },
+                });
+
+                if (!response.ok) {
+                    // If not valid, try refreshing the tokens
+                    await dispatch(refreshToken());
+                }
+
+                // Fetch user data with the new access token or the existing one
+                const userResponse = await fetch(`${BASE_URL}/auth/user`, {
+                    headers: {
+                        Authorization: accessToken,
+                    },
+                });
+
+                if (userResponse.ok) {
+                    const userData = await userResponse.json();
+
+                    // Dispatch action to update user data in the Redux store
+                    dispatch(setUser(userData));
+                }
+
             } catch (error) {
+                // Handle errors, e.g., logout user
                 localStorage.removeItem('refreshToken');
                 localStorage.removeItem('accessToken');
                 dispatch(setUser(null));
@@ -201,6 +283,7 @@ export const checkUserAuth = () => {
         }
     };
 };
+
 
 
 // --------------- LOGOUT ---------------

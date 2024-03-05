@@ -18,6 +18,7 @@ import {
 import {ProtectedRoute} from "components/common/ProtectedRoute/ProtectedRoute.tsx"
 
 import Modal from "components/common/Modal/Modal.tsx";
+import Loader from "components/common/Loader/Loader.tsx";
 
 import {useDispatch, useSelector} from "react-redux";
 import {useLocation} from "react-router-dom";
@@ -33,8 +34,11 @@ export default function App() {
     const dispatch = useDispatch();
     const location = useLocation();
     const state = location.state as { background?: Location };
-    const userAuth = useSelector(state => state.authSlice.isAuth)
-    const userAuthChecked = useSelector(state => state.authSlice.authChecked)
+    const userAuth = useSelector(state => state.authSlice.isAuth);
+    const userAuthChecked = useSelector(state => state.authSlice.authChecked);
+    const ingredientsStatus = useSelector(state => state.ingredients.status);
+
+    console.log('ingredients loading status:',ingredientsStatus);
 
     useEffect(() => {
         dispatch(fetchIngredients());
@@ -42,6 +46,8 @@ export default function App() {
     }, []);
 
 
+    console.log(`refresh:`, localStorage.getItem('refreshToken'));
+    console.log('access:', localStorage.getItem('accessToken'));
     console.log(`userAuth: ${userAuth}`);
     console.log(`isChecked: ${userAuthChecked}`);
 
@@ -50,6 +56,9 @@ export default function App() {
         navigate(-1);
     }, [navigate]);
 
+    if (ingredientsStatus == 'loading') {
+        return <Loader/>
+    }
 
     return (
         <>
