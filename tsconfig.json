@@ -27,6 +27,7 @@
       "src/*" : ["./*"],
       "store/*": ["store/*"],
       "components/*" : ["components/*"],
+      "pages/*" : ["pages/*"],
       "data/*": ["data/*"],
 
       /* ------ MODAL */

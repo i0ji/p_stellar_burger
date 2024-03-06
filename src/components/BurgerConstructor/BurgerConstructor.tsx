@@ -1,9 +1,10 @@
 import {addIngredient, reorderIngredients} from "slices/constructorSlice.ts"
 import {updateIds} from "slices/orderSlice.ts"
 
-import burgerConstructorStyles from "./BurgerConstructorStyles.module.scss";
+import styles from "./BurgerConstructorStyles.module.scss";
 import awaitSpinner from "images/common/awaitSpinner.svg"
 import {IIngredient} from "interfaces/interfaces";
+import {RootState} from "interfaces/rootState.ts";
 
 import {ConstructorElement, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import CurrentIngredients from "components/BurgerConstructor/CurrentIngredients/CurrentIngredients.tsx";
@@ -16,31 +17,31 @@ import {useDispatch, useSelector} from "react-redux";
 import {useCallback, useEffect} from "react";
 import {useDrop} from "react-dnd";
 import useModal from "hooks/useModal.ts";
+import {useNavigate} from "react-router-dom";
 
 export default function BurgerConstructor() {
 
     const dispatch = useDispatch();
 
+    // --------------- STATES/VARS/CONSTANTS  ---------------
 
-    // --------------- DECLARING STATES/VARS/CONSTANTS  ---------------
-
-    const {addedIngredients, bun} = useSelector((state: {
-        constructorSlice: { addedIngredients: IIngredient[]; bun: IIngredient | null };
-    }) => state.constructorSlice);
+    const {addedIngredients, bun} = useSelector((state: RootState) => state.constructorSlice);
     // --------------- PRELOADER CONSTANTS
-    const isLoaded = useSelector(state => state.orderSlice.status);
-    const hasError = useSelector(state => state.orderSlice.error);
+    const isLoaded = useSelector((state: RootState) => state.orderSlice.status);
+    const hasError = useSelector((state: RootState) => state.orderSlice.error);
     // --------------- CURRENT IDS
-    const ingredientIDs = useSelector(state => state.constructorSlice.addedIngredients).map((elem: IIngredient) => elem._id);
-    const bunIDs = useSelector(state => state.constructorSlice.bun);
+    const ingredientIDs = useSelector((state: RootState) => state.constructorSlice.addedIngredients).map((elem: IIngredient) => elem._id);
+    const bunIDs = useSelector((state: RootState) => state.constructorSlice.bun);
     // --------------- MODAL
     const {isVisible, openModal, closeModal} = useModal(ingredientIDs);
     // --------------- TOTAL AMOUNT
-    const totalAmount = useSelector(state => state.constructorSlice.totalAmount);
+    const totalAmount = useSelector((state: RootState) => state.constructorSlice.totalAmount);
     // --------------- BUNS STATE
-    const isBun = useSelector(state => state.constructorSlice.bun);
-    console.log(isBun)
+    const isBun = useSelector((state: RootState) => state.constructorSlice.bun);
+    //--------------- AUTH STATE
+    const isAuth = useSelector((state: RootState) => state.authSlice.isAuth);
 
+    const navigate = useNavigate();
 
     // --------------- CURRENT ID ---------------
 
@@ -78,13 +79,24 @@ export default function BurgerConstructor() {
         }
 
 
+// --------------- PREVENT FROM ORDER ---------------
+
+    const handlePreventUnauthOrder = () => {
+        if (!isAuth) {
+            return navigate('/login')
+        } else {
+            console.log('OPEN MODAL')
+            openModal();
+        }
+    }
+
     // --------------- INITIAL BUN ---------------
 
     const InitialBun = ({pos}: { pos: "top" | "bottom" | undefined }) => {
 
         return (
             <ConstructorElement
-                extraClass={burgerConstructorStyles.constructor_item_initial_bun}
+                extraClass={styles.constructor_item_initial_bun}
                 text={'Перетащите сюда булочку'}
                 type={pos}
                 isLocked={true}
@@ -97,10 +109,10 @@ export default function BurgerConstructor() {
 
     return (
         <section
-            className={burgerConstructorStyles.constructor_block}
+            className={styles.constructor_block}
         >
             <div
-                className={`${burgerConstructorStyles.constructor_list} mb-10`}
+                className={`${styles.constructor_list} mb-10`}
                 ref={dropIngredients}
             >
 
@@ -108,15 +120,15 @@ export default function BurgerConstructor() {
                 {/* --------------- TOP BUN --------------- */}
 
                 {!isBun ? <InitialBun pos={"top"}/> :
-                    <div className={burgerConstructorStyles.constructor_order_item}>
+                    <div className={styles.constructor_order_item}>
                         {bun && (
                             <ConstructorElement
-                                extraClass={`${burgerConstructorStyles.constructor_item_top}`}
+                                extraClass={`${styles.constructor_item_top}`}
                                 type="top"
                                 isLocked={true}
                                 text={`${bun.name} (верх)`}
                                 price={bun.price ?? 0}
-                                thumbnail={bun.image}
+                                thumbnail={bun.image || ''}
                             />
                         )}
                     </div>}
@@ -125,7 +137,7 @@ export default function BurgerConstructor() {
                 {/* --------------- INNER INGREDIENTS --------------- */}
 
                 <div
-                    className={burgerConstructorStyles.constructor_order}
+                    className={styles.constructor_order}
                     style={{
                         scrollbarWidth: (addedIngredients.length > 3) ? 'inherit' : 'none',
                         width: (addedIngredients.length > 3) ? '100%' : '97%',
@@ -140,15 +152,15 @@ export default function BurgerConstructor() {
                 {/* --------------- BOTTOM BUN --------------- */}
 
                 {!isBun ? <InitialBun pos={'bottom'}/> :
-                    <div className={burgerConstructorStyles.constructor_order_item}>
+                    <div className={styles.constructor_order_item}>
                         {bun && (
                             <ConstructorElement
-                                extraClass={`${burgerConstructorStyles.constructor_item_bottom}`}
+                                extraClass={`${styles.constructor_item_bottom}`}
                                 type="bottom"
                                 isLocked={true}
                                 text={`${bun.name} (низ)`}
                                 price={bun.price ?? 0}
-                                thumbnail={bun.image}
+                                thumbnail={bun.image || ''}
                             />
                         )}
                     </div>}
@@ -156,8 +168,8 @@ export default function BurgerConstructor() {
 
                 {/* --------------- PRICE --------------- */}
 
-                <div className={burgerConstructorStyles.price_info}>
-                    <h1 className="text text_type_main-large pr-3">{totalAmount}</h1>
+                <div className={`mt-4 ${styles.price_info}`}>
+                    <h1 className="text text_type_digits-medium pr-3">{totalAmount}</h1>
                     <CurrencyIcon type="primary"/>
                     <Button
                         disabled={!bun}
@@ -165,7 +177,7 @@ export default function BurgerConstructor() {
                         size="large"
                         type="primary"
                         htmlType="button"
-                        onClick={openModal}
+                        onClick={handlePreventUnauthOrder}
                     >Оформить заказ</Button>
                 </div>
 

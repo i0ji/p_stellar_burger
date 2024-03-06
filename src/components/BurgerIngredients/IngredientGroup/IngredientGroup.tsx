@@ -1,31 +1,34 @@
-import {updateSelectedIngredient, resetSelectedIngredient} from "slices/currentIngredientSlice.ts";
-
-import ingredientGroupStyles from "./IngredientGroupStyles.module.scss";
+import styles from "./IngredientGroupStyles.module.scss";
 import {IIngredient, IIngredientCardProps, IIngredientGroupProps} from "interfaces/interfaces";
+import {RootState} from "interfaces/rootState.ts";
 
+import {Link} from "react-router-dom";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientDetails from "components/common/Modal/IngredientDetails/IngredientDetails.tsx";
-import Modal from "components/common/Modal/Modal.tsx";
 
-import {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useLocation} from "react-router-dom";
+import {useSelector, useDispatch} from "react-redux";
 import {useDrag} from "react-dnd";
+
+import {updateSelectedIngredient} from "slices/currentIngredientSlice.ts";
 
 import {v4 as uuidv4} from 'uuid';
 
+
 export default function IngredientGroup({type, ingredients}: IIngredientGroupProps) {
 
-    const [selectedIngredient, setSelectedIngredient] = useState<IIngredient | null>(null);
-
+    const location = useLocation();
     const dispatch = useDispatch();
 
-    const addedIngredients = useSelector(state => state.constructorSlice.addedIngredients);
-    const bunIngredients = useSelector(state => state.constructorSlice.bun);
+    const addedIngredients = useSelector((state: RootState) => state.constructorSlice.addedIngredients);
+    const bunIngredients = useSelector((state: RootState) => state.constructorSlice.bun);
 
+    const onUpdateSelectedIngredient = (ingredient: IIngredient) => {
+        dispatch(updateSelectedIngredient(ingredient));
+    }
 
     // ----------------- INGREDIENT ITEM CARD -----------------
 
-    const IngredientCard = ({onOpenModal, image, price, name, type, _id}: IIngredientCardProps) => {
+    const IngredientCard = ({onOpenDetailsPage, image, price, name, type, _id}: IIngredientCardProps) => {
         const [{isDragging}, drag] = useDrag({
             type: 'ingredient',
             item: {
@@ -41,7 +44,6 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
             }),
         });
 
-
         // ----------------- INGREDIENTS COUNTER -----------------
 
         const ingredientCount = addedIngredients.reduce((count: number, ingredient: IIngredient) => {
@@ -53,11 +55,11 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
         return (
             <div
                 ref={drag}
-                className={`${ingredientGroupStyles.ingredient_card} ${isDragging ? ingredientGroupStyles.dragging : ''}`}
-                onClick={onOpenModal}
+                className={`pb-8 ${styles.ingredient_card} ${isDragging ? styles.dragging : ''}`}
+                onClick={onOpenDetailsPage}
             >
                 <img src={image} alt={name}/>
-                <p className="text text_type_digits-default">
+                <p className="text text_type_digits-default pt-1 pb-1">
                     {price}
                     <CurrencyIcon type="primary"/>
                 </p>
@@ -73,54 +75,29 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
         );
     };
 
-    // ----------------- INGREDIENT MODAL OPEN/CLOSE LOGIC -----------------
-
-    const handleOpenModal = (ingredient: IIngredient) => {
-        setSelectedIngredient(ingredient)
-        dispatch(updateSelectedIngredient(ingredient));
-    };
-
-    const handleCloseModal = () => {
-        dispatch(resetSelectedIngredient());
-        setSelectedIngredient(null);
-    };
-
 
     return (
-        <div className={ingredientGroupStyles.ingredient_list}>
-            <h3 className="text text_type_main-medium pb-6">{type}</h3>
+        <>
+            <div className={styles.ingredient_list}>
+                <h3 className="text text_type_main-medium pb-6">{type}</h3>
 
-            {/* --------------- MAPPING INGREDIENTS FOR EACH GROUP --------------- */}
 
-            {ingredients.map((ingredientItem: IIngredient, i) => (
-                    <IngredientCard
+                {/* --------------- MAPPING INGREDIENTS --------------- */}
+
+                {ingredients.map((ingredientItem: IIngredient, i) => (
+                    <Link
+                        className={styles.ingredient_card}
                         key={i}
-                        {...ingredientItem}
-                        onOpenModal={() => handleOpenModal(ingredientItem)}
-                    />
-                )
-            )}
-
-
-            {/* --------------- MODAL ENTER --------------- */}
-
-            {
-                selectedIngredient && (
-                    <Modal
-                        onClose={handleCloseModal}
-                        selectedIngredient={selectedIngredient}
+                        to={`/ingredient/${ingredientItem._id}`}
+                        state={{background: location}}
+                        onClick={() => onUpdateSelectedIngredient(ingredientItem)}
                     >
-                        <IngredientDetails
-                            onClose={handleCloseModal}
-                            image={selectedIngredient.image || ""}
-                            name={selectedIngredient.name}
-                            proteins={selectedIngredient.proteins || 0}
-                            carbohydrates={selectedIngredient.carbohydrates || 0}
-                            calories={selectedIngredient.calories || 0}
-                            fat={selectedIngredient.fat || 0}
+                        <IngredientCard
+                            {...ingredientItem}
                         />
-                    </Modal>
-                )}
-        </div>
+                    </Link>
+                ))}
+            </div>
+        </>
     );
 }

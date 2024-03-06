@@ -1,1 +1,1 @@
-/// <reference types="vite/client" />
+/// <reference customTypes.d.ts="vite/client" />

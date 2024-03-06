@@ -17,12 +17,13 @@
   box-sizing: border-box;
 }
 
-a, a:link, a:visited {
-  text-decoration: none;
-}
-
+a,
+a:link,
+a:visited,
+a:active,
 a:hover {
   text-decoration: none;
+  color: $scroll_active;
 }
 
 html {
@@ -40,5 +41,5 @@ body {
 }
 
 #root {
-  composes: p-4 from global;
+  width: 100%;
 }

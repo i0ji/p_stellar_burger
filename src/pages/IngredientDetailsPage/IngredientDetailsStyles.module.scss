@@ -1,12 +1,13 @@
 @import "styles/theme_colors";
 
-.ingredients_modal {
-  composes: pl-10 pr-10 pb-10 pt-15 from global;
-
+.ingredients_details {
+  height: 640px;
   width: 720px;
-  height: 539px;
 
-  background-color: $bg_modal;
+  position: fixed;
+  left: calc(50% - 360px);
+  top: calc(50% - 320px);
+
   color: $theme_white;
 
   display: flex;
@@ -17,11 +18,16 @@
   border-radius: 40px;
 
   &_title {
-    width: 100%;
+    width: 80%;
     height: 10%;
 
     display: flex;
     justify-content: space-between;
+    align-items: center;
+
+    svg:hover {
+      fill: $theme_white;
+    }
   }
 
   img {
@@ -49,3 +55,22 @@
   }
 }
 
+.fade-in-image {
+  animation: fadeIn 5s;
+}
+
+.transparent {
+  background-color: transparent;
+}
+
+.dark {
+  background-color: $bg_modal;
+}
+
+.status {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  font-size: 30px;
+}

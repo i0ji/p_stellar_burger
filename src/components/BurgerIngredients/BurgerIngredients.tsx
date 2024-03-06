@@ -1,11 +1,12 @@
-import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from "./BurgerIngredientsStyles.module.scss"
 
-import burgerIngredientsStyles from "./BurgerIngredientsStyles.module.scss";
+import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import IngredientGroup from "components/BurgerIngredients/IngredientGroup/IngredientGroup.tsx";
 
 import React, {useRef, useEffect, useMemo, useState} from "react";
 import {useSelector} from "react-redux";
+import {RootState} from "interfaces/rootState.ts";
 
 enum TabValues {
     Bun = "bun",
@@ -14,7 +15,8 @@ enum TabValues {
 }
 
 export default function BurgerIngredients() {
-    const {ingredients: ingredientsData} = useSelector((state) => state.ingredients);
+
+    const {ingredients: ingredientsData} = useSelector((state: RootState) => state.ingredients);
 
     const filteredIngredients = useMemo(() => {
         return {
@@ -24,12 +26,14 @@ export default function BurgerIngredients() {
         };
     }, [ingredientsData]);
 
+
+    // --------------- SCROLL LOGIC  ---------------
+
     const [current, setCurrent] = useState(TabValues.Bun);
 
     const bunRef = useRef<HTMLDivElement>(null);
     const sauceRef = useRef<HTMLDivElement>(null);
     const mainRef = useRef<HTMLDivElement>(null);
-
 
     const observerArea = document.getElementById('burgerIngredientGroups')
 
@@ -86,12 +90,12 @@ export default function BurgerIngredients() {
 
     return (
         <section
-            className={burgerIngredientsStyles.ingredients_block}
+            className={styles.ingredients_block}
             id="burgerIngredientsContainer"
         >
             <h1 className="text text_type_main-large pb-10">Соберите бургер</h1>
 
-            <div className={burgerIngredientsStyles.ingredients_menu}>
+            <div className={styles.ingredients_menu}>
                 <Tab value={TabValues.Bun} active={current === TabValues.Bun} onClick={() => scrollToRef(bunRef)}>
                     Булки
                 </Tab>
@@ -104,7 +108,7 @@ export default function BurgerIngredients() {
             </div>
 
             <div
-                className={burgerIngredientsStyles.ingredients_list}
+                className={styles.ingredients_list}
                 id="burgerIngredientGroups"
             >
                 <div id="bunSection" ref={bunRef}>
@@ -116,6 +120,7 @@ export default function BurgerIngredients() {
                 <div id="mainSection" ref={mainRef}>
                     <IngredientGroup type="Начинки" ingredients={filteredIngredients.main}/>
                 </div>
+
             </div>
         </section>
     );

@@ -1,63 +1,103 @@
-import {fetchIngredients} from 'services/slices/ingredientsSlice.ts';
+import {Routes, Route, useNavigate} from 'react-router-dom';
 
-import {DndProvider} from 'react-dnd';
-import {HTML5Backend} from 'react-dnd-html5-backend';
-
-import AppStyles from './App.module.scss';
-import {IBurgerState} from "interfaces/sliceInterfaces";
-
-import Loader from "components/common/Loader/Loader.tsx";
 import AppHeader from "components/AppHeader/AppHeader.tsx";
-import BurgerIngredients from "components/BurgerIngredients/BurgerIngredients.tsx";
-import BurgerConstructor from "components/BurgerConstructor/BurgerConstructor.tsx";
 
-import {useEffect} from "react";
-import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from "interfaces/rootState.ts";
+
+import {
+    LoginPage,
+    HomePage,
+    NotFound404,
+    RegisterPage,
+    ForgotPage,
+    ProfilePage,
+    IngredientDetails,
+    ResetPage,
+    SuccessPage,
+    Warning,
+    OrdersPage
+} from "./pages";
+
+import {ProtectedRoute} from "components/common/ProtectedRoute/ProtectedRoute.tsx"
+
+import Modal from "components/common/Modal/Modal.tsx";
+import Loader from "components/common/Loader/Loader.tsx";
+
+import {useDispatch, useSelector} from "react-redux";
+import {useLocation} from "react-router-dom";
+import {useCallback, useEffect} from "react";
+
+import {fetchIngredients} from "slices/ingredientsSlice.ts";
+import {checkUserAuth, getUserData} from "utils/api.ts";
+
 
 export default function App() {
 
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location = useLocation();
+    const state = location.state as { background?: Location };
+    const userAuth = useSelector((state: RootState) => state.authSlice.isAuth);
+    const userAuthChecked = useSelector((state: RootState) => state.authSlice.authChecked);
+    const ingredientsStatus = useSelector((state: RootState) => state.ingredients.status);
+    const accessToken = localStorage.getItem('accessToken');
 
-    const {ingredients: ingredientsData, status, error}: IBurgerState = useSelector((state: {
-        ingredients: IBurgerState
-    }) => state.ingredients);
-
+    console.log('ingredients loading status:', ingredientsStatus);
 
     useEffect(() => {
         dispatch(fetchIngredients());
-    }, [dispatch]);
+        dispatch(checkUserAuth());
+        dispatch(getUserData());
+    }, [dispatch, accessToken]);
+
+    console.log(`Refresh token:`, localStorage.getItem('refreshToken'));
+    console.log('Access Token:', localStorage.getItem('accessToken'));
+    console.log(`User Auth: ${userAuth}`);
+    console.log(`Auth is checked: ${userAuthChecked}`);
 
 
-    // --------------- STATUSES ---------------
-    if (status === 'loading') {
+    const handleCloseModal = useCallback(() => {
+        navigate(-1);
+    }, [navigate]);
+
+    if (ingredientsStatus == 'loading') {
         return <Loader/>;
     }
 
-    if (status === 'failed') {
-        return <p className={AppStyles.status}>Ошибка: {error}</p>;
-    }
-
-
     return (
-        <DndProvider backend={HTML5Backend}>
-            {/* --------------- APP HEADER --------------- */}
-
+        <>
             <AppHeader/>
 
-            {/* --------------- MAIN BLOCKS --------------- */}
+            <Routes location={state?.background || location}>
 
-            <main className={AppStyles.burger_builder}>
-                {error ? (<p>Произошла ошибка: {error}</p>) : (ingredientsData.length > 0 && (
-                    <>
-                        <BurgerIngredients/>
+                <Route path="/" element={<HomePage/>}/>
+                <Route path="/ingredient/:id" element={<IngredientDetails/>}/>
+                <Route path="*" element={<NotFound404/>}/>
+                <Route path="/warning" element={<Warning/>}/>
+                <Route path="/reset-password" element={<ResetPage/>}/>
+                <Route path="/reset-success" element={<SuccessPage/>}/>
 
-                        <BurgerConstructor/>
-                    </>
-                ))}
+                <Route path="/profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}/>
+                <Route path="/orders" element={<ProtectedRoute unAuth={false} component={<OrdersPage/>}/>}/>
 
-            </main>
+                <Route path="/reset-success" element={<ProtectedRoute unAuth={true} component={<SuccessPage/>}/>}/>
+                <Route path="/login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
+                <Route path="/register" element={<ProtectedRoute unAuth={true} component={<RegisterPage/>}/>}/>
+                <Route path="/forgot-password" element={<ProtectedRoute unAuth={true} component={<ForgotPage/>}/>}/>
 
+            </Routes>
 
-        </DndProvider>
+            {state?.background && (
+                <Routes>
+                    <Route path="/ingredient/:id" element={
+                        <Modal
+                            onClose={handleCloseModal}
+                        >
+                            <IngredientDetails/>
+                        </Modal>
+                    }/>
+                </Routes>
+            )}
+        </>
     )
 }
