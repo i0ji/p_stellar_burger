@@ -4,7 +4,7 @@ import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import React, {Fragment, useEffect, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
 import {getUser} from "utils/api.ts";
@@ -14,12 +14,10 @@ import {RootState} from "interfaces/rootState.ts";
 
 function LoginPage() {
 
-    const navigate = useNavigate();
     const dispatch = useDispatch();
-    const authState = useSelector((state: RootState) => state.authSlice);
     const {values, handleChange} = useForm({});
-
-    const [errorMessage, setErrorMessage] = useState(false);
+    const authState = useSelector((state: RootState) => state.authSlice);
+    const [errorMessage, setErrorMessage] = useState('')
 
 
     // --------------- PWD VISIBILITY  ---------------
@@ -36,29 +34,8 @@ function LoginPage() {
             email: values.email,
             password: values.password,
         };
-
         dispatch(getUser(userData));
     };
-
-    useEffect(() => {
-            console.log('AccessToken in authState:', authState.accessToken);
-            console.log('RefreshToken in authState:', authState.refreshToken);
-            const handleSuccessfulLogin = () => {
-                console.log('Авторизация прошла успешно');
-                console.log('Получен accessToken:', authState.accessToken);
-                console.log('Получен refreshToken:', authState.refreshToken);
-                navigate('/');
-            }
-
-            if (authState.status === 'succeeded') {
-                handleSuccessfulLogin();
-            } else if (authState.status === 'failed') {
-                console.error('Ошибка авторизации:', authState.error);
-                setErrorMessage(true)
-                console.log()
-            }
-        }, [authState.status, authState.accessToken, authState.refreshToken, authState.error, navigate]
-    )
 
     return (
         <section className={styles.section}>
@@ -95,7 +72,7 @@ function LoginPage() {
                         className="pb-6"
                         style={{color: '#b90101'}}
                     >
-                        Неправильный пароль. Попробуйте ещё раз.
+                        Ошибка {errorMessage}. Попробуйте ещё раз.
                     </p>
                 }
                 <Button

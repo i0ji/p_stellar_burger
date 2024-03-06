@@ -37,9 +37,10 @@ export default function App() {
     const dispatch = useDispatch();
     const location = useLocation();
     const state = location.state as { background?: Location };
-    const userAuth = useSelector((state: RootState)=> state.authSlice.isAuth);
-    const userAuthChecked = useSelector((state: RootState)=> state.authSlice.authChecked);
-    const ingredientsStatus = useSelector((state: RootState)=> state.ingredients.status);
+    const userAuth = useSelector((state: RootState) => state.authSlice.isAuth);
+    const userAuthChecked = useSelector((state: RootState) => state.authSlice.authChecked);
+    const ingredientsStatus = useSelector((state: RootState) => state.ingredients.status);
+    const accessToken = localStorage.getItem('accessToken');
 
     console.log('ingredients loading status:', ingredientsStatus);
 
@@ -47,8 +48,7 @@ export default function App() {
         dispatch(fetchIngredients());
         dispatch(checkUserAuth());
         dispatch(getUserData());
-    }, []);
-
+    }, [dispatch, accessToken]);
 
     console.log(`Refresh token:`, localStorage.getItem('refreshToken'));
     console.log('Access Token:', localStorage.getItem('accessToken'));

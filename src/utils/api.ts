@@ -9,8 +9,6 @@ import {IRequestOptions} from "interfaces/interfaces";
 import {IUserData} from "interfaces/sliceInterfaces";
 
 
-
-
 // --------------- REFRESH ---------------
 
 export const refreshToken = async () => {
@@ -35,7 +33,7 @@ export const refreshToken = async () => {
 
 // --------------- FETCH WITH REFRESH ---------------
 
-export const fetchWithRefresh = async (url: URL, options:IRequestOptions) => {
+export const fetchWithRefresh = async (url: URL, options: IRequestOptions) => {
     try {
         const res = await fetch(url, options);
         return await checkResponse(res);
@@ -249,27 +247,32 @@ export const checkUserAuth = () => {
 
 // --------------- LOGOUT ---------------
 
-export const logoutUser = createAsyncThunk('auth/logoutUser', async (refreshTokenValue) => {
+export const logoutUser = createAsyncThunk('auth/logoutUser', async (refreshToken) => {
+    console.log('Logout initiated with refreshToken:', refreshToken);
+
     const response = await fetch(`${BASE_URL}/auth/logout`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
         },
         body: JSON.stringify({
-            token: refreshTokenValue,
+            token: refreshToken,
         }),
     });
 
+    console.log('Logout response:', response);
+
     const logoutData = await checkResponse(response);
 
-    console.log(response)
+    console.log('Logout data:', logoutData);
 
     if (!logoutData.success) {
+        console.error('Logout failed:', logoutData);
         return Promise.reject(logoutData);
     }
 
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
-
+    console.log('Пользователь вышел!');
     return logoutData;
 });

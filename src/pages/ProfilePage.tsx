@@ -1,44 +1,33 @@
 import styles from "./Pages.module.scss";
+import {RootState} from "interfaces/rootState.ts";
 
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {useForm} from "hooks/useForm.ts";
-import {useState, useEffect, SetStateAction} from 'react';
+import {useState, SetStateAction} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import Loader from "components/common/Loader/Loader.tsx";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
-import {getUserData, updateUserData} from "utils/api.ts";
-import {logout} from "slices/authSlice.ts";
-import {RootState} from "interfaces/rootState.ts";
+import {getUserData, updateUserData, logoutUser} from "utils/api.ts";
 
 
 export default function ProfilePage() {
+
     const isActive = location.pathname === '/profile'
     const {values, handleChange, setValues} = useForm({});
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const userData = useSelector((state: RootState) => state.authSlice.userData);
-
+    const refreshToken = localStorage.getItem('refreshToken');
     const [showUpdateButtons, setShowUpdateButtons] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [editingField, setEditingField] = useState(null);
 
-    // // --------------- GET USER DATA
-    useEffect(() => {
-        dispatch(getUserData());
-    }, []);
-    //  --------------- LOADER
-    if (!userData) {
-        return <Loader/>;
-    }
     //  --------------- LOGOUT
     const handleLogout = () => {
-        dispatch(logout());
-        navigate('/');
+        dispatch(logoutUser(refreshToken));
     };
-
-    //  --------------- NEW PROFILE LOGIC ---------------
+    //  --------------- EDIT ---------------
     const handleEditIconClick = (fieldName: SetStateAction<null>) => {
         if (!isEditing) {
             setEditingField(fieldName);
@@ -46,7 +35,7 @@ export default function ProfilePage() {
         }
         setShowUpdateButtons(true);
     }
-
+    //  --------------- SAVE DATA
     const handleSave = async () => {
         setShowUpdateButtons(false);
         dispatch(updateUserData({[editingField]: values[editingField]}));
@@ -54,7 +43,7 @@ export default function ProfilePage() {
         setEditingField(null);
         setIsEditing(false);
     };
-
+    //  --------------- CANCEL CHANGE
     const handleCancel = () => {
         setShowUpdateButtons(false);
         setValues(userData);
@@ -64,7 +53,10 @@ export default function ProfilePage() {
         }, 250);
     };
 
-    console.log(userData)
+    //  --------------- LOADER
+    if (!userData) {
+        return <Loader/>;
+    }
 
     return (
         <section className={styles.profile_section}>
@@ -93,7 +85,7 @@ export default function ProfilePage() {
                             История заказов
                         </Button>
                     </Link>
-                    <Link to='/logout' className="mb-20">
+                    <Link to='/' className="mb-20">
                         <Button
                             extraClass={`text text_type_main-medium`}
                             htmlType="button"
