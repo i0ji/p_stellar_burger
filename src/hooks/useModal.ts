@@ -9,11 +9,10 @@ export default function useModal(IDs: (string | undefined)[]) {
     const dispatch = useDispatch();
     const [isVisible, toggleVisibility] = useReducer((isVisible) => !isVisible, false);
 
-
-    //--------------- AUTH STATE
+    //--------------- OPEN MODAL AND CREATE ORDER
     const openModal = useCallback(async () => {
         try {
-            const orderNumber = dispatch(createOrder(IDs));
+            const orderNumber = dispatch(createOrder(IDs as string[]));
             dispatch(updateOrderNumber(orderNumber.payload));
             toggleVisibility();
         } catch (error) {
@@ -26,7 +25,6 @@ export default function useModal(IDs: (string | undefined)[]) {
         dispatch(resetIngredients());
         toggleVisibility();
     }, [dispatch]);
-
 
     return {isVisible, openModal, closeModal};
 }

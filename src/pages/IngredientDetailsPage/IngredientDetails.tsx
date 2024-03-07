@@ -4,9 +4,6 @@ import {useParams, useLocation} from "react-router-dom";
 import {IIngredient} from "interfaces/interfaces";
 import {IBurgerState} from "interfaces/sliceInterfaces";
 import Loader from "components/common/Loader/Loader.tsx";
-import burgerBuilderStyles from "pages/HomePage/HomePageStyles.module.scss";
-import {useState} from "react";
-
 
 export default function IngredientDetails() {
 

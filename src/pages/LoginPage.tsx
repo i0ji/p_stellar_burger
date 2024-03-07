@@ -3,22 +3,18 @@ import styles from "pages/Pages.module.scss"
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
-import React, {Fragment, useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 
 import {getUser} from "utils/api.ts";
 import {useForm} from "hooks/useForm.ts";
 import {IUserData} from "interfaces/sliceInterfaces";
-import {RootState} from "interfaces/rootState.ts";
 
 function LoginPage() {
 
     const dispatch = useDispatch();
     const {values, handleChange} = useForm({});
-    const authState = useSelector((state: RootState) => state.authSlice);
-    const [errorMessage, setErrorMessage] = useState('')
-
 
     // --------------- PWD VISIBILITY  ---------------
 
@@ -34,13 +30,13 @@ function LoginPage() {
             email: values.email,
             password: values.password,
         };
-        dispatch(getUser(userData));
+
+        dispatch(getUser(userData))
     };
 
     return (
         <section className={styles.section}>
             <form onSubmit={handleLogin}>
-                <Fragment></Fragment>
                 <h1 className="text text text_type_main-medium pb-6">Вход</h1>
                 <Input
                     onChange={handleChange}
@@ -67,14 +63,14 @@ function LoginPage() {
                     extraClass="mb-6"
                     onIconClick={togglePasswordVisibility}
                 />
-                {
-                    errorMessage && <p
-                        className="pb-6"
-                        style={{color: '#b90101'}}
-                    >
-                        Ошибка {errorMessage}. Попробуйте ещё раз.
-                    </p>
-                }
+                {/*{*/}
+                {/*    errorMessage && <p*/}
+                {/*        className="pb-6"*/}
+                {/*        style={{color: '#b90101'}}*/}
+                {/*    >*/}
+                {/*        Ошибка {errorMessage}. Попробуйте ещё раз.*/}
+                {/*    </p>*/}
+                {/*}*/}
                 <Button
                     htmlType="submit"
                     extraClass="mb-20"

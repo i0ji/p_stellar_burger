@@ -1,5 +1,4 @@
 import {IIngredient} from "utils/interfaces/interfaces";
-import {types} from "sass";
 import Error = types.Error;
 
 export interface IIngredientsListSlice {

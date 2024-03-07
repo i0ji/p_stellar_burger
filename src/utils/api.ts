@@ -33,7 +33,7 @@ export const refreshToken = async () => {
 
 // --------------- FETCH WITH REFRESH ---------------
 
-export const fetchWithRefresh = async (url: URL, options: IRequestOptions) => {
+export const fetchWithRefresh = async (url: string, options: IRequestOptions) => {
     try {
         const res = await fetch(url, options);
         return await checkResponse(res);
@@ -103,7 +103,7 @@ export const getUserData = createAsyncThunk(
 
 
 // --------------- UPDATE USER DATA ---------------
-
+``
 export const updateUserData = createAsyncThunk(
     'user/updateUserData',
     async (updatedData) => {
@@ -248,7 +248,6 @@ export const checkUserAuth = () => {
 // --------------- LOGOUT ---------------
 
 export const logoutUser = createAsyncThunk('auth/logoutUser', async (refreshToken) => {
-    console.log('Logout initiated with refreshToken:', refreshToken);
 
     const response = await fetch(`${BASE_URL}/auth/logout`, {
         method: 'POST',

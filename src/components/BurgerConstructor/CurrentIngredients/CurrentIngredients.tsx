@@ -6,7 +6,6 @@ import {removeIngredient} from "slices/constructorSlice.ts";
 import {useRef} from "react";
 import {useDrag, useDrop} from "react-dnd";
 
-
 export default function CurrentIngredients({ingredient, index, moveIngredient}: {
 	ingredient: IIngredient,
 	index: number,
@@ -17,7 +16,6 @@ export default function CurrentIngredients({ingredient, index, moveIngredient}: 
 	
 	const dispatch = useDispatch();
 	const handleRemoveIngredient = (id: number) => {
-		console.log(id)
 		dispatch(removeIngredient(id));
 	}
 	
@@ -71,7 +69,7 @@ export default function CurrentIngredients({ingredient, index, moveIngredient}: 
 				text={ingredient.name}
 				price={ingredient.price || 0}
 				thumbnail={ingredient.image || ''}
-				handleClose={() => handleRemoveIngredient(ingredient.id || '')}
+				handleClose={() => handleRemoveIngredient(ingredient.id)}
 			/>
 		</div>
 	);

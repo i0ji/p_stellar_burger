@@ -109,7 +109,7 @@ export default function ProfilePage() {
                             errorText={'Ошибка'}
                             size={'default'}
                             extraClass="mb-6"
-                            value={(editingField === 'name') ? (values.name || '') : userData.name}
+                            value={(editingField === 'name') ? (values.name || ''): userData.name}
                             onChange={handleChange}
                             onIconClick={() => handleEditIconClick('name')}
                             icon={(editingField == 'name') ? undefined : 'EditIcon'}
