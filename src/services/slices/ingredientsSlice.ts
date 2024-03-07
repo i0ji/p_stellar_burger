@@ -1,14 +1,6 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import {BASE_URL} from 'utils/routs';
-import {checkResponse} from 'utils/check-response';
-import {IIngredientsListSlice} from "interfaces/sliceInterfaces";
-
-export const fetchIngredients = createAsyncThunk('ingredientsListSlice/fetchIngredients', async () => {
-    const response = await fetch(`${BASE_URL}/ingredients`);
-    const data = await checkResponse(response);
-    return data.data;
-});
-
+import {createSlice} from '@reduxjs/toolkit';
+import {IIngredientsListSlice} from "declarations/sliceInterfaces";
+import {getIngredients} from "utils/api.ts"
 
 const ingredientsListSlice = createSlice({
     name: 'ingredientsListSlice',
@@ -20,14 +12,14 @@ const ingredientsListSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(fetchIngredients.pending, (state) => {
+            .addCase(getIngredients.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(fetchIngredients.fulfilled, (state, action) => {
+            .addCase(getIngredients.fulfilled, (state, action) => {
                 state.status = 'succeeded';
                 state.ingredients = action.payload;
             })
-            .addCase(fetchIngredients.rejected, (state, action) => {
+            .addCase(getIngredients.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.error.message !== undefined ? action.error.message : null;
             });

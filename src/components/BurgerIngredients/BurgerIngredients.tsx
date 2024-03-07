@@ -6,7 +6,7 @@ import IngredientGroup from "components/BurgerIngredients/IngredientGroup/Ingred
 
 import React, {useRef, useEffect, useMemo, useState} from "react";
 import {useSelector} from "react-redux";
-import {RootState} from "interfaces/rootState.ts";
+import {RootState} from "declarations/rootState.ts";
 
 enum TabValues {
     Bun = "bun",

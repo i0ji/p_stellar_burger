@@ -1,5 +1,5 @@
 import styles from "./HomePageStyles.module.scss"
-import {IBurgerState} from "interfaces/sliceInterfaces";
+import {IBurgerState} from "declarations/sliceInterfaces";
 
 import Loader from "components/common/Loader/Loader.tsx";
 import BurgerIngredients from "components/BurgerIngredients/BurgerIngredients.tsx";

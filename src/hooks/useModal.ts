@@ -1,7 +1,8 @@
 import {useCallback, useReducer} from 'react';
 import {useDispatch} from "react-redux";
-import {createOrder, updateOrderNumber} from "slices/orderSlice.ts";
+import {updateOrderNumber} from "slices/orderSlice.ts";
 import {resetIngredients} from "slices/constructorSlice.ts";
+import {createOrder} from "utils/api.ts";
 
 
 export default function useModal(IDs: (string | undefined)[]) {

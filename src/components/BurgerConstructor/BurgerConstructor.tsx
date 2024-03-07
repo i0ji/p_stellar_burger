@@ -3,8 +3,8 @@ import {updateIds} from "slices/orderSlice.ts"
 
 import styles from "./BurgerConstructorStyles.module.scss";
 import awaitSpinner from "images/common/awaitSpinner.svg";
-import {IIngredient} from "interfaces/interfaces";
-import {RootState} from "interfaces/rootState.ts";
+import {IIngredient} from "declarations/interfaces";
+import {RootState} from "declarations/rootState.ts";
 
 import {ConstructorElement, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import CurrentIngredients from "components/BurgerConstructor/CurrentIngredients/CurrentIngredients.tsx";
@@ -143,7 +143,7 @@ export default function BurgerConstructor() {
                         width: (addedIngredients.length > 3) ? '100%' : '97%',
                     }}
                 >
-                    {addedIngredients.map((ingredient, index) => (
+                    {addedIngredients.map((ingredient: IIngredient, index: number) => (
                         renderIngredients(ingredient, index)
                     ))}
                 </div>

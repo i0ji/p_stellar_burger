@@ -10,8 +10,6 @@ import Loader from "components/common/Loader/Loader.tsx";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {getUserData, updateUserData, logoutUser} from "utils/api.ts";
-
-
 export default function ProfilePage() {
 
     const isActive = location.pathname === '/profile'

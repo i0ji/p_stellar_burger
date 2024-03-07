@@ -1,6 +1,6 @@
 import styles from "./IngredientGroupStyles.module.scss";
-import {IIngredient, IIngredientCardProps, IIngredientGroupProps} from "interfaces/interfaces";
-import {RootState} from "interfaces/rootState.ts";
+import {IIngredient, IIngredientCardProps, IIngredientGroupProps} from "declarations/interfaces";
+import {RootState} from "declarations/rootState.ts";
 
 import {Link} from "react-router-dom";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";

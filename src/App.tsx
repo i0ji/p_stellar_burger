@@ -2,7 +2,7 @@ import {Routes, Route, useNavigate} from 'react-router-dom';
 
 import AppHeader from "components/AppHeader/AppHeader.tsx";
 
-import {RootState} from "interfaces/rootState.ts";
+import {RootState} from "declarations/rootState.ts";
 
 import {
     LoginPage,
@@ -27,8 +27,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useLocation} from "react-router-dom";
 import {useCallback, useEffect} from "react";
 
-import {fetchIngredients} from "slices/ingredientsSlice.ts";
-import {checkUserAuth, getUserData} from "utils/api.ts";
+import {checkUserAuth, getUserData, getIngredients} from "utils/api.ts";
 
 
 export default function App() {
@@ -45,7 +44,7 @@ export default function App() {
     console.log('ingredients loading status:', ingredientsStatus);
 
     useEffect(() => {
-        dispatch(fetchIngredients());
+        dispatch(getIngredients());
         dispatch(checkUserAuth());
         dispatch(getUserData());
     }, [dispatch, accessToken]);

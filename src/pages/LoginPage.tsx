@@ -7,9 +7,9 @@ import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
 
-import {getUser} from "utils/api.ts";
+import {loginUser} from "utils/api.ts";
 import {useForm} from "hooks/useForm.ts";
-import {IUserData} from "interfaces/sliceInterfaces";
+import {IUserData} from "declarations/sliceInterfaces";
 
 function LoginPage() {
 
@@ -31,7 +31,7 @@ function LoginPage() {
             password: values.password,
         };
 
-        dispatch(getUser(userData))
+        dispatch(loginUser(userData));
     };
 
     return (
