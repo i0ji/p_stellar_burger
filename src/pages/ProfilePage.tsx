@@ -1,9 +1,10 @@
 import styles from "./Pages.module.scss";
-import {RootState} from "interfaces/rootState.ts";
+import {RootState} from "declarations/rootState.ts";
+import {TInputElementType} from "declarations/types";
 
 import {Link} from "react-router-dom";
 import {useForm} from "hooks/useForm.ts";
-import {useState, SetStateAction} from 'react';
+import {useState, SetStateAction, useRef, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import Loader from "components/common/Loader/Loader.tsx";
@@ -20,6 +21,33 @@ export default function ProfilePage() {
     const [showUpdateButtons, setShowUpdateButtons] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [editingField, setEditingField] = useState(null);
+    const [editedValues, setEditedValues] = useState({
+        name: null,
+        password: null,
+        email: null
+    });
+
+    const nameInputRef = useRef<TInputElementType>(null);
+    const emailInputRef = useRef<TInputElementType>(null);
+    const passwordInputRef = useRef<TInputElementType>(null);
+
+    useEffect(() => {
+        if (isEditing && editingField !==null) {
+            switch (editingField) {
+                case 'name':
+                    nameInputRef.current?.focus();
+                    break;
+                case 'email':
+                    emailInputRef.current?.focus();
+                    break;
+                case 'password':
+                    passwordInputRef.current?.focus();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }, [isEditing, editingField]);
 
     //  --------------- LOGOUT
     const handleLogout = () => {
@@ -30,16 +58,18 @@ export default function ProfilePage() {
         if (!isEditing) {
             setEditingField(fieldName);
             setIsEditing(true);
+            setValues({...values, [fieldName]: ''});
         }
         setShowUpdateButtons(true);
     }
     //  --------------- SAVE DATA
     const handleSave = async () => {
-        setShowUpdateButtons(false);
-        dispatch(updateUserData({[editingField]: values[editingField]}));
+        setEditedValues({ ...editedValues, [editingField]: values[editingField] });
         dispatch(getUserData());
+        dispatch(updateUserData({[editingField]: values[editingField]}));
         setEditingField(null);
         setIsEditing(false);
+        setShowUpdateButtons(false);
     };
     //  --------------- CANCEL CHANGE
     const handleCancel = () => {
@@ -50,7 +80,6 @@ export default function ProfilePage() {
             setIsEditing(false);
         }, 250);
     };
-
     //  --------------- LOADER
     if (!userData) {
         return <Loader/>;
@@ -107,10 +136,11 @@ export default function ProfilePage() {
                             errorText={'Ошибка'}
                             size={'default'}
                             extraClass="mb-6"
-                            value={(editingField === 'name') ? (values.name || ''): userData.name}
+                            value={(editingField === 'name') ? (values.name || '') : (editedValues.name || userData.name)}
                             onChange={handleChange}
                             onIconClick={() => handleEditIconClick('name')}
                             icon={(editingField == 'name') ? undefined : 'EditIcon'}
+                            ref={nameInputRef}
                         />
                         <Input
                             type={'text'}
@@ -120,10 +150,11 @@ export default function ProfilePage() {
                             errorText={'Ошибка'}
                             size={'default'}
                             extraClass="mb-6"
-                            value={(editingField === 'email') ? (values.email || '') : userData.email}
+                            value={(editingField === 'email') ? (values.email || '') : (editedValues.email || userData.email)}
                             onChange={handleChange}
                             onIconClick={() => handleEditIconClick('email')}
                             icon={(editingField == 'email') ? undefined : 'EditIcon'}
+                            ref={emailInputRef}
                         />
                         <Input
                             type={'text'}
@@ -137,6 +168,7 @@ export default function ProfilePage() {
                             onChange={handleChange}
                             onIconClick={() => handleEditIconClick('password')}
                             icon={(editingField == 'password') ? undefined : 'EditIcon'}
+                            ref={passwordInputRef}
                         />
                         {isEditing && editingField && (
                             <div

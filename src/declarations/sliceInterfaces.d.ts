@@ -1,8 +1,11 @@
 import {IIngredient} from "utils/interfaces/interfaces";
 import Error = types.Error;
 
-export interface IIngredientsListSlice {
-    ingredients: IIngredient[];
+interface IIngredients {
+    ingredients: Array<IIngredient>;
+}
+
+export interface IIngredientsListSlice extends IIngredients {
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
     error: string | null;
 }
@@ -11,23 +14,15 @@ export interface ICurrentIngredientSlice {
     selectedIngredient: IIngredient;
 }
 
-export interface IBurgerState {
-    ingredients: IIngredient[];
+export interface IBurgerState extends IIngredients {
     status: string;
     error: string | null;
 }
 
 interface IConstructorSlice {
     totalAmount: number;
-    ingredients: IIngredient[];
-    addedIngredients: IIngredient[];
+    addedIngredients: Array<IIngredient>;
     bun: IIngredient | null;
-}
-
-export interface IUserData {
-    email?: string;
-    password?: string;
-    name?: string;
 }
 
 export interface IAuthSlice {
@@ -44,7 +39,24 @@ export interface IAuthSlice {
 
 export interface IOrderSlice {
     orderNumber: string | number | null,
-    IDs: string[],
+    IDs: Array<string>,
     status: string,
     error: null,
+}
+
+export interface IRefreshData {
+    success: boolean;
+    refreshToken: string;
+    accessToken: string;
+}
+
+export interface IUserData {
+    email: string;
+    name?: string;
+    password?: string;
+    user?:
+        {
+            email: string;
+            password: string;
+        }
 }

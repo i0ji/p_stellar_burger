@@ -1,3 +1,5 @@
+import {IIngredients} from "declarations/sliceInterfaces";
+
 export interface IIngredient {
 	"id"?: string;
 	"_id"?: string;
@@ -26,7 +28,7 @@ export interface IIngredientCardProps extends IIngredient {
 
 export interface IIngredientGroupProps {
 	type: string;
-	ingredients: IIngredient[];
+	ingredients: Array<IIngredients>;
 	navigate?: string;
 }
 
@@ -36,10 +38,10 @@ export interface IDragItem {
 	type: string;
 }
 
-export interface IRequestOptions {
-	method: string;
-	headers: {
-		[key: string]: string;
-	};
-	body?: string;
-}
+// export interface IRequestOptions {
+// 	method: string;
+// 	headers: {
+// 		[key: string]: string;
+// 	};
+// 	body?: string;
+// }

@@ -5,8 +5,9 @@ import {BASE_URL} from "declarations/routs.ts";
 import {setAuthChecked, setUser} from "slices/authSlice.ts";
 import {checkResponse} from "utils/check-response.ts";
 
-import {IUserData} from "declarations/sliceInterfaces";
-import {TIngredientResponse, TRefreshToken, TUserLoginResponse} from "declarations/types";
+import {IUserData, IRefreshData, IOrderSlice} from "declarations/sliceInterfaces";
+import {TIngredientResponse, TToken, TUserLoginResponse} from "declarations/types";
+import {IIngredient} from "declarations/interfaces";
 
 // --------------- REFRESH ---------------
 
@@ -19,17 +20,11 @@ export const refreshToken = async () => {
         body: JSON.stringify({
             token: localStorage.getItem("refreshToken"),
         }),
-    }).then(res => checkResponse<TRefreshToken>(res));
+    }).then(res => checkResponse<TToken>(res));
 };
 
 
 // --------------- FETCH WITH REFRESH ---------------
-
-interface RefreshData {
-    success: boolean;
-    refreshToken: string;
-    accessToken: string;
-}
 
 export const fetchWithRefresh = async <T>(url: RequestInfo, options: RequestInit): Promise<T> => {
     try {
@@ -37,7 +32,7 @@ export const fetchWithRefresh = async <T>(url: RequestInfo, options: RequestInit
         return await checkResponse<T>(res);
     } catch (err) {
         if ((err as { message: string }).message === "jwt expired") {
-            const refreshData: RefreshData = await refreshToken();
+            const refreshData: IRefreshData = await refreshToken();
             if (!refreshData.success) {
                 await Promise.reject(refreshData);
             }
@@ -54,77 +49,54 @@ export const fetchWithRefresh = async <T>(url: RequestInfo, options: RequestInit
 
 // --------------- login ---------------
 
-// export const loginUser = createAsyncThunk('auth/login',
-//     async (userData: IUserData) => {
-//         const requestOptions = {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify(userData),
-//         };
-//         try {
-//             const response = await fetch(`${BASE_URL}/auth/login`, requestOptions)
-//             if (!response.ok) {
-//                 throw new Error(response.statusText);
-//             }
-//             const data = await response.json();
-//             localStorage.setItem('accessToken', data.accessToken);
-//             localStorage.setItem('refreshToken', data.refreshToken);
-//             return data.user;
-//         } catch (error) {
-//             throw error;
-//         }
-//     });
-
-
-
-
-export const loginUser = createAsyncThunk(
-    'auth/login',
-    async () => {
-        const response = await fetch(`${BASE_URL}/auth/login`);
+export const loginUser = createAsyncThunk<IUserData, IUserData>('auth/login',
+    async (userData: IUserData): Promise<IUserData> => {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+        };
+        const response = await fetch(`${BASE_URL}/auth/login`, requestOptions)
         const data = await checkResponse<TUserLoginResponse>(response);
-        if (data?.success) {
-            localStorage.setItem('accessToken', data.accessToken);
-            localStorage.setItem('refreshToken', data.refreshToken);
-            return data.user;
-        } else
-        throw new Error('Ошибка при авторизации');
-    })
+        localStorage.setItem('accessToken', data.accessToken);
+        localStorage.setItem('refreshToken', data.refreshToken);
+        return data.user;
+    });
 
-
-// --------------- GET USER DATA ---------------
+// --------------- GET USER DATA ---------------TS2345: Argument of type 'AsyncThunkAction<readonly IIngredient[], void, AsyncThunkConfig>' is not assignable to parameter of type 'UnknownAction'.
 
 export const getUserData = createAsyncThunk(
     'user/fetchUserData',
-    async () => {
+    async ():Promise<IUserData> => {
         const token = localStorage.getItem('accessToken');
         if (!token) {
-            throw new Error('Access token not found');
+            throw new Error('Не найден токен доступа!');
         }
-        try {
-            const response = await fetchWithRefresh(`${BASE_URL}/auth/user`, {
+        const response = await fetchWithRefresh<IUserData>(
+            `${BASE_URL}/auth/user`,
+            {
                 headers: {
                     Authorization: token,
                 },
             });
-            return response.user;
-        } catch (error) {
-            throw error;
-        }
+        console.log(`RESPONSE DATA: ${response.user}`)
+        return response.user;
     }
 );
 
 
 // --------------- GET INGREDIENTS ---------------
 
-export const getIngredients = createAsyncThunk('ingredientsListSlice/fetchIngredients', async () => {
-    const response = await fetch(`${BASE_URL}/ingredients`);
-    const data = await checkResponse<TIngredientResponse>(response);
-    if (data?.success) return data.data;
-    throw new Error('Ошибка при загрузке ингредиентов!');
-});
+export const getIngredients = createAsyncThunk<ReadonlyArray<IIngredient>>(
+    'ingredientsListSlice/fetchIngredients',
+    async (): Promise<ReadonlyArray<IIngredient>> => {
+        const response = await fetch(`${BASE_URL}/ingredients`);
+        const data = await checkResponse<TIngredientResponse>(response);
+        if (data?.success) return data.data;
+        throw new Error('Ошибка при загрузке ингредиентов!');
+    });
 
 
 // --------------- UPDATE USER DATA ---------------
@@ -136,22 +108,17 @@ export const updateUserData = createAsyncThunk(
         if (!token) {
             throw new Error('Нет токена доступа!');
         }
-
-        const response = await fetchWithRefresh(`${BASE_URL}/auth/user`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: token,
-            },
-            body: JSON.stringify(updatedData),
-        });
-
-        if (!response.ok) {
-            throw new Error('Ошибка при обновлении данных пользователя');
-        }
-
-        const data = await response.json();
-        return data.user;
+        const response = await fetchWithRefresh(
+            `${BASE_URL}/auth/user`,
+            {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: token,
+                },
+                body: JSON.stringify(updatedData),
+            });
+        return checkResponse(response);
     }
 );
 
@@ -161,18 +128,14 @@ export const updateUserData = createAsyncThunk(
 export const registerUser = createAsyncThunk(
     'auth/registerUser',
     async (userData: IUserData) => {
-        try {
-            const response = await fetch(`${BASE_URL}/auth/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(userData),
-            });
-            return await response.json();
-        } catch (error) {
-            throw error;
-        }
+        const response = await fetch(`${BASE_URL}/auth/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+        });
+        return await response.json();
     }
 );
 
@@ -276,43 +239,28 @@ export const logoutUser = createAsyncThunk(
                 token: refreshToken,
             }),
         });
-        console.log('Logout response:', response);
         const logoutData = await checkResponse(response);
-        console.log('Logout data:', logoutData);
-        if (!logoutData.success) {
-            console.error('Logout failed:', logoutData);
-            return Promise.reject(logoutData);
-        }
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
-        console.log('Пользователь вышел!');
         return logoutData;
     });
 
 
 // --------------- CREATE ORDER ---------------
 
-export const createOrder = createAsyncThunk('orderSlice/createOrder', async (ingredientIds: string[]) => {
-    const requestBody = {
-        ingredients: ingredientIds
-    };
-
-    const response = await fetch(`${BASE_URL}/orders`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody),
+export const createOrder = createAsyncThunk<IOrderSlice, string[]>(
+    'orderSlice/createOrder',
+    async (ingredientIds: string[]): Promise<IOrderSlice> => {
+        const requestBody = {
+            ingredients: ingredientIds
+        };
+        const response = await fetch(`${BASE_URL}/orders`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody),
+        });
+        const data = await (checkResponse(response));
+        return data.order.number;
     });
-    const data = await (checkResponse(response))
-    return data.order.number;
-});
-
-
-//
-//
-// type TSererResponse<T> = {
-//     success: boolean;
-// } & T
-//
-// type TIngredientsResponse = TSererResponse<<any>>

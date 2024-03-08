@@ -1,4 +1,7 @@
+import {IUserData} from "declarations/sliceInterfaces";
 import {IIngredient} from "declarations/interfaces";
+
+export type TInputElementType = HTMLInputElement | null;
 
 export type TServerResponse<T> = {
     success: boolean;
@@ -8,18 +11,13 @@ export type TIngredientResponse = TServerResponse<{
     data: IIngredient[];
 }>
 
-export type TRefreshToken = TServerResponse<{
+export type TToken = TServerResponse<{
     accessToken: string,
     refreshToken: string,
-    success: boolean,
 }>
 
 type TUserLoginResponse = TServerResponse<{
-    success: boolean,
     accessToken: string,
     refreshToken: string,
-    user: {
-        email: string,
-        names: string
-    }
+    user: IUserData;
 }>
