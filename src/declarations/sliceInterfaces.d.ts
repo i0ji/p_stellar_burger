@@ -20,6 +20,7 @@ export interface IBurgerState extends IIngredients {
 }
 
 interface IConstructorSlice {
+    ingredients: Array<IIngredient>;
     totalAmount: number;
     addedIngredients: Array<IIngredient>;
     bun: IIngredient | null;
