@@ -4,7 +4,7 @@ import {IIngredient, IDragItem} from "declarations/interfaces";
 import {useDispatch} from "react-redux";
 import {removeIngredient} from "slices/constructorSlice.ts";
 import {useRef} from "react";
-import {useDrag, useDrop} from "react-dnd";
+import {useDrag, useDrop, DragSourceMonitor, DropTargetMonitor} from "react-dnd";
 
 export default function CurrentIngredients({ingredient, index, moveIngredient}: {
 	ingredient: IIngredient,
@@ -41,8 +41,8 @@ export default function CurrentIngredients({ingredient, index, moveIngredient}: 
 		},
 	} as {
 		accept: string,
-		collect: (monitor: any) => { handlerId: string },
-		hover: (item: IDragItem, monitor: any) => void
+		collect: (monitor: DropTargetMonitor) => { handlerId: string },
+		hover: (item: IDragItem, monitor: DropTargetMonitor) => void
 	})
 	
 	const [{isDragging}, drag] = useDrag({
@@ -51,7 +51,7 @@ export default function CurrentIngredients({ingredient, index, moveIngredient}: 
 			id: ingredient.id,
 			index,
 		}),
-		collect: (monitor: any) => ({
+		collect: (monitor: DragSourceMonitor) => ({
 			isDragging: monitor.isDragging(),
 		}),
 	});
