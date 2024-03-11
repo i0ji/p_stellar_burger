@@ -5,7 +5,7 @@ import {BASE_URL} from "declarations/routs.ts";
 import {setAuthChecked, setUser} from "slices/authSlice.ts";
 import {checkResponse} from "utils/check-response.ts";
 
-import {IUserData, IRefreshData, IOrderSlice} from "declarations/sliceInterfaces";
+import {IUserData, IRefreshData, IOrderSlice, IRegisterUser} from "declarations/sliceInterfaces";
 import {TIngredientResponse, TToken, TUserLoginResponse} from "declarations/types";
 import {IIngredient} from "declarations/interfaces";
 
@@ -58,18 +58,18 @@ export const loginUser = createAsyncThunk<IUserData, IUserData>('auth/login',
             },
             body: JSON.stringify(userData),
         };
-        const response = await fetch(`${BASE_URL}/auth/login`, requestOptions)
+        const response = await fetch(`${BASE_URL}/auth/login`, requestOptions);
         const data = await checkResponse<TUserLoginResponse>(response);
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('refreshToken', data.refreshToken);
         return data.user;
     });
 
-// --------------- GET USER DATA ---------------TS2345: Argument of type 'AsyncThunkAction<readonly IIngredient[], void, AsyncThunkConfig>' is not assignable to parameter of type 'UnknownAction'.
+// --------------- GET USER DATA ---------------
 
 export const getUserData = createAsyncThunk(
     'user/fetchUserData',
-    async ():Promise<IUserData> => {
+    async <IUserData>(): Promise<IUserData> => {
         const token = localStorage.getItem('accessToken');
         if (!token) {
             throw new Error('Не найден токен доступа!');
@@ -127,15 +127,23 @@ export const updateUserData = createAsyncThunk(
 
 export const registerUser = createAsyncThunk(
     'auth/registerUser',
-    async (userData: IUserData) => {
+    async (userData: IRegisterUser) => {
         const response = await fetch(`${BASE_URL}/auth/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(userData),
+            body: JSON.stringify(userData)
         });
-        return await response.json();
+        if (response.ok) {
+            const responseData = await response.json();
+            localStorage.setItem('accessToken', responseData.accessToken);
+            localStorage.setItem('refreshToken', responseData.refreshToken);
+            return responseData;
+        } else {
+            const errorData = await response.json();
+            return Promise.reject(errorData);
+        }
     }
 );
 

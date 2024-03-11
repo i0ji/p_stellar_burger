@@ -9,12 +9,14 @@ import {registerUser} from "utils/api.ts";
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import {useForm} from "hooks/useForm.ts";
+import {IForm} from "declarations/interfaces";
 
 export default function RegisterPage() {
 
     const dispatch = useDispatch();
-    const {values, handleChange} = useForm({});
+    const {values, handleChange} = useForm<IForm>({});
     const [isPasswordShow, setIsPasswordShow] = useState(false);
+    const isFormEmpty = !values.email || !values.password || !values.name;
 
     // --------------- PWD VISIBILITY
     const togglePasswordVisibility = () => {
@@ -23,7 +25,9 @@ export default function RegisterPage() {
     // --------------- REGISTER
     const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch(registerUser(values))
+        const refreshToken = localStorage.getItem('refreshToken');
+        console.log(refreshToken);
+        dispatch(registerUser(values));
     }
 
     return (
@@ -70,6 +74,7 @@ export default function RegisterPage() {
                     extraClass="mb-6"
                 />
                 <Button
+                    disabled={isFormEmpty}
                     htmlType="submit"
                     extraClass="mb-20"
                     type="primary">

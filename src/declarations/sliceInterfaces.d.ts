@@ -35,6 +35,7 @@ export interface IAuthSlice {
     accessToken: string,
     authChecked: boolean,
     error: Error,
+    loginError: boolean;
 }
 
 export interface IOrderSlice {
@@ -51,7 +52,7 @@ export interface IRefreshData {
 }
 
 export interface IUserData {
-    email: string;
+    email?: string;
     name?: string;
     password?: string;
     user?:
@@ -59,4 +60,15 @@ export interface IUserData {
             email: string;
             password: string;
         }
+}
+
+export interface IRegisterUser {
+    success: boolean;
+    user:
+        {
+            email: string;
+            password: string;
+        };
+    refreshToken: string;
+    accessToken: string;
 }

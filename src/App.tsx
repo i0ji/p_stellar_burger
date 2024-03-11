@@ -41,7 +41,7 @@ export default function App() {
     const ingredientsStatus = useSelector((state: RootState) => state.ingredients.status);
     const accessToken = localStorage.getItem('accessToken');
 
-    console.log('ingredients loading status:', ingredientsStatus);
+
 
     useEffect(() => {
         dispatch(getIngredients());
@@ -49,10 +49,11 @@ export default function App() {
         dispatch(getUserData());
     }, [dispatch, accessToken]);
 
-    console.log(`Refresh token:`, localStorage.getItem('refreshToken'));
-    console.log('Access Token:', localStorage.getItem('accessToken'));
-    console.log(`User Auth: ${userAuth}`);
-    console.log(`Auth is checked: ${userAuthChecked}`);
+    // console.log('ingredients loading status:', ingredientsStatus);
+    // console.log(`Refresh token:`, localStorage.getItem('refreshToken'));
+    // console.log('Access Token:', localStorage.getItem('accessToken'));
+    // console.log(`User Auth: ${userAuth}`);
+    // console.log(`Auth is checked: ${userAuthChecked}`);
 
 
     const handleCloseModal = useCallback(() => {
@@ -78,6 +79,7 @@ export default function App() {
 
                 <Route path="/profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}/>
                 <Route path="/orders" element={<ProtectedRoute unAuth={false} component={<OrdersPage/>}/>}/>
+                <Route path="/login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
 
                 <Route path="/reset-success" element={<ProtectedRoute unAuth={true} component={<SuccessPage/>}/>}/>
                 <Route path="/login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>

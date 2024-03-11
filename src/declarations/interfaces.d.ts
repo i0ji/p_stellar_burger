@@ -38,10 +38,8 @@ export interface IDragItem {
 	type: string;
 }
 
-// export interface IRequestOptions {
-// 	method: string;
-// 	headers: {
-// 		[key: string]: string;
-// 	};
-// 	body?: string;
-// }
+export interface IForm {
+	name?: string,
+	email?: string;
+	password?: string;
+}

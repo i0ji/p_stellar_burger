@@ -5,16 +5,18 @@ import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import {loginUser} from "utils/api.ts";
 import {useForm} from "hooks/useForm.ts";
 import {IUserData} from "declarations/sliceInterfaces";
+import {IForm} from "declarations/interfaces";
+import {RootState} from "declarations/rootState.ts";
 
 function LoginPage() {
 
     const dispatch = useDispatch();
-    const {values, handleChange} = useForm({});
+    const {values, handleChange} = useForm<IForm>({});
 
     // --------------- PWD VISIBILITY  ---------------
 
@@ -23,15 +25,21 @@ function LoginPage() {
         setIsPasswordShow(!isPasswordShow);
     };
 
+    // --------------- ERROR MESSAGE ---------------
+    const loginError = useSelector((state: RootState) => state.authSlice.loginError);
+    console.log(loginError)
     const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
         const userData: IUserData = {
             email: values.email,
             password: values.password,
         };
 
+        console.log('+++++++++++before login')
+        console.log(loginError)
         dispatch(loginUser(userData));
+        console.log('after login +++++++++++++++')
+        console.log(loginError)
     };
 
     return (
@@ -63,14 +71,14 @@ function LoginPage() {
                     extraClass="mb-6"
                     onIconClick={togglePasswordVisibility}
                 />
-                {/*{*/}
-                {/*    errorMessage && <p*/}
-                {/*        className="pb-6"*/}
-                {/*        style={{color: '#b90101'}}*/}
-                {/*    >*/}
-                {/*        Ошибка {errorMessage}. Попробуйте ещё раз.*/}
-                {/*    </p>*/}
-                {/*}*/}
+                {
+                    loginError && <p
+                        className="pb-6"
+                        style={{color: '#b90101'}}
+                    >
+                        Ошибка. Попробуйте ещё раз.
+                    </p>
+                }
                 <Button
                     htmlType="submit"
                     extraClass="mb-20"

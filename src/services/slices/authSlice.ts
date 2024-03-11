@@ -10,6 +10,7 @@ const authSlice = createSlice({
         isAuth: false,
         authChecked: false,
         userData: null,
+        loginError: false,
     },
     reducers: {
         setUser(state, action) {
@@ -30,10 +31,12 @@ const authSlice = createSlice({
                 state.user = action.payload;
                 state.error = null;
                 state.isAuth = true;
+                state.loginError = false;
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.error.message;
+                state.loginError = true;
             })
             .addCase(registerUser.pending, (state) => {
                 state.status = 'loading';

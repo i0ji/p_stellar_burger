@@ -11,10 +11,12 @@ import Loader from "components/common/Loader/Loader.tsx";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {getUserData, updateUserData, logoutUser} from "utils/api.ts";
+import {IForm} from "declarations/interfaces";
+
 export default function ProfilePage() {
 
     const isActive = location.pathname === '/profile'
-    const {values, handleChange, setValues} = useForm({});
+    const {values, handleChange, setValues} = useForm<IForm>({});
     const dispatch = useDispatch();
     const userData = useSelector((state: RootState) => state.authSlice.userData);
     const refreshToken = localStorage.getItem('refreshToken');
@@ -32,7 +34,7 @@ export default function ProfilePage() {
     const passwordInputRef = useRef<TInputElementType>(null);
 
     useEffect(() => {
-        if (isEditing && editingField !==null) {
+        if (isEditing && editingField !== null) {
             switch (editingField) {
                 case 'name':
                     nameInputRef.current?.focus();
@@ -64,7 +66,7 @@ export default function ProfilePage() {
     }
     //  --------------- SAVE DATA
     const handleSave = async () => {
-        setEditedValues({ ...editedValues, [editingField]: values[editingField] });
+        setEditedValues({...editedValues, [editingField]: values[editingField]});
         dispatch(getUserData());
         dispatch(updateUserData({[editingField]: values[editingField]}));
         setEditingField(null);
@@ -74,7 +76,6 @@ export default function ProfilePage() {
     //  --------------- CANCEL CHANGE
     const handleCancel = () => {
         setShowUpdateButtons(false);
-        setValues(userData);
         setTimeout(() => {
             setEditingField(null);
             setIsEditing(false);
