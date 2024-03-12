@@ -54,7 +54,7 @@ export interface IRefreshData extends IToken {
 }
 
 export interface IUser {
-	name: string,
+	name?: string,
 	email: string;
 	password: string;
 }

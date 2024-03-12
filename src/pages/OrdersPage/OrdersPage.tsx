@@ -14,8 +14,8 @@ export default function OrdersPage() {
 			<div className={styles.container}>
 				Здесь будут ваши заказы
 				<div className={styles.orders_list_ingredients}>
-					{addedIngredients.map((elem: IIngredient) => {
-						return <p>{elem.name}</p>
+					{addedIngredients.map((elem: IIngredient, i) => {
+						return <p key={i}>{elem.name}</p>
 						
 					})}
 				</div>

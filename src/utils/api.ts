@@ -5,8 +5,8 @@ import {BASE_URL} from "declarations/routs.ts";
 import {setAuthChecked, setUser} from "slices/authSlice.ts";
 import {checkResponse} from "utils/check-response.ts";
 
-import {IUserData, IRefreshData, IOrderSlice, IRegisterUser, IUser} from "declarations/sliceInterfaces";
-import {TIngredientResponse, TToken, TUserLoginResponse} from "declarations/types";
+import {IUserData, IRefreshData, IOrderSlice, IRegisterUser} from "declarations/sliceInterfaces";
+import {TForgotPassword, TIngredientResponse, TToken, TUserLoginResponse} from "declarations/types";
 import {IIngredient} from "declarations/interfaces";
 
 // --------------- REFRESH ---------------
@@ -67,14 +67,14 @@ export const loginUser = createAsyncThunk<IUserData, IUserData>('auth/login',
 
 // --------------- GET USER DATA ---------------
 
-export const getUserData = createAsyncThunk<IUser>(
+export const getUserData = createAsyncThunk<IUserData, void>(
 	'user/fetchUserData',
-	async () => {
+	async ():Promise<IUserData> => {
 		const token = localStorage.getItem('accessToken');
 		if (!token) {
 			throw new Error('Не найден токен доступа!');
 		}
-		const response = await fetchWithRefresh(
+		const response: TUserLoginResponse = await fetchWithRefresh(
 			`${BASE_URL}/auth/user`,
 			{
 				headers: {
@@ -85,7 +85,6 @@ export const getUserData = createAsyncThunk<IUser>(
 		return response.user;
 	}
 );
-
 
 // --------------- GET INGREDIENTS ---------------
 
@@ -175,13 +174,12 @@ export const resetPassword = async (password: string, token: string) => {
 
 // --------------- FORGOT PASSWORD ---------------
 
-export const forgotPassword = createAsyncThunk(
+export const forgotPassword = createAsyncThunk<TForgotPassword, string>(
 	'auth/forgotPassword',
-	async (email: string) => {
+	async (email: string):Promise<TForgotPassword> => {
 		const requestBody = {
 			email: email,
 		};
-		
 		try {
 			const response = await fetch(`${BASE_URL}/password-reset`, {
 				method: 'POST',

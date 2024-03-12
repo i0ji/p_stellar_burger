@@ -17,24 +17,23 @@ export default function ForgotPage() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    const handleForgotPassword = async () => {
-        const action = await dispatch(forgotPassword(values.email));
+    
+    
+    const handleForgotPassword = async() => {
+       const action = dispatch(forgotPassword(values.email));
         const response = action.payload;
-
-        console.log(`Ответ: ${response.message}`);
-        console.log(`Ответ: ${response.success}`);
-
-        if (response.success) {
+        // console.log(`Ответ: ${response.message}`);
+        // console.log(`Ответ: ${response.success}`);
+        // if (response.success) {
             navigate('/reset-password');
-        }
+        //}
     }
 
     return (
         <section className={styles.section}>
             <form onSubmit={(e) => {
                 e.preventDefault();
-                handleForgotPassword();
+                void handleForgotPassword();
             }}>
                 <h1 className="text text text_type_main-medium pb-6">Восстановить пароль</h1>
                 <Input
