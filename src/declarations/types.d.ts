@@ -4,23 +4,19 @@ import {IIngredient} from "declarations/interfaces";
 export type TInputElementType = HTMLInputElement | null;
 
 export type TServerResponse<T> = {
-	success: boolean;
+    success: boolean;
 } & T;
 
 export type TApiResponse<T> = TServerResponse<{
-	[key: string]: T;
+    [key: string]: T;
 }>;
-
-// export type TForgotPassword = TServerResponse<{
-// 	message: string;
-// }>;
 
 export type TIngredientResponse = TServerResponse<{
-	data: IIngredient[];
+    data: IIngredient[]
 }>;
-
-//export type TToken = TServerResponse<IToken>;
 
 type TUserLoginResponse = TServerResponse<IToken, {
-	user: IUserData;
+    user: IUserData;
 }>;
+
+export type AppDispatch = typeof store.dispatch

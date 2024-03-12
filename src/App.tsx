@@ -28,12 +28,13 @@ import {useLocation} from "react-router-dom";
 import {useCallback, useEffect} from "react";
 
 import {checkUserAuth, getUserData, getIngredients} from "utils/api.ts";
+import {AppDispatch} from "declarations/types";
 
 
 export default function App() {
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const location = useLocation();
     const state = location.state as { background?: Location };
   
