@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 export default function WarningMessage() {
 
     return (
-        <Modal>
+        <Modal onClose={onClose}>
             <div
                 className={`${styles.message} ${styles.messageError}`}
             >
