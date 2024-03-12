@@ -120,7 +120,7 @@ export const updateUserData = createAsyncThunk<TApiResponse<IUserData>>(
 				body: JSON.stringify(updatedData),
 			}
 		);
-		return checkResponse(response);
+		return checkResponse(response as Response);
 	}
 );
 
@@ -157,7 +157,7 @@ export const resetPassword = async (password: string, token: string) => {
 		password: password,
 		token: token,
 	};
-	
+	console.log('TRY')
 	try {
 		const response = await fetch(`${BASE_URL}/password-reset/reset`, {
 			method: 'POST',
@@ -166,7 +166,7 @@ export const resetPassword = async (password: string, token: string) => {
 			},
 			body: JSON.stringify(requestBody),
 		});
-		
+		console.log('catch')
 		return await response.json();
 	} catch (error) {
 		console.error('Error during password reset:', error);
@@ -177,7 +177,7 @@ export const resetPassword = async (password: string, token: string) => {
 
 // --------------- FORGOT PASSWORD ---------------
 
-export const forgotPassword = createAsyncThunk<TApiResponse<string>, string>(
+export const forgotPassword = createAsyncThunk(
 	'auth/forgotPassword',
 	async (email: string): Promise<TApiResponse<string>> => {
 		const requestBody = {
