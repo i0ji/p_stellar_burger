@@ -36,8 +36,7 @@ export default function App() {
     const dispatch = useDispatch();
     const location = useLocation();
     const state = location.state as { background?: Location };
-    const userAuth = useSelector((state: RootState) => state.authSlice.isAuth);
-    const userAuthChecked = useSelector((state: RootState) => state.authSlice.authChecked);
+  
     const ingredientsStatus = useSelector((state: RootState) => state.ingredients.status);
     const accessToken = localStorage.getItem('accessToken');
 

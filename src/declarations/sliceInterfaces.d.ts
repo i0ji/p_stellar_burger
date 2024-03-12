@@ -42,12 +42,7 @@ export interface IAuthSlice extends IToken{
 	loginError: boolean;
 }
 
-export interface IOrderSlice {
-	orderNumber: string | number | null;
-	IDs: Array<string>;
-	status: string;
-	error: null;
-}
+
 
 export interface IRefreshData extends IToken {
 	success: boolean;
@@ -68,4 +63,12 @@ export interface IUserData {
 
 export interface IRegisterUser extends IRefreshData {
 	user: IUser;
+}
+
+export interface IOrderSlice {
+	order: number;
+	orderNumber: string | number | null;
+	IDs: Array<string>;
+	status: string;
+	error: null;
 }

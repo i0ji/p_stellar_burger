@@ -5,13 +5,13 @@ import {BASE_URL} from "declarations/routs.ts";
 import {setAuthChecked, setUser} from "slices/authSlice.ts";
 import {checkResponse} from "utils/check-response.ts";
 
-import {IUserData, IRefreshData, IOrderSlice, IRegisterUser} from "declarations/sliceInterfaces";
-import {TForgotPassword, TIngredientResponse, TToken, TUserLoginResponse} from "declarations/types";
+import {IUserData, IOrderSlice, IRegisterUser} from "declarations/sliceInterfaces";
+import {TIngredientResponse, TUserLoginResponse, TApiResponse} from "declarations/types";
 import {IIngredient} from "declarations/interfaces";
 
 // --------------- REFRESH ---------------
 
-export const refreshToken = async () => {
+export const refreshToken = async (): Promise<TApiResponse<string>> => {
 	return fetch(`${BASE_URL}/auth/token`, {
 		method: "POST",
 		headers: {
@@ -20,7 +20,7 @@ export const refreshToken = async () => {
 		body: JSON.stringify({
 			token: localStorage.getItem("refreshToken"),
 		}),
-	}).then(res => checkResponse<TToken>(res));
+	}).then(res => checkResponse(res));
 };
 
 
@@ -32,7 +32,7 @@ export const fetchWithRefresh = async <T>(url: RequestInfo, options: RequestInit
 		return await checkResponse<T>(res);
 	} catch (err) {
 		if ((err as { message: string }).message === "jwt expired") {
-			const refreshData: IRefreshData = await refreshToken();
+			const refreshData = await refreshToken();
 			if (!refreshData.success) {
 				throw refreshData;
 			}
@@ -47,7 +47,7 @@ export const fetchWithRefresh = async <T>(url: RequestInfo, options: RequestInit
 };
 
 
-// --------------- login ---------------
+// --------------- LOGIN ---------------
 
 export const loginUser = createAsyncThunk<IUserData, IUserData>('auth/login',
 	async (userData: IUserData): Promise<IUserData> => {
@@ -65,11 +65,12 @@ export const loginUser = createAsyncThunk<IUserData, IUserData>('auth/login',
 		return data.user;
 	});
 
+
 // --------------- GET USER DATA ---------------
 
 export const getUserData = createAsyncThunk<IUserData, void>(
 	'user/fetchUserData',
-	async ():Promise<IUserData> => {
+	async (): Promise<IUserData> => {
 		const token = localStorage.getItem('accessToken');
 		if (!token) {
 			throw new Error('Не найден токен доступа!');
@@ -86,6 +87,7 @@ export const getUserData = createAsyncThunk<IUserData, void>(
 	}
 );
 
+
 // --------------- GET INGREDIENTS ---------------
 
 export const getIngredients = createAsyncThunk<ReadonlyArray<IIngredient>>(
@@ -100,7 +102,7 @@ export const getIngredients = createAsyncThunk<ReadonlyArray<IIngredient>>(
 
 // --------------- UPDATE USER DATA ---------------
 
-export const updateUserData = createAsyncThunk(
+export const updateUserData = createAsyncThunk<TApiResponse<IUserData>>(
 	'user/updateUserData',
 	async (updatedData) => {
 		const token = localStorage.getItem('accessToken');
@@ -116,7 +118,8 @@ export const updateUserData = createAsyncThunk(
 					Authorization: token,
 				},
 				body: JSON.stringify(updatedData),
-			});
+			}
+		);
 		return checkResponse(response);
 	}
 );
@@ -174,9 +177,9 @@ export const resetPassword = async (password: string, token: string) => {
 
 // --------------- FORGOT PASSWORD ---------------
 
-export const forgotPassword = createAsyncThunk<TForgotPassword, string>(
+export const forgotPassword = createAsyncThunk<TApiResponse<string>, string>(
 	'auth/forgotPassword',
-	async (email: string):Promise<TForgotPassword> => {
+	async (email: string): Promise<TApiResponse<string>> => {
 		const requestBody = {
 			email: email,
 		};
@@ -197,6 +200,49 @@ export const forgotPassword = createAsyncThunk<TForgotPassword, string>(
 	}
 );
 
+
+// --------------- LOGOUT ---------------
+
+export const logoutUser = createAsyncThunk(
+	'auth/logoutUser',
+	async (refreshToken) => {
+		const response = await fetch(`${BASE_URL}/auth/logout`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json;charset=utf-8',
+			},
+			body: JSON.stringify({
+				token: refreshToken,
+			}),
+		});
+		const logoutData = await checkResponse(response);
+		localStorage.removeItem('accessToken');
+		localStorage.removeItem('refreshToken');
+		return logoutData;
+	});
+
+
+// --------------- CREATE ORDER ---------------
+
+export const createOrder = createAsyncThunk<IOrderSlice, string[]>(
+	'orderSlice/createOrder',
+	async (ingredientIds: string[]): Promise<number> => {
+		const requestBody = {
+			ingredients: ingredientIds
+		};
+		const response = await fetch(`${BASE_URL}/orders`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(requestBody),
+		});
+		const data = await checkResponse<{ order: {number: number} }>(response);
+		return data.order.number;
+	});
+
+
+// --------------- AUTH CHECK  ---------------
 export const checkUserAuth = () => {
 	return async (dispatch: Dispatch) => {
 		const accessToken = localStorage.getItem('accessToken');
@@ -229,44 +275,3 @@ export const checkUserAuth = () => {
 		}
 	};
 };
-
-
-// --------------- LOGOUT ---------------
-
-export const logoutUser = createAsyncThunk(
-	'auth/logoutUser',
-	async (refreshToken) => {
-		const response = await fetch(`${BASE_URL}/auth/logout`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json;charset=utf-8',
-			},
-			body: JSON.stringify({
-				token: refreshToken,
-			}),
-		});
-		const logoutData = await checkResponse(response);
-		localStorage.removeItem('accessToken');
-		localStorage.removeItem('refreshToken');
-		return logoutData;
-	});
-
-
-// --------------- CREATE ORDER ---------------
-
-export const createOrder = createAsyncThunk<IOrderSlice, string[]>(
-	'orderSlice/createOrder',
-	async (ingredientIds: string[]): Promise<IOrderSlice> => {
-		const requestBody = {
-			ingredients: ingredientIds
-		};
-		const response = await fetch(`${BASE_URL}/orders`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(requestBody),
-		});
-		const data = await (checkResponse(response));
-		return data.order.number;
-	});

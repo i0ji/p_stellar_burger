@@ -11,55 +11,51 @@ import {useDispatch} from "react-redux";
 import {IForm} from "declarations/interfaces";
 
 export default function ForgotPage() {
-
-
-    const {values, handleChange} = useForm<IForm>({});
-
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    
-    
-    const handleForgotPassword = async() => {
-       const action = dispatch(forgotPassword(values.email));
-        const response = action.payload;
-        // console.log(`Ответ: ${response.message}`);
-        // console.log(`Ответ: ${response.success}`);
-        // if (response.success) {
-            navigate('/reset-password');
-        //}
-    }
-
-    return (
-        <section className={styles.section}>
-            <form onSubmit={(e) => {
-                e.preventDefault();
-                void handleForgotPassword();
-            }}>
-                <h1 className="text text text_type_main-medium pb-6">Восстановить пароль</h1>
-                <Input
-                    onChange={handleChange}
-                    value={values.email ?? ``}
-                    name={'email'}
-                    type={'text'}
-                    placeholder={'E-mail'}
-                    icon={undefined}
-                    error={false}
-                    errorText={'Ошибка'}
-                    size={'default'}
-                    extraClass="mb-6"
-                />
-                <Button
-                    htmlType="submit"
-                    extraClass="mb-20"
-                    type="primary">
-                    Восстановить
-                </Button>
-
-                <p>Вспомнили пароль?
-                    <Link
-                        to="/login"
-                    >&nbsp;Войти</Link></p>
-            </form>
-        </section>
-    );
+	
+	const {values, handleChange} = useForm<IForm>({});
+	
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	
+	const handleForgotPassword = async () => {
+		if (!values.email) {
+			const action = dispatch(forgotPassword(values.email));
+			const response = action.payload;
+			navigate('/reset-password');
+		}
+	}
+	
+	return (
+		<section className={styles.section}>
+			<form onSubmit={(e) => {
+				e.preventDefault();
+				void handleForgotPassword();
+			}}>
+				<h1 className="text text text_type_main-medium pb-6">Восстановить пароль</h1>
+				<Input
+					onChange={handleChange}
+					value={values.email ?? ``}
+					name={'email'}
+					type={'text'}
+					placeholder={'E-mail'}
+					icon={undefined}
+					error={false}
+					errorText={'Ошибка'}
+					size={'default'}
+					extraClass="mb-6"
+				/>
+				<Button
+					htmlType="submit"
+					extraClass="mb-20"
+					type="primary">
+					Восстановить
+				</Button>
+				
+				<p>Вспомнили пароль?
+					<Link
+						to="/login"
+					>&nbsp;Войти</Link></p>
+			</form>
+		</section>
+	);
 }

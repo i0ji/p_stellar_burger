@@ -6,7 +6,7 @@ import {createOrder} from "utils/api.ts";
 
 
 export default function useModal(IDs: (string | undefined)[]) {
-
+    
     const dispatch = useDispatch();
     const [isVisible, toggleVisibility] = useReducer((isVisible) => !isVisible, false);
 
