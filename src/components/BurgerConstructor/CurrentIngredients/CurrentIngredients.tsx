@@ -15,7 +15,7 @@ export default function CurrentIngredients({ingredient, index, moveIngredient}: 
 	const ref = useRef<HTMLDivElement>(null)
 	
 	const dispatch = useDispatch();
-	const handleRemoveIngredient = (id: number) => {
+	const handleRemoveIngredient = (id: string) => {
 		dispatch(removeIngredient(id));
 	}
 	
@@ -69,7 +69,9 @@ export default function CurrentIngredients({ingredient, index, moveIngredient}: 
 				text={ingredient.name}
 				price={ingredient.price || 0}
 				thumbnail={ingredient.image || ''}
-				handleClose={() => handleRemoveIngredient(ingredient.id)}
+				handleClose={
+					ingredient.id !== undefined ? () => handleRemoveIngredient(ingredient.id!) : undefined
+				}
 			/>
 		</div>
 	);

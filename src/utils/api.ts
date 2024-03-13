@@ -6,7 +6,7 @@ import {setAuthChecked, setUser} from "slices/authSlice.ts";
 import {checkResponse} from "utils/check-response.ts";
 
 import {IUserData, IRegisterUser} from "declarations/sliceInterfaces";
-import {TIngredientResponse, TUserLoginResponse, TApiResponse} from "declarations/types";
+import {TIngredientResponse, TUserLoginResponse, TApiResponse, TUserRegister} from "declarations/types";
 import {IIngredient} from "declarations/interfaces";
 
 
@@ -128,9 +128,9 @@ export const updateUserData = createAsyncThunk<IUserData | null, IUserData>(
 
 // --------------- REGISTER ---------------
 
-export const registerUser = createAsyncThunk(
+export const registerUser = createAsyncThunk<IRegisterUser, TUserRegister>(
 	'auth/registerUser',
-	async (userData: IRegisterUser) => {
+	async (userData: IRegisterUser):Promise<TUserRegister> => {
 		const response = await fetch(`${BASE_URL}/auth/register`, {
 			method: 'POST',
 			headers: {

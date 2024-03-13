@@ -49,9 +49,9 @@ export interface IRefreshData extends IToken {
 }
 
 export interface IUser {
-	name?: string,
-	email: string;
-	password: string;
+	name?: string | null,
+	email: string | undefined;
+	password: string | undefined;
 }
 
 export interface IUserData {
