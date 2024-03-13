@@ -67,20 +67,20 @@ Global project features:
 * Added certain slice for auth and actions with user data;
 * Register/logout/login/refresh/reset and forgot password functions added;
 
-19.02.24: **b**:sprint3/step-1/**v**:0.1.8.0: React-router added, routing logic started, minor style changes;
-20.02.24: **b**:sprint2/step-2/**v**:0.1.8.0.1: refactor router folders, style edits;
-21.02.24: **b**:sprint2/step-2/**v**:0.1.8.0.2: styling NavLinks and modal routing;
-22.02.24: **b**:sprint2/step-2/**v**:0.1.8.2: setting ingredients modal, style changes, styling NavLinks;
-23.02.24: **b**:sprint2/step-2/**v**:0.1.8.0.3: refactoring modal and ingredients pages;
-24.02.24: **b**:sprint2/step-2/**v**:0.1.8.0.3: attempts of animating enter and exit components;
-25.02.24: **b**:sprint2/step-2/**v**:0.1.8.1: reset/register/get tokens utils, loading page refactor;
-26.02.24: **b**:sprint2/step-2/**v**:0.1.8.2: get two tokens;auth logic;custom hook for forms, start ProtectedRoute;
-27.02.24: **b**:sprint2/step-2/**v**:0.1.8.3: feature: auth, protected, statement, login and logout logic, useForm;
-28.02.24: **b**:sprint2/step-2/**v**:0.1.8.4: feature: setAuthCheck rework; routing rework, types declaration, handleRegister; ProtectedRoute logic;
-01.03.24 **b**:sprint2/step-2/**v**:0.1.8.5.1: Register checked;
-02.03.24 **b**:sprint2/step-2/**v**:0.1.8.5.1: feature:added wight route from login to '/' after enter, feature:added password hide/show logic, in progress: auth/login/logout/reset logic
-03.03.24 **b**:sprint2/step-2/**v**:0.1.8.5.1: Register checked;
-04.03.24 **b**:sprint2/step-2/**v**:0.1.8.5.1: global: yarn updated, fix: logic and display of the component of Profile;
+19.02.24: **b**:sprint3/step-1/**v**:0.1.8.0: React-router added, routing logic started, minor style changes;<br>
+20.02.24: **b**:sprint2/step-2/**v**:0.1.8.0.1: refactor router folders, style edits;<br>
+21.02.24: **b**:sprint2/step-2/**v**:0.1.8.0.2: styling NavLinks and modal routing;<br>
+22.02.24: **b**:sprint2/step-2/**v**:0.1.8.2: setting ingredients modal, style changes, styling NavLinks;<br>
+23.02.24: **b**:sprint2/step-2/**v**:0.1.8.0.3: refactoring modal and ingredients pages;<br>
+24.02.24: **b**:sprint2/step-2/**v**:0.1.8.0.3: attempts of animating enter and exit components;<br>
+25.02.24: **b**:sprint2/step-2/**v**:0.1.8.1: reset/register/get tokens utils, loading page refactor;<br>
+26.02.24: **b**:sprint2/step-2/**v**:0.1.8.2: get two tokens;auth logic;custom hook for forms, start ProtectedRoute;<br>
+27.02.24: **b**:sprint2/step-2/**v**:0.1.8.3: feature: auth, protected, statement, login and logout logic, useForm;<br>
+28.02.24: **b**:sprint2/step-2/**v**:0.1.8.4: feature: setAuthCheck rework; routing rework, types declaration, handleRegister; ProtectedRoute logic;<br>
+01.03.24 **b**:sprint2/step-2/**v**:0.1.8.5.1: Register checked;<br>
+02.03.24 **b**:sprint2/step-2/**v**:0.1.8.5.1: feature:added wight route from login to '/' after enter, feature:added password hide/show logic, in progress: auth/login/logout/reset logic<br>
+03.03.24 **b**:sprint2/step-2/**v**:0.1.8.5.1: Register checked;<br>
+04.03.24 **b**:sprint2/step-2/**v**:0.1.8.5.1: global: yarn updated, fix: logic and display of the component of Profile;<br>
 fix: "save/cancel" buttons
 style: appearance of icons on editing
 chore: some minor edits in api.ts

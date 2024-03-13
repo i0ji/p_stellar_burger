@@ -8,7 +8,7 @@ import {checkResponse} from "utils/check-response.ts";
 import {IUserData, IRegisterUser} from "declarations/sliceInterfaces";
 import {TIngredientResponse, TUserLoginResponse, TApiResponse} from "declarations/types";
 import {IIngredient} from "declarations/interfaces";
-// import {IIngredient} from "declarations/interfaces";
+
 
 // --------------- REFRESH ---------------
 
