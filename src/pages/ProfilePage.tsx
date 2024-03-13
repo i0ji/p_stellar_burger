@@ -4,7 +4,7 @@ import {AppDispatch, TInputElementType} from "declarations/types";
 
 import {Link} from "react-router-dom";
 import {useForm} from "hooks/useForm.ts";
-import {useState, SetStateAction, useRef, useEffect} from 'react';
+import {useState, useRef, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import Loader from "components/common/Loader/Loader.tsx";
@@ -20,10 +20,15 @@ export default function ProfilePage() {
 	const dispatch = useDispatch<AppDispatch>();
 	const userData = useSelector((state: RootState) => state.authSlice.userData);
 	const refreshToken = localStorage.getItem('refreshToken');
-	const [showUpdateButtons, setShowUpdateButtons] = useState(false);
-	const [isEditing, setIsEditing] = useState(false);
-	const [editingField, setEditingField] = useState(null);
-	const [editedValues, setEditedValues] = useState({
+	const [showUpdateButtons, setShowUpdateButtons] = useState<boolean>(false);
+	const [isEditing, setIsEditing] = useState<boolean>(false);
+	const [editingField, setEditingField] = useState<string | null>(null);
+	const [editedValues, setEditedValues] = useState<{
+		name: string | null;
+		password: string | null;
+		email: string | null;
+	}>
+	({
 		name: null,
 		password: null,
 		email: null
@@ -66,13 +71,17 @@ export default function ProfilePage() {
 	}
 	//  --------------- SAVE DATA
 	const handleSave = async () => {
-		setEditedValues({...editedValues, [editingField] : values[editingField]});
-		dispatch(getUserData());
-		dispatch(updateUserData({[editingField]: values[editingField]}));
-		setEditingField(null);
-		setIsEditing(false);
-		setShowUpdateButtons(false);
+		if (editingField) {
+			const updatedValues = { ...editedValues, [editingField]: values[editingField] };
+			setEditedValues(updatedValues);
+			dispatch(getUserData());
+			dispatch(updateUserData({ [editingField]: values[editingField] }));
+			setEditingField(null);
+			setIsEditing(false);
+			setShowUpdateButtons(false);
+		}
 	};
+
 	//  --------------- CANCEL CHANGE
 	const handleCancel = () => {
 		setShowUpdateButtons(false);
@@ -137,7 +146,7 @@ export default function ProfilePage() {
                             errorText={'Ошибка'}
                             size={'default'}
                             extraClass="mb-6"
-                            value={(editingField === 'name') ? (values.name || '') : (editedValues.name || userData.name)}
+                            value={(editingField === 'name') ? (values.name || '') : (editedValues.name || userData.name) ?? ''}
                             onChange={handleChange}
                             onIconClick={() => handleEditIconClick('name')}
                             icon={(editingField == 'name') ? undefined : 'EditIcon'}
@@ -151,7 +160,7 @@ export default function ProfilePage() {
                             errorText={'Ошибка'}
                             size={'default'}
                             extraClass="mb-6"
-                            value={(editingField === 'email') ? (values.email || '') : (editedValues.email || userData.email)}
+                            value={(editingField === 'email') ? (values.email || '') : (editedValues.email || userData.email) ?? ''}
                             onChange={handleChange}
                             onIconClick={() => handleEditIconClick('email')}
                             icon={(editingField == 'email') ? undefined : 'EditIcon'}
@@ -165,7 +174,7 @@ export default function ProfilePage() {
                             errorText={'Ошибка'}
                             size={'default'}
                             extraClass="mb-6"
-                            value={(editingField == 'password') && values.password || ''}
+                            value={((editingField == 'password') && values.password || '') ?? ''}
                             onChange={handleChange}
                             onIconClick={() => handleEditIconClick('password')}
                             icon={(editingField == 'password') ? undefined : 'EditIcon'}

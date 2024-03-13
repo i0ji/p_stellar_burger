@@ -206,7 +206,7 @@ export const forgotPassword = createAsyncThunk(
 
 export const logoutUser = createAsyncThunk(
 	'auth/logoutUser',
-	async (refreshToken) => {
+	async (refreshToken: string | null) => {
 		const response = await fetch(`${BASE_URL}/auth/logout`, {
 			method: 'POST',
 			headers: {
