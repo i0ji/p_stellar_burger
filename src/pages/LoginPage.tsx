@@ -12,10 +12,11 @@ import {useForm} from "hooks/useForm.ts";
 import {IUserData} from "declarations/sliceInterfaces";
 import {IForm} from "declarations/interfaces";
 import {RootState} from "declarations/rootState.ts";
+import {AppDispatch} from "declarations/types";
 
 function LoginPage() {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const {values, handleChange} = useForm<IForm>({});
 
     // --------------- PWD VISIBILITY  ---------------

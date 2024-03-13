@@ -1,6 +1,6 @@
 import styles from "./Pages.module.scss";
 import {RootState} from "declarations/rootState.ts";
-import {TInputElementType} from "declarations/types";
+import {AppDispatch, TInputElementType} from "declarations/types";
 
 import {Link} from "react-router-dom";
 import {useForm} from "hooks/useForm.ts";
@@ -14,120 +14,120 @@ import {getUserData, updateUserData, logoutUser} from "utils/api.ts";
 import {IForm} from "declarations/interfaces";
 
 export default function ProfilePage() {
-
-    const isActive = location.pathname === '/profile'
-    const {values, handleChange, setValues} = useForm<IForm>({});
-    const dispatch = useDispatch();
-    const userData = useSelector((state: RootState) => state.authSlice.userData);
-    const refreshToken = localStorage.getItem('refreshToken');
-    const [showUpdateButtons, setShowUpdateButtons] = useState(false);
-    const [isEditing, setIsEditing] = useState(false);
-    const [editingField, setEditingField] = useState(null);
-    const [editedValues, setEditedValues] = useState({
-        name: null,
-        password: null,
-        email: null
-    });
-
-    const nameInputRef = useRef<TInputElementType>(null);
-    const emailInputRef = useRef<TInputElementType>(null);
-    const passwordInputRef = useRef<TInputElementType>(null);
-
-    useEffect(() => {
-        if (isEditing && editingField !== null) {
-            switch (editingField) {
-                case 'name':
-                    nameInputRef.current?.focus();
-                    break;
-                case 'email':
-                    emailInputRef.current?.focus();
-                    break;
-                case 'password':
-                    passwordInputRef.current?.focus();
-                    break;
-                default:
-                    break;
-            }
-        }
-    }, [isEditing, editingField]);
-
-    //  --------------- LOGOUT
-    const handleLogout = () => {
-        dispatch(logoutUser(refreshToken));
-    };
-    //  --------------- EDIT ---------------
-    const handleEditIconClick = (fieldName: SetStateAction<null>) => {
-        if (!isEditing) {
-            setEditingField(fieldName);
-            setIsEditing(true);
-            setValues({...values, [fieldName]: ''});
-        }
-        setShowUpdateButtons(true);
-    }
-    //  --------------- SAVE DATA
-    const handleSave = async () => {
-        setEditedValues({...editedValues, [editingField]: values[editingField]});
-        dispatch(getUserData());
-        dispatch(updateUserData({[editingField]: values[editingField]}));
-        setEditingField(null);
-        setIsEditing(false);
-        setShowUpdateButtons(false);
-    };
-    //  --------------- CANCEL CHANGE
-    const handleCancel = () => {
-        setShowUpdateButtons(false);
-        setTimeout(() => {
-            setEditingField(null);
-            setIsEditing(false);
-        }, 250);
-    };
-    //  --------------- LOADER
-    if (!userData) {
-        return <Loader/>;
-    }
-
-    return (
-        <section className={styles.profile_section}>
-            <div className={styles.profile_block}>
-                <div className={styles.profile_buttons}>
-                    <Link to='/profile' className='mb-10'>
-                        <Button
-                            extraClass={`text text_type_main-medium ${isActive ? styles.active : ''}`}
-                            htmlType="button"
-                            type="secondary"
-                            size="medium"
-                        >
-                            Профиль
-                        </Button>
-                    </Link>
-                    <Link
-                        to='/orders'
-                        className='mb-10'
-                    >
-                        <Button
-                            extraClass={`text text_type_main-medium`}
-                            htmlType="button"
-                            type="secondary"
-                            size="medium"
-                        >
-                            История заказов
-                        </Button>
-                    </Link>
-                    <Link to='/' className="mb-20">
-                        <Button
-                            extraClass={`text text_type_main-medium`}
-                            htmlType="button"
-                            type="secondary"
-                            size="medium"
-                            onClick={handleLogout}
-                        >
-                            Выход
-                        </Button>
-                    </Link>
-                    <p>В этом разделе вы можете изменить свои персональные данные</p>
-                </div>
-
-                {userData &&
+	
+	const isActive = location.pathname === '/profile'
+	const {values, handleChange, setValues} = useForm<IForm>({});
+	const dispatch = useDispatch<AppDispatch>();
+	const userData = useSelector((state: RootState) => state.authSlice.userData);
+	const refreshToken = localStorage.getItem('refreshToken');
+	const [showUpdateButtons, setShowUpdateButtons] = useState(false);
+	const [isEditing, setIsEditing] = useState(false);
+	const [editingField, setEditingField] = useState(null);
+	const [editedValues, setEditedValues] = useState({
+		name: null,
+		password: null,
+		email: null
+	});
+	
+	const nameInputRef = useRef<TInputElementType>(null);
+	const emailInputRef = useRef<TInputElementType>(null);
+	const passwordInputRef = useRef<TInputElementType>(null);
+	
+	useEffect(() => {
+		if (isEditing && editingField !== null) {
+			switch (editingField) {
+				case 'name':
+					nameInputRef.current?.focus();
+					break;
+				case 'email':
+					emailInputRef.current?.focus();
+					break;
+				case 'password':
+					passwordInputRef.current?.focus();
+					break;
+				default:
+					break;
+			}
+		}
+	}, [isEditing, editingField]);
+	
+	//  --------------- LOGOUT
+	const handleLogout = () => {
+		dispatch(logoutUser(refreshToken));
+	};
+	//  --------------- EDIT ---------------
+	const handleEditIconClick = (fieldName: string) => {
+		if (!isEditing) {
+			setEditingField(fieldName);
+			setIsEditing(true);
+			setValues({...values, [fieldName]: ''});
+		}
+		setShowUpdateButtons(true);
+	}
+	//  --------------- SAVE DATA
+	const handleSave = async () => {
+		setEditedValues({...editedValues, [editingField] : values[editingField]});
+		dispatch(getUserData());
+		dispatch(updateUserData({[editingField]: values[editingField]}));
+		setEditingField(null);
+		setIsEditing(false);
+		setShowUpdateButtons(false);
+	};
+	//  --------------- CANCEL CHANGE
+	const handleCancel = () => {
+		setShowUpdateButtons(false);
+		setTimeout(() => {
+			setEditingField(null);
+			setIsEditing(false);
+		}, 250);
+	};
+	//  --------------- LOADER
+	if (!userData) {
+		return <Loader/>;
+	}
+	
+	return (
+		<section className={styles.profile_section}>
+			<div className={styles.profile_block}>
+				<div className={styles.profile_buttons}>
+					<Link to='/profile' className='mb-10'>
+						<Button
+							extraClass={`text text_type_main-medium ${isActive ? styles.active : ''}`}
+							htmlType="button"
+							type="secondary"
+							size="medium"
+						>
+							Профиль
+						</Button>
+					</Link>
+					<Link
+						to='/orders'
+						className='mb-10'
+					>
+						<Button
+							extraClass={`text text_type_main-medium`}
+							htmlType="button"
+							type="secondary"
+							size="medium"
+						>
+							История заказов
+						</Button>
+					</Link>
+					<Link to='/' className="mb-20">
+						<Button
+							extraClass={`text text_type_main-medium`}
+							htmlType="button"
+							type="secondary"
+							size="medium"
+							onClick={handleLogout}
+						>
+							Выход
+						</Button>
+					</Link>
+					<p>В этом разделе вы можете изменить свои персональные данные</p>
+				</div>
+				
+				{userData &&
                     <form>
                         <Input
                             type={'text'}
@@ -171,30 +171,30 @@ export default function ProfilePage() {
                             icon={(editingField == 'password') ? undefined : 'EditIcon'}
                             ref={passwordInputRef}
                         />
-                        {isEditing && editingField && (
-                            <div
-                                className={`${styles.profile_update_button} ${showUpdateButtons ? styles.fadeIn : styles.fadeOut}`}>
-                                <Button
-                                    htmlType="button"
-                                    onClick={handleSave}
-                                    type="primary"
-                                    size="medium"
-                                >
-                                    Сохранить
-                                </Button>
-                                <Button
-                                    htmlType="button"
-                                    onClick={handleCancel}
-                                    type="secondary"
-                                    size="medium"
-                                >
-                                    Отмена
-                                </Button>
-                            </div>
-                        )}
+						{isEditing && editingField && (
+							<div
+								className={`${styles.profile_update_button} ${showUpdateButtons ? styles.fadeIn : styles.fadeOut}`}>
+								<Button
+									htmlType="button"
+									onClick={handleSave}
+									type="primary"
+									size="medium"
+								>
+									Сохранить
+								</Button>
+								<Button
+									htmlType="button"
+									onClick={handleCancel}
+									type="secondary"
+									size="medium"
+								>
+									Отмена
+								</Button>
+							</div>
+						)}
                     </form>
-                }
-            </div>
-        </section>
-    );
+				}
+			</div>
+		</section>
+	);
 }

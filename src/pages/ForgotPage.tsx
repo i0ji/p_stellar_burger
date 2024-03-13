@@ -9,12 +9,13 @@ import {forgotPassword} from "utils/api.ts"
 import {useForm} from "hooks/useForm.ts";
 import {useDispatch} from "react-redux";
 import {IForm} from "declarations/interfaces";
+import {AppDispatch} from "declarations/types";
 
 export default function ForgotPage() {
 
     const {values, handleChange} = useForm<IForm>({});
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
 
     const handleForgotPassword = async () => {

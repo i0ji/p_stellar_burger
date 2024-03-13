@@ -30,7 +30,6 @@ import {useCallback, useEffect} from "react";
 import {checkUserAuth, getUserData, getIngredients} from "utils/api.ts";
 import {AppDispatch} from "declarations/types";
 
-
 export default function App() {
 
     const navigate = useNavigate();
@@ -40,9 +39,7 @@ export default function App() {
   
     const ingredientsStatus = useSelector((state: RootState) => state.ingredients.status);
     const accessToken = localStorage.getItem('accessToken');
-
-
-
+    
     useEffect(() => {
         dispatch(getIngredients());
         dispatch(checkUserAuth());
@@ -54,8 +51,7 @@ export default function App() {
     // console.log('Access Token:', localStorage.getItem('accessToken'));
     // console.log(`User Auth: ${userAuth}`);
     // console.log(`Auth is checked: ${userAuthChecked}`);
-
-
+    
     const handleCloseModal = useCallback(() => {
         navigate(-1);
     }, [navigate]);

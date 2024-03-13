@@ -5,10 +5,10 @@ import {createOrder} from "utils/api.ts";
 export const orderSlice = createSlice({
     name: 'orderSlice',
     initialState: {
-        orderNumber: null,
+        orderNumber: null as number | null,
         IDs: [],
-        status: 'idle' || 'loading' || 'succeeded' || 'failed',
-        error: null,
+        status: 'idle',
+        error: null as string | null,
     },
     reducers: {
         updateIds: (state, action) => {

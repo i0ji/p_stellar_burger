@@ -18,11 +18,11 @@ import {useCallback, useEffect} from "react";
 import {useDrop} from "react-dnd";
 import useModal from "hooks/useModal.ts";
 import {createOrder} from "utils/api.ts";
+import {AppDispatch} from "declarations/types";
 
 export default function BurgerConstructor() {
 	
-	const dispatch = useDispatch();
-	
+	const dispatch = useDispatch<AppDispatch>();
 	
 	// --------------- STATES/VARS/CONSTANTS  ---------------
 	const {addedIngredients, bun} = useSelector((state: RootState) => state.constructorSlice);
@@ -101,8 +101,8 @@ export default function BurgerConstructor() {
 	
 	
 	// --------------- ORDER NUMBER LOGIC ---------------
-	const handleOrder = () => {
-		openModal;
+	const handleOrder = async (): Promise<void> => {
+		await openModal();
 		const orderNumber = dispatch(createOrder(ingredientIDs));
 		dispatch(updateOrderNumber(orderNumber.payload));
 	}
@@ -188,7 +188,7 @@ export default function BurgerConstructor() {
                     <Loader/>
 				}
 				
-				{isLoaded === 'failed' && <WarningMessage/>}
+				{isLoaded === 'failed' && <WarningMessage onClose={closeModal}/>}
 				
 				
 				{(isLoaded === 'succeeded') && isVisible &&
