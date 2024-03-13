@@ -8,7 +8,6 @@ import {RootState} from "declarations/rootState.ts";
 
 import {ConstructorElement, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import CurrentIngredients from "components/BurgerConstructor/CurrentIngredients/CurrentIngredients.tsx";
-import Modal from "components/common/Modal/Modal.tsx";
 import OrderDetails from "components/common/Modal/OrderDetails/OrderDetails.tsx";
 import Loader from "components/common/Loader/Loader.tsx";
 import WarningMessage from "components/common/WarningMessage/WarningMessage.tsx";
@@ -21,184 +20,184 @@ import {createOrder} from "utils/api.ts";
 import {AppDispatch} from "declarations/types";
 
 export default function BurgerConstructor() {
-	
-	const dispatch = useDispatch<AppDispatch>();
-	
-	// --------------- STATES/VARS/CONSTANTS  ---------------
-	const {addedIngredients, bun} = useSelector((state: RootState) => state.constructorSlice);
-	// --------------- PRELOADER CONSTANTS
-	const isLoaded = useSelector((state: RootState) => state.orderSlice.status);
-	const hasError = useSelector((state: RootState) => state.orderSlice.error);
-	// --------------- CURRENT IDS
-	const ingredientIDs = useSelector((state: RootState) => state.constructorSlice.addedIngredients).map((elem: IIngredient) => elem._id);
-	const bunIDs = useSelector((state: RootState) => state.constructorSlice.bun);
-	// --------------- MODAL
-	const {isVisible, openModal, closeModal} = useModal();
-	// --------------- TOTAL AMOUNT
-	const totalAmount = useSelector((state: RootState) => state.constructorSlice.totalAmount);
-	// --------------- BUNS STATE
-	const isBun = useSelector((state: RootState) => state.constructorSlice.bun);
-	//--------------- AUTH STATE
-	const isAuth = useSelector((state: RootState) => state.authSlice.isAuth);
-	
-	
-	// --------------- CURRENT ID ---------------
-	
-	if (bunIDs) {
-		ingredientIDs.push(bunIDs._id)
-	}
-	useEffect(() => {
-		dispatch(updateIds(ingredientIDs));
-	}, [dispatch, addedIngredients, ingredientIDs]);
-	
-	
-	// --------------- DROP LOGIC ---------------
-	
-	const [, dropIngredients] = useDrop({
-		accept: ['bun', 'ingredient'],
-		drop: (item: IIngredient) => {
-			dispatch(addIngredient(item));
-		}
-	});
-	
-	const moveIngredient = useCallback((dragIndex: number, hoverIndex: number) => {
-		dispatch(reorderIngredients({dragIndex, hoverIndex}));
-	}, [dispatch]);
-	
-	const renderIngredients =
-		(ingredient: IIngredient, index: number) => {
-			return (
-				<CurrentIngredients
-					key={ingredient.id}
-					ingredient={ingredient}
-					index={index}
-					moveIngredient={moveIngredient}
-				/>
-			)
-		}
-	
-	
-	// --------------- PREVENT FROM ORDER ---------------
-	
-	const preventOrderState = isAuth && Boolean(isBun) && Boolean(addedIngredients.length);
-	
-	
-	// --------------- INITIAL BUN ---------------
-	
-	const InitialBun = ({pos}: { pos: "top" | "bottom" | undefined }) => {
-		
-		return (
-			<ConstructorElement
-				extraClass={styles.constructor_item_initial_bun}
-				text={'Перетащите сюда булочку'}
-				type={pos}
-				isLocked={true}
-				thumbnail={awaitSpinner}
-				price={0}
-			/>
-		)
-	}
-	
-	
-	// --------------- ORDER NUMBER LOGIC ---------------
-	const handleOrder = async (): Promise<void> => {
-		await openModal();
-		const orderNumber = dispatch(createOrder(ingredientIDs));
-		dispatch(updateOrderNumber(orderNumber.payload));
-	}
-	
-	return (
-		<section
-			className={styles.constructor_block}
-		>
-			<div
-				className={`${styles.constructor_list} mb-10`}
-				ref={dropIngredients}
-			>
-				
-				
-				{/* --------------- TOP BUN --------------- */}
-				
-				{!isBun ? <InitialBun pos={"top"}/> :
-					<div className={styles.constructor_order_item}>
-						{bun && (
-							<ConstructorElement
-								extraClass={`${styles.constructor_item_top}`}
-								type="top"
-								isLocked={true}
-								text={`${bun.name} (верх)`}
-								price={bun.price ?? 0}
-								thumbnail={bun.image || ''}
-							/>
-						)}
-					</div>}
-				
-				
-				{/* --------------- INNER INGREDIENTS --------------- */}
-				
-				<div
-					className={styles.constructor_order}
-					style={{
-						scrollbarWidth: (addedIngredients.length > 3) ? 'inherit' : 'none',
-						width: (addedIngredients.length > 3) ? '100%' : '97%',
-					}}
-				>
-					{addedIngredients.map((ingredient: IIngredient, index: number) => (
-						renderIngredients(ingredient, index)
-					))}
-				</div>
-				
-				
-				{/* --------------- BOTTOM BUN --------------- */}
-				
-				{!isBun ? <InitialBun pos={'bottom'}/> :
-					<div className={styles.constructor_order_item}>
-						{bun && (
-							<ConstructorElement
-								extraClass={`${styles.constructor_item_bottom}`}
-								type="bottom"
-								isLocked={true}
-								text={`${bun.name} (низ)`}
-								price={bun.price ?? 0}
-								thumbnail={bun.image || ''}
-							/>
-						)}
-					</div>}
-				
-				
-				{/* --------------- PRICE --------------- */}
-				
-				<div className={`mt-4 ${styles.price_info}`}>
-					<h1 className="text text_type_digits-medium pr-3">{totalAmount}</h1>
-					<CurrencyIcon type="primary"/>
-					<Button
-						disabled={!preventOrderState}
-						extraClass="ml-3"
-						size="large"
-						type="primary"
-						htmlType="button"
-						onClick={handleOrder}
-					>Оформить заказ</Button>
-				</div>
-				
-				
-				{/* -------------- MODAL + PRELOADER --------------- */}
-				
-				{(isLoaded === 'loading') && !hasError &&
+
+    const dispatch = useDispatch<AppDispatch>();
+
+    // --------------- STATES/VARS/CONSTANTS  ---------------
+    const {addedIngredients, bun} = useSelector((state: RootState) => state.constructorSlice);
+    // --------------- PRELOADER CONSTANTS
+    const isLoaded = useSelector((state: RootState) => state.orderSlice.status);
+    const hasError = useSelector((state: RootState) => state.orderSlice.error);
+    // --------------- CURRENT IDS
+    const ingredientIDs = useSelector((state: RootState) => state.constructorSlice.addedIngredients).map((elem: IIngredient) => elem._id);
+    const bunIDs = useSelector((state: RootState) => state.constructorSlice.bun);
+    // --------------- MODAL
+    const {isVisible, openModal, closeModal} = useModal();
+    // --------------- TOTAL AMOUNT
+    const totalAmount = useSelector((state: RootState) => state.constructorSlice.totalAmount);
+    // --------------- BUNS STATE
+    const isBun = useSelector((state: RootState) => state.constructorSlice.bun);
+    //--------------- AUTH STATE
+    const isAuth = useSelector((state: RootState) => state.authSlice.isAuth);
+
+
+    // --------------- CURRENT ID ---------------
+
+    if (bunIDs) {
+        ingredientIDs.push(bunIDs._id)
+    }
+    useEffect(() => {
+        dispatch(updateIds(ingredientIDs));
+    }, [dispatch, addedIngredients, ingredientIDs]);
+
+
+    // --------------- DROP LOGIC ---------------
+
+    const [, dropIngredients] = useDrop({
+        accept: ['bun', 'ingredient'],
+        drop: (item: IIngredient) => {
+            dispatch(addIngredient(item));
+        }
+    });
+
+    const moveIngredient = useCallback((dragIndex: number, hoverIndex: number) => {
+        dispatch(reorderIngredients({dragIndex, hoverIndex}));
+    }, [dispatch]);
+
+    const renderIngredients =
+        (ingredient: IIngredient, index: number) => {
+            return (
+                <CurrentIngredients
+                    key={ingredient.id}
+                    ingredient={ingredient}
+                    index={index}
+                    moveIngredient={moveIngredient}
+                />
+            )
+        }
+
+
+    // --------------- PREVENT FROM ORDER ---------------
+
+    const preventOrderState = isAuth && Boolean(isBun) && Boolean(addedIngredients.length);
+
+
+    // --------------- INITIAL BUN ---------------
+
+    const InitialBun = ({pos}: { pos: "top" | "bottom" | undefined }) => {
+
+        return (
+            <ConstructorElement
+                extraClass={styles.constructor_item_initial_bun}
+                text={'Перетащите сюда булочку'}
+                type={pos}
+                isLocked={true}
+                thumbnail={awaitSpinner}
+                price={0}
+            />
+        )
+    }
+
+
+    // --------------- ORDER NUMBER LOGIC ---------------
+    const handleOrder = async (): Promise<void> => {
+        await openModal();
+        const orderNumber = dispatch(createOrder(ingredientIDs));
+        dispatch(updateOrderNumber(orderNumber.payload));
+    }
+
+    return (
+        <section
+            className={styles.constructor_block}
+        >
+            <div
+                className={`${styles.constructor_list} mb-10`}
+                ref={dropIngredients}
+            >
+
+
+                {/* --------------- TOP BUN --------------- */}
+
+                {!isBun ? <InitialBun pos={"top"}/> :
+                    <div className={styles.constructor_order_item}>
+                        {bun && (
+                            <ConstructorElement
+                                extraClass={`${styles.constructor_item_top}`}
+                                type="top"
+                                isLocked={true}
+                                text={`${bun.name} (верх)`}
+                                price={bun.price ?? 0}
+                                thumbnail={bun.image || ''}
+                            />
+                        )}
+                    </div>}
+
+
+                {/* --------------- INNER INGREDIENTS --------------- */}
+
+                <div
+                    className={styles.constructor_order}
+                    style={{
+                        scrollbarWidth: (addedIngredients.length > 3) ? 'inherit' : 'none',
+                        width: (addedIngredients.length > 3) ? '100%' : '97%',
+                    }}
+                >
+                    {addedIngredients.map((ingredient: IIngredient, index: number) => (
+                        renderIngredients(ingredient, index)
+                    ))}
+                </div>
+
+
+                {/* --------------- BOTTOM BUN --------------- */}
+
+                {!isBun ? <InitialBun pos={'bottom'}/> :
+                    <div className={styles.constructor_order_item}>
+                        {bun && (
+                            <ConstructorElement
+                                extraClass={`${styles.constructor_item_bottom}`}
+                                type="bottom"
+                                isLocked={true}
+                                text={`${bun.name} (низ)`}
+                                price={bun.price ?? 0}
+                                thumbnail={bun.image || ''}
+                            />
+                        )}
+                    </div>}
+
+
+                {/* --------------- PRICE --------------- */}
+
+                <div className={`mt-4 ${styles.price_info}`}>
+                    <h1 className="text text_type_digits-medium pr-3">{totalAmount}</h1>
+                    <CurrencyIcon type="primary"/>
+                    <Button
+                        disabled={!preventOrderState}
+                        extraClass="ml-3"
+                        size="large"
+                        type="primary"
+                        htmlType="button"
+                        onClick={handleOrder}
+                    >Оформить заказ</Button>
+                </div>
+
+
+                {/* -------------- MODAL + PRELOADER --------------- */}
+
+                {(isLoaded === 'loading') && !hasError &&
                     <Loader/>
-				}
-				
-				{isLoaded === 'failed' && <WarningMessage onClose={closeModal}/>}
-				
-				
-				{(isLoaded === 'succeeded') && isVisible &&
+                }
+
+                {isLoaded === 'failed' && <WarningMessage onClose={closeModal}/>}
+
+
+                {(isLoaded === 'succeeded') && isVisible &&
                     <>
-                        <Modal onClose={closeModal}>
-                            <OrderDetails/>
-                        </Modal>
+
+                        <OrderDetails onClose={closeModal}/>
+
                     </>
-				}
-			</div>
-		</section>
-	)
+                }
+            </div>
+        </section>
+    )
 }

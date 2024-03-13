@@ -14,7 +14,6 @@ import {
     IngredientDetails,
     ResetPage,
     SuccessPage,
-    Warning,
     OrdersPage
 } from "./pages";
 
@@ -69,7 +68,6 @@ export default function App() {
                 <Route path="/" element={<HomePage/>}/>
                 <Route path="/ingredient/:id" element={<IngredientDetails/>}/>
                 <Route path="*" element={<NotFound404/>}/>
-                <Route path="/warning" element={<Warning/>}/>
                 <Route path="/reset-password" element={<ResetPage/>}/>
                 <Route path="/reset-success" element={<SuccessPage/>}/>
 

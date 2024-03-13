@@ -20,15 +20,13 @@ export default function Modal({onClose, children}: {
     // --------------- CLOSING LOGIC ---------------
 
     useEffect(() => {
-        setTimeout(() => {
             const closeOnEscapeKey = (e: KeyboardEvent) => {
                 if (onClose) (e.key === "Escape" ? onClose() : null);
-            }
+            };
             document.body.addEventListener("keydown", closeOnEscapeKey);
             return () => {
                 document.body.removeEventListener("keydown", closeOnEscapeKey);
             };
-        }, 250);
 
     }, [onClose]);
 
