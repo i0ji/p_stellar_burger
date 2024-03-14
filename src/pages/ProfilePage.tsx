@@ -7,7 +7,7 @@ import {useForm} from "hooks/useForm.ts";
 import {useState, useRef, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-import Loader from "components/common/Loader/Loader.tsx";
+import Loader from "common/Loader/Loader.tsx";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {getUserData, updateUserData, logoutUser} from "utils/api.ts";

@@ -1,7 +1,7 @@
 import styles from "./HomePageStyles.module.scss"
 import {IBurgerState} from "declarations/sliceInterfaces";
 
-import Loader from "components/common/Loader/Loader.tsx";
+import Loader from "common/Loader/Loader.tsx";
 import BurgerIngredients from "components/BurgerIngredients/BurgerIngredients.tsx";
 import BurgerConstructor from "components/BurgerConstructor/BurgerConstructor.tsx";
 

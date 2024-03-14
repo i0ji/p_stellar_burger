@@ -28,6 +28,7 @@
       "store/*": ["store/*"],
       "components/*" : ["components/*"],
       "pages/*" : ["pages/*"],
+      "common/*": ["components/common/*"],
 
       /* ------ MODAL */
       "modal/*": ["components/Modal/*"],

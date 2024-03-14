@@ -1,7 +1,7 @@
 import React from "react";
 import {useSelector} from "react-redux";
 import {Navigate, useLocation} from "react-router-dom";
-import Loader from "components/common/Loader/Loader.tsx";
+import Loader from "common/Loader/Loader.tsx";
 import {RootState} from "declarations/rootState.ts";
 
 export const ProtectedRoute = ({unAuth = false, component}: { unAuth: boolean, component: React.ReactNode }) => {

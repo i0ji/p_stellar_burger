@@ -17,10 +17,10 @@ import {
     OrdersPage
 } from "./pages";
 
-import {ProtectedRoute} from "components/common/ProtectedRoute/ProtectedRoute.tsx"
+import {ProtectedRoute} from "common/ProtectedRoute/ProtectedRoute.tsx"
 
-import Modal from "components/common/Modal/Modal.tsx";
-import Loader from "components/common/Loader/Loader.tsx";
+import Modal from "common/Modal/Modal.tsx";
+import Loader from "common/Loader/Loader.tsx";
 
 import {useDispatch, useSelector} from "react-redux";
 import {useLocation} from "react-router-dom";
