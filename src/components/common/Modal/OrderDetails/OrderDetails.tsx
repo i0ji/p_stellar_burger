@@ -1,13 +1,15 @@
 import styles from "./OrderDetailsStyles.module.scss";
 import done from "images/Modal/done.gif"
 import {useSelector} from "react-redux";
+import {RootState} from "declarations/rootState.ts";
+import Modal from "common/Modal/Modal.tsx";
 
-export default function OrderDetails() {
+export default function OrderDetails({onClose}:{onClose:()=>void}) {
 	
-	const orderNumber = useSelector(state => state.orderSlice.orderNumber)
-	
+	const orderNumber = useSelector((state: RootState) => state.orderSlice.orderNumber)
+
 	return (
-		<>
+		<Modal onClose={onClose}>
 			<div className={styles.orders_modal}>
 				<h1 className='text text_type_digits-large mb-8'>{orderNumber}</h1>
 				<p className='text text_type_main-medium mb-15'>идентификатор заказа</p>
@@ -20,6 +22,6 @@ export default function OrderDetails() {
 					<p className='text text_type_main-default'>Дождитесь готовности на орбитальной станции</p>
 				</div>
 			</div>
-		</>
+		</Modal>
 	)
 }

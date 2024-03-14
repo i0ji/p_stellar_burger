@@ -1,15 +1,16 @@
 import styles from "./ModalStyles.module.scss"
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
-import {RootState} from "interfaces/rootState.ts";
+import {RootState} from "declarations/rootState.ts";
 
 import {useSelector} from "react-redux";
 import React, {useEffect} from "react";
 
 export default function Modal({onClose, children}: {
-    onClose?: () => void,
+    onClose: () => void,
     children: React.ReactNode,
 }) {
+
 
     // --------------- ERROR CHECK ---------------
 
@@ -19,17 +20,13 @@ export default function Modal({onClose, children}: {
     // --------------- CLOSING LOGIC ---------------
 
     useEffect(() => {
-        setTimeout(() => {
             const closeOnEscapeKey = (e: KeyboardEvent) => {
                 if (onClose) (e.key === "Escape" ? onClose() : null);
-            }
-
+            };
             document.body.addEventListener("keydown", closeOnEscapeKey);
-
             return () => {
                 document.body.removeEventListener("keydown", closeOnEscapeKey);
             };
-        }, 250);
 
     }, [onClose]);
 
@@ -51,7 +48,6 @@ export default function Modal({onClose, children}: {
                 </div>
                 {children}
             </div>
-
         </>
     )
 }

@@ -28,7 +28,7 @@
       "store/*": ["store/*"],
       "components/*" : ["components/*"],
       "pages/*" : ["pages/*"],
-      "data/*": ["data/*"],
+      "common/*": ["components/common/*"],
 
       /* ------ MODAL */
       "modal/*": ["components/Modal/*"],
@@ -40,17 +40,12 @@
       "styles/*": ["styles/*"],
       "images/*": ["images/*"],
 
-      /* ------ CONSTANTS */
-      "declarations": ["declarations/*"],
-      "constants": ["declarations/constants/*"],
-
       /* ------ UTILS/SERVICES */
       "utils/*": ["utils/*"],
       "interfaces/*": ["utils/interfaces/*"],
       "services/*": ["services/*"],
-      "actions/*": ["services/actions/*"],
-      "reducers/*": ["services/reducers/*"],
       "slices/*": ["services/slices/*"],
+      "declarations/*": ["declarations/*"]
     }
   },
   "include": ["src"],

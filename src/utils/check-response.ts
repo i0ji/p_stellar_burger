@@ -1,6 +1,3 @@
-export function checkResponse(response: Response) {
-    if (!response.ok) {
-        throw new Error('Кое-чего случилось...');
-    }
-    return response.json();
+export const checkResponse = <T>(res: Response): Promise<T> => {
+    return res.ok ? res.json() : res.json().then(err => Promise.reject(err));
 }

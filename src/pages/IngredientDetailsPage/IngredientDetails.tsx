@@ -1,12 +1,9 @@
 import styles from "pages/IngredientDetailsPage/IngredientDetailsStyles.module.scss";
 import {useSelector} from "react-redux";
 import {useParams, useLocation} from "react-router-dom";
-import {IIngredient} from "interfaces/interfaces";
-import {IBurgerState} from "interfaces/sliceInterfaces";
-import Loader from "components/common/Loader/Loader.tsx";
-import burgerBuilderStyles from "pages/HomePage/HomePageStyles.module.scss";
-import {useState} from "react";
-
+import {IIngredient} from "declarations/interfaces";
+import {IBurgerState} from "declarations/sliceInterfaces";
+import Loader from "common/Loader/Loader.tsx";
 
 export default function IngredientDetails() {
 

@@ -3,22 +3,21 @@ import styles from "pages/Pages.module.scss"
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
-import React, {Fragment, useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
-import {getUser} from "utils/api.ts";
+import {loginUser} from "utils/api.ts";
 import {useForm} from "hooks/useForm.ts";
-import {IUserData} from "interfaces/sliceInterfaces";
-import {RootState} from "interfaces/rootState.ts";
+import {IUserData} from "declarations/sliceInterfaces";
+import {IForm} from "declarations/interfaces";
+import {RootState} from "declarations/rootState.ts";
+import {AppDispatch} from "declarations/types";
 
 function LoginPage() {
 
-    const dispatch = useDispatch();
-    const {values, handleChange} = useForm({});
-    const authState = useSelector((state: RootState) => state.authSlice);
-    const [errorMessage, setErrorMessage] = useState('')
-
+    const dispatch = useDispatch<AppDispatch>();
+    const {values, handleChange} = useForm<IForm>({});
 
     // --------------- PWD VISIBILITY  ---------------
 
@@ -27,20 +26,26 @@ function LoginPage() {
         setIsPasswordShow(!isPasswordShow);
     };
 
+    // --------------- ERROR MESSAGE ---------------
+    const loginError = useSelector((state: RootState) => state.authSlice.loginError);
+    console.log(loginError)
     const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
         const userData: IUserData = {
             email: values.email,
             password: values.password,
         };
-        dispatch(getUser(userData));
+
+        console.log('+++++++++++before login')
+        console.log(loginError)
+        dispatch(loginUser(userData));
+        console.log('after login +++++++++++++++')
+        console.log(loginError)
     };
 
     return (
         <section className={styles.section}>
             <form onSubmit={handleLogin}>
-                <Fragment></Fragment>
                 <h1 className="text text text_type_main-medium pb-6">Вход</h1>
                 <Input
                     onChange={handleChange}
@@ -68,11 +73,11 @@ function LoginPage() {
                     onIconClick={togglePasswordVisibility}
                 />
                 {
-                    errorMessage && <p
+                    loginError && <p
                         className="pb-6"
                         style={{color: '#b90101'}}
                     >
-                        Ошибка {errorMessage}. Попробуйте ещё раз.
+                        Ошибка. Попробуйте ещё раз.
                     </p>
                 }
                 <Button

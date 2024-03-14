@@ -6,25 +6,27 @@ import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {registerUser} from "utils/api.ts";
 
-import {useState} from "react";
+import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import {useForm} from "hooks/useForm.ts";
+import {IForm} from "declarations/interfaces";
+import {AppDispatch} from "declarations/types";
 
 export default function RegisterPage() {
 
-    const dispatch = useDispatch();
-    const {values, handleChange} = useForm({});
+    const dispatch = useDispatch<AppDispatch>();
+    const {values, handleChange} = useForm<IForm>({});
     const [isPasswordShow, setIsPasswordShow] = useState(false);
+    const isFormEmpty = !values.email || !values.password || !values.name;
 
-
-    // --------------- PWD VISIBILITY  ---------------
+    // --------------- PWD VISIBILITY
     const togglePasswordVisibility = () => {
         setIsPasswordShow(!isPasswordShow);
     };
-
-    const handleRegister = (e) => {
+    // --------------- REGISTER
+    const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch(registerUser(values))
+        dispatch(registerUser(values));
     }
 
     return (
@@ -71,6 +73,7 @@ export default function RegisterPage() {
                     extraClass="mb-6"
                 />
                 <Button
+                    disabled={isFormEmpty}
                     htmlType="submit"
                     extraClass="mb-20"
                     type="primary">

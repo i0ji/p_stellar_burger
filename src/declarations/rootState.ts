@@ -1,4 +1,4 @@
-import {ICurrentIngredientSlice, IIngredientsListSlice, IConstructorSlice, IAuthSlice, IOrderSlice} from "interfaces/sliceInterfaces";
+import {ICurrentIngredientSlice, IIngredientsListSlice, IConstructorSlice, IAuthSlice, IOrderSlice} from "declarations/sliceInterfaces";
 
 export interface RootState {
     ingredients: IIngredientsListSlice;

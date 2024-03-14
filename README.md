@@ -1,6 +1,6 @@
 <h1>First sprint</h1>
 <h3>16.01-28.01</h3>
-19.01.24 <b>b</b>:main/0.0.1:
+<b>b</b>:main <b>v:</b>0.0.1<br>
 yarn/vite/react-ts/sass/git empty proj init;
 
 20.01.24:
@@ -22,8 +22,8 @@ Following the checklist and technical specifications of the first sprint:<br>
 
 <h1>Second sprint</h1>
 <h3>29.01-11.02</h3>
-30.01.24: <b>b:</b>sprint2/step-1
-<b>v:</b> 0.1.6.1: started Context and theory tasks;<br>
+<b>b:</b>sprint2/step-1
+<b>v:</b> 0.1.6.1<br>
 
 Style and code edits:
 
@@ -50,12 +50,39 @@ REQUEST sent</b>;<br>
 14.02.24 **b**:sprint2/step-2/**v**: 0.1.6.7.1: Added checkResponse method to my orderNumber request;
 _______ **b**:sprint2/step-2/**v**: 0.1.7.1: Fixing type issues; edits based on reviewers' comments; added preloader and
 a error message common components wrapped by modalOverlay and set it logic;<br>
+15.02.24: **b**:sprint2/step-2/**v**:0.1.7.2: general settings and code maintenance;
+16.02.24: **b**:sprint2/step-2/**v**:0.1.7.2: initial top/bottom bun refactored;
 
 <h1>Third sprint</h1>
-<h3>12.02-25.02</h3>
-<b>b:sprint3/step-1<br>
-v:1.7.0</b>
+<h3>16.02-06.03</h3>
+<b>b:</b>sprint3/step-1 <b>v: </b> 0.1.7.1
+<br>
 
-14.02.24 **b**:sprint3/step-1/**v**: 0.1.7.1
-15.02.24 
+Global project features:
+
+* React-router added;
+* Multiply small edits of style, small features, objects displaying; 
+* Refactored Ingredients-modal separate window with its own routing;
+* Added auth and user check states;
+* Added certain slice for auth and actions with user data;
+* Register/logout/login/refresh/reset and forgot password functions added;
+
+19.02.24: **b**:sprint3/step-1/**v**:0.1.8.0: React-router added, routing logic started, minor style changes;<br>
+20.02.24: **b**:sprint2/step-2/**v**:0.1.8.0.1: refactor router folders, style edits;<br>
+21.02.24: **b**:sprint2/step-2/**v**:0.1.8.0.2: styling NavLinks and modal routing;<br>
+22.02.24: **b**:sprint2/step-2/**v**:0.1.8.2: setting ingredients modal, style changes, styling NavLinks;<br>
+23.02.24: **b**:sprint2/step-2/**v**:0.1.8.0.3: refactoring modal and ingredients pages;<br>
+24.02.24: **b**:sprint2/step-2/**v**:0.1.8.0.3: attempts of animating enter and exit components;<br>
+25.02.24: **b**:sprint2/step-2/**v**:0.1.8.1: reset/register/get tokens utils, loading page refactor;<br>
+26.02.24: **b**:sprint2/step-2/**v**:0.1.8.2: get two tokens;auth logic;custom hook for forms, start ProtectedRoute;<br>
+27.02.24: **b**:sprint2/step-2/**v**:0.1.8.3: feature: auth, protected, statement, login and logout logic, useForm;<br>
+28.02.24: **b**:sprint2/step-2/**v**:0.1.8.4: feature: setAuthCheck rework; routing rework, types declaration, handleRegister; ProtectedRoute logic;<br>
+01.03.24 **b**:sprint2/step-2/**v**:0.1.8.5.1: Register checked;<br>
+02.03.24 **b**:sprint2/step-2/**v**:0.1.8.5.1: feature:added wight route from login to '/' after enter, feature:added password hide/show logic, in progress: auth/login/logout/reset logic<br>
+03.03.24 **b**:sprint2/step-2/**v**:0.1.8.5.1: Register checked;<br>
+04.03.24 **b**:sprint2/step-2/**v**:0.1.8.5.1: global: yarn updated, fix: logic and display of the component of Profile;<br>
+fix: "save/cancel" buttons
+style: appearance of icons on editing
+chore: some minor edits in api.ts
+
 

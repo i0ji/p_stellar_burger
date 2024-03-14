@@ -8,37 +8,27 @@ import {forgotPassword} from "utils/api.ts"
 
 import {useForm} from "hooks/useForm.ts";
 import {useDispatch} from "react-redux";
+import {IForm} from "declarations/interfaces";
+import {AppDispatch} from "declarations/types";
 
 export default function ForgotPage() {
 
+    const {values, handleChange} = useForm<IForm>({});
 
-    const {values, handleChange} = useForm({});
-
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
 
     const handleForgotPassword = async () => {
-        try {
-            const action = await dispatch(forgotPassword(values.email));
-            const response = action.payload;
-
-            console.log(`Ответ: ${response.message}`);
-            console.log(`Ответ: ${response.success}`);
-
-            if (response.success) {
-                navigate('/reset-password');
-            }
-
-        } catch (error) {
-            console.error('Ошибка восстановления пароля:', error);
-        }
+        const action = dispatch(forgotPassword(values.email));
+        navigate('/reset-password');
+        return  action.payload;
     }
 
     return (
         <section className={styles.section}>
             <form onSubmit={(e) => {
                 e.preventDefault();
-                handleForgotPassword();
+                void handleForgotPassword();
             }}>
                 <h1 className="text text text_type_main-medium pb-6">Восстановить пароль</h1>
                 <Input

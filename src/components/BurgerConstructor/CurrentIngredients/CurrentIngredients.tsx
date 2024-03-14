@@ -1,11 +1,10 @@
 import CurrentIngredientsStyles from "./CurrentIngredientsStyles.module.scss"
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {IIngredient, IDragItem} from "interfaces/interfaces";
+import {IIngredient, IDragItem} from "declarations/interfaces";
 import {useDispatch} from "react-redux";
 import {removeIngredient} from "slices/constructorSlice.ts";
 import {useRef} from "react";
-import {useDrag, useDrop} from "react-dnd";
-
+import {useDrag, useDrop, DragSourceMonitor, DropTargetMonitor} from "react-dnd";
 
 export default function CurrentIngredients({ingredient, index, moveIngredient}: {
 	ingredient: IIngredient,
@@ -16,7 +15,7 @@ export default function CurrentIngredients({ingredient, index, moveIngredient}: 
 	const ref = useRef<HTMLDivElement>(null)
 	
 	const dispatch = useDispatch();
-	const handleRemoveIngredient = (id: number) => {
+	const handleRemoveIngredient = (id: string) => {
 		console.log(id)
 		dispatch(removeIngredient(id));
 	}
@@ -43,17 +42,17 @@ export default function CurrentIngredients({ingredient, index, moveIngredient}: 
 		},
 	} as {
 		accept: string,
-		collect: (monitor: any) => { handlerId: string },
-		hover: (item: IDragItem, monitor: any) => void
+		collect: (monitor: DropTargetMonitor) => { handlerId: string },
+		hover: (item: IDragItem, monitor: DropTargetMonitor) => void
 	})
 	
 	const [{isDragging}, drag] = useDrag({
 		type: 'ingredients',
 		item: () => ({
-			id: ingredient.id,
+			id: ingredient._id,
 			index,
 		}),
-		collect: (monitor: any) => ({
+		collect: (monitor: DragSourceMonitor) => ({
 			isDragging: monitor.isDragging(),
 		}),
 	});
@@ -71,7 +70,9 @@ export default function CurrentIngredients({ingredient, index, moveIngredient}: 
 				text={ingredient.name}
 				price={ingredient.price || 0}
 				thumbnail={ingredient.image || ''}
-				handleClose={() => handleRemoveIngredient(ingredient.id || '')}
+				handleClose={
+					ingredient._id !== undefined ? () => handleRemoveIngredient(ingredient._id!) : undefined
+				}
 			/>
 		</div>
 	);
