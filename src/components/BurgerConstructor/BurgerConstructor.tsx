@@ -15,11 +15,10 @@ import WarningMessage from "common/WarningMessage/WarningMessage.tsx";
 import Tooltip from "common/Tooltip/Tooltip.tsx";
 
 import {useDispatch, useSelector} from "react-redux";
-import {useCallback, useEffect} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useDrop} from "react-dnd";
 import useModal from "hooks/useModal.ts";
 import {createOrder} from "utils/api.ts";
-
 
 export default function BurgerConstructor() {
 	
@@ -84,7 +83,6 @@ export default function BurgerConstructor() {
 	const preventOrderState = isAuth && Boolean(isBun) && Boolean(addedIngredients.length);
 	
 	
-	
 	// --------------- INITIAL BUN ---------------
 	
 	const InitialBun = ({pos}: { pos: "top" | "bottom" | undefined }) => {
@@ -109,6 +107,17 @@ export default function BurgerConstructor() {
 		const orderNumber = dispatch(createOrder(ingredientIDs));
 		dispatch(updateOrderNumber(orderNumber.payload));
 	}
+	
+	
+	// --------------- TOGGLE TOOLTIP ---------------
+	
+	
+	const [showTooltip, setShowTooltip] = useState(false);
+	
+	const toggleTooltip = () => {
+		!preventOrderState ? setShowTooltip(!showTooltip) : false;
+	}
+	
 	
 	return (
 		<section
@@ -152,7 +161,6 @@ export default function BurgerConstructor() {
 				</div>
 				
 				
-				
 				{/* --------------- BOTTOM BUN --------------- */}
 				
 				{!isBun ? <InitialBun pos={'bottom'}/> :
@@ -175,15 +183,26 @@ export default function BurgerConstructor() {
 				<div className={`mt-4 ${styles.price_info}`}>
 					<h1 className="text text_type_digits-medium pr-3">{totalAmount}</h1>
 					<CurrencyIcon type="primary"/>
-					<Tooltip type={'Необходимо&nbsp;авторизоваться'}/>
-					<Button
-						disabled={!preventOrderState}
-						extraClass="ml-3"
-						size="large"
-						type="primary"
-						htmlType="button"
-						onClick={handleOrder}
-					>Оформить заказ</Button>
+					
+					<div
+						onMouseLeave={toggleTooltip}
+						onMouseEnter={toggleTooltip}
+					>
+						<Button
+							disabled={!preventOrderState}
+							extraClass="ml-3"
+							size="large"
+							type="primary"
+							htmlType="button"
+							onClick={handleOrder}
+						>Оформить заказ</Button>
+					</div>
+					{
+						showTooltip && <Tooltip
+                            showTooltip={showTooltip}
+                            itemName={'Необходимо авторизоваться'}
+                        />
+					}
 				</div>
 				
 				
@@ -193,10 +212,10 @@ export default function BurgerConstructor() {
 				
 				{isLoaded === 'failed' && <WarningMessage onClose={closeModal}/>}
 				
-				{(isLoaded === 'succeeded') && isVisible && <OrderDetails onClose={closeModal}/>
-				
-				}
+				{(isLoaded === 'succeeded') && isVisible && <OrderDetails onClose={closeModal}/>}
+			
 			</div>
+		
 		</section>
 	)
 }

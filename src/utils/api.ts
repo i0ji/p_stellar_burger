@@ -83,7 +83,6 @@ export const getUserData = createAsyncThunk<IUserData, void>(
 					Authorization: token,
 				},
 			});
-		console.log(`RESPONSE DATA: ${response.user.name}`)
 		return response.user;
 	}
 );
@@ -130,7 +129,7 @@ export const updateUserData = createAsyncThunk<IUserData | null, IUserData>(
 
 export const registerUser = createAsyncThunk<IRegisterUser, TUserRegister>(
 	'auth/registerUser',
-	async (userData: IRegisterUser):Promise<TUserRegister> => {
+	async (userData: IRegisterUser): Promise<TUserRegister> => {
 		const response = await fetch(`${BASE_URL}/auth/register`, {
 			method: 'POST',
 			headers: {
