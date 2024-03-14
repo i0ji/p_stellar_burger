@@ -1,9 +1,7 @@
-import {IIngredients} from "declarations/sliceInterfaces";
-
 export interface IIngredient {
 	id?: string;
 	_id?: string;
-	index?: string;
+	uuid?: string;
 	name: string;
 	type?: string;
 	proteins?: number;
@@ -16,7 +14,7 @@ export interface IIngredient {
 	image_large?: string;
 	__v?: number;
 	content?: string;
-	uuid?: string;
+
 	moveIngredient?: (dragIndex: number, hoverIndex: number) => void;
 }
 
@@ -28,7 +26,7 @@ export interface IIngredientCardProps extends IIngredient {
 
 export interface IIngredientGroupProps {
 	type: string;
-	ingredients: IIngredients[];
+	ingredients: IIngredient[];
 	navigate?: string;
 }
 

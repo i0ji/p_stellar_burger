@@ -16,6 +16,7 @@ export default function CurrentIngredients({ingredient, index, moveIngredient}: 
 	
 	const dispatch = useDispatch();
 	const handleRemoveIngredient = (id: string) => {
+		console.log(id)
 		dispatch(removeIngredient(id));
 	}
 	
@@ -48,7 +49,7 @@ export default function CurrentIngredients({ingredient, index, moveIngredient}: 
 	const [{isDragging}, drag] = useDrag({
 		type: 'ingredients',
 		item: () => ({
-			id: ingredient.id,
+			id: ingredient._id,
 			index,
 		}),
 		collect: (monitor: DragSourceMonitor) => ({
@@ -70,7 +71,7 @@ export default function CurrentIngredients({ingredient, index, moveIngredient}: 
 				price={ingredient.price || 0}
 				thumbnail={ingredient.image || ''}
 				handleClose={
-					ingredient.id !== undefined ? () => handleRemoveIngredient(ingredient.id!) : undefined
+					ingredient._id !== undefined ? () => handleRemoveIngredient(ingredient._id!) : undefined
 				}
 			/>
 		</div>

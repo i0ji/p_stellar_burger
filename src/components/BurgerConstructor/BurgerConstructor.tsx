@@ -65,12 +65,12 @@ export default function BurgerConstructor() {
     }, [dispatch]);
 
     const renderIngredients =
-        (ingredient: IIngredient, index: number) => {
+        (ingredient: IIngredient, uuid: number) => {
             return (
                 <CurrentIngredients
                     key={ingredient.id}
                     ingredient={ingredient}
-                    index={index}
+                    index={uuid}
                     moveIngredient={moveIngredient}
                 />
             )
@@ -142,8 +142,8 @@ export default function BurgerConstructor() {
                         width: (addedIngredients.length > 3) ? '100%' : '97%',
                     }}
                 >
-                    {addedIngredients.map((ingredient: IIngredient, index: number) => (
-                        renderIngredients(ingredient, index)
+                    {addedIngredients.map((ingredient: IIngredient, uuid: number) => (
+                        renderIngredients(ingredient, uuid)
                     ))}
                 </div>
 

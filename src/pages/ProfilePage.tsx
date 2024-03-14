@@ -72,16 +72,16 @@ export default function ProfilePage() {
 	//  --------------- SAVE DATA
 	const handleSave = async () => {
 		if (editingField) {
-			const updatedValues = { ...editedValues, [editingField]: values[editingField] };
+			const updatedValues = {...editedValues, [editingField]: values[editingField]};
 			setEditedValues(updatedValues);
 			dispatch(getUserData());
-			dispatch(updateUserData({ [editingField]: values[editingField] }));
+			dispatch(updateUserData({[editingField]: values[editingField]}));
 			setEditingField(null);
 			setIsEditing(false);
 			setShowUpdateButtons(false);
 		}
 	};
-
+	
 	//  --------------- CANCEL CHANGE
 	const handleCancel = () => {
 		setShowUpdateButtons(false);
