@@ -28,27 +28,28 @@ export default function BurgerConstructor() {
     // --------------- STATES/VARS/CONSTANTS  ---------------
     const {addedIngredients, bun} = useSelector((state: RootState) => state.constructorSlice);
     // --------------- HIGHLIGHT STATE
-    const [isButtonHovered, setIsButtonHovered] = useState(false);
+    //const [isButtonHovered, setIsButtonHovered] = useState(false);
+    const [bunAvail, setBunAvail] = useState(false);
+    const [ingredientsAvail, setIngredientsAvail] = useState(false);
     // --------------- PRELOADER CONSTANTS
     const isLoaded = useSelector((state: RootState) => state.orderSlice.status);
     const hasError = useSelector((state: RootState) => state.orderSlice.error);
     // --------------- CURRENT IDS
     const ingredientIDs = useSelector((state: RootState) => state.constructorSlice.addedIngredients).map((elem: IIngredient) => elem._id);
-    const bunIDs = useSelector((state: RootState) => state.constructorSlice.bun);
     // --------------- MODAL
     const {isVisible, openModal, closeModal} = useModal();
     // --------------- TOTAL AMOUNT
     const totalAmount = useSelector((state: RootState) => state.constructorSlice.totalAmount);
     // --------------- BUNS STATE
-    const isBun = useSelector((state: RootState) => state.constructorSlice.bun);
+    const isBun: IIngredient = useSelector((state: RootState) => state.constructorSlice.bun);
     //--------------- AUTH STATE
     const isAuth = useSelector((state: RootState) => state.authSlice.isAuth);
 
 
     // --------------- CURRENT ID ---------------
 
-    if (bunIDs) {
-        ingredientIDs.push(bunIDs._id)
+    if (isBun) {
+        ingredientIDs.push(isBun._id)
     }
     useEffect(() => {
         dispatch(updateIds(ingredientIDs));
@@ -88,24 +89,33 @@ export default function BurgerConstructor() {
 
     // --------------- HIGHLIGHT CONDITION ---------------
 
-    const handleButtonMouseOver = () => {
-        if (!isBun) {
-            setIsButtonHovered(true);
+    const isIngredientInOrder = Boolean(addedIngredients.length);
+    const isBunInOrder = Boolean(isBun);
+
+    const handleBunHighlight = () => {
+        if (!isBunInOrder) {
+            setBunAvail(true);
         }
     };
 
+    const handleIngredientsHighlight = () => {
+        if (!isIngredientInOrder) {
+            setIngredientsAvail(true);
+        }
+    }
+
     const handleButtonMouseOut = () => {
-        setIsButtonHovered(false);
+        setBunAvail(false);
+        setIngredientsAvail(false);
     };
 
 
-    // --------------- INITIAL BUN ---------------
+// --------------- INITIAL CONSTRUCTOR LIST ---------------
 
     const InitialBun = ({pos}: { pos: "top" | "bottom" | undefined }) => {
-
         return (
             <ConstructorElement
-                extraClass={`${styles.constructor_item_top} ${isButtonHovered ? styles.highlight_problem : ''}`}
+                extraClass={`${styles.constructor_initial_bun} ${bunAvail ? styles.highlight_problem : ''}`}
                 text={'Перетащите сюда булочку'}
                 type={pos}
                 isLocked={true}
@@ -115,8 +125,20 @@ export default function BurgerConstructor() {
         )
     }
 
+    const InitialIngredient = () => {
+        return (
+            <ConstructorElement
+                extraClass={`${styles.constructor_initial_ingredient} ${ingredientsAvail ? styles.highlight_problem : ''}`}
+                text={'Перетащите сюда ингредиенты'}
+                isLocked={true}
+                thumbnail={awaitSpinner}
+                price={0}
+            />
+        )
+    }
 
-    // --------------- ORDER NUMBER LOGIC ---------------
+
+// --------------- ORDER NUMBER LOGIC ---------------
 
     const handleOrder = async (): Promise<void> => {
 
@@ -156,20 +178,22 @@ export default function BurgerConstructor() {
                     </div>}
 
 
-                {/* --------------- INNER INGREDIENTS --------------- */}
+                {/* --------------- INNER INGREDIENTS + ORDER CONDITION --------------- */}
 
-                <div
-                    className={styles.constructor_order}
-                    style={{
-                        scrollbarWidth: (addedIngredients.length > 3) ? 'inherit' : 'none',
-                        width: (addedIngredients.length > 3) ? '100%' : '97%',
-                    }}
-                >
-                    {addedIngredients.map((ingredient: IIngredient, uuid: number) => (
-                        renderIngredients(ingredient, uuid)
-                    ))}
-                </div>
+                {!isIngredientInOrder ? <InitialIngredient/> :
 
+                    <div
+                        className={`${styles.constructor_order} ${ingredientsAvail ? styles.highlight_problem : ''}`}
+                        style={{
+                            scrollbarWidth: (addedIngredients.length > 3) ? 'inherit' : 'none',
+                            width: (addedIngredients.length > 3) ? '100%' : '97%',
+                        }}
+                    >
+                        {addedIngredients.map((ingredient: IIngredient, uuid: number) => (
+                            renderIngredients(ingredient, uuid)
+                        ))}
+                    </div>
+                }
 
                 {/* --------------- BOTTOM BUN --------------- */}
 
@@ -195,7 +219,10 @@ export default function BurgerConstructor() {
                     <CurrencyIcon type="primary"/>
 
                     <div
-                        onMouseOver={handleButtonMouseOver}
+                        onMouseOver={() => {
+                            handleBunHighlight();
+                            handleIngredientsHighlight();
+                        }}
                         onMouseOut={handleButtonMouseOut}
                     >
                         <Button
