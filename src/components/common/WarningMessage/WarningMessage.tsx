@@ -14,7 +14,7 @@ export default function WarningMessage({onClose}: { onClose: () => void }) {
 
                     <br/>Но Вы не переживайте - Ваши деньги за бургер мы получили!</p>
                 <Link
-                    to={'/'}>На главную</Link>
+                    to='/'>На главную</Link>
             </div>
         </Modal>
 

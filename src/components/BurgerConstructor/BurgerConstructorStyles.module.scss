@@ -1,3 +1,5 @@
+@import "styles/theme_colors";
+
 .constructor_block {
   composes: mt-25 pl-5 pr-5 pb-10 from global;
   width: 50%;
@@ -74,4 +76,20 @@
       height: auto;
     }
   }
+}
+
+
+.highlight_problem {
+  animation: blink 1s infinite;
+  background-color: $scroll_active;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: .5; }
+  100% { opacity: 1; }
+}
+
+.blinking-element {
+  animation: blink 1.6s infinite;
 }

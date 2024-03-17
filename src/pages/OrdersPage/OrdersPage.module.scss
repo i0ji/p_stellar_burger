@@ -1,18 +1,23 @@
-.orders_list {
-  .container {
-    margin: 0 auto;
+.container {
+  display: flex;
 
-    max-width: 1240px;
-    max-height: 80vh;
+  max-width: 1240px;
+  max-height: 80vh;
+  margin: 0 auto;
 
+  border: 1px dotted grey;
+
+  .order_list {
+    width: 50%;
+  }
+
+  .orders_list_ingredients {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
 
-    border: 1px dotted grey;
+    width: 50%;
+    height: 80vh;
 
-    .orders_list_ingredients {
-      display: flex;
-      flex-direction: column;
-    }
+    border: 1px solid silver;
   }
 }
