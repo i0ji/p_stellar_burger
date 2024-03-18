@@ -35,8 +35,6 @@ export default function ResetPage() {
         resetPassword(password, token)
             .then((response) => {
                 if (response.success) {
-                    console.log('Пароль восстановлен:', response.success);
-                    console.log('Пароль васстоновлен:', response.message);
                     navigate('/reset-success');
                 } else {
                     console.error('Ошибка при восстановлении пароля:', response.message);

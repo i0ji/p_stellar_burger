@@ -16,7 +16,6 @@ export default function CurrentIngredients({ingredient, index, moveIngredient}: 
 	
 	const dispatch = useDispatch();
 	const handleRemoveIngredient = (id: string) => {
-		console.log(id)
 		dispatch(removeIngredient(id));
 	}
 	

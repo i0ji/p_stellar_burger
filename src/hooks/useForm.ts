@@ -12,3 +12,4 @@ export function useForm<T>(inputValues: T) {
 
     return {values, handleChange, setValues}
 }
+

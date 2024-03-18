@@ -28,7 +28,6 @@ export default function BurgerConstructor() {
     // --------------- STATES/VARS/CONSTANTS  ---------------
     const {addedIngredients, bun} = useSelector((state: RootState) => state.constructorSlice);
     // --------------- HIGHLIGHT STATE
-    //const [isButtonHovered, setIsButtonHovered] = useState(false);
     const [bunAvail, setBunAvail] = useState(false);
     const [ingredientsAvail, setIngredientsAvail] = useState(false);
     // --------------- PRELOADER CONSTANTS

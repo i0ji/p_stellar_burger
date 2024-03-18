@@ -1,5 +1,6 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {loginUser, registerUser, logoutUser, getUserData, updateUserData} from "utils/api.ts";
+import {IUserData} from "declarations/sliceInterfaces";
 
 const authSlice = createSlice({
 	name: 'authSlice',
@@ -26,7 +27,7 @@ const authSlice = createSlice({
 			.addCase(loginUser.pending, (state) => {
 				state.status = 'loading';
 			})
-			.addCase(loginUser.fulfilled, (state, action) => {
+			.addCase(loginUser.fulfilled, (state, action:PayloadAction<IUserData>) => {
 				state.status = 'succeeded';
 				state.user = action.payload;
 				state.error = null;

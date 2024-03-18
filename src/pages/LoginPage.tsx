@@ -14,7 +14,7 @@ import {IForm} from "declarations/interfaces";
 import {RootState} from "declarations/rootState.ts";
 import {AppDispatch} from "declarations/types";
 
-function LoginPage() {
+export default function LoginPage() {
 
     const dispatch = useDispatch<AppDispatch>();
     const {values, handleChange} = useForm<IForm>({});
@@ -28,19 +28,13 @@ function LoginPage() {
 
     // --------------- ERROR MESSAGE ---------------
     const loginError = useSelector((state: RootState) => state.authSlice.loginError);
-    console.log(loginError)
     const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const userData: IUserData = {
             email: values.email,
             password: values.password,
         };
-
-        console.log('+++++++++++before login')
-        console.log(loginError)
         dispatch(loginUser(userData));
-        console.log('after login +++++++++++++++')
-        console.log(loginError)
     };
 
     return (
@@ -95,5 +89,3 @@ function LoginPage() {
         </section>
     );
 }
-
-export default React.memo(LoginPage);
