@@ -34,18 +34,17 @@
       "modal/*": ["components/Modal/*"],
 
       /* ------ HOOK */
-      "hooks/*": ["hooks/*"],
+      "hooks/*": ["services/hooks/*"],
 
       /* ------ STYLES/ASSETS */
       "styles/*": ["styles/*"],
       "images/*": ["images/*"],
 
       /* ------ UTILS/SERVICES */
-      "utils/*": ["utils/*"],
-      "interfaces/*": ["utils/interfaces/*"],
       "services/*": ["services/*"],
+      "utils/*": ["services/utils/*"],
       "slices/*": ["services/slices/*"],
-      "declarations/*": ["declarations/*"]
+      "declarations/*": ["services/declarations/*"]
     }
   },
   "include": ["src"],

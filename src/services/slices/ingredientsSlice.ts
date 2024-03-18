@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {IIngredientsListSlice} from "declarations/sliceInterfaces";
-import {getIngredients} from "utils/api.ts"
+import {getIngredients} from "utils/api.ts";
 
 const ingredientsListSlice = createSlice({
     name: 'ingredientsListSlice',

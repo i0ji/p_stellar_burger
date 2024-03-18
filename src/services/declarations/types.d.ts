@@ -1,5 +1,7 @@
 import {IToken, IUser, IUserData} from "declarations/sliceInterfaces";
 import {IIngredient} from "declarations/interfaces";
+import {ThunkAction} from 'redux-thunk';
+import {Action, ActionCreator} from 'redux';
 
 export type TInputElementType = HTMLInputElement | null;
 
@@ -22,3 +24,7 @@ type TUserLoginResponse = TServerResponse<IToken, {
 type TUserRegister = TServerResponse<IToken, IUser>
 
 export type AppDispatch = typeof store.dispatch;
+
+export type AppThunk<TReturn = void> = ActionCreator<
+    ThunkAction<TReturn, Action, RootState>
+>;

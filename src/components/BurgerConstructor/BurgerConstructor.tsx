@@ -5,7 +5,6 @@ import styles from "./BurgerConstructorStyles.module.scss";
 import awaitSpinner from "images/common/awaitSpinner.svg";
 import {IIngredient} from "declarations/interfaces";
 import {RootState} from "declarations/rootState.ts";
-import {AppDispatch} from "declarations/types";
 
 import {ConstructorElement, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import CurrentIngredients from "components/BurgerConstructor/CurrentIngredients/CurrentIngredients.tsx";
@@ -13,7 +12,7 @@ import OrderDetails from "common/Modal/OrderDetails/OrderDetails.tsx";
 import Loader from "common/Loader/Loader.tsx";
 import WarningMessage from "common/WarningMessage/WarningMessage.tsx";
 
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useCallback, useEffect, useState} from "react";
 import {useDrop} from "react-dnd";
 import useModal from "hooks/useModal.ts";
@@ -22,7 +21,7 @@ import {useNavigate} from "react-router-dom";
 
 export default function BurgerConstructor() {
 
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     // --------------- STATES/VARS/CONSTANTS  ---------------
@@ -34,7 +33,7 @@ export default function BurgerConstructor() {
     const isLoaded = useSelector((state: RootState) => state.orderSlice.status);
     const hasError = useSelector((state: RootState) => state.orderSlice.error);
     // --------------- CURRENT IDS
-    const ingredientIDs = useSelector((state: RootState) => state.constructorSlice.addedIngredients).map((elem: IIngredient) => elem._id);
+    const ingredientIDs = useSelector((state: RootState) => state.constructorSlice.addedIngredients).map((elem) => elem._id);
     // --------------- MODAL
     const {isVisible, openModal, closeModal} = useModal();
     // --------------- TOTAL AMOUNT
@@ -68,17 +67,16 @@ export default function BurgerConstructor() {
         dispatch(reorderIngredients({dragIndex, hoverIndex}));
     }, [dispatch]);
 
-    const renderIngredients =
-        (ingredient: IIngredient, uuid: number) => {
-            return (
-                <CurrentIngredients
-                    key={ingredient.id}
-                    ingredient={ingredient}
-                    index={uuid}
-                    moveIngredient={moveIngredient}
-                />
-            )
-        }
+    const renderIngredients = (ingredient: IIngredient, uuid: number) => {
+        return (
+            <CurrentIngredients
+                key={ingredient.id}
+                ingredient={ingredient}
+                index={uuid}
+                moveIngredient={moveIngredient}
+            />
+        )
+    }
 
 
     // --------------- PREVENT FROM ORDER ---------------

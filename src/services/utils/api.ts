@@ -220,7 +220,28 @@ export const logoutUser = createAsyncThunk(
 
 
 // --------------- CREATE ORDER ---------------
-
+// --------------- SLOW ORDER
+// export const createOrder = createAsyncThunk<number, (string | undefined)[]>(
+//     'orderSlice/createOrder',
+//     async (ingredientIds: (string | undefined)[]): Promise<number> => {
+//         const token = localStorage.getItem('accessToken');
+//         const filteredIngredientIds = ingredientIds.filter(id => id !== undefined) as string[];
+//         const requestBody = {
+//             ingredients: filteredIngredientIds
+//         };
+//         const response = await fetch(`${BASE_URL}/orders`, {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 Authorization: token,
+//             },
+//             body: JSON.stringify(requestBody),
+//         });
+//         const data = await checkResponse<{ order: { number: number } }>(response);
+//         return data.order.number;
+//     }
+// );
+// --------------- FAST ORDER
 export const createOrder = createAsyncThunk<number, (string | undefined)[]>(
     'orderSlice/createOrder',
     async (ingredientIds: (string | undefined)[]): Promise<number> => {

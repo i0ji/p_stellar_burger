@@ -36,8 +36,12 @@ export interface IDragItem {
 	type: string;
 }
 
-export interface IForm {
-	name?: string;
-	email?: string;
-	password?: string;
+// export interface IForm {
+// 	name?: string;
+// 	email?: string;
+// 	password?: string;
+// }
+
+interface IForm {
+	[key: string]: string;
 }
