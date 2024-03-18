@@ -23,7 +23,7 @@ Following the checklist and technical specifications of the first sprint:<br>
 <h1>Second sprint</h1>
 <h3>29.01-11.02</h3>
 <b>b:</b>sprint2/step-1
-<b>v:</b> 0.1.6.1<br>
+<b>v:</b> 0.1.6.*<br>
 
 Style and code edits:
 
@@ -55,7 +55,7 @@ a error message common components wrapped by modalOverlay and set it logic;<br>
 
 <h1>Third sprint</h1>
 <h3>16.02-06.03</h3>
-<b>b:</b>sprint3/step-1 <b>v: </b> 0.1.7.1
+<b>b:</b>sprint3/step-1 <b>v: </b> 0.1.7.*
 <br>
 
 Global project features:
@@ -84,5 +84,21 @@ Global project features:
 fix: "save/cancel" buttons
 style: appearance of icons on editing
 chore: some minor edits in api.ts
+
+<h1>Fourth sprint</h1>
+<h3>07.03-14.03</h3>
+<b>b:</b>sprint4/step-1 <b>v: </b> 0.1.9.*
+<br>
+
+Global project features:
+
+* Mass typing of components, utils, functions;
+* Remove order request from useModal hook;
+
+07.03.24: **b**:sprint4/step-1/**v**:0.1.9.3: multiply typing nad fixing type issues; replace interfaces, types and vars to separate folder; some API logic refactor<br>
+08.03.24: **b**:sprint4/step-1/**v**:0.1.9.3.1: profile page animation edition; typing<br>
+11.03.24: **b**:sprint4/step-1/**v**:0.1.9.3.1: prevent order logic; refactor prevent order logic; typing DND; typing currentSlice;<br>
+12.03.24: **b**:sprint4/step-1/**v**:0.1.9.3.2: api.ts and App.tsx type <br>
+13.03.24: **b**:sprint4/step-1/**v**:0.1.9.3: README small edit; typing; replace order logic from hook to constructor component;<br>
 
 
