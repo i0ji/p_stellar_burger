@@ -1,10 +1,12 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {loginUser, registerUser, logoutUser, getUserData, updateUserData} from "utils/api.ts";
+import {IUserData} from "declarations/sliceInterfaces";
+
 
 const authSlice = createSlice({
     name: 'authSlice',
     initialState: {
-        user: null,
+        user: null as null | IUserData,
         status: 'idle',
         error: null,
         isAuth: false,
@@ -47,10 +49,7 @@ const authSlice = createSlice({
                 state.error = null;
                 state.isAuth = true;
             })
-            .addCase(registerUser.rejected, (
-                state,
-                action
-            ) => {
+            .addCase(registerUser.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.error.message;
             })
