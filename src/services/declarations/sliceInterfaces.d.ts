@@ -1,7 +1,6 @@
 import {IIngredient} from "utils/interfaces/interfaces";
 import {TStatus, TError} from "declarations/types";
 
-
 interface IIngredients {
     ingredients: Array<IIngredient>;
 }

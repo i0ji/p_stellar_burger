@@ -12,7 +12,7 @@ export type TServerResponse<T> = {
 
 export type TStatus = {
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
-}
+};
 
 type TError = Error | null;
 
@@ -28,7 +28,7 @@ type TUserLoginResponse = TServerResponse<IToken, {
     user: IUserData;
 }>;
 
-type TUserRegister = TServerResponse<IToken, IUser>
+type TUserRegister = TServerResponse<IToken, IUser>;
 
 export type AppDispatch = typeof store.dispatch;
 
