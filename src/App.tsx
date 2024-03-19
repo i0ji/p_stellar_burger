@@ -35,22 +35,23 @@ export default function App() {
     const dispatch = useDispatch<AppDispatch>();
     const location = useLocation();
     const state = location.state as { background?: Location };
-  
+
     const ingredientsStatus = useSelector((state: RootState) => state.ingredients.status);
     const accessToken = localStorage.getItem('accessToken');
-    
+
     useEffect(() => {
         dispatch(getIngredients());
         dispatch(checkUserAuth());
         dispatch(getUserData());
     }, [dispatch, accessToken]);
 
+    console.log('v:0.1.9.5.3');
     // console.log('ingredients loading status:', ingredientsStatus);
     // console.log(`Refresh token:`, localStorage.getItem('refreshToken'));
     // console.log('Access Token:', localStorage.getItem('accessToken'));
     // console.log(`User Auth: ${userAuth}`);
     // console.log(`Auth is checked: ${userAuthChecked}`);
-    
+
     const handleCloseModal = useCallback(() => {
         navigate(-1);
     }, [navigate]);

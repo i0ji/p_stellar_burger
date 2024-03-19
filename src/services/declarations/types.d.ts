@@ -2,12 +2,19 @@ import {IToken, IUser, IUserData} from "declarations/sliceInterfaces";
 import {IIngredient} from "declarations/interfaces";
 import {ThunkAction} from 'redux-thunk';
 import {Action, ActionCreator} from 'redux';
+import Error = types.Error;
 
 export type TInputElementType = HTMLInputElement | null;
 
 export type TServerResponse<T> = {
     success: boolean;
 } & T;
+
+export type TStatus = {
+    status: 'idle' | 'loading' | 'succeeded' | 'failed';
+}
+
+type TError = Error | null;
 
 export type TApiResponse<T> = TServerResponse<{
     [key: string]: T;

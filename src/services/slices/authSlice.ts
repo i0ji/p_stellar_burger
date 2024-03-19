@@ -1,19 +1,21 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {loginUser, registerUser, logoutUser, getUserData, updateUserData} from "utils/api.ts";
-import {IUserData} from "declarations/sliceInterfaces";
+import {IAuthSlice, IUserData} from "declarations/sliceInterfaces";
 
+
+const initialState: IAuthSlice = {
+    user: null,
+    status: 'idle',
+    userData: null as null | IUserData,
+    error: null as null | undefined | string,
+    isAuth: false,
+    authChecked: false,
+    loginError: false,
+}
 
 const authSlice = createSlice({
     name: 'authSlice',
-    initialState: {
-        user: null as null | IUserData,
-        status: 'idle',
-        error: null,
-        isAuth: false,
-        authChecked: false,
-        userData: null,
-        loginError: false,
-    },
+    initialState,
     reducers: {
         setUser(state, action) {
             state.user = action.payload;

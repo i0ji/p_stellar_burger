@@ -1,72 +1,66 @@
 import {IIngredient} from "utils/interfaces/interfaces";
-import Error = types.Error;
+import {TStatus, TError} from "declarations/types";
+
 
 interface IIngredients {
-	ingredients: Array<IIngredient>;
+    ingredients: Array<IIngredient>;
 }
+
 
 export interface IToken {
-	refreshToken: string;
-	accessToken: string;
-}
-
-export interface IConstructorSlice {
-	ingredients: Array<IIngredient>;
-	totalAmount: number;
-	addedIngredients: Array<IIngredient>;
-	bun: IIngredient | null;
-}
-
-export interface IIngredientsListSlice extends IIngredients {
-	status: 'idle' | 'loading' | 'succeeded' | 'failed';
-	error: Error | null;
-}
-
-export interface IBurgerState extends IIngredients {
-	status: string;
-	error: string | null;
-}
-
-export interface IAuthSlice extends IToken{
-	status: string;
-	user: IUserData,
-	userData: IUserData,
-	isAuth: boolean;
-	success?: boolean;
-	authChecked: boolean;
-	error: Error | null;
-	loginError: boolean;
+    refreshToken: string;
+    accessToken: string;
 }
 
 export interface IRefreshData extends IToken {
-	success: boolean;
+    success: boolean;
+}
+
+export interface IConstructorSlice {
+    ingredients: Array<IIngredient>;
+    totalAmount: number;
+    addedIngredients: Array<IIngredient>;
+    bun: IIngredient | null;
+}
+
+export interface IIngredientsListSlice extends IIngredients, TStatus, TError {
+}
+
+export interface IBurgerState extends IIngredients, TStatus, TError {
+}
+
+export interface IAuthSlice extends TStatus, TError {
+    user: IUserData | null,
+    userData: IUserData | null;
+    isAuth: boolean;
+    authChecked: boolean;
+    loginError: boolean;
 }
 
 export interface IUser {
-	name?: string | null,
-	email: string | undefined;
-	password: string | undefined;
+    name?: string | null,
+    email: string | undefined;
+    password: string | undefined;
 }
 
 export interface IUserData {
-	email?: string;
-	name?: string;
-	password?: string;
-	user?: IUser;
+    email?: string;
+    name?: string;
+    password?: string;
+    user?: IUser;
 }
 
 export interface IRegisterUser extends IRefreshData {
-	user: IUser;
+    user: IUser;
 }
 
-export interface IOrderSlice {
-	order: number;
-	orderNumber: string | number | null;
-	IDs: Array<string>;
-	status: string;
-	error: null;
+export interface IOrderSlice extends TStatus {
+    order: number;
+    orderNumber: string | number | null;
+    IDs: Array<string>;
+    error: null;
 }
 
 export interface ICurrentIngredientSlice {
-	selectedIngredient: IIngredient;
+    selectedIngredient: IIngredient;
 }

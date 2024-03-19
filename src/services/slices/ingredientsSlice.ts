@@ -2,13 +2,17 @@ import {createSlice} from '@reduxjs/toolkit';
 import {IIngredientsListSlice} from "declarations/sliceInterfaces";
 import {getIngredients} from "utils/api.ts";
 
-const ingredientsListSlice = createSlice({
-    name: 'ingredientsListSlice',
-    initialState: {
+const initialState: IIngredientsListSlice = {
         ingredients: [],
         status: 'idle',
         error: null,
-    } as IIngredientsListSlice,
+    }
+
+
+    const
+ingredientsListSlice = createSlice({
+    name: 'ingredientsListSlice',
+    initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
