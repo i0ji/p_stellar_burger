@@ -1,5 +1,6 @@
 @import "styles/theme_colors";
 @import "styles/animation";
+@import "styles/mixins";
 
 .section {
   margin: 0 auto;
@@ -57,9 +58,7 @@
   height: calc(100vh - 90px);
   max-width: 1240px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex_center;
 
   .profile_block {
     position: relative;

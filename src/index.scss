@@ -1,5 +1,6 @@
 @import "styles/_theme_colors";
 @import "styles/_scrollbar";
+@import "styles/mixins";
 
 * {
   padding: 0;
@@ -35,9 +36,7 @@ html {
 body {
   max-height: 100vh;
   overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex_center;
 }
 
 #root {

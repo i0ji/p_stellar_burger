@@ -2,11 +2,13 @@
   composes: mt-10 from global;
   display: flex;
   flex-direction: column;
+
   width: 50%;
 
   .ingredients_list {
     overflow-x: hidden;
     overflow-y: scroll;
+
     height: 90%;
   }
 }

@@ -3,24 +3,30 @@
 
 .constructor_block {
   composes: mt-25 pl-5 pr-5 pb-10 from global;
+
   width: 50%;
   height: 75vh;
 
   .constructor_list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+
     max-height: 95%;
+
+    gap: 10px;
+
 
     .constructor_item_top,
     .constructor_item_bottom,
     .constructor_initial_bun,
     .constructor_initial_ingredient {
-      width: 89%;
+      display: flex;
       align-self: center;
+
+      width: 89%;
+
       margin-right: 30px;
       margin-left: 30px;
-      display: flex;
     }
 
     .constructor_initial_bun,
@@ -55,10 +61,12 @@
     }
 
     .constructor_initial_ingredient {
-      min-height: 30px;
-      border-radius: 40px;
-      width: 88%;
       align-self: center;
+
+      width: 88%;
+      min-height: 30px;
+
+      border-radius: 40px;
 
       span:nth-child(3),
       span:nth-child(4) {
@@ -67,13 +75,17 @@
     }
 
     .constructor_order {
-      border-radius: 40px;
       display: flex;
       flex-direction: column;
-      gap: 5px;
+
       overflow-x: hidden;
       overflow-y: scroll;
+
       width: 30%;
+
+      border-radius: 40px;
+
+      gap: 5px;
     }
   }
 

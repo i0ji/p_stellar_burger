@@ -1,4 +1,5 @@
 @import "styles/theme_colors";
+@import "styles/mixins";
 
 .ingredient_item {
   width: 50%;
@@ -7,37 +8,35 @@
 .ingredient_list {
   composes: pb-10 from global;
 
+  display: flex;
+  flex-flow: row wrap;
+
+  width: 100%;
+
+
   h3 {
     width: 100%;
   }
 
-  width: 100%;
-  display: flex;
-  flex-flow: row wrap;
-
   .ingredient_item_wrapper {
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex_center;
     position: relative;
+
+    width: 50%;
   }
 }
 
 
 .ingredient_card {
-
-  width: 50%;
-
   position: relative;
 
   display: flex;
   flex-flow: column;
   align-items: center;
 
+  width: 50%;
+
   color: $theme_white;
-
-
 
   img {
     transition: all ease-in .2s;
@@ -45,10 +44,9 @@
   }
 
   p {
+    @include flex_center;
+
     transition: all ease-in .2s;
-    display: flex;
-    align-items: center;
-    text-align: center;
 
     svg {
       transition: all ease-in .2s;
@@ -63,6 +61,8 @@
 
   span {
     position: absolute;
+
+    @include flex_center;
     right: 15%;
     top: 5%;
 
@@ -70,10 +70,6 @@
     height: 32px;
 
     border-radius: 50%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
     background-color: $scroll_active;
   }
@@ -93,5 +89,3 @@
     fill: $scroll_active;
   }
 }
-
-

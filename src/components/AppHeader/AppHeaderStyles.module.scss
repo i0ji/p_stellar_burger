@@ -8,30 +8,20 @@
   height: 88px;
 
   nav {
-    max-width: 1280px;
-    margin: 0 auto;
-
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 
-    ul {
-      list-style-type: none;
+    max-width: 1280px;
+    margin: 0 auto;
 
+    ul {
       display: flex;
       justify-content: space-between;
 
+      list-style-type: none;
+
       li {
         width: 45%;
-      }
-    }
-
-    .header_logo {
-      display: flex;
-      justify-content: center;
-      text-align: center;
-
-      a:hover {
-        box-shadow: none;
       }
     }
 
@@ -95,3 +85,5 @@
     }
   }
 }
+
+//@include flex_center;
