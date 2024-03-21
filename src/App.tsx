@@ -74,8 +74,8 @@ export default function App() {
 
                 <Route path="/profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}/>
                 <Route path="/orders" element={<ProtectedRoute unAuth={false} component={<OrdersPage/>}/>}/>
-                <Route path="/login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
 
+                <Route path="/login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
                 <Route path="/reset-success" element={<ProtectedRoute unAuth={true} component={<SuccessPage/>}/>}/>
                 <Route path="/login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
                 <Route path="/register" element={<ProtectedRoute unAuth={true} component={<RegisterPage/>}/>}/>

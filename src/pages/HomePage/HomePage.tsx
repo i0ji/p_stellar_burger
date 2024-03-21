@@ -9,21 +9,27 @@ import {useSelector} from "react-redux";
 
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from "react-dnd-html5-backend";
+import {RootState} from "declarations/rootState.ts";
 
 export default function HomePage() {
 
-    const {ingredients: ingredientsData, status, error}: IBurgerState = useSelector((state: {
+    const {ingredients: ingredientsData, burgerStatus, error}: IBurgerState = useSelector((state: {
         ingredients: IBurgerState
     }) => state.ingredients);
 
+    const authStatus = useSelector((state: RootState) => state.authSlice.status);
 
     // --------------- STATUSES ---------------
-    if (status === 'loading') {
+    if (burgerStatus === 'loading') {
         return <Loader/>;
     }
 
-    if (status === 'failed') {
+    if (burgerStatus === 'failed') {
         return <p className={styles.status}>Ошибка: {error}</p>;
+    }
+
+    if (authStatus === 'loading') {
+        return <Loader/>;
     }
 
     return (

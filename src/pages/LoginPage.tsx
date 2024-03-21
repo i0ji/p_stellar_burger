@@ -13,6 +13,7 @@ import {IUserData} from "declarations/sliceInterfaces";
 import {IForm} from "declarations/interfaces";
 import {RootState} from "declarations/rootState.ts";
 import {AppDispatch} from "declarations/types";
+import Loader from "common/Loader/Loader.tsx";
 
 export default function LoginPage() {
 
@@ -37,7 +38,14 @@ export default function LoginPage() {
         dispatch(loginUser(userData));
     };
 
+    const userAuth = useSelector((state: RootState) => state.authSlice.isAuth);
+
+    if (userAuth) {
+        return <Loader/>;
+    }
+
     return (
+
         <section className={styles.section}>
             <form onSubmit={handleLogin}>
                 <h1 className="text text text_type_main-medium pb-6">Вход</h1>

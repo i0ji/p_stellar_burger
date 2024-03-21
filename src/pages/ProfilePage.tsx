@@ -15,7 +15,7 @@ import {IForm} from "declarations/interfaces";
 
 export default function ProfilePage() {
 
-    const navigate=useNavigate();
+    const navigate = useNavigate();
     const isActive = location.pathname === '/profile'
     const {values, handleChange, setValues} = useForm<IForm>({});
     const dispatch = useDispatch<AppDispatch>();
@@ -34,10 +34,11 @@ export default function ProfilePage() {
         password: null,
         email: null
     });
-
     const nameInputRef = useRef<TInputElementType>(null);
     const emailInputRef = useRef<TInputElementType>(null);
     const passwordInputRef = useRef<TInputElementType>(null);
+    const authStatus = useSelector((state: RootState) => state.authSlice.status);
+
 
     useEffect(() => {
         if (isEditing && editingField !== null) {
@@ -93,7 +94,8 @@ export default function ProfilePage() {
         }, 250);
     };
     //  --------------- LOADER
-    if (!userData) {
+
+    if (!userData || (authStatus === 'loading')) {
         return <Loader/>;
     }
 
