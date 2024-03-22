@@ -35,6 +35,6 @@ export interface IDragItem {
     type: string;
 }
 
-interface IForm {
+export interface IForm {
     [key: string]: string;
 }

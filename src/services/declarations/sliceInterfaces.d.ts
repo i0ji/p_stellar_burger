@@ -5,7 +5,6 @@ interface IIngredients {
     ingredients: Array<IIngredient>;
 }
 
-
 export interface IToken {
     refreshToken: string;
     accessToken: string;
@@ -22,8 +21,7 @@ export interface IConstructorSlice {
     bun: IIngredient | null;
 }
 
-export interface IIngredientsListSlice extends IIngredients, TStatus, TError {
-}
+export interface IIngredientsListSlice extends IIngredients, TStatus, TError {}
 
 export interface IBurgerState extends IIngredients, TStatus, TError {
 }
@@ -38,14 +36,11 @@ export interface IAuthSlice extends TStatus, TError {
 
 export interface IUser {
     name?: string | null,
-    email: string | undefined;
-    password: string | undefined;
+    email?: string | undefined;
+    password?: string | undefined;
 }
 
-export interface IUserData {
-    email?: string;
-    name?: string;
-    password?: string;
+export interface IUserData extends IUser {
     user?: IUser;
 }
 
