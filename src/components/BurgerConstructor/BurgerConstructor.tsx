@@ -172,7 +172,8 @@ export default function BurgerConstructor() {
                                 thumbnail={bun.image || ''}
                             />
                         )}
-                    </div>}
+                    </div>
+                }
 
 
                 {/* --------------- INNER INGREDIENTS + ORDER CONDITION --------------- */}
