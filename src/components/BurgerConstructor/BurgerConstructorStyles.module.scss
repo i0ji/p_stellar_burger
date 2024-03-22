@@ -2,7 +2,8 @@
 @import "styles/animation";
 
 .constructor_block {
-  composes: mt-25 pl-5 pr-5 pb-10 from global;
+  composes: mt-25 pl-5 pb-10 from global;
+  //composes: mt-25 pl-5 pr-5 pb-10 from global;
 
   width: 50%;
   height: 75vh;
@@ -25,7 +26,7 @@
 
       width: 89%;
 
-      margin-right: 30px;
+      //margin-right: 30px;
       margin-left: 30px;
     }
 

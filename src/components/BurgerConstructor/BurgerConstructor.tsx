@@ -107,7 +107,7 @@ export default function BurgerConstructor() {
     };
 
 
-// --------------- INITIAL CONSTRUCTOR LIST ---------------
+    // --------------- INITIAL CONSTRUCTOR LIST ---------------
 
     const InitialBun = ({pos}: { pos: "top" | "bottom" | undefined }) => {
         return (
@@ -135,7 +135,7 @@ export default function BurgerConstructor() {
     }
 
 
-// --------------- ORDER NUMBER LOGIC ---------------
+    // --------------- ORDER NUMBER LOGIC ---------------
 
     const handleOrder = async (): Promise<void> => {
 
