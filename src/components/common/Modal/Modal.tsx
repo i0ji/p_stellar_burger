@@ -3,7 +3,7 @@ import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {RootState} from "declarations/rootState.ts";
 
-import {useSelector} from "react-redux";
+import {useSelector} from "hooks/reduxHooks.ts";
 import React, {useEffect} from "react";
 
 export default function Modal({onClose, children}: {

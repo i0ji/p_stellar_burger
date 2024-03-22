@@ -1,6 +1,6 @@
 import styles from "./OrdersPage.module.scss"
 
-import {useSelector} from "react-redux";
+import {useSelector} from "hooks/reduxHooks.ts";
 import {IIngredient} from "declarations/interfaces";
 import {RootState} from "declarations/rootState.ts";
 

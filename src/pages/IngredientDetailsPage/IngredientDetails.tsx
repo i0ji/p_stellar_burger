@@ -1,5 +1,5 @@
 import styles from "pages/IngredientDetailsPage/IngredientDetailsStyles.module.scss";
-import {useSelector} from "react-redux";
+import {useSelector} from "hooks/reduxHooks.ts";
 import {useParams, useLocation} from "react-router-dom";
 import {IIngredient} from "declarations/interfaces";
 import {IBurgerState} from "declarations/sliceInterfaces";

@@ -7,15 +7,13 @@ import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {forgotPassword} from "utils/api.ts"
 
 import {useForm} from "hooks/useForm.ts";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "hooks/reduxHooks.ts";
 import {IForm} from "declarations/interfaces";
-import {AppDispatch} from "declarations/types";
-
 export default function ForgotPage() {
 
     const {values, handleChange} = useForm<IForm>({});
 
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleForgotPassword = async () => {
