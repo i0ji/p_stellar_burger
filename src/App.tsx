@@ -22,17 +22,16 @@ import {ProtectedRoute} from "common/ProtectedRoute/ProtectedRoute.tsx"
 import Modal from "common/Modal/Modal.tsx";
 import Loader from "common/Loader/Loader.tsx";
 
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useLocation} from "react-router-dom";
 import {useCallback, useEffect} from "react";
 
 import {checkUserAuth, getUserData, getIngredients} from "utils/api.ts";
-import {AppDispatch} from "declarations/types";
 
 export default function App() {
 
     const navigate = useNavigate();
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useDispatch();
     const location = useLocation();
     const state = location.state as { background?: Location };
 
