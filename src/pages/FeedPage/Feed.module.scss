@@ -78,18 +78,27 @@
       display: flex;
       align-items: center;
 
-      width: 60%;
-
-      border: 1px solid red;
+      width: 70%;
 
       img {
-        height: 56px;
+        height: 60px;
         border-radius: 50%;
-
       }
 
-      .circle:nth-child(n+2) {
-        margin-left: -90px;
+
+      .gradient_wrapper {
+        @include flex_center;
+
+        border: 1px solid yellow;
+
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+      }
+
+
+      .gradient_wrapper:nth-child(n+2) {
+        margin-left: -40px;
       }
     }
 
