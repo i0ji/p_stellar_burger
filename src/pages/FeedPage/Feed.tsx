@@ -30,7 +30,7 @@ export default function Feed() {
 
                         <div className={styles.ingredients_thumbnail}>
 
-                        {
+                            {
                                 constructorData.bun ?
                                     <div className={styles.gradient_wrapper}>
                                         <div className={styles.gradient_wrapper_background}>
@@ -53,7 +53,9 @@ export default function Feed() {
                         </div>
 
                         <div className={styles.feed_item_price}>
-                            <p>{constructorData.totalAmount}</p>
+                            <p className="text text_type_digits-default">
+                                {constructorData.totalAmount}
+                            </p>
                             <CurrencyIcon type={"primary"}/>
                         </div>
 
@@ -78,7 +80,33 @@ export default function Feed() {
             </div>
 
             <div className={styles.feed_details}>
-                buy
+                <>
+                    <div className={styles.feed_details_info}>
+
+
+                        <div className={styles.feed_details_ready}>
+                            <h5>Готовы:</h5>
+
+                            <p>2312123123312</p>
+                            <p>12312</p>
+                            <p>213</p>
+                            <p>123123</p>
+                        </div>
+
+                        <div className={styles.feed_details_await}>
+                            <h5>Готовы:</h5>
+
+                            <p>2312123123312</p>
+                            <p>12312</p>
+                            <p>213</p>
+                            <p>123123</p>
+                        </div>
+
+
+                    </div>
+
+
+                </>
             </div>
 
         </section>
