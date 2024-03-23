@@ -83,19 +83,34 @@
       img {
         height: 60px;
         border-radius: 50%;
+        padding: 2px 0 0 2px;
       }
 
 
       .gradient_wrapper {
         @include flex_center;
 
-        border: 1px solid yellow;
+        background: linear-gradient(180deg,
+                rgba(128, 26, 178, 1),
+                rgba(76, 76, 255, 1));
 
         border-radius: 50%;
         width: 80px;
         height: 80px;
       }
 
+      .gradient_wrapper_background {
+        @include flex_center;
+
+        background-color: $bg_modal;
+
+        width: 78px;
+        height: 78px;
+        margin-top: 1px;
+        margin-left: 1px;
+
+        border-radius: 50%;
+      }
 
       .gradient_wrapper:nth-child(n+2) {
         margin-left: -40px;

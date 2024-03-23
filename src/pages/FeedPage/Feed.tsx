@@ -30,7 +30,7 @@ export default function Feed() {
 
                         <div className={styles.ingredients_thumbnail}>
 
-                            {
+                        {
                                 constructorData.bun ?
                                     <div className={styles.gradient_wrapper}>
                                         <div className={styles.gradient_wrapper_background}>
