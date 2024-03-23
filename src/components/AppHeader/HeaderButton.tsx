@@ -27,11 +27,11 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
                     </Button>
                 </NavLink>
             )
-        case 'orders':
+        case 'feed':
             return (
                 <NavLink
                     className={activeStyle}
-                    to="/orders"
+                    to="/feed"
                 >
                     <ListIcon
                         type='secondary'

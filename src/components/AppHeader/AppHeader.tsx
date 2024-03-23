@@ -15,7 +15,7 @@ export default function AppHeader() {
 						<HeaderButton typeFor={"builder"}/>
 					</li>
 					<li>
-						<HeaderButton typeFor={"orders"}/>
+						<HeaderButton typeFor={"feed"}/>
 					</li>
 				</ul>
 				<div className={styles.header_logo}>

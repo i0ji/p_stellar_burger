@@ -19,3 +19,8 @@
   align-items: center;
   justify-content: center;
 }
+
+@mixin container_center {
+  max-width: 1240px;
+  margin: 0 auto;
+}

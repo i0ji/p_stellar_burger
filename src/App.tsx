@@ -14,7 +14,7 @@ import {
     IngredientDetails,
     ResetPage,
     SuccessPage,
-    OrdersPage
+    FeedPage,
 } from "./pages";
 
 import {ProtectedRoute} from "common/ProtectedRoute/ProtectedRoute.tsx"
@@ -71,8 +71,17 @@ export default function App() {
                 <Route path="/reset-password" element={<ResetPage/>}/>
                 <Route path="/reset-success" element={<SuccessPage/>}/>
 
+
+                {/*SPRINT 5 NEW ROUTES*/}
+                <Route path="/feed" element={<FeedPage/>}/>
+                <Route path="/feed/:number" element={<NotFound404/>}/>
+                <Route path="/profile/orders" element={<NotFound404/>}/>
+                <Route path="/profile/orders/:number" element={<NotFound404/>}/>
+                {/*SPRINT 5 NEW ROUTES*/}
+
+
                 <Route path="/profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}/>
-                <Route path="/orders" element={<ProtectedRoute unAuth={false} component={<OrdersPage/>}/>}/>
+                {/*<Route path="/orders" element={<ProtectedRoute unAuth={false} component={<OrdersPage/>}/>}/>*/}
 
                 <Route path="/login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
                 <Route path="/reset-success" element={<ProtectedRoute unAuth={true} component={<SuccessPage/>}/>}/>
