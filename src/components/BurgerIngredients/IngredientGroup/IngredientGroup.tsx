@@ -25,6 +25,7 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
         dispatch(updateSelectedIngredient(ingredient));
     }
 
+
     // ----------------- INGREDIENT ITEM CARD -----------------
 
     const IngredientCard = ({onOpenDetailsPage, image, price, name, type, _id}: IIngredientCardProps) => {
@@ -73,7 +74,6 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
             </div>
         );
     };
-
 
     return (
         <>

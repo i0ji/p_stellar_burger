@@ -15,7 +15,11 @@
     display: flex;
     justify-content: center;
 
+    overflow-x: hidden;
+    overflow-y: hidden;
+
     width: 50%;
+    height: 90%;
   }
 
   .feed_details {
@@ -33,7 +37,6 @@
   flex-direction: column;
 
   width: 95%;
-  height: 215px;
 
   background-color: $bg_modal;
 
@@ -61,6 +64,38 @@
 
     h4 {
       font-size: 24px;
+    }
+  }
+
+  .feed_item_ingredients {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 90%;
+
+    .ingredients_thumbnail {
+      display: flex;
+      align-items: center;
+
+      width: 60%;
+
+      border: 1px solid red;
+
+      img {
+        height: 56px;
+        border-radius: 50%;
+
+      }
+
+      .circle:nth-child(n+2) {
+        margin-left: -90px;
+      }
+    }
+
+    .feed_item_price {
+      display: flex;
+      gap: 10px;
     }
   }
 }
