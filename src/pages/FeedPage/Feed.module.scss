@@ -1,3 +1,66 @@
-.feed {
+@import "styles/mixins";
+@import "styles/theme_colors";
 
+.feed {
+  @include container_center;
+
+  display: flex;
+  flex-flow: row wrap;
+
+  h1 {
+    width: 100%;
+  }
+
+  .feed_list {
+    display: flex;
+    justify-content: center;
+
+    width: 50%;
+  }
+
+  .feed_details {
+    width: 50%;
+    border: 1px solid red;
+  }
+
+}
+
+.feed_item {
+  composes: pt-6 from global;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  width: 95%;
+  height: 215px;
+
+  background-color: $bg_modal;
+
+  border-radius: 40px;
+
+  .feed_item_info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 90%;
+
+    p:nth-child(1) {
+      font-size: 20px;
+    }
+
+    .order_date {
+      color: $theme_light;
+    }
+  }
+
+  .feed_item_name {
+    width: 90%;
+    text-align: start;
+
+    h4 {
+      font-size: 24px;
+    }
+  }
 }
