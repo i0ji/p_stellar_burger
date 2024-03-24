@@ -102,17 +102,15 @@
     width: 90%;
 
     .ingredients_thumbnail {
+
       display: flex;
       align-items: center;
 
       width: 70%;
+    }
 
-
-      @include thumbnail;
-
-      .gradient_wrapper:nth-child(n+2) {
-        margin-left: -30px;
-      }
+    .ingredients_thumbnail > div > div:nth-child(1) {
+      margin-left: -30px;
     }
 
     .feed_item_price {

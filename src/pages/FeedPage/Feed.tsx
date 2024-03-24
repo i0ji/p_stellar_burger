@@ -8,6 +8,7 @@ import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {RootState} from "declarations/rootState.ts";
 import {IIngredient} from "declarations/interfaces";
 import {IConstructorSlice} from "declarations/sliceInterfaces";
+import Thumbnail from "common/Thumbnail/Thumbnail.tsx";
 
 export default function Feed() {
 
@@ -38,21 +39,16 @@ export default function Feed() {
 
                         {
                             constructorData.bun ?
-                                <div className={styles.gradient_wrapper}>
-                                    <div className={styles.gradient_wrapper_background}>
-                                        <img src={constructorData.bun.image} alt=""/>
-                                    </div>
-                                </div> : <p>HELLO</p>
+                                <Thumbnail elem={constructorData.bun}/>
+                                : <p>HELLO</p>
                         }
 
                         {
-                            constructorData.addedIngredients.map((elem: IIngredient, i: number) =>
+                            constructorData.addedIngredients.map(
+                                (elem: IIngredient, i: number) =>
 
-                                <div className={styles.gradient_wrapper} key={i}>
-                                    <div className={styles.gradient_wrapper_background}>
-                                        <img src={elem.image} alt=""/>
-                                    </div>
-                                </div>
+                                        <Thumbnail elem={elem} key={i}/>
+
                             )
                         }
                     </div>

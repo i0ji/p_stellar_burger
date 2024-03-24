@@ -54,8 +54,6 @@
 }
 
 .order_ingredient {
-  @include thumbnail;
-
   display: grid;
   grid-template-columns: 1fr 3fr 3fr;
 
@@ -75,6 +73,7 @@
   }
 }
 
+//NEED TO BE CORRECTED WITH THE DYNAMIC ROUTING
 .dark {
-  background-color: $bg_modal;
+  background-color: $bg_main;
 }

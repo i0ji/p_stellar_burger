@@ -26,36 +26,3 @@
   max-width: 1240px;
   margin: 0 auto;
 }
-
-@mixin thumbnail {
-  img {
-    height: 60px;
-    border-radius: 50%;
-  }
-
-  .gradient_wrapper {
-    @include flex_center;
-
-    width: 72px;
-    height: 72px;
-
-    background: linear-gradient(180deg,
-            rgba(128, 26, 178, 1),
-            rgba(76, 76, 255, 1));
-
-    border-radius: 50%;
-  }
-
-  .gradient_wrapper_background {
-    @include flex_center;
-
-    width: 68px;
-    height: 68px;
-
-    padding-left: 2px;
-
-    background-color: $bg_modal;
-
-    border-radius: 50%;
-  }
-}

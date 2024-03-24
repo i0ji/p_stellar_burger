@@ -1,55 +1,46 @@
 import styles from "./OrderDetails.module.scss"
 
-import {useSelector} from "hooks/reduxHooks.ts";
-import {useParams, useLocation} from "react-router-dom";
-
 import {RootState} from "declarations/rootState.ts";
 import {IIngredient} from "declarations/interfaces";
 import {IConstructorSlice} from "declarations/sliceInterfaces";
+
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import Thumbnail from "common/Thumbnail/Thumbnail.tsx";
+
+import {useSelector} from "hooks/reduxHooks.ts";
+import {useParams, useLocation} from "react-router-dom";
 
 export default function OrderDetails() {
 
+    const constructorData: IConstructorSlice = useSelector((state: RootState) => state.constructorSlice);
 
     // --------------- ROUTING & BACKGROUND ---------------
+
     const {number} = useParams<{ "number"?: string }>();
     const location = useLocation();
 
     const modalBackground = (location.key === 'default') ? styles.transparent : styles.dark;
 
-
-    const constructorData: IConstructorSlice = useSelector((state: RootState) => state.constructorSlice);
-
-    // --------------- SETTING BACKGROUND ---------------
-
-    //const modalBackground = (location.key === 'default') ? styles.transparent : styles.dark;
-
-
-    // --------------- SETTING BACKGROUND ---------------
-
     const OrderIngredient = ({elem, isBun}: { elem: IIngredient, isBun: boolean }) => {
         return (
             <>
-                {constructorData.addedIngredients.length ?
-                    <div className={styles.order_ingredient}>
-                        <div className={styles.gradient_wrapper}>
-                            <div className={styles.gradient_wrapper_background}>
-                                <img src={elem.image} alt=""/>
-                            </div>
-                        </div>
+                {
+                    constructorData.addedIngredients.length ?
+                        <div className={styles.order_ingredient}>
+                            <Thumbnail elem={elem}/>
 
-                        <p className="text text_type_main-default">
-                            {elem.name}
-                        </p>
-
-                        <div className={styles.order_ingredient_price}>
-                            <p className="text text_type_digits-default">
-                                {isBun ? '2' : 'wait'} X {elem.price}
+                            <p className="text text_type_main-default">
+                                {elem.name}
                             </p>
-                            <CurrencyIcon type="primary"/>
-                        </div>
-                    </div>
-                    : <p>no!</p>}
+
+                            <div className={styles.order_ingredient_price}>
+                                <p className="text text_type_digits-default">
+                                    {isBun ? '2' : 'wait'} X {elem.price}
+                                </p>
+                                <CurrencyIcon type="primary"/>
+                            </div>
+                        </div> : <p>no!</p>
+                }
             </>
         )
     }
@@ -91,7 +82,6 @@ export default function OrderDetails() {
                     <CurrencyIcon type="primary"/>
                 </span>
             </div>
-
         </div>
     );
 }

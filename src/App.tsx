@@ -17,7 +17,6 @@ import {
     FeedPage,
     OrderDetails
 } from "./pages";
-
 import Loader from "common/Loader/Loader.tsx";
 
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
@@ -47,10 +46,6 @@ export default function App() {
     // console.log('Access Token:', localStorage.getItem('accessToken'));
     // console.log(`User Auth: ${userAuth}`);
     // console.log(`Auth is checked: ${userAuthChecked}`);
-
-    // const handleCloseModal = useCallback(() => {
-    //     navigate(-1);
-    // }, [navigate]);
 
     if (ingredientsStatus == 'loading') {
         return <Loader/>;
@@ -92,9 +87,7 @@ export default function App() {
                 state?.background && (
                     <Routes>
                         <Route path="/ingredient/:id" element={
-                            //<Modal onClose={handleCloseModal}>
                             <IngredientDetails/>
-                            //</Modal>
                         }/>
                     </Routes>
                 )
