@@ -22,6 +22,10 @@
 
       li {
         width: 45%;
+
+        a {
+          transition: .2s all;
+        }
       }
     }
 

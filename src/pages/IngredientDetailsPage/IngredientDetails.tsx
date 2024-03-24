@@ -1,11 +1,8 @@
- import styles from "pages/IngredientDetailsPage/IngredientDetailsStyles.module.scss";
-
+import styles from "pages/IngredientDetailsPage/IngredientDetailsStyles.module.scss";
 import {useSelector} from "hooks/reduxHooks.ts";
 import {useParams, useLocation} from "react-router-dom";
-
 import {IIngredient} from "declarations/interfaces";
 import {IBurgerState} from "declarations/sliceInterfaces";
-
 import Loader from "common/Loader/Loader.tsx";
 
 export default function IngredientDetails() {

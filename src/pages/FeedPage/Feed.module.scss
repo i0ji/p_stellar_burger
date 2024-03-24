@@ -55,7 +55,7 @@
 }
 
 .feed_item {
-  composes: pt-6 from global;
+  composes: pt-6 mt-1 mb-1 from global;
 
   display: flex;
   align-items: center;
@@ -66,6 +66,8 @@
   background-color: $bg_modal;
 
   border-radius: 40px;
+
+  transition: .5s all;
 
   .feed_item_info {
     display: flex;
@@ -105,40 +107,8 @@
 
       width: 70%;
 
-      img {
-        height: 60px;
 
-        padding: 2px 0 0 2px;
-
-        border-radius: 50%;
-      }
-
-      .gradient_wrapper {
-        @include flex_center;
-
-        width: 72px;
-        height: 72px;
-
-        background: linear-gradient(180deg,
-                rgba(128, 26, 178, 1),
-                rgba(76, 76, 255, 1));
-
-        border-radius: 50%;
-      }
-
-      .gradient_wrapper_background {
-        @include flex_center;
-
-        width: 68px;
-        height: 68px;
-
-        margin-top: 1px;
-        margin-left: 1px;
-
-        background-color: $bg_modal;
-
-        border-radius: 50%;
-      }
+      @include thumbnail;
 
       .gradient_wrapper:nth-child(n+2) {
         margin-left: -30px;
@@ -157,4 +127,8 @@
       }
     }
   }
+}
+
+.feed_item:hover {
+  box-shadow: 0 0 6px 1px $theme_light;
 }

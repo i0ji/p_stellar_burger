@@ -1,9 +1,9 @@
 import {Routes, Route, useNavigate} from 'react-router-dom';
-
-import AppHeader from "components/AppHeader/AppHeader.tsx";
+import {ProtectedRoute} from "common/ProtectedRoute/ProtectedRoute.tsx"
 
 import {RootState} from "declarations/rootState.ts";
 
+import AppHeader from "components/AppHeader/AppHeader.tsx";
 import {
     LoginPage,
     HomePage,
@@ -17,8 +17,6 @@ import {
     FeedPage,
     OrderDetails
 } from "./pages";
-
-import {ProtectedRoute} from "common/ProtectedRoute/ProtectedRoute.tsx"
 
 import Modal from "common/Modal/Modal.tsx";
 import Loader from "common/Loader/Loader.tsx";
