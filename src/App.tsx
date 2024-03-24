@@ -1,4 +1,4 @@
-import {Routes, Route, useNavigate} from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 import {ProtectedRoute} from "common/ProtectedRoute/ProtectedRoute.tsx"
 
 import {RootState} from "declarations/rootState.ts";
@@ -18,18 +18,16 @@ import {
     OrderDetails
 } from "./pages";
 
-import Modal from "common/Modal/Modal.tsx";
 import Loader from "common/Loader/Loader.tsx";
 
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useLocation} from "react-router-dom";
-import {useCallback, useEffect} from "react";
+import {useEffect} from "react";
 
 import {checkUserAuth, getUserData, getIngredients} from "utils/api.ts";
 
 export default function App() {
 
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation();
     const state = location.state as { background?: Location };
@@ -50,9 +48,9 @@ export default function App() {
     // console.log(`User Auth: ${userAuth}`);
     // console.log(`Auth is checked: ${userAuthChecked}`);
 
-    const handleCloseModal = useCallback(() => {
-        navigate(-1);
-    }, [navigate]);
+    // const handleCloseModal = useCallback(() => {
+    //     navigate(-1);
+    // }, [navigate]);
 
     if (ingredientsStatus == 'loading') {
         return <Loader/>;
@@ -73,7 +71,7 @@ export default function App() {
 
                 {/*SPRINT 5 NEW ROUTES*/}
                 <Route path="/feed" element={<FeedPage/>}/>
-                <Route path="/feed/number" element={<OrderDetails/>}/>
+                <Route path="/feed/:number" element={<OrderDetails/>}/>
                 <Route path="/profile/orders" element={<NotFound404/>}/>
                 <Route path="/profile/orders/:number" element={<NotFound404/>}/>
                 {/*SPRINT 5 NEW ROUTES*/}
@@ -90,17 +88,17 @@ export default function App() {
 
             </Routes>
 
-            {state?.background && (
-                <Routes>
-                    <Route path="/ingredient/:id" element={
-                        <Modal
-                            onClose={handleCloseModal}
-                        >
+            {
+                state?.background && (
+                    <Routes>
+                        <Route path="/ingredient/:id" element={
+                            //<Modal onClose={handleCloseModal}>
                             <IngredientDetails/>
-                        </Modal>
-                    }/>
-                </Routes>
-            )}
+                            //</Modal>
+                        }/>
+                    </Routes>
+                )
+            }
         </>
     )
 }

@@ -1,7 +1,7 @@
 import styles from "./OrderDetails.module.scss"
 
 import {useSelector} from "hooks/reduxHooks.ts";
-import {useLocation, useParams} from "react-router-dom";
+import {useParams, useLocation} from "react-router-dom";
 
 import {RootState} from "declarations/rootState.ts";
 import {IIngredient} from "declarations/interfaces";
@@ -10,13 +10,17 @@ import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 export default function OrderDetails() {
 
-    //  const {id} = useParams<{ "id"?: string }>();
+
+    // --------------- ROUTING & BACKGROUND ---------------
+    const {number} = useParams<{ "number"?: string }>();
+    const location = useLocation();
+
+    const modalBackground = (location.key === 'default') ? styles.transparent : styles.dark;
+
 
     const constructorData: IConstructorSlice = useSelector((state: RootState) => state.constructorSlice);
 
     // --------------- SETTING BACKGROUND ---------------
-
-    const location = useLocation();
 
     //const modalBackground = (location.key === 'default') ? styles.transparent : styles.dark;
 
@@ -52,7 +56,7 @@ export default function OrderDetails() {
 
     return (
         <div
-            className={styles.order_details}
+            className={`${styles.order_details} ${modalBackground}`}
         >
             <div className={styles.order_details_header}>
                 <h5 className="text text_type_digits-default mb-10 ">#99999</h5>
@@ -72,9 +76,7 @@ export default function OrderDetails() {
                     </li>
                     {constructorData.addedIngredients ?
                         constructorData.addedIngredients.map((elem: IIngredient, i: number) =>
-                            <li
-                                key={i}
-                            >
+                            <li key={i}>
                                 <OrderIngredient isBun={false} elem={elem}/>
                             </li>
                         ) : 'hello'
