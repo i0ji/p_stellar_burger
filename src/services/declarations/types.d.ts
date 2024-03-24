@@ -1,7 +1,10 @@
 import {IToken, IUser, IUserData} from "declarations/sliceInterfaces";
 import {IIngredient} from "declarations/interfaces";
+import {RootState} from "declarations/rootState.ts";
+
 import {ThunkAction} from 'redux-thunk';
 import {Action, ActionCreator} from 'redux';
+
 import Error = types.Error;
 
 export type TInputElementType = HTMLInputElement | null;
@@ -29,8 +32,6 @@ type TUserLoginResponse = TServerResponse<IToken, {
 }>;
 
 type TUserRegister = TServerResponse<IToken, IUser>;
-
-export type AppDispatch = typeof store.dispatch;
 
 export type AppThunk<TReturn = void> = ActionCreator<
     ThunkAction<TReturn, Action, RootState>

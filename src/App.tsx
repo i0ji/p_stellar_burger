@@ -15,6 +15,7 @@ import {
     ResetPage,
     SuccessPage,
     FeedPage,
+    OrderDetails
 } from "./pages";
 
 import {ProtectedRoute} from "common/ProtectedRoute/ProtectedRoute.tsx"
@@ -44,7 +45,7 @@ export default function App() {
         dispatch(getUserData());
     }, [dispatch, accessToken]);
 
-    console.log('v:0.1.9.5.5');
+    console.log('v:0.1.9.6');
     // console.log('ingredients loading status:', ingredientsStatus);
     // console.log(`Refresh token:`, localStorage.getItem('refreshToken'));
     // console.log('Access Token:', localStorage.getItem('accessToken'));
@@ -74,7 +75,7 @@ export default function App() {
 
                 {/*SPRINT 5 NEW ROUTES*/}
                 <Route path="/feed" element={<FeedPage/>}/>
-                <Route path="/feed/:number" element={<NotFound404/>}/>
+                <Route path="/feed/number" element={<OrderDetails/>}/>
                 <Route path="/profile/orders" element={<NotFound404/>}/>
                 <Route path="/profile/orders/:number" element={<NotFound404/>}/>
                 {/*SPRINT 5 NEW ROUTES*/}
