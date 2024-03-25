@@ -7,8 +7,9 @@ import ResetPage from "pages/ResetPage.tsx";
 import ProfilePage from "pages/ProfilePage.tsx"
 import IngredientDetails from "pages/IngredientDetailsPage/IngredientDetails.tsx"
 import SuccessPage from "pages/SuccessPage.tsx";
-import OrdersPage from "pages/OrdersPage/OrdersPage.tsx";
+import FeedPage from "pages/FeedPage/Feed.tsx";
 import MemoLoginPage from "pages/LoginPage.tsx";
+import OrderDetails from "pages/OrderDetailsPage/OrderDetails.tsx";
 
 export {
 	LoginPage,
@@ -20,6 +21,7 @@ export {
 	IngredientDetails,
 	ResetPage,
 	SuccessPage,
-	OrdersPage,
-	MemoLoginPage
+	FeedPage,
+	MemoLoginPage,
+	OrderDetails
 };

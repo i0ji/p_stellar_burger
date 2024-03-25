@@ -2,7 +2,8 @@
 @import "styles/animation";
 
 .constructor_block {
-  composes: mt-25 pl-5 pr-5 pb-10 from global;
+  composes: mt-25 pl-5 pb-10 from global;
+  //composes: mt-25 pl-5 pr-5 pb-10 from global;
 
   width: 50%;
   height: 75vh;
@@ -15,7 +16,6 @@
 
     gap: 10px;
 
-
     .constructor_item_top,
     .constructor_item_bottom,
     .constructor_initial_bun,
@@ -23,7 +23,7 @@
       display: flex;
       align-self: center;
 
-      width: 89%;
+      width: 90%;
 
       margin-right: 30px;
       margin-left: 30px;
@@ -63,7 +63,7 @@
     .constructor_initial_ingredient {
       align-self: center;
 
-      width: 88%;
+      width: 90%;
       min-height: 30px;
 
       border-radius: 40px;

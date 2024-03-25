@@ -1,9 +1,9 @@
-import {Routes, Route, useNavigate} from 'react-router-dom';
-
-import AppHeader from "components/AppHeader/AppHeader.tsx";
+import {Routes, Route} from 'react-router-dom';
+import {ProtectedRoute} from "common/ProtectedRoute/ProtectedRoute.tsx"
 
 import {RootState} from "declarations/rootState.ts";
 
+import AppHeader from "components/AppHeader/AppHeader.tsx";
 import {
     LoginPage,
     HomePage,
@@ -14,25 +14,20 @@ import {
     IngredientDetails,
     ResetPage,
     SuccessPage,
-    OrdersPage
+    FeedPage,
+    OrderDetails
 } from "./pages";
-
-import {ProtectedRoute} from "common/ProtectedRoute/ProtectedRoute.tsx"
-
-import Modal from "common/Modal/Modal.tsx";
 import Loader from "common/Loader/Loader.tsx";
 
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useLocation} from "react-router-dom";
-import {useCallback, useEffect} from "react";
+import {useEffect} from "react";
 
 import {checkUserAuth, getUserData, getIngredients} from "utils/api.ts";
-import {AppDispatch} from "declarations/types";
 
 export default function App() {
 
-    const navigate = useNavigate();
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useDispatch();
     const location = useLocation();
     const state = location.state as { background?: Location };
 
@@ -45,16 +40,12 @@ export default function App() {
         dispatch(getUserData());
     }, [dispatch, accessToken]);
 
-    console.log('v:0.1.9.5.5');
+    console.log('v:0.1.9.6');
     // console.log('ingredients loading status:', ingredientsStatus);
     // console.log(`Refresh token:`, localStorage.getItem('refreshToken'));
     // console.log('Access Token:', localStorage.getItem('accessToken'));
     // console.log(`User Auth: ${userAuth}`);
     // console.log(`Auth is checked: ${userAuthChecked}`);
-
-    const handleCloseModal = useCallback(() => {
-        navigate(-1);
-    }, [navigate]);
 
     if (ingredientsStatus == 'loading') {
         return <Loader/>;
@@ -72,8 +63,17 @@ export default function App() {
                 <Route path="/reset-password" element={<ResetPage/>}/>
                 <Route path="/reset-success" element={<SuccessPage/>}/>
 
+
+                {/*SPRINT 5 NEW ROUTES*/}
+                <Route path="/feed" element={<FeedPage/>}/>
+                <Route path="/feed/:number" element={<OrderDetails/>}/>
+                <Route path="/profile/orders" element={<NotFound404/>}/>
+                <Route path="/profile/orders/:number" element={<NotFound404/>}/>
+                {/*SPRINT 5 NEW ROUTES*/}
+
+
                 <Route path="/profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}/>
-                <Route path="/orders" element={<ProtectedRoute unAuth={false} component={<OrdersPage/>}/>}/>
+                {/*<Route path="/orders" element={<ProtectedRoute unAuth={false} component={<OrdersPage/>}/>}/>*/}
 
                 <Route path="/login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
                 <Route path="/reset-success" element={<ProtectedRoute unAuth={true} component={<SuccessPage/>}/>}/>
@@ -83,17 +83,15 @@ export default function App() {
 
             </Routes>
 
-            {state?.background && (
-                <Routes>
-                    <Route path="/ingredient/:id" element={
-                        <Modal
-                            onClose={handleCloseModal}
-                        >
+            {
+                state?.background && (
+                    <Routes>
+                        <Route path="/ingredient/:id" element={
                             <IngredientDetails/>
-                        </Modal>
-                    }/>
-                </Routes>
-            )}
+                        }/>
+                    </Routes>
+                )
+            }
         </>
     )
 }

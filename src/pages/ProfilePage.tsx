@@ -1,11 +1,11 @@
 import styles from "./Pages.module.scss";
 import {RootState} from "declarations/rootState.ts";
-import {AppDispatch, TInputElementType} from "declarations/types";
+import {TInputElementType} from "declarations/types";
 
 import {Link, useNavigate} from "react-router-dom";
 import {useForm} from "hooks/useForm.ts";
-import {useState, useRef, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useState, useRef, useEffect} from "react";
+import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 
 import Loader from "common/Loader/Loader.tsx";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -18,7 +18,7 @@ export default function ProfilePage() {
     const navigate = useNavigate();
     const isActive = location.pathname === '/profile'
     const {values, handleChange, setValues} = useForm<IForm>({});
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useDispatch();
     const userData = useSelector((state: RootState) => state.authSlice.userData);
     const refreshToken = localStorage.getItem('refreshToken');
     const [showUpdateButtons, setShowUpdateButtons] = useState<boolean>(false);

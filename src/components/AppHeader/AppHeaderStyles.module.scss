@@ -1,4 +1,5 @@
 @import "styles/theme_colors";
+@import "styles/mixins";
 
 .header {
   composes: pt-4 pb-4 from global;
@@ -8,11 +9,10 @@
   height: 88px;
 
   nav {
+    @include container_center;
+
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-
-    max-width: 1280px;
-    margin: 0 auto;
 
     ul {
       display: flex;
@@ -22,6 +22,18 @@
 
       li {
         width: 45%;
+
+        a {
+          transition: .2s all;
+        }
+      }
+    }
+
+    .header_logo {
+      @include flex_center;
+
+      a:hover {
+        box-shadow: none;
       }
     }
 

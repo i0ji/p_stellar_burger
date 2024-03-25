@@ -7,14 +7,13 @@ import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {registerUser} from "utils/api.ts";
 
 import React, {useState} from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "hooks/reduxHooks.ts";
 import {useForm} from "hooks/useForm.ts";
 import {IForm} from "declarations/interfaces";
-import {AppDispatch} from "declarations/types";
 
 export default function RegisterPage() {
 
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useDispatch();
     const {values, handleChange} = useForm<IForm>({});
     const [isPasswordShow, setIsPasswordShow] = useState(false);
     const isFormEmpty = !values.email || !values.password || !values.name;

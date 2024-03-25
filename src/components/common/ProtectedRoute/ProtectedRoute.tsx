@@ -1,5 +1,5 @@
 import React from "react";
-import {useSelector} from "react-redux";
+import {useSelector} from "hooks/reduxHooks.ts";
 import {Navigate, useLocation} from "react-router-dom";
 import Loader from "common/Loader/Loader.tsx";
 import {RootState} from "declarations/rootState.ts";

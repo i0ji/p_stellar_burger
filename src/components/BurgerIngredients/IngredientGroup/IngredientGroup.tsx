@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {useLocation} from "react-router-dom";
-import {useSelector, useDispatch} from "react-redux";
+import {useSelector, useDispatch} from "hooks/reduxHooks.ts";
 import {useDrag} from "react-dnd";
 
 import {updateSelectedIngredient} from "slices/currentIngredientSlice.ts";
@@ -24,6 +24,7 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
     const onUpdateSelectedIngredient = (ingredient: IIngredient) => {
         dispatch(updateSelectedIngredient(ingredient));
     }
+
 
     // ----------------- INGREDIENT ITEM CARD -----------------
 
@@ -73,7 +74,6 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
             </div>
         );
     };
-
 
     return (
         <>

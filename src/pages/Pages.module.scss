@@ -3,9 +3,8 @@
 @import "styles/mixins";
 
 .section {
-  margin: 0 auto;
+  @include container_center;
   height: calc(100vh - 90px);
-  max-width: 1240px;
 
   form {
     height: 100%;
@@ -54,11 +53,10 @@
 }
 
 .profile_section {
-  margin: 0 auto;
-  height: calc(100vh - 90px);
-  max-width: 1240px;
-
+  @include container_center;
   @include flex_center;
+
+  height: calc(100vh - 90px);
 
   .profile_block {
     position: relative;

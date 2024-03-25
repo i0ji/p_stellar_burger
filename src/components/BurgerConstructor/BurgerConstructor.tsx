@@ -1,10 +1,12 @@
 import {addIngredient, reorderIngredients} from "slices/constructorSlice.ts"
 import {updateIds, updateOrderNumber} from "slices/orderSlice.ts"
 
-import styles from "./BurgerConstructorStyles.module.scss";
-import awaitSpinner from "images/common/awaitSpinner.svg";
+import {createOrder} from "utils/api.ts";
 import {IIngredient} from "declarations/interfaces";
 import {RootState} from "declarations/rootState.ts";
+
+import styles from "./BurgerConstructorStyles.module.scss";
+import awaitSpinner from "images/common/awaitSpinner.svg";
 
 import {ConstructorElement, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import CurrentIngredients from "components/BurgerConstructor/CurrentIngredients/CurrentIngredients.tsx";
@@ -13,10 +15,9 @@ import Loader from "common/Loader/Loader.tsx";
 import WarningMessage from "common/WarningMessage/WarningMessage.tsx";
 
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
+import useModal from "hooks/useModal.ts";
 import {useCallback, useEffect, useState} from "react";
 import {useDrop} from "react-dnd";
-import useModal from "hooks/useModal.ts";
-import {createOrder} from "utils/api.ts";
 import {useNavigate} from "react-router-dom";
 
 export default function BurgerConstructor() {
@@ -107,7 +108,7 @@ export default function BurgerConstructor() {
     };
 
 
-// --------------- INITIAL CONSTRUCTOR LIST ---------------
+    // --------------- INITIAL CONSTRUCTOR LIST ---------------
 
     const InitialBun = ({pos}: { pos: "top" | "bottom" | undefined }) => {
         return (
@@ -135,7 +136,7 @@ export default function BurgerConstructor() {
     }
 
 
-// --------------- ORDER NUMBER LOGIC ---------------
+    // --------------- ORDER NUMBER LOGIC ---------------
 
     const handleOrder = async (): Promise<void> => {
 
@@ -172,7 +173,8 @@ export default function BurgerConstructor() {
                                 thumbnail={bun.image || ''}
                             />
                         )}
-                    </div>}
+                    </div>
+                }
 
 
                 {/* --------------- INNER INGREDIENTS + ORDER CONDITION --------------- */}

@@ -1,21 +1,21 @@
 
-
-// import store from "store/store.ts";
 //
-// export type RootState = ReturnType<typeof store.getState>;
+import store from "store/store.ts";
 
-import {
-    ICurrentIngredientSlice,
-    IIngredientsListSlice,
-    IConstructorSlice,
-    IAuthSlice,
-    IOrderSlice
-} from "declarations/sliceInterfaces";
+export type RootState = ReturnType<typeof store.getState>;
 
-export type RootState = {
-    ingredients: IIngredientsListSlice;
-    constructorSlice: IConstructorSlice;
-    authSlice: IAuthSlice;
-    currentIngredientSlice: ICurrentIngredientSlice;
-    orderSlice: IOrderSlice;
-}
+// import {
+//     ICurrentIngredientSlice,
+//     IIngredientsListSlice,
+//     IConstructorSlice,
+//     IAuthSlice,
+//     IOrderSlice
+// } from "declarations/sliceInterfaces";
+//
+// export type RootState = {
+//     ingredients: IIngredientsListSlice;
+//     constructorSlice: IConstructorSlice;
+//     authSlice: IAuthSlice;
+//     currentIngredientSlice: ICurrentIngredientSlice;
+//     orderSlice: IOrderSlice;
+// }

@@ -1,5 +1,5 @@
 import {useCallback, useReducer} from 'react';
-import {useDispatch} from "react-redux";
+import {useDispatch} from "hooks/reduxHooks.ts";
 import {resetIngredients} from "slices/constructorSlice.ts";
 
 export default function useModal() {

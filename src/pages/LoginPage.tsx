@@ -5,19 +5,18 @@ import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 
 import {loginUser} from "utils/api.ts";
 import {useForm} from "hooks/useForm.ts";
 import {IUserData} from "declarations/sliceInterfaces";
 import {IForm} from "declarations/interfaces";
 import {RootState} from "declarations/rootState.ts";
-import {AppDispatch} from "declarations/types";
 import Loader from "common/Loader/Loader.tsx";
 
 export default function LoginPage() {
 
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useDispatch();
     const {values, handleChange} = useForm<IForm>({});
 
     // --------------- PWD VISIBILITY  ---------------
