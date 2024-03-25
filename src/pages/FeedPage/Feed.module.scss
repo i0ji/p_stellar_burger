@@ -63,8 +63,6 @@
 
   width: 95%;
 
-  height: 300px;/////////////
-
   background-color: $bg_modal;
 
   border-radius: 40px;
@@ -109,14 +107,7 @@
       align-items: center;
 
       width: 70%;
-
-      #wrapper:nth-child(n+2) {
-        border: 1px solid purple;
-        margin-left: -30px;
-      }
     }
-
-
   }
 
   .feed_item_price {

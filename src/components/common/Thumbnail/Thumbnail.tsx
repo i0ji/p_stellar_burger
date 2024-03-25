@@ -1,13 +1,12 @@
 import styles from "./Thumbnail.module.scss"
-import {IThumbnailProps} from "declarations/interfaces";
+import {IIngredient} from "declarations/interfaces";
 
-export default function Thumbnail(props: IThumbnailProps) {
+export default function Thumbnail({elem}:{elem:IIngredient}) {
     return (
         <div
-            key={props.i}
             className={styles.gradient_wrapper}>
             <div className={styles.gradient_wrapper_background}>
-                <img src={props.elem.image} alt=""/>
+                <img src={elem.image} alt=""/>
             </div>
         </div>
     );

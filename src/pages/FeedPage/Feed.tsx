@@ -40,9 +40,12 @@ export default function Feed() {
 
                         {
                             constructorData.bun ?
-                                <div id={styles.wrapper}>
+                                <div
+                                    style={{zIndex: 200}}
+                                    id={styles.wrapper}>
                                     <Thumbnail elem={constructorData.bun}/>
-                                </div>
+                                </div
+                                >
                                 : <p>HELLO</p>
                         }
 
@@ -50,9 +53,8 @@ export default function Feed() {
                             constructorData.addedIngredients.map(
                                 (elem: IIngredient, i: number) =>
                                     <div
-                                        style={{zIndex: `100-${i}`}}
-                                        id={styles.wrapper}
                                         key={i}
+                                        style={{zIndex: 100 - i}}
                                     >
                                         <Thumbnail elem={elem}/>
                                     </div>

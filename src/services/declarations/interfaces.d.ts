@@ -29,11 +29,6 @@ export interface IIngredientGroupProps {
     navigate?: string;
 }
 
-export interface IThumbnailProps {
-    elem: IIngredient,
-    i?: number
-}
-
 export interface IDragItem {
     index: number;
     id: string;
