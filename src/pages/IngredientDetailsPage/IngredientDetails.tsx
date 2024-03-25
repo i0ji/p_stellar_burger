@@ -1,11 +1,15 @@
 import styles from "pages/IngredientDetailsPage/IngredientDetailsStyles.module.scss";
-import {useSelector} from "hooks/reduxHooks.ts";
+
 import {useParams, useLocation, useNavigate} from "react-router-dom";
+
 import {IIngredient} from "declarations/interfaces";
 import {IBurgerState} from "declarations/sliceInterfaces";
-import Loader from "common/Loader/Loader.tsx";
-import {useCallback} from "react";
+
 import Modal from "common/Modal/Modal.tsx";
+import Loader from "common/Loader/Loader.tsx";
+
+import {useSelector} from "hooks/reduxHooks.ts";
+import {useCallback} from "react";
 
 export default function IngredientDetails() {
 

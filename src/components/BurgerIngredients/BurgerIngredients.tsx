@@ -1,14 +1,12 @@
 import styles from "./BurgerIngredientsStyles.module.scss"
 
-import React, {useRef, useEffect, useMemo, useState} from "react";
-import {useSelector} from "hooks/reduxHooks.ts";
-
 import {RootState} from "declarations/rootState.ts";
 
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "components/BurgerIngredients/IngredientGroup/IngredientGroup.tsx";
 
-
+import React, {useRef, useEffect, useMemo, useState} from "react";
+import {useSelector} from "hooks/reduxHooks.ts";
 
 enum TabValues {
     Bun = "bun",

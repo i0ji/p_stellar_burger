@@ -1,9 +1,9 @@
 import styles from "pages/Pages.module.scss"
 
+import {resetPassword} from "utils/api.ts";
+
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
-
-import {resetPassword} from "utils/api.ts";
 
 import React, {useState, useCallback} from "react";
 import {useNavigate} from "react-router-dom";

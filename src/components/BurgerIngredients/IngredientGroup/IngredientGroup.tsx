@@ -1,4 +1,8 @@
 import styles from "./IngredientGroupStyles.module.scss";
+
+import {updateSelectedIngredient} from "slices/currentIngredientSlice.ts";
+import {v4 as uuidv4} from 'uuid';
+
 import {IIngredient, IIngredientCardProps, IIngredientGroupProps} from "declarations/interfaces";
 import {RootState} from "declarations/rootState.ts";
 
@@ -8,10 +12,6 @@ import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useLocation} from "react-router-dom";
 import {useSelector, useDispatch} from "hooks/reduxHooks.ts";
 import {useDrag} from "react-dnd";
-
-import {updateSelectedIngredient} from "slices/currentIngredientSlice.ts";
-
-import {v4 as uuidv4} from 'uuid';
 
 export default function IngredientGroup({type, ingredients}: IIngredientGroupProps) {
 

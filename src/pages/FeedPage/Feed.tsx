@@ -7,7 +7,6 @@ import {IConstructorSlice} from "declarations/sliceInterfaces";
 
 import FeedItem from "common/FeedItem/FeedItem.tsx";
 
-
 export default function Feed() {
 
     const constructorData: IConstructorSlice = useSelector((state: RootState) => state.constructorSlice);

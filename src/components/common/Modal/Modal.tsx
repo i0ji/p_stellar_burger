@@ -1,7 +1,8 @@
 import styles from "./ModalStyles.module.scss"
-import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {RootState} from "declarations/rootState.ts";
+
+import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {useSelector} from "hooks/reduxHooks.ts";
 import React, {useEffect} from "react";

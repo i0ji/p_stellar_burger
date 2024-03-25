@@ -1,19 +1,18 @@
 import styles from "./Pages.module.scss";
-import {RootState} from "declarations/rootState.ts";
-import {TInputElementType} from "declarations/types";
 
 import {Link, Outlet, useNavigate} from "react-router-dom";
+import {getUserData, updateUserData, logoutUser} from "utils/api.ts";
+
+import {RootState} from "declarations/rootState.ts";
+import {TInputElementType} from "declarations/types";
+import {IForm} from "declarations/interfaces";
+
 import {useForm} from "hooks/useForm.ts";
 import {useState, useRef, useEffect} from "react";
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 
 import Loader from "common/Loader/Loader.tsx";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-
-import {getUserData, updateUserData, logoutUser} from "utils/api.ts";
-
-
-import {IForm} from "declarations/interfaces";
 
 export default function ProfilePage() {
 

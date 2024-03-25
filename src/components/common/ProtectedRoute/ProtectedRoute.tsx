@@ -1,8 +1,11 @@
 import React from "react";
+
+import {RootState} from "declarations/rootState.ts";
+
+import Loader from "common/Loader/Loader.tsx";
+
 import {useSelector} from "hooks/reduxHooks.ts";
 import {Navigate, useLocation} from "react-router-dom";
-import Loader from "common/Loader/Loader.tsx";
-import {RootState} from "declarations/rootState.ts";
 
 export const ProtectedRoute = ({unAuth = false, component}: { unAuth: boolean, component: React.ReactNode }) => {
     const user = useSelector((state: RootState) => state.authSlice.user);

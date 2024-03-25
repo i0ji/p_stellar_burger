@@ -1,8 +1,11 @@
 import styles from "./OrderDetailsStyles.module.scss";
 import done from "images/Modal/done.gif"
-import {useSelector} from "hooks/reduxHooks.ts";
+
 import {RootState} from "declarations/rootState.ts";
+
 import Modal from "common/Modal/Modal.tsx";
+
+import {useSelector} from "hooks/reduxHooks.ts";
 
 export default function OrderDetails({onClose}:{onClose:()=>void}) {
 	

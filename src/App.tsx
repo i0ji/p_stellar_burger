@@ -5,6 +5,7 @@ import {checkUserAuth, getUserData, getIngredients} from "utils/api.ts";
 import {RootState} from "declarations/rootState.ts";
 
 import AppHeader from "components/AppHeader/AppHeader.tsx";
+import Loader from "common/Loader/Loader.tsx";
 import {
     LoginPage,
     HomePage,
@@ -19,7 +20,7 @@ import {
     OrderDetails,
     HistoryPage
 } from "./pages";
-import Loader from "common/Loader/Loader.tsx";
+
 
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useLocation} from "react-router-dom";

@@ -1,10 +1,10 @@
 import styles from "./FeedItem.module.scss"
 
-import Thumbnail from "common/Thumbnail/Thumbnail.tsx";
-import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-
 import {IIngredient} from "declarations/interfaces";
 import {IConstructorSlice} from "declarations/sliceInterfaces";
+
+import Thumbnail from "common/Thumbnail/Thumbnail.tsx";
+import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {useNavigate} from "react-router-dom";
 

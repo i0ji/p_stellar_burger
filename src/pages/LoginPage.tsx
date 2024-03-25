@@ -1,18 +1,19 @@
 import styles from "pages/Pages.module.scss"
 
+import {loginUser} from "utils/api.ts";
+import {Link} from "react-router-dom";
+
+import {IUserData} from "declarations/sliceInterfaces";
+import {IForm} from "declarations/interfaces";
+import {RootState} from "declarations/rootState.ts";
+
+import Loader from "common/Loader/Loader.tsx";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import React, {useState} from "react";
-import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
-
-import {loginUser} from "utils/api.ts";
 import {useForm} from "hooks/useForm.ts";
-import {IUserData} from "declarations/sliceInterfaces";
-import {IForm} from "declarations/interfaces";
-import {RootState} from "declarations/rootState.ts";
-import Loader from "common/Loader/Loader.tsx";
 
 export default function LoginPage() {
 
