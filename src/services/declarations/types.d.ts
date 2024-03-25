@@ -36,3 +36,19 @@ type TUserRegister = TServerResponse<IToken, IUser>;
 export type AppThunk<TReturn = void> = ActionCreator<
     ThunkAction<TReturn, Action, RootState>
 >;
+
+
+export type TOrdersFeed = TServerResponse<{
+    orders: [
+        {
+            ingredients: Array<string>,
+            _id: string,
+            status: string,
+            number: number,
+            createdAt: string,
+            updatedAt: string
+        }
+    ],
+    total: string,
+    totalToday: string
+}>

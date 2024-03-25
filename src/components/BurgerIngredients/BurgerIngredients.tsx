@@ -1,12 +1,14 @@
 import styles from "./BurgerIngredientsStyles.module.scss"
 
-import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-
-import IngredientGroup from "components/BurgerIngredients/IngredientGroup/IngredientGroup.tsx";
-
 import React, {useRef, useEffect, useMemo, useState} from "react";
 import {useSelector} from "hooks/reduxHooks.ts";
+
 import {RootState} from "declarations/rootState.ts";
+
+import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
+import IngredientGroup from "components/BurgerIngredients/IngredientGroup/IngredientGroup.tsx";
+
+
 
 enum TabValues {
     Bun = "bun",
@@ -92,7 +94,7 @@ export default function BurgerIngredients() {
             className={styles.ingredients_block}
             id="burgerIngredientsContainer"
         >
-            <h1 className="text text_type_main-large pb-10">Соберите бургер</h1>
+            <h1 className="text text_type_main-large mb-5">Соберите бургер</h1>
 
             <div className={styles.ingredients_menu}>
                 <Tab value={TabValues.Bun} active={current === TabValues.Bun} onClick={() => scrollToRef(bunRef)}>

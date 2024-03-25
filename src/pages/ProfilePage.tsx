@@ -2,7 +2,7 @@ import styles from "./Pages.module.scss";
 import {RootState} from "declarations/rootState.ts";
 import {TInputElementType} from "declarations/types";
 
-import {Link, useNavigate} from "react-router-dom";
+import {Link, Outlet, useNavigate} from "react-router-dom";
 import {useForm} from "hooks/useForm.ts";
 import {useState, useRef, useEffect} from "react";
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
@@ -11,6 +11,8 @@ import Loader from "common/Loader/Loader.tsx";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {getUserData, updateUserData, logoutUser} from "utils/api.ts";
+
+
 import {IForm} from "declarations/interfaces";
 
 export default function ProfilePage() {
@@ -38,7 +40,6 @@ export default function ProfilePage() {
     const emailInputRef = useRef<TInputElementType>(null);
     const passwordInputRef = useRef<TInputElementType>(null);
     const authStatus = useSelector((state: RootState) => state.authSlice.status);
-
 
     useEffect(() => {
         if (isEditing && editingField !== null) {
@@ -113,10 +114,7 @@ export default function ProfilePage() {
                             Профиль
                         </Button>
                     </Link>
-                    <Link
-                        to='/orders'
-                        className='mb-10'
-                    >
+                    <Link to='/profile/history' className='mb-10'>
                         <Button
                             extraClass={`text text_type_main-medium`}
                             htmlType="button"
@@ -139,7 +137,7 @@ export default function ProfilePage() {
                     </Link>
                     <p>В этом разделе вы можете изменить свои персональные данные</p>
                 </div>
-
+                <Outlet/>
                 {userData &&
                     <form>
                         <Input

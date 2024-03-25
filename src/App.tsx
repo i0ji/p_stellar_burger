@@ -1,5 +1,6 @@
 import {Routes, Route} from 'react-router-dom';
 import {ProtectedRoute} from "common/ProtectedRoute/ProtectedRoute.tsx"
+import {checkUserAuth, getUserData, getIngredients} from "utils/api.ts";
 
 import {RootState} from "declarations/rootState.ts";
 
@@ -15,7 +16,8 @@ import {
     ResetPage,
     SuccessPage,
     FeedPage,
-    OrderDetails
+    OrderDetails,
+    HistoryPage
 } from "./pages";
 import Loader from "common/Loader/Loader.tsx";
 
@@ -23,7 +25,9 @@ import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useLocation} from "react-router-dom";
 import {useEffect} from "react";
 
-import {checkUserAuth, getUserData, getIngredients} from "utils/api.ts";
+
+// import {WS_URL} from "declarations/routs.ts";
+
 
 export default function App() {
 
@@ -40,12 +44,24 @@ export default function App() {
         dispatch(getUserData());
     }, [dispatch, accessToken]);
 
-    console.log('v:0.1.9.6.1');
+    console.log('v:0.1.9.6.2');
     // console.log('ingredients loading status:', ingredientsStatus);
     // console.log(`Refresh token:`, localStorage.getItem('refreshToken'));
     // console.log('Access Token:', localStorage.getItem('accessToken'));
     // console.log(`User Auth: ${userAuth}`);
     // console.log(`Auth is checked: ${userAuthChecked}`);
+
+
+    // const ws = new WebSocket(`${WS_URL}orders`);
+    //
+    // console.log(`WS:${ws.readyState}`);
+    //
+    // ws.send('hello');
+    //
+    // ws.onmessage = (event) => {
+    //     console.log(`Получены данныe: ${event.data}`)
+    // }
+
 
     if (ingredientsStatus == 'loading') {
         return <Loader/>;
@@ -57,29 +73,32 @@ export default function App() {
 
             <Routes location={state?.background || location}>
 
-                <Route path="/" element={<HomePage/>}/>
-                <Route path="/ingredient/:id" element={<IngredientDetails/>}/>
+                <Route path="" element={<HomePage/>}/>
+                <Route path="ingredient/:id" element={<IngredientDetails/>}/>
                 <Route path="*" element={<NotFound404/>}/>
-                <Route path="/reset-password" element={<ResetPage/>}/>
-                <Route path="/reset-success" element={<SuccessPage/>}/>
+
+
+                <Route path="reset-password" element={<ResetPage/>}/>
+                <Route path="reset-success" element={<SuccessPage/>}/>
 
 
                 {/*SPRINT 5 NEW ROUTES*/}
-                <Route path="/feed" element={<FeedPage/>}/>
-                <Route path="/feed/:number" element={<OrderDetails/>}/>
-                <Route path="/profile/orders" element={<NotFound404/>}/>
-                <Route path="/profile/orders/:number" element={<NotFound404/>}/>
+                <Route path="feed" element={<FeedPage/>}/>
+                <Route path="feed/:number" element={<OrderDetails/>}/>
+                {/*<Route path="profile/history" element={<ProfilePage>}/>*/}
+                <Route path="profile/orders/:number" element={<OrderDetails/>}/>
                 {/*SPRINT 5 NEW ROUTES*/}
 
 
-                <Route path="/profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}/>
-                {/*<Route path="/orders" element={<ProtectedRoute unAuth={false} component={<OrdersPage/>}/>}/>*/}
+                <Route path="profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}>
+                    <Route path="history" element={<HistoryPage/>}/>
+                </Route>
 
-                <Route path="/login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
-                <Route path="/reset-success" element={<ProtectedRoute unAuth={true} component={<SuccessPage/>}/>}/>
-                <Route path="/login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
-                <Route path="/register" element={<ProtectedRoute unAuth={true} component={<RegisterPage/>}/>}/>
-                <Route path="/forgot-password" element={<ProtectedRoute unAuth={true} component={<ForgotPage/>}/>}/>
+                <Route path="login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
+                <Route path="reset-success" element={<ProtectedRoute unAuth={true} component={<SuccessPage/>}/>}/>
+                <Route path="login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
+                <Route path="register" element={<ProtectedRoute unAuth={true} component={<RegisterPage/>}/>}/>
+                <Route path="forgot-password" element={<ProtectedRoute unAuth={true} component={<ForgotPage/>}/>}/>
 
             </Routes>
 

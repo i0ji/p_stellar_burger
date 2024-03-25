@@ -10,18 +10,20 @@ import SuccessPage from "pages/SuccessPage.tsx";
 import FeedPage from "pages/FeedPage/Feed.tsx";
 import MemoLoginPage from "pages/LoginPage.tsx";
 import OrderDetails from "pages/OrderDetailsPage/OrderDetails.tsx";
+import HistoryPage from "pages/HistoryPage.tsx";
 
 export {
-	LoginPage,
-	HomePage,
-	NotFound404,
-	ForgotPage,
-	RegisterPage,
-	ProfilePage,
-	IngredientDetails,
-	ResetPage,
-	SuccessPage,
-	FeedPage,
-	MemoLoginPage,
-	OrderDetails
+    LoginPage,
+    HomePage,
+    NotFound404,
+    ForgotPage,
+    RegisterPage,
+    ProfilePage,
+    IngredientDetails,
+    ResetPage,
+    SuccessPage,
+    FeedPage,
+    MemoLoginPage,
+    OrderDetails,
+    HistoryPage
 };

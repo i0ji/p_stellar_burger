@@ -9,6 +9,7 @@ import {forgotPassword} from "utils/api.ts"
 import {useForm} from "hooks/useForm.ts";
 import {useDispatch} from "hooks/reduxHooks.ts";
 import {IForm} from "declarations/interfaces";
+
 export default function ForgotPage() {
 
     const {values, handleChange} = useForm<IForm>({});
@@ -19,7 +20,7 @@ export default function ForgotPage() {
     const handleForgotPassword = async () => {
         const action = dispatch(forgotPassword(values.email));
         navigate('/reset-password');
-        return  action.payload;
+        return action.payload;
     }
 
     return (

@@ -26,3 +26,15 @@
   max-width: 1240px;
   margin: 0 auto;
 }
+
+@mixin container_scroll {
+  @include container_center;
+
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+
+  max-height: 80vh;
+
+  overflow: hidden;
+}

@@ -1,15 +1,16 @@
 import styles from "./HomePageStyles.module.scss"
+
+import {DndProvider} from 'react-dnd';
+import {HTML5Backend} from "react-dnd-html5-backend";
+
 import {IBurgerState} from "declarations/sliceInterfaces";
+import {RootState} from "declarations/rootState.ts";
 
 import Loader from "common/Loader/Loader.tsx";
 import BurgerIngredients from "components/BurgerIngredients/BurgerIngredients.tsx";
 import BurgerConstructor from "components/BurgerConstructor/BurgerConstructor.tsx";
 
 import {useSelector} from "hooks/reduxHooks.ts";
-
-import {DndProvider} from 'react-dnd';
-import {HTML5Backend} from "react-dnd-html5-backend";
-import {RootState} from "declarations/rootState.ts";
 
 export default function HomePage() {
 

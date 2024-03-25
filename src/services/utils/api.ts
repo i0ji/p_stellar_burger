@@ -6,7 +6,7 @@ import {setAuthChecked, setUser} from "slices/authSlice.ts";
 import {checkResponse} from "utils/check-response.ts";
 
 import {IUserData, IRegisterUser} from "declarations/sliceInterfaces";
-import {TIngredientResponse, TUserLoginResponse, TApiResponse, TUserRegister} from "declarations/types";
+import {TIngredientResponse, TUserLoginResponse, TApiResponse, TUserRegister, TOrdersFeed} from "declarations/types";
 import {IIngredient} from "declarations/interfaces";
 
 
@@ -267,6 +267,7 @@ export const createOrder = createAsyncThunk<number, (string | undefined)[]>(
 
 
 // --------------- AUTH CHECK  ---------------
+
 export const checkUserAuth = () => {
     return async (dispatch: Dispatch) => {
         const accessToken = localStorage.getItem('accessToken');
@@ -298,4 +299,19 @@ export const checkUserAuth = () => {
             dispatch(setAuthChecked(true));
         }
     };
+};
+
+
+// --------------- ORDERS FEED  ---------------
+
+export const oredersFeed = async (): Promise<TOrdersFeed> => {
+    return fetch(`${BASE_URL}/auth/token`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify({
+            token: localStorage.getItem("refreshToken"),
+        }),
+    }).then(res => checkResponse(res));
 };

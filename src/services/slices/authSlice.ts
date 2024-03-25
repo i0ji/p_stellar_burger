@@ -1,7 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {loginUser, registerUser, logoutUser, getUserData, updateUserData} from "utils/api.ts";
-import {IAuthSlice, IUserData} from "declarations/sliceInterfaces";
 
+import {loginUser, registerUser, logoutUser, getUserData, updateUserData} from "utils/api.ts";
+
+import {IAuthSlice, IUserData} from "declarations/sliceInterfaces";
 
 const initialState: IAuthSlice = {
     user: null,

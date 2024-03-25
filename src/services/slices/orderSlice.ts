@@ -1,8 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {createOrder} from "utils/api.ts";
 
-
-export const orderSlice = createSlice({
+const orderSlice = createSlice({
     name: 'orderSlice',
     initialState: {
         orderNumber: null as number | null,
