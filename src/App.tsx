@@ -40,7 +40,7 @@ export default function App() {
         dispatch(getUserData());
     }, [dispatch, accessToken]);
 
-    console.log('v:0.1.9.6');
+    console.log('v:0.1.9.6.1');
     // console.log('ingredients loading status:', ingredientsStatus);
     // console.log(`Refresh token:`, localStorage.getItem('refreshToken'));
     // console.log('Access Token:', localStorage.getItem('accessToken'));

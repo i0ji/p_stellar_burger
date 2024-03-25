@@ -17,6 +17,7 @@ export default function Feed() {
     const navigate = useNavigate();
     // --------------- FEED ITEM ---------------
 
+
     const FeedItem = () => {
         return (
             <div
@@ -39,16 +40,22 @@ export default function Feed() {
 
                         {
                             constructorData.bun ?
-                                <Thumbnail elem={constructorData.bun}/>
+                                <div id={styles.wrapper}>
+                                    <Thumbnail elem={constructorData.bun}/>
+                                </div>
                                 : <p>HELLO</p>
                         }
 
                         {
                             constructorData.addedIngredients.map(
                                 (elem: IIngredient, i: number) =>
-
-                                        <Thumbnail elem={elem} key={i}/>
-
+                                    <div
+                                        style={{zIndex: `100-${i}`}}
+                                        id={styles.wrapper}
+                                        key={i}
+                                    >
+                                        <Thumbnail elem={elem}/>
+                                    </div>
                             )
                         }
                     </div>

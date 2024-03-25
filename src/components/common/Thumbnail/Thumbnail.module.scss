@@ -12,21 +12,22 @@
 
   border-radius: 50%;
 
-  img {
-    height: 60px;
+  .gradient_wrapper_background {
+    @include flex_center;
+
+    width: 68px;
+    height: 68px;
+
+    padding-left: 2px;
+    padding-top: 2px;
+
+    background-color: $bg_modal;
+
     border-radius: 50%;
+
+    img {
+      height: 60px;
+      border-radius: 50%;
+    }
   }
-}
-
-.gradient_wrapper_background {
-  @include flex_center;
-
-  width: 68px;
-  height: 68px;
-
-  padding-left: 2px;
-
-  background-color: $bg_modal;
-
-  border-radius: 50%;
 }
