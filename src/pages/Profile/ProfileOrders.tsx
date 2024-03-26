@@ -14,6 +14,14 @@ export default function ProfileOrders() {
     return (
         <div className={styles.profile_orders}>
             <FeedItem data={constructorData}/>
+            <FeedItem data={constructorData}/>
+            <FeedItem data={constructorData}/>
+            <FeedItem data={constructorData}/>
+            <FeedItem data={constructorData}/>
+            <FeedItem data={constructorData}/>
+            <FeedItem data={constructorData}/>
+            <FeedItem data={constructorData}/>
+            <FeedItem data={constructorData}/>
         </div>
     )
 }
