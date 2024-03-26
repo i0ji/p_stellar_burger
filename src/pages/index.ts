@@ -4,13 +4,13 @@ import NotFound404 from "pages/NotFound404.tsx";
 import RegisterPage from "pages/RegisterPage.tsx";
 import ForgotPage from "pages/ForgotPage.tsx";
 import ResetPage from "pages/ResetPage.tsx";
-import ProfilePage from "pages/ProfilePage.tsx"
+import ProfilePage from "pages/Profile/ProfilePage.tsx"
 import IngredientDetails from "pages/IngredientDetailsPage/IngredientDetails.tsx"
 import SuccessPage from "pages/SuccessPage.tsx";
 import FeedPage from "pages/FeedPage/Feed.tsx";
 import MemoLoginPage from "pages/LoginPage.tsx";
 import OrderDetails from "pages/OrderDetailsPage/OrderDetails.tsx";
-import HistoryPage from "pages/HistoryPage.tsx";
+import ProfileOrders from "pages/Profile/ProfileOrders.tsx";
 
 export {
     LoginPage,
@@ -25,5 +25,5 @@ export {
     FeedPage,
     MemoLoginPage,
     OrderDetails,
-    HistoryPage
+    ProfileOrders
 };

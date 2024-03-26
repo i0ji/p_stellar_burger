@@ -18,7 +18,7 @@ import {
     SuccessPage,
     FeedPage,
     OrderDetails,
-    HistoryPage
+    ProfileOrders
 } from "./pages";
 
 
@@ -78,22 +78,22 @@ export default function App() {
                 <Route path="ingredient/:id" element={<IngredientDetails/>}/>
                 <Route path="*" element={<NotFound404/>}/>
 
-
                 <Route path="reset-password" element={<ResetPage/>}/>
                 <Route path="reset-success" element={<SuccessPage/>}/>
 
 
                 {/*SPRINT 5 NEW ROUTES*/}
-                <Route path="feed" element={<FeedPage/>}/>
-                <Route path="feed/:number" element={<OrderDetails/>}/>
-                {/*<Route path="profile/history" element={<ProfilePage>}/>*/}
-                <Route path="profile/orders/:number" element={<OrderDetails/>}/>
-                {/*SPRINT 5 NEW ROUTES*/}
-
+                <Route path="feed" element={<FeedPage/>}>
+                    <Route path=":number" element={<OrderDetails/>}/>
+                </Route>
 
                 <Route path="profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}>
-                    <Route path="history" element={<HistoryPage/>}/>
+                    <Route path="orders" element={<ProtectedRoute unAuth={false} component={<ProfileOrders/>}/>}>
+                        <Route path=":number" element={<ProtectedRoute unAuth={false} component={<OrderDetails/>}/>}/>
+                    </Route>
                 </Route>
+                {/*SPRINT 5 NEW ROUTES*/}
+
 
                 <Route path="login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
                 <Route path="reset-success" element={<ProtectedRoute unAuth={true} component={<SuccessPage/>}/>}/>

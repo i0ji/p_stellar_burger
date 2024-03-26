@@ -1,0 +1,66 @@
+@import "styles/mixins";
+@import "styles/size";
+
+.profile_section {
+  @include container_center;
+
+  height: $content_height;
+
+  .profile_block {
+    border: 1px solid yellow;
+    position: relative;
+    display: grid;
+    grid-template-columns: 2fr 4fr;
+    height: $content_height;
+    width: 100%;
+
+    .profile_content {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      border: 1px solid red;
+    }
+
+    .profile_buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      justify-content: center;
+
+      margin-top: 45px;
+
+      border: 1px solid green;
+
+      button {
+        color: $theme_light;
+      }
+
+      button:hover,
+      button:active {
+        color: $theme_white;
+      }
+
+      p {
+        opacity: .4;
+      }
+
+      .active {
+        color: $theme_white
+      }
+    }
+
+    .profile_update_button {
+      position: fixed;
+    }
+  }
+
+  .profile_orders {
+    position: relative;
+
+    width: 50%;
+
+    display: flex;
+    justify-content: center;
+
+  }
+}

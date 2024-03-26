@@ -2,6 +2,8 @@ import styles from "./Pages.module.scss"
 
 import {registerUser} from "utils/api.ts";
 
+import {IForm} from "declarations/interfaces";
+
 import {Link} from "react-router-dom";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -9,7 +11,8 @@ import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import React, {useState} from "react";
 import {useDispatch} from "hooks/reduxHooks.ts";
 import {useForm} from "hooks/useForm.ts";
-import {IForm} from "declarations/interfaces";
+
+
 
 export default function RegisterPage() {
 

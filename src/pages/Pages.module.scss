@@ -1,10 +1,11 @@
 @import "styles/theme_colors";
 @import "styles/animation";
 @import "styles/mixins";
+@import "styles/size";
 
 .section {
   @include container_center;
-  height: calc(100vh - 90px);
+  height: $content_height;
 
   form {
     height: 100%;
@@ -48,54 +49,6 @@
     h1, p {
       text-shadow: 0 0 10px $scroll_active,
       0 0 14px $scroll_active
-    }
-  }
-}
-
-.profile_section {
-  @include container_center;
-  @include flex_center;
-
-  height: calc(100vh - 90px);
-
-  .profile_block {
-    position: relative;
-
-    width: 100%;
-
-    display: flex;
-    justify-content: center;
-
-    .profile_buttons {
-      position: absolute;
-      left: 0;
-
-      width: 30%;
-
-      display: flex;
-      flex-direction: column;
-
-
-      button {
-        color: $theme_light;
-      }
-
-      button:hover,
-      button:active {
-        color: $theme_white;
-      }
-
-      p {
-        opacity: .4;
-      }
-
-      .active {
-        color: $theme_white
-      }
-    }
-
-    .profile_update_button {
-      position: fixed;
     }
   }
 }
