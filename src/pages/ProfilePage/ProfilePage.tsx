@@ -17,12 +17,15 @@ import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components"
 
 export default function ProfilePage() {
 
-    const navigate = useNavigate();
+
+    // --------------- VARS/STATES ---------------
+    const refreshToken = localStorage.getItem('refreshToken');
     const isActive = location.pathname === '/profile'
+
+    const navigate = useNavigate();
     const {values, handleChange, setValues} = useForm<IForm>({});
     const dispatch = useDispatch();
     const userData = useSelector((state: RootState) => state.authSlice.userData);
-    const refreshToken = localStorage.getItem('refreshToken');
     const [showUpdateButtons, setShowUpdateButtons] = useState<boolean>(false);
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [editingField, setEditingField] = useState<string | null>(null);
@@ -36,10 +39,12 @@ export default function ProfilePage() {
         password: null,
         email: null
     });
+    const authStatus = useSelector((state: RootState) => state.authSlice.status);
     const nameInputRef = useRef<TInputElementType>(null);
     const emailInputRef = useRef<TInputElementType>(null);
     const passwordInputRef = useRef<TInputElementType>(null);
-    const authStatus = useSelector((state: RootState) => state.authSlice.status);
+
+    // --------------- BUTTON APPEARANCE ---------------
 
     useEffect(() => {
         if (isEditing && editingField !== null) {
@@ -94,19 +99,25 @@ export default function ProfilePage() {
             setIsEditing(false);
         }, 250);
     };
-    //  --------------- LOADER
+
+
+    //  --------------- LOADER ---------------
 
     if (!userData || (authStatus === 'loading')) {
         return <Loader/>;
     }
 
+
     return (
         <section className={styles.profile_section}>
 
             <div className={styles.profile_buttons}>
-                <Link to='/profile' className='mb-10'>
+                <Link
+                    to='/profile'
+                    className={`mb-10 `}
+                >
                     <Button
-                        extraClass={`text text_type_main-medium ${isActive ? styles.active : ''}`}
+                        extraClass={`text text_type_main-medium ${isActive ? styles.isActive : ''}`}
                         htmlType="button"
                         type="secondary"
                         size="medium"
@@ -114,9 +125,12 @@ export default function ProfilePage() {
                         Профиль
                     </Button>
                 </Link>
-                <Link to='/profile/orders' className='mb-10'>
+                <Link
+                    to='/profile/orders'
+                    className={`mb-10 `}
+                >
                     <Button
-                        extraClass={`text text_type_main-medium`}
+                        extraClass={`text text_type_main-medium ${!isActive ? styles.isActive : ''}`}
                         htmlType="button"
                         type="secondary"
                         size="medium"
@@ -124,7 +138,10 @@ export default function ProfilePage() {
                         История заказов
                     </Button>
                 </Link>
-                <Link to='/' className="mb-20">
+                <Link
+                    to='/'
+                    className={`mb-10`}
+                >
                     <Button
                         extraClass={`text text_type_main-medium`}
                         htmlType="button"
@@ -142,74 +159,76 @@ export default function ProfilePage() {
 
                 {location.pathname === '/profile/orders' ? <ProfileOrders/> :
                     <form>
-                        <Input
-                            type={'text'}
-                            placeholder={'Имя'}
-                            name={'name'}
-                            error={false}
-                            errorText={'Ошибка'}
-                            size={'default'}
-                            extraClass="mb-6"
-                            value={(editingField === 'name') ? (values.name || '') : (editedValues.name || userData.name) ?? ''}
-                            onChange={handleChange}
-                            onIconClick={() => handleEditIconClick('name')}
-                            icon={(editingField == 'name') ? undefined : 'EditIcon'}
-                            ref={nameInputRef}
-                        />
-                        <Input
-                            type={'text'}
-                            placeholder={'Почта'}
-                            name={'email'}
-                            error={false}
-                            errorText={'Ошибка'}
-                            size={'default'}
-                            extraClass="mb-6"
-                            value={(editingField === 'email') ? (values.email || '') : (editedValues.email || userData.email) ?? ''}
-                            onChange={handleChange}
-                            onIconClick={() => handleEditIconClick('email')}
-                            icon={(editingField == 'email') ? undefined : 'EditIcon'}
-                            ref={emailInputRef}
-                        />
-                        <Input
-                            type={'text'}
-                            placeholder={'Пароль'}
-                            name={'password'}
-                            error={false}
-                            errorText={'Ошибка'}
-                            size={'default'}
-                            extraClass="mb-6"
-                            value={((editingField == 'password') && values.password || '') ?? ''}
-                            onChange={handleChange}
-                            onIconClick={() => handleEditIconClick('password')}
-                            icon={(editingField == 'password') ? undefined : 'EditIcon'}
-                            ref={passwordInputRef}
-                        />
-                        {
-                            isEditing && editingField && (
-                                <div
-                                    className={`${styles.profile_update_button} ${showUpdateButtons ? styles.fadeIn : styles.fadeOut}`}
-                                >
-
-                                    <Button
-                                        htmlType="button"
-                                        onClick={handleSave}
-                                        type="primary"
-                                        size="medium"
+                        <div>
+                            <Input
+                                type={'text'}
+                                placeholder={'Имя'}
+                                name={'name'}
+                                error={false}
+                                errorText={'Ошибка'}
+                                size={'default'}
+                                extraClass="mb-6"
+                                value={(editingField === 'name') ? (values.name || '') : (editedValues.name || userData.name) ?? ''}
+                                onChange={handleChange}
+                                onIconClick={() => handleEditIconClick('name')}
+                                icon={(editingField == 'name') ? undefined : 'EditIcon'}
+                                ref={nameInputRef}
+                            />
+                            <Input
+                                type={'text'}
+                                placeholder={'Почта'}
+                                name={'email'}
+                                error={false}
+                                errorText={'Ошибка'}
+                                size={'default'}
+                                extraClass="mb-6"
+                                value={(editingField === 'email') ? (values.email || '') : (editedValues.email || userData.email) ?? ''}
+                                onChange={handleChange}
+                                onIconClick={() => handleEditIconClick('email')}
+                                icon={(editingField == 'email') ? undefined : 'EditIcon'}
+                                ref={emailInputRef}
+                            />
+                            <Input
+                                type={'text'}
+                                placeholder={'Пароль'}
+                                name={'password'}
+                                error={false}
+                                errorText={'Ошибка'}
+                                size={'default'}
+                                extraClass="mb-6"
+                                value={((editingField == 'password') && values.password || '') ?? ''}
+                                onChange={handleChange}
+                                onIconClick={() => handleEditIconClick('password')}
+                                icon={(editingField == 'password') ? undefined : 'EditIcon'}
+                                ref={passwordInputRef}
+                            />
+                            {
+                                isEditing && editingField && (
+                                    <div
+                                        className={`${styles.profile_update_button} ${showUpdateButtons ? styles.fadeIn : styles.fadeOut}`}
                                     >
-                                        Сохранить
-                                    </Button>
-                                    <Button
-                                        htmlType="button"
-                                        onClick={handleCancel}
-                                        type="secondary"
-                                        size="medium"
-                                    >
-                                        Отмена
-                                    </Button>
 
-                                </div>
-                            )
-                        }
+                                        <Button
+                                            htmlType="button"
+                                            onClick={handleSave}
+                                            type="primary"
+                                            size="medium"
+                                        >
+                                            Сохранить
+                                        </Button>
+                                        <Button
+                                            htmlType="button"
+                                            onClick={handleCancel}
+                                            type="secondary"
+                                            size="medium"
+                                        >
+                                            Отмена
+                                        </Button>
+
+                                    </div>
+                                )
+                            }
+                        </div>
                     </form>
                 }
             </div>

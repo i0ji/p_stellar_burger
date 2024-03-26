@@ -8,6 +8,7 @@ import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Thumbnail from "common/Thumbnail/Thumbnail.tsx";
 
 import {useSelector} from "hooks/reduxHooks.ts";
+import {useParams, useLocation} from "react-router-dom";
 
 export default function OrderDetails() {
 
@@ -15,11 +16,13 @@ export default function OrderDetails() {
 
     // --------------- ROUTING & BACKGROUND ---------------
 
-    // const {number} = useParams<{ "number"?: string }>();
-    // const location = useLocation();
+    const {number} = useParams<{ "number"?: string }>();
+    const location = useLocation();
 
-    //const modalBackground = (location.key === 'default') ? styles.transparent : styles.dark;
+    const modalBackground = (location.key === 'default') ? styles.transparent : styles.dark;
 
+
+    // --------------- INGREDIENT STRIPE
     const OrderIngredient = ({elem, isBun}: { elem: IIngredient, isBun: boolean }) => {
         return (
             <>
@@ -46,11 +49,11 @@ export default function OrderDetails() {
 
     return (
         <div
-            className={styles.order_details}
-            //className={`${styles.order_details} ${modalBackground}`}
+//            className={styles.order_details}
+            className={`${styles.order_details} ${modalBackground}`}
         >
             <div className={styles.order_details_header}>
-                <h5 className="text text_type_digits-default mb-10 ">#99999</h5>
+                <h5 className="text text_type_digits-default mb-10 ">{number}</h5>
                 <h3 className="text text_type_main-medium mb-3">Death Star Starship Main бургер</h3>
                 <p className="text text_type_main-default mb-15">Выполнен</p>
             </div>

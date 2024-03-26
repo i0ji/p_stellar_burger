@@ -16,8 +16,6 @@
     align-items: start;
     justify-content: center;
 
-    margin-top: 45px;
-
     button {
       color: $theme_light;
     }
@@ -31,13 +29,9 @@
       opacity: .4;
     }
 
-    .active {
-      color: $theme_white
+    .isActive {
+      color: $theme_white;
     }
-  }
-
-  .profile_update_button {
-    position: fixed;
   }
 
   .profile_content {
@@ -51,8 +45,14 @@
       justify-content: center;
       flex-direction: column;
 
+      position: relative;
+
       width: 100%;
       height: 100%;
+
+      .profile_update_button {
+        position: absolute;
+      }
     }
 
     .profile_orders {
@@ -62,5 +62,5 @@
       overflow-y: scroll;
     }
   }
-
 }
+

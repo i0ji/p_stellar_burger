@@ -21,7 +21,8 @@ export interface IConstructorSlice {
     bun: IIngredient | null;
 }
 
-export interface IIngredientsListSlice extends IIngredients, TStatus, TError {}
+export interface IIngredientsListSlice extends IIngredients, TStatus, TError {
+}
 
 export interface IBurgerState extends IIngredients, TStatus, TError {
 }
@@ -48,13 +49,13 @@ export interface IRegisterUser extends IRefreshData {
     user: IUser;
 }
 
-export interface IOrderSlice extends TStatus {
-    order: number;
-    orderNumber: string | number | null;
-    IDs: Array<string>;
-    error: null;
-}
-
-export interface ICurrentIngredientSlice {
-    selectedIngredient: IIngredient;
-}
+// export interface IOrderSlice extends TStatus {
+//     order: number;
+//     orderNumber: string | number | null;
+//     IDs: Array<string>;
+//     error: null;
+// }
+//
+// export interface ICurrentIngredientSlice {
+//     selectedIngredient: IIngredient;
+// }

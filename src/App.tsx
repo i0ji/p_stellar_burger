@@ -2,6 +2,8 @@ import {Routes, Route} from 'react-router-dom';
 import {ProtectedRoute} from "common/ProtectedRoute/ProtectedRoute.tsx"
 import {checkUserAuth, getUserData, getIngredients} from "utils/api.ts";
 
+// import {WS_URL} from "declarations/routs.ts";
+
 import {RootState} from "declarations/rootState.ts";
 
 import AppHeader from "components/AppHeader/AppHeader.tsx";
@@ -25,7 +27,6 @@ import {
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useLocation} from "react-router-dom";
 import {useEffect} from "react";
-
 
 // import {WS_URL} from "declarations/routs.ts";
 
@@ -63,7 +64,6 @@ export default function App() {
     //     console.log(`Получены данныe: ${event.data}`)
     // }
 
-
     if (ingredientsStatus == 'loading') {
         return <Loader/>;
     }
@@ -89,7 +89,7 @@ export default function App() {
 
                 <Route path="profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}>
                     <Route path="orders" element={<ProtectedRoute unAuth={false} component={<ProfileOrders/>}/>}>
-                        <Route path=":number" element={<ProtectedRoute unAuth={false} component={<OrderDetails/>}/>}/>
+                        {/*<Route path=":number" element={<ProtectedRoute unAuth={false} component={<OrderDetails/>}/>}/>*/}
                     </Route>
                 </Route>
                 {/*SPRINT 5 NEW ROUTES*/}

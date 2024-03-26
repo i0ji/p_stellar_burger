@@ -26,7 +26,7 @@ export default function BurgerConstructor() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // --------------- STATES/VARS/CONSTANTS  ---------------
+    // --------------- VARS/STATES ---------------
     const {addedIngredients, bun} = useSelector((state: RootState) => state.constructorSlice);
     // --------------- HIGHLIGHT STATE
     const [bunAvail, setBunAvail] = useState(false);

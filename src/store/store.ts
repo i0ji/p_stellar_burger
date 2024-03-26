@@ -4,7 +4,6 @@ import {
     authSlice,
     currentIngredientSlice,
     orderSlice,
-    orderFeedSlice,
     ingredientsSlice,
     constructorSlice,
 } from "slices/index.ts"
@@ -17,7 +16,6 @@ const store = configureStore({
         currentIngredientSlice: currentIngredientSlice,
         orderSlice: orderSlice,
         authSlice: authSlice,
-        orderFeedSlice: orderFeedSlice
     }
 });
 export default store;

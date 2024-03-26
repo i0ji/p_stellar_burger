@@ -13,16 +13,14 @@ import {useCallback} from "react";
 
 export default function IngredientDetails() {
 
-    // --------------- VARS & STATES ---------------
+
+    // --------------- VARS/STATES ---------------
 
     const navigate = useNavigate();
-
     const {id} = useParams<{ "id"?: string }>();
-
     const {ingredients: ingredientsData, status, error}: IBurgerState = useSelector((state: {
         ingredients: IBurgerState
     }) => state.ingredients);
-
     const [ingredient] = ingredientsData.filter((ingredient: IIngredient) => ingredient._id === id);
 
 

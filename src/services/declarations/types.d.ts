@@ -6,6 +6,7 @@ import {ThunkAction} from 'redux-thunk';
 import {Action, ActionCreator} from 'redux';
 
 import Error = types.Error;
+import {wsClose, wsConnecting, wsError, wsOpen} from "services/orederFeed/actions.ts";
 
 export type TInputElementType = HTMLInputElement | null;
 
@@ -33,22 +34,25 @@ type TUserLoginResponse = TServerResponse<IToken, {
 
 type TUserRegister = TServerResponse<IToken, IUser>;
 
-export type AppThunk<TReturn = void> = ActionCreator<
+export type TAppThunk<TReturn = void> = ActionCreator<
     ThunkAction<TReturn, Action, RootState>
 >;
 
+export type TBurgerComplete = 'done' | 'cancel' | 'await' | 'idle';
 
 export type TOrdersFeed = TServerResponse<{
     orders: [
         {
-            ingredients: Array<string>,
-            _id: string,
-            status: string,
-            number: number,
-            createdAt: string,
-            updatedAt: string
+            ingredients: Array<string>;
+            _id: string;
+            status: TBurgerComplete;
+            number: number;
+            createdAt: string;
+            updatedAt: string;
         }
     ],
-    total: string,
-    totalToday: string
-}>
+    total: string;
+    totalToday: string;
+}>;
+
+export type TwsActions = wsOpen | wsError | wsClose | wsConnecting;
