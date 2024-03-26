@@ -1,7 +1,7 @@
 {
   "name": "p_stellar_burger",
   "private": true,
-  "version": "0.1.9.6.2",
+  "version": "0.1.9.6.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -44,5 +44,5 @@
     "uuid": "^9.0.1",
     "vite": "^5.0.8"
   },
-  "packageManager": "yarn@4.1.0"
+  "packageManager": "yarn@4.1.1"
 }
