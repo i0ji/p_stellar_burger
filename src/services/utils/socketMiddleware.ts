@@ -7,10 +7,12 @@ import {Middleware} from "@reduxjs/toolkit";
 export const socketMiddleware = (
     wsActions: TwsActions,
     withTokenRefresh: boolean
-): Middleware<{}, RootState> => {
+): Middleware<object, RootState> => {
+
     return (store) => {
         let socket: WebSocket | null = null;
         let url: string | null = null;
+
         const {
             wsInit,
             wsClose,
@@ -21,7 +23,7 @@ export const socketMiddleware = (
             onMessage,
         } = wsActions;
 
-        return (next) => (action:any) => {
+        return (next) => (action: TwsActions) => {
             const {dispatch} = store;
             const {type, payload} = action;
 

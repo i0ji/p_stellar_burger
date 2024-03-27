@@ -48,14 +48,3 @@ export interface IUserData extends IUser {
 export interface IRegisterUser extends IRefreshData {
     user: IUser;
 }
-
-// export interface IOrderSlice extends TStatus {
-//     order: number;
-//     orderNumber: string | number | null;
-//     IDs: Array<string>;
-//     error: null;
-// }
-//
-// export interface ICurrentIngredientSlice {
-//     selectedIngredient: IIngredient;
-// }

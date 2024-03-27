@@ -1,8 +1,17 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {TOrdersFeed} from "declarations/types";
-import {wsClose, wsConnecting, wsError, wsMessage, wsOpen} from "services/orederFeed/actions.ts";
+import {TError, TOrdersFeed, TServerResponse} from "declarations/types";
+import {
+    wsClose,
+    wsConnect,
+    wsConnecting,
+    wsDisconnect,
+    wsError,
+    wsMessage,
+    wsOpen
+} from "services/orederFeed/actions.ts"
 
-const initialState: TOrdersFeed = {
+
+const initialOrder: TOrdersFeed = {
     success: false,
     orders: [
         {
@@ -18,25 +27,37 @@ const initialState: TOrdersFeed = {
     totalToday: '',
 }
 
+const initialState: TServerResponse<TOrdersFeed> & TError = {
+    success: false,
+    orders: initialOrder,
+    error: null,
+}
+
+
 export const orderFeedReducer = createReducer(initialState, builder => {
         builder
+            .addCase(wsConnect, (state) => {
+                state.success = true;
+            })
             .addCase(wsConnecting, (state) => {
                 state.success = false;
             })
             .addCase(wsOpen, (state) => {
                 state.success = true;
             })
-            .addCase(wsError, (state) => {
-                state.success = false;
-            })
-            .addCase(wsClose, (state) => {
-                state.success = true;
-            })
             .addCase(wsMessage, (state, action) => {
                 state.success = true;
-                state.orders = action.payload.orders;
-                state.totalToday = action.payload.totalToday;
-                state.total = action.payload.total
+                state.orders.orders = action.payload.orders;
+            })
+            .addCase(wsClose, (state) => {
+                state.success = false;
+            })
+            .addCase(wsDisconnect, (state) => {
+                state.success = false;
+            })
+            .addCase(wsError, (state, action) => {
+                state.success = false;
+                state.error = action.payload;
             })
     }
 )
