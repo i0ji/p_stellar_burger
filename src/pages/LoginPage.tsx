@@ -11,15 +11,16 @@ import Loader from "common/Loader/Loader.tsx";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
-import React, {useEffect, useRef, useState, useMemo} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useForm} from "hooks/useForm.ts";
 
 export default function LoginPage() {
 
-    const dispatch = useDispatch();
-    const {values, handleChange} = useForm<IForm>({});
 
+    const {values, handleChange} = useForm<IForm>({});
+    const dispatch = useDispatch();
+    const userAuth = useSelector((state: RootState) => state.authSlice.isAuth);
 
     //  --------------- RERENDER CHECK ---------------
 
@@ -30,9 +31,6 @@ export default function LoginPage() {
     console.log(`Rerender counter: ${renderCount.current}`)
 
 
-    const memoizedValues = useMemo(() => values, [values]);
-
-
     // --------------- PWD VISIBILITY  ---------------
 
     const [isPasswordShow, setIsPasswordShow] = useState(false);
@@ -40,7 +38,9 @@ export default function LoginPage() {
         setIsPasswordShow(!isPasswordShow);
     };
 
+
     // --------------- ERROR MESSAGE ---------------
+
     const loginError = useSelector((state: RootState) => state.authSlice.loginError);
     const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -50,8 +50,6 @@ export default function LoginPage() {
         };
         dispatch(loginUser(userData));
     };
-
-    const userAuth = useSelector((state: RootState) => state.authSlice.isAuth);
 
     if (userAuth) {
         return <Loader/>;
@@ -68,8 +66,7 @@ export default function LoginPage() {
                     type={'text'}
                     placeholder={'E-mail'}
                     icon={undefined}
-                    //value={values.email ?? ''}
-                    value={memoizedValues.email}
+                    value={values.email ?? ''}
                     error={false}
                     errorText={'Ошибка'}
                     size={'default'}
@@ -81,8 +78,7 @@ export default function LoginPage() {
                     type={isPasswordShow ? 'text' : 'password'}
                     placeholder={'Пароль'}
                     icon={'ShowIcon'}
-                    //value={values.password ?? ''}
-                    value={memoizedValues.password}
+                    value={values.password ?? ''}
                     error={false}
                     errorText={'Ошибка'}
                     size={'default'}
