@@ -1,6 +1,7 @@
+import {refreshToken} from "utils/api.ts";
+
 import {TwsActions} from "declarations/types";
 import {RootState} from "declarations/rootState.ts";
-import {refreshToken} from "utils/api.ts";
 import {Middleware} from "@reduxjs/toolkit";
 
 export const socketMiddleware = (
@@ -20,7 +21,7 @@ export const socketMiddleware = (
             onMessage,
         } = wsActions;
 
-        return (next) => (action) => {
+        return (next) => (action:any) => {
             const {dispatch} = store;
             const {type, payload} = action;
 

@@ -11,7 +11,7 @@ import Loader from "common/Loader/Loader.tsx";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState, useMemo} from "react";
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useForm} from "hooks/useForm.ts";
 
@@ -19,6 +19,19 @@ export default function LoginPage() {
 
     const dispatch = useDispatch();
     const {values, handleChange} = useForm<IForm>({});
+
+
+    //  --------------- RERENDER CHECK ---------------
+
+    const renderCount = useRef(0);
+    useEffect(() => {
+        renderCount.current += 1;
+    });
+    console.log(`Rerender counter: ${renderCount.current}`)
+
+
+    const memoizedValues = useMemo(() => values, [values]);
+
 
     // --------------- PWD VISIBILITY  ---------------
 
@@ -55,7 +68,8 @@ export default function LoginPage() {
                     type={'text'}
                     placeholder={'E-mail'}
                     icon={undefined}
-                    value={values.email ?? ''}
+                    //value={values.email ?? ''}
+                    value={memoizedValues.email}
                     error={false}
                     errorText={'Ошибка'}
                     size={'default'}
@@ -67,7 +81,8 @@ export default function LoginPage() {
                     type={isPasswordShow ? 'text' : 'password'}
                     placeholder={'Пароль'}
                     icon={'ShowIcon'}
-                    value={values.password ?? ''}
+                    //value={values.password ?? ''}
+                    value={memoizedValues.password}
                     error={false}
                     errorText={'Ошибка'}
                     size={'default'}
