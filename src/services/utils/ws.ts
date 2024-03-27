@@ -14,14 +14,13 @@ export const initWebSocket = () => {
         console.log('Получено сообщение:', event.data);
     };
 
-
     ws.onclose = () => {
         console.log('WebSocket соединение закрыто.');
     };
 
     ws.onerror = (error) => {
         console.error('WebSocket ошибка:', error);
-    };
+    }
 };
 
 export const closeWebSocket = () => {

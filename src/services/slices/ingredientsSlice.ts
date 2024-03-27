@@ -8,7 +8,6 @@ const initialState: IIngredientsListSlice = {
     error: null,
 }
 
-
 const ingredientsListSlice = createSlice({
         name: 'ingredientsListSlice',
         initialState,

@@ -1,36 +1,43 @@
 import styles from "./Feed.module.scss"
 
-import {initWebSocket, closeWebSocket} from "utils/ws.ts";
+import {WS_URL} from "declarations/routs.ts";
 
 import {RootState} from "declarations/rootState.ts";
-import {IConstructorSlice} from "declarations/sliceInterfaces";
+import {TOrder} from "declarations/types";
 
 import FeedItem from "common/FeedItem/FeedItem.tsx";
 
-import {useEffect} from "react";
-import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
+import {useSelector, useDispatch} from "hooks/reduxHooks.ts";
+import {useEffect} from 'react';
 import {wsMessage, wsOpen} from "services/orederFeed/actions.ts";
 
 export default function Feed() {
 
     const dispatch = useDispatch();
-    const constructorData: IConstructorSlice = useSelector((state: RootState) => state.constructorSlice);
-
-
     useEffect(() => {
-        initWebSocket();
+        const ws = new WebSocket(WS_URL);
+        ws.onopen = () => {
+            console.log('WebSocket подключение установлено');
+            dispatch(wsOpen())
+        };
 
-        dispatch(wsOpen);
-        dispatch(wsMessage);
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            dispatch(wsMessage(data));
+        };
     }, [dispatch]);
 
-    const orders = useSelector((state: RootState) => state.orderFeed);
-    const message = useSelector((state: RootState) => state.orderFeed);
 
-    const total = message.total;
+    const ordersData = useSelector((state: RootState) => state.orderFeed.orders).orders;
 
-    console.log(`Всего за сегодня: ${total}`);
-    console.log(`Проверка: ${orders}`);
+
+    if (ordersData && ordersData.length > 37 && ordersData[37].createdAt) {
+        console.log(ordersData[37].createdAt);
+    }
+    //
+    // for (let i = 0; i++; i < ordersData) {
+    //     console.log(ordersData[i])
+    // }
 
     return (
         <section className={styles.feed}>
@@ -41,17 +48,16 @@ export default function Feed() {
 
                 <div className={styles.feed_list}>
                     <>
-                        <FeedItem data={constructorData}/>
-                        <FeedItem data={constructorData}/>
-                        <FeedItem data={constructorData}/>
-                        <FeedItem data={constructorData}/>
-                        <FeedItem data={constructorData}/>
-                        <FeedItem data={constructorData}/>
-                        <FeedItem data={constructorData}/>
-                        <FeedItem data={constructorData}/>
-                        <FeedItem data={constructorData}/>
+                        {
+                            ordersData.map((elem: TOrder, i: number) => {
+                                <div key={i}>
+                                    <FeedItem data={elem}/>
+                                </div>
+                            })
+                        }
                     </>
                 </div>
+
 
                 <div className={styles.feed_details}>
                     <>

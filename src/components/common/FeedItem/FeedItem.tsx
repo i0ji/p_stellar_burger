@@ -1,16 +1,19 @@
 import styles from "./FeedItem.module.scss"
 
-import {IIngredient} from "declarations/interfaces";
-import {IConstructorSlice} from "declarations/sliceInterfaces";
-
 import Thumbnail from "common/Thumbnail/Thumbnail.tsx";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {useNavigate} from "react-router-dom";
+import {TOrder} from "declarations/types";
+import {useSelector} from "hooks/reduxHooks.ts";
+import {RootState} from "declarations/rootState.ts";
 
-export default function FeedItem({data}: { data: IConstructorSlice }) {
+export default function FeedItem({data}: { data: TOrder }) {
 
     const navigate = useNavigate();
+
+
+
 
     return (
         <div
@@ -19,12 +22,12 @@ export default function FeedItem({data}: { data: IConstructorSlice }) {
         >
 
             <div className={styles.feed_item_info}>
-                <p>#99999</p>
-                <p className={styles.order_date}>Сегодня, 16:20</p>
+                <p>{data.number}</p>
+                <p className={styles.order_date}>{data.createdAt}</p>
             </div>
 
             <div className={`${styles.feed_item_name} pt-6`}>
-                <h4>Death Star Starship Main бургер</h4>
+                <h4>{data.name}</h4>
             </div>
 
             <div className={`${styles.feed_item_ingredients} pt-6 pb-6`}>
@@ -32,24 +35,24 @@ export default function FeedItem({data}: { data: IConstructorSlice }) {
                 <div className={styles.ingredients_thumbnail}>
 
                     {
-                        data.bun ?
+                        data.ingredients[0] ?
                             <div
                                 style={{zIndex: 200}}
                                 id={styles.wrapper}>
-                                <Thumbnail elem={data.bun}/>
+                                <Thumbnail elemID={'xxx'}/>
                             </div
                             >
                             : <p>HELLO</p>
                     }
 
                     {
-                        data.addedIngredients.map(
-                            (elem: IIngredient, i: number) =>
+                        data.ingredients.map(
+                            (elem, i: number) =>
                                 <div
                                     key={i}
                                     style={{zIndex: 100 - i}}
                                 >
-                                    <Thumbnail elem={elem}/>
+                                    <Thumbnail elemID={'x'}/>
                                 </div>
                         )
                     }
@@ -57,7 +60,7 @@ export default function FeedItem({data}: { data: IConstructorSlice }) {
 
                 <div className={styles.feed_item_price}>
                     <p className="text text_type_digits-default">
-                        {data.totalAmount}
+                        400
                     </p>
                     <CurrencyIcon type={"primary"}/>
                 </div>

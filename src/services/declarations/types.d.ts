@@ -52,21 +52,21 @@ export type TBurgerComplete = 'done' | 'cancel' | 'await' | 'idle';
 
 export type TwsActions = wsOpen | wsError | wsClose | wsConnecting | wsConnect | wsMessage | wsDisconnect;
 
+export type TOrder = {
+    createdAt: string;
+    ingredients: Array<string>;
+    name: string;
+    number: number;
+    status: TBurgerComplete;
+    _id: string;
+    updatedAt: string;
+}
 
 export type TOrdersFeed = {
     success: boolean;
-    orders: [
-        {
-            ingredients: Array<string>;
-            _id: string;
-            status: TBurgerComplete;
-            number: number;
-            createdAt: string;
-            updatedAt: string;
-        }
-    ],
     total: string;
     totalToday: string;
+    orders: Array<TOrder>;
 };
 
 export type TwsActionTypes = {

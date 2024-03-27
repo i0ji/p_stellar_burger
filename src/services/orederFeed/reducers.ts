@@ -10,7 +10,7 @@ import {
     wsOpen
 } from "services/orederFeed/actions.ts"
 
-const initialOrder: TOrdersFeed = {
+const initialOrder = {
     success: false,
     orders: [
         {
@@ -45,7 +45,8 @@ export const orderFeedReducer = createReducer(initialState, builder => {
             })
             .addCase(wsMessage, (state, action) => {
                 state.success = true;
-                state.orders.orders = action.payload;
+                state.orders = action.payload;
+                state.error = null;
             })
             .addCase(wsClose, (state) => {
                 state.success = false;
