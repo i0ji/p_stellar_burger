@@ -2,8 +2,6 @@ import {Routes, Route} from 'react-router-dom';
 import {ProtectedRoute} from "common/ProtectedRoute/ProtectedRoute.tsx"
 import {checkUserAuth, getUserData, getIngredients} from "utils/api.ts";
 
-// import {WS_URL} from "declarations/routs.ts";
-
 import {RootState} from "declarations/rootState.ts";
 
 import AppHeader from "components/AppHeader/AppHeader.tsx";
@@ -23,13 +21,9 @@ import {
     ProfileOrders
 } from "./pages";
 
-
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useLocation} from "react-router-dom";
 import {useEffect} from "react";
-
-// import {WS_URL} from "declarations/routs.ts";
-
 
 export default function App() {
 
@@ -46,23 +40,7 @@ export default function App() {
         dispatch(getUserData());
     }, [dispatch, accessToken]);
 
-    console.log('v:0.1.9.6.3');
-    // console.log('ingredients loading status:', ingredientsStatus);
-    // console.log(`Refresh token:`, localStorage.getItem('refreshToken'));
-    // console.log('Access Token:', localStorage.getItem('accessToken'));
-    // console.log(`User Auth: ${userAuth}`);
-    // console.log(`Auth is checked: ${userAuthChecked}`);
-
-
-    // const ws = new WebSocket(`${WS_URL}orders`);
-    //
-    // console.log(`WS:${ws.readyState}`);
-    //
-    // ws.send('hello');
-    //
-    // ws.onmessage = (event) => {
-    //     console.log(`Получены данныe: ${event.data}`)
-    // }
+    console.log('v:0.1.9.6.4');
 
     if (ingredientsStatus == 'loading') {
         return <Loader/>;

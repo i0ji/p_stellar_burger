@@ -35,7 +35,7 @@ export default function BurgerConstructor() {
     const isLoaded = useSelector((state: RootState) => state.orderSlice.status);
     const hasError = useSelector((state: RootState) => state.orderSlice.error);
     // --------------- CURRENT IDS
-    const ingredientIDs = useSelector((state: RootState) => state.constructorSlice.addedIngredients).map((elem) => elem._id);
+    const ingredientIDs = useSelector((state: RootState) => state.constructorSlice.addedIngredients).map((elem:IIngredient) => elem._id);
     // --------------- MODAL
     const {isVisible, openModal, closeModal} = useModal();
     // --------------- TOTAL AMOUNT

@@ -33,7 +33,6 @@ const initialState: TServerResponse<TOrdersFeed> & TError = {
     error: null,
 }
 
-
 export const orderFeedReducer = createReducer(initialState, builder => {
         builder
             .addCase(wsConnect, (state) => {

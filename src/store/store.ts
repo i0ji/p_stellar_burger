@@ -1,4 +1,11 @@
-import {configureStore} from '@reduxjs/toolkit';
+import {combineReducers, configureStore} from '@reduxjs/toolkit';
+
+import {orderFeedReducer} from "services/orederFeed/reducers.ts";
+import {socketMiddleware} from "utils/socketMiddleware.ts";
+
+import {wsActions} from "services/orederFeed/actions.ts";
+
+const withTokenRefresh = false;
 
 import {
     authSlice,
@@ -8,14 +15,17 @@ import {
     constructorSlice,
 } from "slices/index.ts"
 
+const rootReducers = combineReducers({
+    ingredients: ingredientsSlice,
+    constructorSlice: constructorSlice,
+    currentIngredientSlice: currentIngredientSlice,
+    orderSlice: orderSlice,
+    authSlice: authSlice,
+    orderFeed: orderFeedReducer,
+})
 
-const store = configureStore({
-    reducer: {
-        ingredients: ingredientsSlice,
-        constructorSlice: constructorSlice,
-        currentIngredientSlice: currentIngredientSlice,
-        orderSlice: orderSlice,
-        authSlice: authSlice,
-    }
+export const store = configureStore({
+    reducer: rootReducers,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(socketMiddleware(wsActions, withTokenRefresh)),
 });
-export default store;
