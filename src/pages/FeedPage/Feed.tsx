@@ -1,15 +1,36 @@
 import styles from "./Feed.module.scss"
 
-import {useSelector} from "hooks/reduxHooks.ts";
+import {initWebSocket, closeWebSocket} from "utils/ws.ts";
 
 import {RootState} from "declarations/rootState.ts";
 import {IConstructorSlice} from "declarations/sliceInterfaces";
 
 import FeedItem from "common/FeedItem/FeedItem.tsx";
 
+import {useEffect} from "react";
+import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
+import {wsMessage, wsOpen} from "services/orederFeed/actions.ts";
+
 export default function Feed() {
 
+    const dispatch = useDispatch();
     const constructorData: IConstructorSlice = useSelector((state: RootState) => state.constructorSlice);
+
+
+    useEffect(() => {
+        initWebSocket();
+
+        dispatch(wsOpen);
+        dispatch(wsMessage);
+    }, [dispatch]);
+
+    const orders = useSelector((state: RootState) => state.orderFeed);
+    const message = useSelector((state: RootState) => state.orderFeed);
+
+    const total = message.total;
+
+    console.log(`Всего за сегодня: ${total}`);
+    console.log(`Проверка: ${orders}`);
 
     return (
         <section className={styles.feed}>
