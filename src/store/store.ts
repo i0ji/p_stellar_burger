@@ -15,7 +15,7 @@ import {
     constructorSlice,
 } from "slices/index.ts"
 
-const rootReducers = combineReducers({
+export const rootReducers = combineReducers({
     ingredients: ingredientsSlice,
     constructorSlice: constructorSlice,
     currentIngredientSlice: currentIngredientSlice,
