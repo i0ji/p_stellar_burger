@@ -53,13 +53,14 @@ export type TBurgerComplete = 'done' | 'cancel' | 'await' | 'idle';
 export type TwsActions = wsOpen | wsError | wsClose | wsConnecting | wsConnect | wsMessage | wsDisconnect;
 
 export type TOrder = {
-    createdAt: string;
-    ingredients: Array<string>;
-    name: string;
-    number: number;
-    status: TBurgerComplete;
-    _id: string;
-    updatedAt: string;
+    createdAt?: string,
+    ingredients?: Array<string>,
+    name?: string,
+    number?: number,
+    status?: TBurgerComplete,
+    _id?: string,
+    updatedAt?: string,
+    order: TOrder
 }
 
 export type TOrdersFeed = {

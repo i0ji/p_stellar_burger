@@ -1,6 +1,8 @@
 @import "styles/mixins";
 
-.gradient_wrapper {
+.thumbnail_wrapper {
+  position: relative;
+
   @include flex_center;
 
   width: 72px;
@@ -14,7 +16,7 @@
 
   margin-left: -20px;
 
-  .gradient_wrapper_background {
+  .thumbnail_wrapper_background {
     @include flex_center;
 
     width: 68px;
@@ -30,6 +32,10 @@
     img {
       height: 60px;
       border-radius: 50%;
+    }
+
+    .thumbnail_count {
+      position: absolute;
     }
   }
 }

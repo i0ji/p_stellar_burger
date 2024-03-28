@@ -3,17 +3,18 @@ import styles from "./Feed.module.scss"
 import {WS_URL} from "declarations/routs.ts";
 
 import {RootState} from "declarations/rootState.ts";
-import {TOrder} from "declarations/types";
 
 import FeedItem from "common/FeedItem/FeedItem.tsx";
 
 import {useSelector, useDispatch} from "hooks/reduxHooks.ts";
 import {useEffect} from 'react';
 import {wsMessage, wsOpen} from "services/orederFeed/actions.ts";
+import {TOrder} from "declarations/types";
 
 export default function Feed() {
 
     const dispatch = useDispatch();
+
     useEffect(() => {
         const ws = new WebSocket(WS_URL);
         ws.onopen = () => {
@@ -26,7 +27,6 @@ export default function Feed() {
             dispatch(wsMessage(data));
         };
     }, [dispatch]);
-
 
     const ordersData = useSelector((state: RootState) => state.orderFeed.orders).orders;
     const total = useSelector((state: RootState) => state.orderFeed.orders).total;
@@ -42,15 +42,14 @@ export default function Feed() {
                 <div className={styles.feed_list}>
                     <>
                         {
-                            ordersData.map((elem: TOrder, i: number) => {
+                            ordersData.map((order: TOrder, i: number) =>
                                 <div key={i}>
-                                    <FeedItem data={elem}/>
+                                    <FeedItem order={order}/>
                                 </div>
-                            })
+                            )
                         }
                     </>
                 </div>
-
 
                 <div className={styles.feed_details}>
                     <>
@@ -80,6 +79,7 @@ export default function Feed() {
                         </div>
                     </>
                 </div>
+
             </div>
         </section>
     );

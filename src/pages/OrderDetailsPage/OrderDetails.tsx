@@ -23,13 +23,16 @@ export default function OrderDetails() {
 
 
     // --------------- INGREDIENT STRIPE
-    const OrderIngredient = ({elem, isBun}: { elem: IIngredient, isBun: boolean }) => {
+    const OrderIngredientThumbnails = ({elem, isBun}: { elem: IIngredient, isBun: boolean }) => {
         return (
             <>
                 {
                     constructorData.addedIngredients.length ?
                         <div className={styles.order_ingredient}>
-                            <Thumbnail elem={elem}/>
+                            <Thumbnail
+                                image={elem.image}
+                                count={null}
+                            />
 
                             <p className="text text_type_main-default">
                                 {elem.name}
@@ -49,7 +52,7 @@ export default function OrderDetails() {
 
     return (
         <div
-//            className={styles.order_details}
+            //            className={styles.order_details}
             className={`${styles.order_details} ${modalBackground}`}
         >
             <div className={styles.order_details_header}>
@@ -62,16 +65,13 @@ export default function OrderDetails() {
 
             <div className="mb-10">
                 <ul>
-                    <li>
-                        <OrderIngredient
-                            elem={constructorData.bun}
-                            isBun={true}
-                        />
-                    </li>
                     {constructorData.addedIngredients ?
                         constructorData.addedIngredients.map((elem: IIngredient, i: number) =>
                             <li key={i}>
-                                <OrderIngredient isBun={false} elem={elem}/>
+                                <OrderIngredientThumbnails
+                                    isBun={false}
+                                    elem={elem}
+                                />
                             </li>
                         ) : 'hello'
                     }
