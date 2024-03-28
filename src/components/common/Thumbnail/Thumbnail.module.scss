@@ -32,9 +32,11 @@
     img {
       height: 60px;
       border-radius: 50%;
+      padding-left: 2px;
     }
 
     .thumbnail_count {
+      font-weight: bold;
       position: absolute;
     }
   }

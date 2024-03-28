@@ -1,15 +1,17 @@
 import styles from "./Feed.module.scss"
 
+import {wsMessage, wsOpen} from "services/orederFeed/actions.ts";
+
 import {WS_URL} from "declarations/routs.ts";
 
 import {RootState} from "declarations/rootState.ts";
+import {TOrder} from "declarations/types";
 
 import FeedItem from "common/FeedItem/FeedItem.tsx";
+import {Link} from "react-router-dom";
 
 import {useSelector, useDispatch} from "hooks/reduxHooks.ts";
 import {useEffect} from 'react';
-import {wsMessage, wsOpen} from "services/orederFeed/actions.ts";
-import {TOrder} from "declarations/types";
 
 export default function Feed() {
 
@@ -43,9 +45,14 @@ export default function Feed() {
                     <>
                         {
                             ordersData.map((order: TOrder, i: number) =>
-                                <div key={i}>
+                                <Link
+                                    className={styles.ingredient_card}
+                                    key={i}
+                                    to={`/feed/${order.number}`}
+                                    state={{background: location}}
+                                >
                                     <FeedItem order={order}/>
-                                </div>
+                                </Link>
                             )
                         }
                     </>
@@ -84,3 +91,5 @@ export default function Feed() {
         </section>
     );
 }
+
+

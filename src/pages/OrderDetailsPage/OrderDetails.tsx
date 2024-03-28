@@ -32,6 +32,7 @@ export default function OrderDetails() {
                             <Thumbnail
                                 image={elem.image}
                                 count={null}
+                                isLast={false}
                             />
 
                             <p className="text text_type_main-default">

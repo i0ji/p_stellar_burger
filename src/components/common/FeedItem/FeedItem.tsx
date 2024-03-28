@@ -8,6 +8,7 @@ import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Thumbnail from "common/Thumbnail/Thumbnail.tsx";
 import {useSelector} from "hooks/reduxHooks.ts";
 import {RootState} from "declarations/rootState.ts";
+import {IIngredient} from "declarations/interfaces";
 
 export default function FeedItem({order}: { order: TOrder | undefined }) {
 
@@ -21,9 +22,17 @@ export default function FeedItem({order}: { order: TOrder | undefined }) {
 
         const orderIngredients = ingredientsArray.filter(elem => ingredients.includes(elem._id));
 
-        const orderCount = (orderIngredients.length > 5) ? (orderIngredients.length - 5) : null;
+        const orderCount = (orderIngredients.length > 5) ? (orderIngredients.length - 5) : 1;
 
-        const orderPrice = ingredientsArray.reduce((acc, ingredient) => acc + (ingredient?.price || 0), 0) || 0;
+        const orderBun = orderIngredients.find(elem => elem.type === 'bun');
+
+        const calculateTotalAmount = (orderIngredients: IIngredient[], buns: IIngredient | null): number => {
+            const ingredientsTotal = orderIngredients.reduce((acc, ingredient) => acc + (ingredient?.price || 0), 0) || 0;
+            const bunTotal = buns?.price || 0;
+            return ingredientsTotal + bunTotal;
+        };
+
+        const orderPrice = calculateTotalAmount(orderIngredients, orderBun);
 
         return (
             <div
@@ -46,7 +55,7 @@ export default function FeedItem({order}: { order: TOrder | undefined }) {
                             <div className={styles.ingredients_thumbnail}>
 
                                 {
-                                    orderIngredients.map(
+                                    orderIngredients.slice(0, 5).map(
                                         (elem, i: number) =>
                                             <div
                                                 key={i}
@@ -55,6 +64,7 @@ export default function FeedItem({order}: { order: TOrder | undefined }) {
                                                 <Thumbnail
                                                     image={elem.image}
                                                     count={orderCount}
+                                                    isLast={i === 4}
                                                 />
                                             </div>
                                     )
