@@ -1,4 +1,4 @@
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, useNavigate} from 'react-router-dom';
 import {ProtectedRoute} from "common/ProtectedRoute/ProtectedRoute.tsx"
 import {checkUserAuth, getUserData, getIngredients} from "utils/api.ts";
 
@@ -6,6 +6,7 @@ import {RootState} from "declarations/rootState.ts";
 
 import AppHeader from "components/AppHeader/AppHeader.tsx";
 import Loader from "common/Loader/Loader.tsx";
+import Modal from "common/Modal/Modal.tsx";
 import {
     LoginPage,
     HomePage,
@@ -23,16 +24,22 @@ import {
 
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useLocation} from "react-router-dom";
-import {useEffect} from "react";
+import {useCallback, useEffect} from "react";
 
 export default function App() {
 
     const dispatch = useDispatch();
     const location = useLocation();
     const state = location.state as { background?: Location };
+    const navigate = useNavigate();
 
     const ingredientsStatus = useSelector((state: RootState) => state.ingredients.status);
     const accessToken = localStorage.getItem('accessToken');
+
+    const handleCloseModal = useCallback(() => {
+        navigate(-1);
+    }, [navigate]);
+
 
     useEffect(() => {
         dispatch(getIngredients());
@@ -49,25 +56,22 @@ export default function App() {
     return (
         <>
             <AppHeader/>
-
-
             <Routes location={state?.background || location}>
 
                 <Route path="/" element={<HomePage/>}/>
-                {/*<Route path="ingredient/:id" element={<IngredientDetails/>}/>*/}
                 <Route path="reset-password" element={<ResetPage/>}/>
                 <Route path="reset-success" element={<SuccessPage/>}/>
 
-                <Route>
-                    <Route path="ingredient/:id"
-                           element={<ProtectedRoute unAuth={true} component={<IngredientDetails/>}/>}/>
-                </Route>
+                <Route path="ingredient/:id" element={<IngredientDetails/>}/>
+
+
                 {/*SPRINT 5 NEW ROUTES*/}
-                {/*<Route path="feed" element={<FeedPage/>}/>*/}
-                {/*<Route path="feed/:number" element={<OrderDetails/>}/>*/}
-                <Route path="feed" element={<FeedPage/>}>
-                    <Route path=":number" element={<OrderDetails/>}/>
-                </Route>
+                <Route path="feed" element={<FeedPage/>}/>
+                <Route path="feed/:number" element={<OrderDetails/>}/>
+
+                {/*<Route path="feed" element={<FeedPage/>}>*/}
+                {/*    <Route path=":number" element={<OrderDetails/>}/>*/}
+                {/*</Route>*/}
 
                 <Route path="profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}>
                     <Route path="orders" element={<ProtectedRoute unAuth={false} component={<ProfileOrders/>}/>}>
@@ -88,8 +92,11 @@ export default function App() {
             {
                 state?.background && (
                     <Routes>
+
                         <Route path="ingredient/:id" element={
-                            <IngredientDetails/>
+                            <Modal onClose={handleCloseModal}>
+                                <IngredientDetails/>
+                            </Modal>
                         }/>
                     </Routes>
                 )
@@ -97,8 +104,11 @@ export default function App() {
             {
                 state?.background && (
                     <Routes>
+
                         <Route path="/feed/:number" element={
-                            <OrderDetails/>
+                            <Modal onClose={handleCloseModal}>
+                                <OrderDetails/>
+                            </Modal>
                         }/>
                     </Routes>
                 )

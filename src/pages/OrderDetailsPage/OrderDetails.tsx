@@ -7,16 +7,13 @@ import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-
 import Thumbnail from "common/Thumbnail/Thumbnail.tsx";
 
 import {useSelector} from "hooks/reduxHooks.ts";
-import {useParams, useLocation, useNavigate} from "react-router-dom";
-import Modal from "common/Modal/Modal.tsx";
-import {useCallback} from "react";
+import {useParams, useLocation} from "react-router-dom";
 import {TOrder} from "declarations/types";
 
 export default function OrderDetails() {
 
     // --------------- NAVIGATION & BACKGROUND ---------------
 
-    const navigate = useNavigate();
     const {number} = useParams<{ "number"?: string }>();
 
     const location = useLocation();
@@ -24,16 +21,14 @@ export default function OrderDetails() {
     const modalBackground = (location.key === 'default') ? styles.transparent : styles.dark;
 
     const order = useSelector((state: RootState) => state.orderFeed).orders.orders;
-    //console.log(order)//массив заказов 50
-
 
     const currentOrder = order.find((elem: TOrder) => elem.number?.toString() == number);
-    //console.log(currentOrder.ingredients);
-    const orderIngredientIDs = currentOrder.ingredients;
-    const ingredientsData = useSelector((state: RootState) => state.ingredients.ingredients);
-    const orderIngredients = ingredientsData.filter(elem => orderIngredientIDs.includes(elem._id));
 
-    //console.log(orderIngredients);
+    const orderIngredientIDs = currentOrder.ingredients;
+
+    const ingredientsData = useSelector((state: RootState) => state.ingredients.ingredients);
+
+    const orderIngredients = ingredientsData.filter(elem => orderIngredientIDs.includes(elem._id));
 
     const orderStatus = (currentOrder.status === 'done') ? 'Выполнен' : 'Готовится';
     const OrderDate = () => {
@@ -76,16 +71,9 @@ export default function OrderDetails() {
         )
     }
 
-    // --------------- MODAL CLOSING ---------------
-
-    const handleCloseModal = useCallback(() => {
-        navigate('/feed');
-    }, [navigate]);
-
-
     return (
-        <Modal onClose={handleCloseModal}>
-            {currentOrder &&
+        <>
+            {currentOrder && ingredientsData.length && orderIngredientIDs &&
                 <div
                     className={`${styles.order_details} ${modalBackground}`}
                 >
@@ -119,8 +107,10 @@ export default function OrderDetails() {
                             {orderPrice}
                         </span>
                     </div>
+
                 </div>
             }
-        </Modal>
+        </>
     )
+
 }
