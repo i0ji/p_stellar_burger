@@ -12,7 +12,6 @@ export default function Modal({onClose, children}: {
     children: React.ReactNode,
 }) {
 
-
     // --------------- ERROR CHECK ---------------
 
     const hasError = useSelector((state: RootState) => state.orderSlice.error);
@@ -21,13 +20,13 @@ export default function Modal({onClose, children}: {
     // --------------- CLOSING LOGIC ---------------
 
     useEffect(() => {
-            const closeOnEscapeKey = (e: KeyboardEvent) => {
-                if (onClose) (e.key === "Escape" ? onClose() : null);
-            };
-            document.body.addEventListener("keydown", closeOnEscapeKey);
-            return () => {
-                document.body.removeEventListener("keydown", closeOnEscapeKey);
-            };
+        const closeOnEscapeKey = (e: KeyboardEvent) => {
+            if (onClose) (e.key === "Escape" ? onClose() : null);
+        };
+        document.body.addEventListener("keydown", closeOnEscapeKey);
+        return () => {
+            document.body.removeEventListener("keydown", closeOnEscapeKey);
+        };
 
     }, [onClose]);
 

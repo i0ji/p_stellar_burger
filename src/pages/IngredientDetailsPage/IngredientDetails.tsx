@@ -18,6 +18,8 @@ export default function IngredientDetails() {
 
     const navigate = useNavigate();
     const {id} = useParams<{ "id"?: string }>();
+
+
     const {ingredients: ingredientsData, status, error}: IBurgerState = useSelector((state: {
         ingredients: IBurgerState
     }) => state.ingredients);
@@ -35,7 +37,7 @@ export default function IngredientDetails() {
 
     const location = useLocation();
 
-    const modalBackground = (location.key === 'default') ? styles.transparent : styles.dark;
+    const modalBackground = (location.key === 'default') ? styles.background : styles.dark;
 
 
     // --------------- STATUSES ---------------
@@ -49,7 +51,9 @@ export default function IngredientDetails() {
     }
 
     return (
-        <Modal onClose={handleCloseModal}>
+        <Modal
+            onClose={handleCloseModal}
+        >
             <div
                 className={`${styles.ingredients_details} ${modalBackground}`}
             >

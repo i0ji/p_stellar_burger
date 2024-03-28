@@ -50,43 +50,45 @@ export default function App() {
         <>
             <AppHeader/>
 
+
             <Routes location={state?.background || location}>
 
-                <Route path="" element={<HomePage/>}/>
-                <Route path="ingredient/:id" element={<IngredientDetails/>}/>
-                <Route path="*" element={<NotFound404/>}/>
-
+                <Route path="/" element={<HomePage/>}/>
+                {/*<Route path="ingredient/:id" element={<IngredientDetails/>}/>*/}
                 <Route path="reset-password" element={<ResetPage/>}/>
                 <Route path="reset-success" element={<SuccessPage/>}/>
 
-
+                <Route>
+                    <Route path="ingredient/:id"
+                           element={<ProtectedRoute unAuth={true} component={<IngredientDetails/>}/>}/>
+                </Route>
                 {/*SPRINT 5 NEW ROUTES*/}
-                <Route path="feed" element={<FeedPage/>}/>
-                <Route path="feed/:number" element={<OrderDetails/>}/>
-                {/*<Route path="feed" element={<FeedPage/>}>*/}
-                {/*    <Route path=":number" element={<OrderDetails/>}/>*/}
-                {/*</Route>*/}
+                {/*<Route path="feed" element={<FeedPage/>}/>*/}
+                {/*<Route path="feed/:number" element={<OrderDetails/>}/>*/}
+                <Route path="feed" element={<FeedPage/>}>
+                    <Route path=":number" element={<OrderDetails/>}/>
+                </Route>
 
                 <Route path="profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}>
                     <Route path="orders" element={<ProtectedRoute unAuth={false} component={<ProfileOrders/>}/>}>
-                        {/*<Route path=":number" element={<ProtectedRoute unAuth={false} component={<OrderDetails/>}/>}/>*/}
+                        {/*    /!*<Route path=":number" element={<ProtectedRoute unAuth={false} component={<OrderDetails/>}/>}/>*!/*/}
                     </Route>
                 </Route>
                 {/*SPRINT 5 NEW ROUTES*/}
 
 
                 <Route path="login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
-                <Route path="reset-success" element={<ProtectedRoute unAuth={true} component={<SuccessPage/>}/>}/>
-                <Route path="login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
                 <Route path="register" element={<ProtectedRoute unAuth={true} component={<RegisterPage/>}/>}/>
                 <Route path="forgot-password" element={<ProtectedRoute unAuth={true} component={<ForgotPage/>}/>}/>
 
+
+                <Route path="*" element={<NotFound404/>}/>
             </Routes>
 
             {
                 state?.background && (
                     <Routes>
-                        <Route path="/ingredient/:id" element={
+                        <Route path="ingredient/:id" element={
                             <IngredientDetails/>
                         }/>
                     </Routes>

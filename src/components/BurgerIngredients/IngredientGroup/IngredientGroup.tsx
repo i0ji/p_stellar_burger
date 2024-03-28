@@ -87,7 +87,7 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
                     <Link
                         className={styles.ingredient_card}
                         key={i}
-                        to={`/ingredient/${ingredientItem._id}`}
+                        to={`ingredient/${ingredientItem._id}`}
                         state={{background: location}}
                         onClick={() => onUpdateSelectedIngredient(ingredientItem)}
                     >

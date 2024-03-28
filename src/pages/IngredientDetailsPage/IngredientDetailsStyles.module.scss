@@ -1,4 +1,5 @@
 @import "styles/theme_colors";
+@import "styles/mixins";
 
 .ingredients_details {
   height: 640px;
@@ -55,8 +56,18 @@
   }
 }
 
+.transparent {
+  background-color: transparent;
+  box-shadow: none;
+
+  svg {
+    display: none;
+  }
+}
+
 .dark {
   background-color: $bg_modal;
+  @include box_shadow;
 }
 
 .status {

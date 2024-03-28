@@ -38,3 +38,7 @@
 
   overflow: hidden;
 }
+
+@mixin box_shadow {
+  box-shadow: 0 0 15px 1px $bg_main;
+}

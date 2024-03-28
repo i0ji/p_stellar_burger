@@ -8,7 +8,8 @@
   flex-direction: column;
 
   height: 640px;
-  width: 640px;
+  width: 720px;
+  padding: 30px;
 
   left: calc(50% - 360px);
   top: calc(50% - 320px);
@@ -16,6 +17,7 @@
   color: $theme_white;
 
   border-radius: 40px;
+  @include box_shadow;
 
   .order_details_header {
     width: 100%;
@@ -29,13 +31,20 @@
     }
   }
 
-  ul {
-    list-style-type: none;
+  .order_details_list {
+    padding: 10px 20px 10px 20px;
+    overflow-y: scroll;
+    flex: 1 1 auto;
 
-    li {
-      margin-bottom: 16px;
+    ul {
+      list-style-type: none;
+
+      li {
+        margin-bottom: 16px;
+      }
     }
   }
+
 
   .order_details_footer {
     display: flex;
@@ -49,6 +58,10 @@
       display: flex;
       justify-content: end;
       gap: 10px
+    }
+
+    svg {
+      position: static;
     }
   }
 }
@@ -69,10 +82,13 @@
     align-items: center;
     display: flex;
     justify-content: end;
-    gap: 10px
+    gap: 10px;
+
+    svg {
+      position: static;
+    }
   }
 }
-
 
 .dark {
   background-color: $bg_modal;

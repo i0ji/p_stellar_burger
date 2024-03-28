@@ -2,23 +2,23 @@ import styles from "./FeedItem.module.scss"
 
 import {TOrder} from "declarations/types";
 
-import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import Thumbnail from "common/Thumbnail/Thumbnail.tsx";
 import {useSelector} from "hooks/reduxHooks.ts";
 import {RootState} from "declarations/rootState.ts";
 import {IIngredient} from "declarations/interfaces";
 
+
 export default function FeedItem({order}: { order: TOrder | undefined }) {
 
-    const ingredientsArray = useSelector((state: RootState) => state.ingredients.ingredients);
+    const ingredientsData = useSelector((state: RootState) => state.ingredients.ingredients);
 
     if (order && order.ingredients) {
-
 
         // --------------- CALCULATION DATA ---------------
         const ingredients = order.ingredients;
 
-        const orderIngredients = ingredientsArray.filter(elem => ingredients.includes(elem._id));
+        const orderIngredients = ingredientsData.filter(elem => ingredients.includes(elem._id));
 
         const orderCount = (orderIngredients.length > 5) ? (orderIngredients.length - 5) : 1;
 
@@ -31,6 +31,11 @@ export default function FeedItem({order}: { order: TOrder | undefined }) {
         };
 
         const orderPrice = calculateTotalAmount(orderIngredients, orderBun);
+        const OrderDate = () => {
+            const dateFromServer = '2022-10-10T17:33:32.877Z'
+            return <FormattedDate date={new Date(dateFromServer)} />
+        }
+
 
         return (
             <div
@@ -40,7 +45,9 @@ export default function FeedItem({order}: { order: TOrder | undefined }) {
                     <>
                         <div className={styles.feed_item_info}>
                             <p>{order.number}</p>
-                            <p className={styles.order_date}>{order.createdAt}</p>
+                            <p className={styles.order_date}>
+                                <OrderDate/>
+                            </p>
                         </div>
 
                         <div className={`${styles.feed_item_name} pt-6`}>
