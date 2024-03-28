@@ -29,15 +29,8 @@ export default function Feed() {
 
 
     const ordersData = useSelector((state: RootState) => state.orderFeed.orders).orders;
-
-
-    if (ordersData && ordersData.length > 37 && ordersData[37].createdAt) {
-        console.log(ordersData[37].createdAt);
-    }
-    //
-    // for (let i = 0; i++; i < ordersData) {
-    //     console.log(ordersData[i])
-    // }
+    const total = useSelector((state: RootState) => state.orderFeed.orders).total;
+    const totalToday = useSelector((state: RootState) => state.orderFeed.orders).totalToday;
 
     return (
         <section className={styles.feed}>
@@ -76,6 +69,13 @@ export default function Feed() {
                                 <p>12312</p>
                                 <p>213</p>
                                 <p>123123</p>
+                            </div>
+                            <div className={styles.feed_details_total}>
+                                <p className="text text_type_main-default">Выполнено за всё время:</p>
+                                <h1 className="text text_type_digits-large">{total}</h1>
+
+                                <p className="text text_type_main-default">Выполнено за сегодня:</p>
+                                <h1 className="text text_type_digits-large">{totalToday}</h1>
                             </div>
                         </div>
                     </>

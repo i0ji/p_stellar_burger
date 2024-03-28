@@ -5,12 +5,12 @@ import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {useNavigate} from "react-router-dom";
 import {TOrder} from "declarations/types";
-import {useSelector} from "hooks/reduxHooks.ts";
-import {RootState} from "declarations/rootState.ts";
 
 export default function FeedItem({data}: { data: TOrder }) {
 
     const navigate = useNavigate();
+
+
 
 
 
@@ -34,28 +34,28 @@ export default function FeedItem({data}: { data: TOrder }) {
 
                 <div className={styles.ingredients_thumbnail}>
 
-                    {
-                        data.ingredients[0] ?
-                            <div
-                                style={{zIndex: 200}}
-                                id={styles.wrapper}>
-                                <Thumbnail elemID={'xxx'}/>
-                            </div
-                            >
-                            : <p>HELLO</p>
-                    }
+                    {/*{*/}
+                    {/*    data.ingredients[0] ?*/}
+                    {/*        <div*/}
+                    {/*            style={{zIndex: 200}}*/}
+                    {/*            id={styles.wrapper}>*/}
+                    {/*            <Thumbnail elemID={'xxx'}/>*/}
+                    {/*        </div*/}
+                    {/*        >*/}
+                    {/*        : <p>HELLO</p>*/}
+                    {/*}*/}
 
-                    {
-                        data.ingredients.map(
-                            (elem, i: number) =>
-                                <div
-                                    key={i}
-                                    style={{zIndex: 100 - i}}
-                                >
-                                    <Thumbnail elemID={'x'}/>
-                                </div>
-                        )
-                    }
+                    {/*{*/}
+                    {/*    data.ingredients.map(*/}
+                    {/*        (elem, i: number) =>*/}
+                    {/*            <div*/}
+                    {/*                key={i}*/}
+                    {/*                style={{zIndex: 100 - i}}*/}
+                    {/*            >*/}
+                    {/*                <Thumbnail elemID={'x'}/>*/}
+                    {/*            </div>*/}
+                    {/*    )*/}
+                    {/*}*/}
                 </div>
 
                 <div className={styles.feed_item_price}>

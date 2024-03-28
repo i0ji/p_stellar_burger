@@ -40,7 +40,7 @@ export default function App() {
         dispatch(getUserData());
     }, [dispatch, accessToken]);
 
-    console.log('v:0.1.9.6.4');
+    console.log('v:0.1.9.6.5');
 
     if (ingredientsStatus == 'loading') {
         return <Loader/>;
