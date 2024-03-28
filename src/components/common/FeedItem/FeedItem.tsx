@@ -1,7 +1,5 @@
 import styles from "./FeedItem.module.scss"
 
-import {useNavigate} from "react-router-dom";
-
 import {TOrder} from "declarations/types";
 
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -12,12 +10,12 @@ import {IIngredient} from "declarations/interfaces";
 
 export default function FeedItem({order}: { order: TOrder | undefined }) {
 
-    const navigate = useNavigate();
-
     const ingredientsArray = useSelector((state: RootState) => state.ingredients.ingredients);
 
     if (order && order.ingredients) {
 
+
+        // --------------- CALCULATION DATA ---------------
         const ingredients = order.ingredients;
 
         const orderIngredients = ingredientsArray.filter(elem => ingredients.includes(elem._id));
@@ -27,7 +25,7 @@ export default function FeedItem({order}: { order: TOrder | undefined }) {
         const orderBun = orderIngredients.find(elem => elem.type === 'bun');
 
         const calculateTotalAmount = (orderIngredients: IIngredient[], buns: IIngredient | null): number => {
-            const ingredientsTotal = orderIngredients.reduce((acc, ingredient) => acc + (ingredient?.price || 0), 0) || 0;
+            const ingredientsTotal = orderIngredients.reduce((acc, ingredient) => acc + (ingredient?.price || 0), 0);
             const bunTotal = buns?.price || 0;
             return ingredientsTotal + bunTotal;
         };
@@ -37,7 +35,6 @@ export default function FeedItem({order}: { order: TOrder | undefined }) {
         return (
             <div
                 className={styles.feed_item}
-                onClick={() => navigate('/feed/:number')}
             >
                 {order &&
                     <>

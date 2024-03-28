@@ -8,7 +8,7 @@ import {RootState} from "declarations/rootState.ts";
 import {TOrder} from "declarations/types";
 
 import FeedItem from "common/FeedItem/FeedItem.tsx";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 import {useSelector, useDispatch} from "hooks/reduxHooks.ts";
 import {useEffect} from 'react';
@@ -16,6 +16,7 @@ import {useEffect} from 'react';
 export default function Feed() {
 
     const dispatch = useDispatch();
+    const location = useLocation();
 
     useEffect(() => {
         const ws = new WebSocket(WS_URL);
@@ -28,6 +29,7 @@ export default function Feed() {
             const data = JSON.parse(event.data);
             dispatch(wsMessage(data));
         };
+
     }, [dispatch]);
 
     const ordersData = useSelector((state: RootState) => state.orderFeed.orders).orders;
@@ -46,9 +48,8 @@ export default function Feed() {
                         {
                             ordersData.map((order: TOrder, i: number) =>
                                 <Link
-                                    className={styles.ingredient_card}
                                     key={i}
-                                    to={`/feed/${order.number}`}
+                                    to={`${order.number}`}
                                     state={{background: location}}
                                 >
                                     <FeedItem order={order}/>

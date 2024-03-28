@@ -61,9 +61,11 @@ export default function App() {
 
 
                 {/*SPRINT 5 NEW ROUTES*/}
-                <Route path="feed" element={<FeedPage/>}>
-                    <Route path=":number" element={<OrderDetails/>}/>
-                </Route>
+                <Route path="feed" element={<FeedPage/>}/>
+                <Route path="feed/:number" element={<OrderDetails/>}/>
+                {/*<Route path="feed" element={<FeedPage/>}>*/}
+                {/*    <Route path=":number" element={<OrderDetails/>}/>*/}
+                {/*</Route>*/}
 
                 <Route path="profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}>
                     <Route path="orders" element={<ProtectedRoute unAuth={false} component={<ProfileOrders/>}/>}>
@@ -86,6 +88,15 @@ export default function App() {
                     <Routes>
                         <Route path="/ingredient/:id" element={
                             <IngredientDetails/>
+                        }/>
+                    </Routes>
+                )
+            }
+            {
+                state?.background && (
+                    <Routes>
+                        <Route path="/feed/:number" element={
+                            <OrderDetails/>
                         }/>
                     </Routes>
                 )

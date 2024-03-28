@@ -2,90 +2,104 @@ import styles from "./OrderDetails.module.scss"
 
 import {RootState} from "declarations/rootState.ts";
 import {IIngredient} from "declarations/interfaces";
-import {IConstructorSlice} from "declarations/sliceInterfaces";
 
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Thumbnail from "common/Thumbnail/Thumbnail.tsx";
 
 import {useSelector} from "hooks/reduxHooks.ts";
-import {useParams, useLocation} from "react-router-dom";
+import {useParams, useLocation, useNavigate} from "react-router-dom";
+import Modal from "common/Modal/Modal.tsx";
+import {useCallback} from "react";
+import {TOrder} from "declarations/types";
 
 export default function OrderDetails() {
 
-    const constructorData: IConstructorSlice = useSelector((state: RootState) => state.constructorSlice);
 
-    // --------------- ROUTING & BACKGROUND ---------------
+    // --------------- NAVIGATION & BACKGROUND ---------------
 
+    const navigate = useNavigate();
     const {number} = useParams<{ "number"?: string }>();
+
     const location = useLocation();
 
     const modalBackground = (location.key === 'default') ? styles.transparent : styles.dark;
 
+    const order = useSelector((state: RootState) => state.orderFeed).orders.orders;
+const currentNumber = order.find((elem:TOrder) => elem.number?.toString() == number);
+    console.log(order);
+    console.log(number);
+    console.log(currentNumber);
+
 
     // --------------- INGREDIENT STRIPE
-    const OrderIngredientThumbnails = ({elem, isBun}: { elem: IIngredient, isBun: boolean }) => {
-        return (
-            <>
-                {
-                    constructorData.addedIngredients.length ?
-                        <div className={styles.order_ingredient}>
-                            <Thumbnail
-                                image={elem.image}
-                                count={null}
-                                isLast={false}
-                            />
+    const IngredientInfo = ({elem}: { elem: IIngredient }) => {
+         return (
+             <>
+                 <div className={styles.order_ingredient}>
+                     <Thumbnail
+                         image={elem.image}
+                         count={null}
+                         isLast={false}
+                     />
 
-                            <p className="text text_type_main-default">
-                                {elem.name}
-                            </p>
+                     <p className="text text_type_main-default">
+                         {elem.name}
+                     </p>
 
-                            <div className={styles.order_ingredient_price}>
-                                <p className="text text_type_digits-default">
-                                    {isBun ? '2' : 'wait'} X {elem.price}
-                                </p>
-                                <CurrencyIcon type="primary"/>
-                            </div>
-                        </div> : <p>no!</p>
-                }
-            </>
-        )
-    }
+                     <div className={styles.order_ingredient_price}>
+                         <p className="text text_type_digits-default">
+                             {elem.price}
+                         </p>
+                         <CurrencyIcon type="primary"/>
+                     </div>
+                 </div>
+             </>
+         )
+     }
+
+    // --------------- MODAL CLOSING ---------------
+
+    const handleCloseModal = useCallback(() => {
+        navigate('/feed');
+    }, [navigate]);
 
     return (
-        <div
-            //            className={styles.order_details}
-            className={`${styles.order_details} ${modalBackground}`}
-        >
-            <div className={styles.order_details_header}>
-                <h5 className="text text_type_digits-default mb-10 ">{number}</h5>
-                <h3 className="text text_type_main-medium mb-3">Death Star Starship Main бургер</h3>
-                <p className="text text_type_main-default mb-15">Выполнен</p>
-            </div>
+        <Modal onClose={handleCloseModal}>
+            <div
+                className={`${styles.order_details} ${modalBackground}`}
+            >
 
-            <h3 className="text text_type_main-medium mb-3">Состав:</h3>
+                <div className={styles.order_details_header}>
+                    <h5 className="text text_type_digits-default mb-10 ">{currentNumber.number}</h5>
+                    <h3 className="text text_type_main-medium mb-3">{currentNumber.name}</h3>
+                    <p className="text text_type_main-default mb-15">Выполнен</p>
+                </div>
 
-            <div className="mb-10">
-                <ul>
-                    {constructorData.addedIngredients ?
-                        constructorData.addedIngredients.map((elem: IIngredient, i: number) =>
-                            <li key={i}>
-                                <OrderIngredientThumbnails
-                                    isBun={false}
-                                    elem={elem}
-                                />
-                            </li>
-                        ) : 'hello'
-                    }
-                </ul>
-            </div>
+                <h3 className="text text_type_main-medium mb-3">Состав:</h3>
 
-            <div className={styles.order_details_footer}>
-                <p>Вчера, 13:50</p>
-                <span className="text text_type_digits-default">
-                    {constructorData.totalAmount}
-                    <CurrencyIcon type="primary"/>
+                <div className="mb-10">
+                    <ul>
+                        {
+                            currentNumber.ingredients.map((elem: IIngredient, i: number) =>
+                                <li key={i}>
+                                    <IngredientInfo
+                                        elem={elem}
+                                    />
+                                </li>
+                            )
+                        }
+                    </ul>
+                </div>
+
+                <div className={styles.order_details_footer}>
+                    <p>{currentNumber.updatedAt}</p>
+                    <span className="text text_type_digits-default">
+                    {currentNumber.totalAmount}
+                        <CurrencyIcon type="primary"/>
                 </span>
+                </div>
+
             </div>
-        </div>
+        </Modal>
     );
 }

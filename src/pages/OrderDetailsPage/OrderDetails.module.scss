@@ -73,7 +73,11 @@
   }
 }
 
-//NEED TO BE CORRECTED WITH THE DYNAMIC ROUTING
+
 .dark {
-  background-color: $bg_main;
+  background-color: $bg_modal;
+}
+
+.transparent {
+  background-color: transparent;
 }
