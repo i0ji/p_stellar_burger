@@ -2,6 +2,8 @@ import {TwsActions} from "declarations/types";
 import {Middleware} from "@reduxjs/toolkit";
 import {RootState} from "declarations/rootState.ts";
 import {refreshToken} from "utils/api.ts";
+import {wsOpen} from "services/orderFeed/actions.ts";
+
 
 export const socketMiddleware = (
     wsActions: TwsActions,
@@ -11,12 +13,14 @@ export const socketMiddleware = (
         let socket: WebSocket | null = null;
         let url: string | null = null;
         const {
-            wsClose,
-            wsOpen,
+            wsConnect,
+            wsConnecting,
+            wsDisconnect,
+            onOpen,
+            onMessage,
             onClose,
             onError,
-            onMessage,
-        } = wsActions;
+        }:TwsActions = wsActions;
 
         return (next) => (action) => {
             const {dispatch} = store;
@@ -26,7 +30,7 @@ export const socketMiddleware = (
                 socket = new WebSocket(payload);
                 url = payload;
                 socket.onopen = (event) => {
-                    dispatch({type: wsOpen, payload: event});
+                    dispatch({type: onOpen, payload: event});
                 };
 
                 socket.onerror = (event) => {
@@ -45,7 +49,7 @@ export const socketMiddleware = (
                                 "token",
                                 refreshData.accessToken.replace("Bearer ", "")
                             );
-                            dispatch({type: wsOpen, payload: wssUrl});
+                            dispatch({type: wsConnect, payload: wssUrl});
                         });
                     } else {
                         dispatch({
@@ -60,7 +64,7 @@ export const socketMiddleware = (
                 };
             }
 
-            if (wsClose && type === wsClose && socket) {
+            if (wsDisconnect && type === wsDisconnect && socket) {
                 socket.close();
             }
 

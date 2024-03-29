@@ -13,7 +13,7 @@ export const wsClose = createAction('ORDER_FEED_WS_CLOSE');
 
 export const wsDisconnect = createAction('ORDER_FEED_WS_DISCONNECT');
 
-export const wsError = createAction<TError>('ORDER_FEED_WS_ERROR');
+export const wsError = createAction<TError, 'ORDER_FEED_WS_ERROR'>('ORDER_FEED_WS_ERROR');
 
 export const wsActions = {
     wsConnect,

@@ -1,3 +1,5 @@
+import {TError, TStatus} from "declarations/types";
+
 export interface IIngredient {
     id?: string;
     _id?: string;
@@ -37,4 +39,34 @@ export interface IDragItem {
 
 export interface IForm {
     [key: string]: string;
+}
+
+export interface IIngredients {
+    ingredients: Array<IIngredient>;
+}
+
+export interface IUser {
+    name?: string | null,
+    email?: string | undefined;
+    password?: string | undefined;
+}
+
+export interface IToken {
+    refreshToken: string;
+    accessToken: string;
+}
+
+export interface IRefreshData extends IToken {
+    success: boolean;
+}
+
+export interface IBurgerState extends IIngredients, TStatus, TError {
+}
+
+export interface IUserData extends IUser {
+    user?: IUser;
+}
+
+export interface IRegisterUser extends IRefreshData {
+    user: IUser;
 }

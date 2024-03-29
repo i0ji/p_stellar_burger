@@ -2,13 +2,14 @@ import styles from "./OrderDetails.module.scss"
 
 import {RootState} from "declarations/rootState.ts";
 import {IIngredient} from "declarations/interfaces";
+import {TOrder} from "declarations/types";
 
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import Thumbnail from "common/Thumbnail/Thumbnail.tsx";
 
 import {useSelector} from "hooks/reduxHooks.ts";
 import {useParams, useLocation} from "react-router-dom";
-import {TOrder} from "declarations/types";
+
 
 export default function OrderDetails() {
 
@@ -36,7 +37,7 @@ export default function OrderDetails() {
         return <FormattedDate date={new Date(dateFromServer)}/>
     }
     const orderBun = orderIngredients.find(elem => elem.type === 'bun');
-    const calculateTotalAmount = (orderIngredients: IIngredient[], buns: IIngredient | null): number => {
+    const calculateTotalAmount = (orderIngredients: IIngredient[], buns: IIngredient | undefined): number => {
         const ingredientsTotal = orderIngredients.reduce((acc, ingredient) => acc + (ingredient?.price || 0), 0);
         const bunTotal = buns?.price || 0;
         return ingredientsTotal + bunTotal;

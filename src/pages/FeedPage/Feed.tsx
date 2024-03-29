@@ -1,11 +1,32 @@
 import styles from "./Feed.module.scss"
 
+import {Link} from "react-router-dom";
+
+
+import {TOrder} from "declarations/types";
+import {RootState} from "declarations/rootState.ts";
+
+import FeedItem from "common/FeedItem/FeedItem.tsx";
+
+import {useEffect} from "react";
+import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 
 export default function Feed() {
 
+    const dispatch = useDispatch();
 
-    // --------------- VARS/STATES ---------------
+    useEffect(() => {
+   ????
+    }, [dispatch])
 
+    const status = useSelector((state: RootState) => state.orderFeed.success);
+console.log(`WS CONNECTIONS: ${status}`)
+    const orders = useSelector((state: RootState) => state.orderFeed.orders);
+    console.log(`ORDERS: ${orders}`);
+
+    const ordersData = orders.ingredients || [];
+    const totalToday = orders.totalToday;
+    const total = orders.total;
 
     return (
         <section className={styles.feed}>
@@ -16,17 +37,17 @@ export default function Feed() {
 
                 <div className={styles.feed_list}>
                     <>
-                        {/*{orders &&*/}
-                        {/*    ordersData.map((order: TOrder, i: number) =>*/}
-                        {/*        <Link*/}
-                        {/*            key={i}*/}
-                        {/*            to={`${order.number}`}*/}
-                        {/*            state={{background: location}}*/}
-                        {/*        >*/}
-                        {/*            <FeedItem order={order}/>*/}
-                        {/*        </Link>*/}
-                        {/*    )*/}
-                        {/*}*/}
+                        {orders && orders.length > 0 &&
+                            ordersData.map((order: TOrder, i: number) =>
+                                <Link
+                                    key={i}
+                                    to={`${order.number}`}
+                                    state={{background: location}}
+                                >
+                                    <FeedItem order={order}/>
+                                </Link>
+                            )
+                        }
                     </>
                 </div>
 
@@ -49,11 +70,11 @@ export default function Feed() {
                                 <p>123123</p>
                             </div>
                             <div className={styles.feed_details_total}>
-                                {/*<p className="text text_type_main-default">Выполнено за всё время:</p>*/}
-                                {/*<h1 className="text text_type_digits-large">{total}</h1>*/}
+                                <p className="text text_type_main-default">Выполнено за всё время:</p>
+                                <h1 className="text text_type_digits-large">{total}</h1>
 
-                                {/*<p className="text text_type_main-default">Выполнено за сегодня:</p>*/}
-                                {/*<h1 className="text text_type_digits-large">{totalToday}</h1>*/}
+                                <p className="text text_type_main-default">Выполнено за сегодня:</p>
+                                <h1 className="text text_type_digits-large">{totalToday}</h1>
                             </div>
                         </div>
                     </>

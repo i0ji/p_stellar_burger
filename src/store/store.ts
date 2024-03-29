@@ -1,9 +1,9 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 
-import {orderFeedReducer} from "services/orederFeed/reducers.ts";
+import {orderFeedReducer} from "services/orderFeed/reducers.ts";
 import {socketMiddleware} from "utils/socketMiddleware.ts";
 
-import {wsActions} from "services/orederFeed/actions.ts";
+import {wsActions} from "services/orderFeed/actions.ts";
 
 import {
     authSlice,
@@ -22,11 +22,11 @@ export const rootReducers = combineReducers({
     orderFeed: orderFeedReducer,
 })
 
-const checkTokenValidity = !!(localStorage.getItem('accessToken'));
+const checkToken = !!(localStorage.getItem('accessToken'));
 
 export const store = configureStore({
         reducer: rootReducers,
         middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware().concat(socketMiddleware(wsActions, checkTokenValidity))
+            getDefaultMiddleware().concat(socketMiddleware(wsActions, checkToken))
     }
 )

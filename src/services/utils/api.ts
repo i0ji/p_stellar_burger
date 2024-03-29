@@ -5,7 +5,7 @@ import {BASE_URL} from "declarations/routs.ts";
 import {setAuthChecked, setUser} from "slices/authSlice.ts";
 import {checkResponse} from "utils/check-response.ts";
 
-import {IUserData, IRegisterUser} from "declarations/sliceInterfaces";
+import {IUserData, IRegisterUser} from "declarations/interfaces";
 import {TIngredientResponse, TUserLoginResponse, TApiResponse, TUserRegister} from "declarations/types";
 import {IIngredient} from "declarations/interfaces";
 

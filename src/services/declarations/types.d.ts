@@ -1,7 +1,10 @@
-import {IToken, IUser, IUserData} from "declarations/sliceInterfaces";
+import {
+    IToken,
+    IUser,
+    IUserData
+} from "declarations/sliceInterfaces";
 import {IIngredient} from "declarations/interfaces";
 import {RootState} from "declarations/rootState.ts";
-
 import {ThunkAction} from 'redux-thunk';
 import {Action, ActionCreator} from 'redux';
 
@@ -12,10 +15,9 @@ import {
     wsConnecting,
     wsDisconnect,
     wsError,
-    wsMessage,
+    onMessage,
     wsOpen
-} from "services/orederFeed/actions.ts";
-import {ActionCreatorWithoutPayload, ActionCreatorWithPayload} from "@reduxjs/toolkit";
+} from "services/orderFeed/actions.ts";
 
 export type TInputElementType = HTMLInputElement | null;
 
@@ -27,7 +29,7 @@ export type TStatus = {
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
 };
 
-type TError = Error | null;
+export type TError = Error | string | null;
 
 export type TApiResponse<T> = TServerResponse<{
     [key: string]: T;
@@ -37,20 +39,19 @@ export type TIngredientResponse = TServerResponse<{
     data: IIngredient[]
 }>;
 
-type TUserLoginResponse = TServerResponse<IToken, {
+export type TUserLoginResponse = TServerResponse<IToken, {
     user: IUserData;
 }>;
 
-type TUserRegister = TServerResponse<IToken, IUser>;
+export type TUserRegister = TServerResponse<IToken, IUser>;
 
 export type TAppThunk<TReturn = void> = ActionCreator<
     ThunkAction<TReturn, Action, RootState>
 >;
 
-//NEW WS TYPES
 export type TBurgerComplete = 'done' | 'cancel' | 'await' | 'idle';
 
-export type TwsActions = wsOpen | wsError | wsClose | wsConnecting | wsConnect | wsMessage | wsDisconnect;
+export type TwsActions = wsOpen | wsError | wsClose | wsConnecting | wsConnect | onMessage | wsDisconnect;
 
 export type TOrder = {
     createdAt?: string,
@@ -70,25 +71,17 @@ export type TOrdersFeed = {
     orders: Array<TOrder>;
 };
 
-export type TwsActionTypes = {
+export type TOrderFeedStore = {
+    status: WebsocketStatus;
+    orders: TOrdersFeed;
+}
+
+type TwsActionTypes = {
     wsConnect: ActionCreatorWithPayload<string>,
     wsConnecting: ActionCreatorWithoutPayload,
+    wsDisconnect: ActionCreatorWithoutPayload,
     onOpen: ActionCreatorWithoutPayload,
     onMessage: ActionCreatorWithPayload<TOrdersFeed>,
     onClose: ActionCreatorWithoutPayload,
-    wsDisconnect: ActionCreatorWithoutPayload,
     onError: ActionCreatorWithPayload<TError>,
 }
-
-export type TOrderFeedActions = ReturnType<typeof wsConnect>
-    | ReturnType<typeof wsConnecting>
-    | ReturnType<typeof wsOpen>
-    | ReturnType<typeof wsMessage>
-    | ReturnType<typeof wsClose>
-    | ReturnType<typeof wsDisconnect>
-    | ReturnType<typeof wsError>
-
-
-export type TApplicationActions =
-    | TOrderFeedActions
-    |

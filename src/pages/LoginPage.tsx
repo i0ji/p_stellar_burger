@@ -3,7 +3,7 @@ import styles from "pages/Pages.module.scss"
 import {loginUser} from "utils/api.ts";
 import {Link} from "react-router-dom";
 
-import {IUserData} from "declarations/sliceInterfaces";
+import {IUserData} from "declarations/interfaces";
 import {IForm} from "declarations/interfaces";
 import {RootState} from "declarations/rootState.ts";
 
@@ -21,6 +21,7 @@ export default function LoginPage() {
     const {values, handleChange} = useForm<IForm>({});
     const dispatch = useDispatch();
     const userAuth = useSelector((state: RootState) => state.authSlice.isAuth);
+
 
     //  --------------- RERENDER CHECK ---------------
 

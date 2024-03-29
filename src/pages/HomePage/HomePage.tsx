@@ -3,7 +3,7 @@ import styles from "./HomePageStyles.module.scss"
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from "react-dnd-html5-backend";
 
-import {IBurgerState} from "declarations/sliceInterfaces";
+import {IBurgerState} from "declarations/interfaces";
 import {RootState} from "declarations/rootState.ts";
 
 import Loader from "common/Loader/Loader.tsx";

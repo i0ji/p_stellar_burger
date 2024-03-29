@@ -47,7 +47,7 @@ export default function App() {
         dispatch(getUserData());
     }, [dispatch, accessToken]);
 
-    console.log('v:0.1.9.6.5');
+    console.log('v:0.1.9.6.6');
 
     if (ingredientsStatus == 'loading') {
         return <Loader/>;
