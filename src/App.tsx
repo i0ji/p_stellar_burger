@@ -56,6 +56,7 @@ export default function App() {
     return (
         <>
             <AppHeader/>
+
             <Routes location={state?.background || location}>
 
                 <Route path="/" element={<HomePage/>}/>
@@ -66,16 +67,13 @@ export default function App() {
 
 
                 {/*SPRINT 5 NEW ROUTES*/}
-                <Route path="feed" element={<FeedPage/>}/>
-                <Route path="feed/:number" element={<OrderDetails/>}/>
-
-                {/*<Route path="feed" element={<FeedPage/>}>*/}
-                {/*    <Route path=":number" element={<OrderDetails/>}/>*/}
-                {/*</Route>*/}
+                <Route path="feed" element={<FeedPage/>}>
+                    <Route path=":number" element={<OrderDetails/>}/>
+                </Route>
 
                 <Route path="profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}>
                     <Route path="orders" element={<ProtectedRoute unAuth={false} component={<ProfileOrders/>}/>}>
-                        {/*    /!*<Route path=":number" element={<ProtectedRoute unAuth={false} component={<OrderDetails/>}/>}/>*!/*/}
+                        <Route path=":number" element={<ProtectedRoute unAuth={false} component={<OrderDetails/>}/>}/>
                     </Route>
                 </Route>
                 {/*SPRINT 5 NEW ROUTES*/}
@@ -92,7 +90,6 @@ export default function App() {
             {
                 state?.background && (
                     <Routes>
-
                         <Route path="ingredient/:id" element={
                             <Modal onClose={handleCloseModal}>
                                 <IngredientDetails/>
@@ -104,7 +101,6 @@ export default function App() {
             {
                 state?.background && (
                     <Routes>
-
                         <Route path="/feed/:number" element={
                             <Modal onClose={handleCloseModal}>
                                 <OrderDetails/>

@@ -15,6 +15,9 @@ import {useDrag} from "react-dnd";
 
 export default function IngredientGroup({type, ingredients}: IIngredientGroupProps) {
 
+
+    // --------------- VARS/STATES ---------------
+
     const location = useLocation();
     const dispatch = useDispatch();
 

@@ -16,6 +16,9 @@ enum TabValues {
 
 export default function BurgerIngredients() {
 
+
+    // --------------- VARS/STATES ---------------
+
     const {ingredients: ingredientsData} = useSelector((state: RootState) => state.ingredients);
 
     const filteredIngredients = useMemo(() => {

@@ -1,37 +1,32 @@
-import {refreshToken} from "utils/api.ts";
-
 import {TwsActions} from "declarations/types";
-import {RootState} from "declarations/rootState.ts";
 import {Middleware} from "@reduxjs/toolkit";
+import {RootState} from "declarations/rootState.ts";
+import {refreshToken} from "utils/api.ts";
 
 export const socketMiddleware = (
     wsActions: TwsActions,
     withTokenRefresh: boolean
-): Middleware<object, RootState> => {
-
+): Middleware<{}, RootState> => {
     return (store) => {
         let socket: WebSocket | null = null;
         let url: string | null = null;
-
         const {
-            wsInit,
             wsClose,
-            wsSendMessage,
-            onOpen,
+            wsOpen,
             onClose,
             onError,
             onMessage,
         } = wsActions;
 
-        return (next) => (action: TwsActions) => {
+        return (next) => (action) => {
             const {dispatch} = store;
             const {type, payload} = action;
 
-            if (type === wsInit) {
+            if (type === wsOpen) {
                 socket = new WebSocket(payload);
                 url = payload;
                 socket.onopen = (event) => {
-                    dispatch({type: onOpen, payload: event});
+                    dispatch({type: wsOpen, payload: event});
                 };
 
                 socket.onerror = (event) => {
@@ -50,7 +45,7 @@ export const socketMiddleware = (
                                 "token",
                                 refreshData.accessToken.replace("Bearer ", "")
                             );
-                            dispatch({type: wsInit, payload: wssUrl});
+                            dispatch({type: wsOpen, payload: wssUrl});
                         });
                     } else {
                         dispatch({
@@ -67,10 +62,6 @@ export const socketMiddleware = (
 
             if (wsClose && type === wsClose && socket) {
                 socket.close();
-            }
-
-            if (wsSendMessage && type === wsSendMessage && socket) {
-                socket.send(JSON.stringify(payload));
             }
 
             next(action);

@@ -87,3 +87,8 @@ export type TOrderFeedActions = ReturnType<typeof wsConnect>
     | ReturnType<typeof wsClose>
     | ReturnType<typeof wsDisconnect>
     | ReturnType<typeof wsError>
+
+
+export type TApplicationActions =
+    | TOrderFeedActions
+    |

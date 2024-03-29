@@ -10,32 +10,32 @@ import {
     wsOpen
 } from "services/orederFeed/actions.ts"
 
-const initialOrder = {
-    success: false,
-    orders: [
-        {
-            ingredients: [],
-            _id: '',
-            status: 'idle',
-            number: 0,
-            createdAt: '',
-            updatedAt: ''
-        }
-    ],
-    total: '',
-    totalToday: '',
-}
+// const initialOrder = {
+//     success: false,
+//     orders: [
+//         {
+//             ingredients: [],
+//             _id: '',
+//             status: 'idle',
+//             number: 0,
+//             createdAt: '',
+//             updatedAt: ''
+//         }
+//     ],
+//     total: '',
+//     totalToday: '',
+// }
 
 const initialState: TServerResponse<TOrdersFeed> & TError = {
     success: false,
-    orders: initialOrder,
+    orders: [],
     error: null,
 }
 
 export const orderFeedReducer = createReducer(initialState, builder => {
         builder
             .addCase(wsConnect, (state) => {
-                state.success = true;
+                state.success = false;
             })
             .addCase(wsConnecting, (state) => {
                 state.success = false;

@@ -5,8 +5,6 @@ import {socketMiddleware} from "utils/socketMiddleware.ts";
 
 import {wsActions} from "services/orederFeed/actions.ts";
 
-const withTokenRefresh = false;
-
 import {
     authSlice,
     currentIngredientSlice,
@@ -24,8 +22,11 @@ export const rootReducers = combineReducers({
     orderFeed: orderFeedReducer,
 })
 
+const checkTokenValidity = !!(localStorage.getItem('accessToken'));
+
 export const store = configureStore({
-    reducer: rootReducers,
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(socketMiddleware(wsActions, withTokenRefresh)),
-});
+        reducer: rootReducers,
+        middleware: (getDefaultMiddleware) =>
+            getDefaultMiddleware().concat(socketMiddleware(wsActions, checkTokenValidity))
+    }
+)

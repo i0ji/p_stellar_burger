@@ -22,8 +22,6 @@ export default function IngredientDetails() {
     const [ingredient] = ingredientsData.filter((ingredient: IIngredient) => ingredient._id === id);
 
 
-    // --------------- MODAL CLOSING ---------------
-
     // --------------- SETTING BACKGROUND ---------------
 
     const location = useLocation();
