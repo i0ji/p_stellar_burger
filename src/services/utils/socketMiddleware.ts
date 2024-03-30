@@ -3,6 +3,7 @@ import {Middleware} from "@reduxjs/toolkit";
 import {RootState} from "declarations/rootState.ts";
 import {refreshToken} from "utils/api.ts";
 import {wsOpen} from "services/orderFeed/actions.ts";
+import {TAppAction} from "declarations/actionTypes.ts";
 
 
 export const socketMiddleware = (
@@ -14,7 +15,6 @@ export const socketMiddleware = (
         let url: string | null = null;
         const {
             wsConnect,
-            wsConnecting,
             wsDisconnect,
             onOpen,
             onMessage,
@@ -24,7 +24,7 @@ export const socketMiddleware = (
 
         return (next) => (action) => {
             const {dispatch} = store;
-            const {type, payload} = action;
+            const {type, payload}:TAppAction = action;
 
             if (type === wsOpen) {
                 socket = new WebSocket(payload);

@@ -68,5 +68,3 @@ export type TAppAction =
     | TOrderActions
     | TIngredientActions
     | TFeedActions
-
-

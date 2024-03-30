@@ -11,16 +11,28 @@ import {
 } from "services/orderFeed/actions.ts";
 
 enum WebsocketStatus {
-    CONNECTING = 'CONNECTING...',
+    CONNECTING = 'CONNECTING',
     ONLINE = 'ONLINE',
     OFFLINE = 'OFFLINE'
 }
 
-
 const initialState: TOrderFeedStore & TError = {
     status: WebsocketStatus.OFFLINE,
-    orders: [],
     error: '',
+    orders: {
+        total: null,
+        totalToday: null,
+        orders: [
+            {
+                ingredients: [],
+                _id: '',
+                status: 'idle',
+                number: null,
+                createdAt: '',
+                updatedAt: '',
+            }
+        ]
+    }
 }
 
 export const orderFeedReducer = createReducer(

@@ -10,17 +10,20 @@ import FeedItem from "common/FeedItem/FeedItem.tsx";
 
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
+import {wsMessage, wsOpen} from "services/orderFeed/actions.ts";
+import {socketMiddleware} from "utils/socketMiddleware.ts";
+import {WS_URL} from "declarations/routs.ts";
 
 export default function Feed() {
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
-   ????
-    }, [dispatch])
+    // useEffect(() => {
+    //
+    // }, [dispatch])
 
     const status = useSelector((state: RootState) => state.orderFeed.success);
-console.log(`WS CONNECTIONS: ${status}`)
+    console.log(`WS CONNECTIONS: ${status}`)
     const orders = useSelector((state: RootState) => state.orderFeed.orders);
     console.log(`ORDERS: ${orders}`);
 
