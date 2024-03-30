@@ -1,13 +1,11 @@
-import {TwsActions} from "declarations/types";
-import {Middleware} from "@reduxjs/toolkit";
+import {Middleware} from "redux";
 import {RootState} from "declarations/rootState.ts";
 import {refreshToken} from "utils/api.ts";
-import {wsOpen} from "services/orderFeed/actions.ts";
 import {TAppAction} from "declarations/actionTypes.ts";
-
+import {TwsActionTypes} from "declarations/types";
 
 export const socketMiddleware = (
-    wsActions: TwsActions,
+    wsActions: TwsActionTypes,
     withTokenRefresh: boolean
 ): Middleware<{}, RootState> => {
     return (store) => {
@@ -17,16 +15,16 @@ export const socketMiddleware = (
             wsConnect,
             wsDisconnect,
             onOpen,
-            onMessage,
+            wsMessage,
             onClose,
             onError,
-        }:TwsActions = wsActions;
+        }: TwsActionTypes = wsActions;
 
         return (next) => (action) => {
             const {dispatch} = store;
-            const {type, payload}:TAppAction = action;
+            const {type, payload}: TAppAction = action;
 
-            if (type === wsOpen) {
+            if (type === wsConnect) {
                 socket = new WebSocket(payload);
                 url = payload;
                 socket.onopen = (event) => {
@@ -38,7 +36,7 @@ export const socketMiddleware = (
                 };
 
                 socket.onmessage = (event) => {
-                    console.log(event);
+                    //console.log(`EVENT.DATA ${event.data}`);
                     const {data} = event;
                     const parsedData = JSON.parse(data);
 
@@ -53,8 +51,8 @@ export const socketMiddleware = (
                         });
                     } else {
                         dispatch({
-                            type: onMessage,
-                            payload: parsedData
+                            type: wsMessage,
+                            payload: parsedData,
                         });
                     }
                 };

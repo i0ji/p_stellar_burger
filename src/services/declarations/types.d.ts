@@ -9,15 +9,6 @@ import {ThunkAction} from 'redux-thunk';
 import {Action, ActionCreator} from 'redux';
 
 import Error = types.Error;
-import {
-    wsClose,
-    wsConnect,
-    wsConnecting,
-    wsDisconnect,
-    wsError,
-    onMessage,
-    wsOpen
-} from "services/orderFeed/actions.ts";
 
 export type TInputElementType = HTMLInputElement | null;
 
@@ -51,8 +42,6 @@ export type TAppThunk<TReturn = void> = ActionCreator<
 
 export type TBurgerComplete = 'done' | 'cancel' | 'await' | 'idle';
 
-export type TwsActions = wsOpen | wsError | wsClose | wsConnecting | wsConnect | onMessage | wsDisconnect;
-
 export type TOrder = {
     createdAt?: string,
     ingredients?: Array<string>,
@@ -62,7 +51,7 @@ export type TOrder = {
     _id?: string,
     updatedAt?: string,
     order: TOrder
-}
+};
 
 export type TOrdersFeed = {
     success: boolean;
@@ -72,16 +61,17 @@ export type TOrdersFeed = {
 };
 
 export type TOrderFeedStore = {
+    url: string;
     status: WebsocketStatus;
     orders: TOrdersFeed;
-}
+};
 
-type TwsActionTypes = {
+export type TwsActionTypes = {
     wsConnect: ActionCreatorWithPayload<string>,
     wsConnecting: ActionCreatorWithoutPayload,
     wsDisconnect: ActionCreatorWithoutPayload,
     onOpen: ActionCreatorWithoutPayload,
-    onMessage: ActionCreatorWithPayload<TOrdersFeed>,
+    wsMessage: ActionCreatorWithPayload<TOrdersFeed>,
     onClose: ActionCreatorWithoutPayload,
     onError: ActionCreatorWithPayload<TError>,
-}
+};

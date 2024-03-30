@@ -1,14 +1,14 @@
 import {createReducer} from "@reduxjs/toolkit";
 import {TError, TOrdersFeed, TOrderFeedStore} from "declarations/types"
 import {
-    wsMessage,
-    wsClose,
-    wsConnect,
-    wsConnecting,
-    wsDisconnect,
-    wsError,
-    wsOpen,
-} from "services/orderFeed/actions.ts";
+    wsUserMessage,
+    wsUserClose,
+    wsUserConnect,
+    wsUserConnecting,
+    wsUserDisconnect,
+    wsUserError,
+    wsUserOpen,
+} from "services/userOrderFeed/actions.ts";
 
 enum WebsocketStatus {
     CONNECTING = 'CONNECTING',
@@ -18,7 +18,6 @@ enum WebsocketStatus {
 
 const initialState: TOrderFeedStore & TError = {
     status: WebsocketStatus.OFFLINE,
-    url: '',
     error: '',
     orders: {
         total: null,
@@ -36,32 +35,32 @@ const initialState: TOrderFeedStore & TError = {
     }
 }
 
-export const orderFeedReducer = createReducer(
+export const userOrderFeedReducer = createReducer(
     initialState,
     builder => {
         builder
-            .addCase(wsConnect, (state) => {
-                state.status = WebsocketStatus.OFFLINE;
+            .addCase(wsUserConnect, (state) => {
+                state.state.status = WebsocketStatus.OFFLINE;
             })
-            .addCase(wsConnecting, (state) => {
+            .addCase(wsUserConnecting, (state) => {
                 state.status = WebsocketStatus.CONNECTING;
             })
-            .addCase(wsOpen, (state) => {
+            .addCase(wsUserOpen, (state) => {
                 state.status = WebsocketStatus.ONLINE;
                 state.error = null;
             })
-            .addCase(wsMessage, (state, action: { payload: TOrdersFeed, type: string }) => {
+            .addCase(wsUserMessage, (state, action: { payload: TOrdersFeed, type: string }) => {
                 state.status = WebsocketStatus.ONLINE;
                 state.orders = action.payload;
                 state.error = null;
             })
-            .addCase(wsClose, (state) => {
+            .addCase(wsUserClose, (state) => {
                 state.status = WebsocketStatus.OFFLINE;
             })
-            .addCase(wsDisconnect, (state) => {
+            .addCase(wsUserDisconnect, (state) => {
                 state.status = WebsocketStatus.OFFLINE;
             })
-            .addCase(wsError, (state, action: { payload: Error, type: string }) => {
+            .addCase(wsUserError, (state, action: { payload: Error, type: string }) => {
                 state.status = WebsocketStatus.OFFLINE;
                 state.error = action.payload;
             })

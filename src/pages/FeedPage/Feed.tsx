@@ -10,28 +10,37 @@ import FeedItem from "common/FeedItem/FeedItem.tsx";
 
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
-import {wsMessage, wsOpen} from "services/orderFeed/actions.ts";
-import {socketMiddleware} from "utils/socketMiddleware.ts";
+import {wsConnect} from "services/orderFeed/actions.ts";
 import {WS_URL} from "declarations/routs.ts";
 
 export default function Feed() {
 
     const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //
-    // }, [dispatch])
+    useEffect(() => {
+        dispatch({
+            type: wsConnect,
+            payload: WS_URL
+        });
+    }, [dispatch])
 
-    const status = useSelector((state: RootState) => state.orderFeed.success);
+    const status = useSelector((state: RootState) => state.orderFeed.status);
     console.log(`WS CONNECTIONS: ${status}`)
-    const orders = useSelector((state: RootState) => state.orderFeed.orders);
-    console.log(`ORDERS: ${orders}`);
+    const ordersList = useSelector((state: RootState) => state.orderFeed.orders);
+    //console.log(`ORDERS: ${ordersList.orders}`);
 
-    const ordersData = orders.ingredients || [];
-    const totalToday = orders.totalToday;
-    const total = orders.total;
+    const ordersData = ordersList.orders;
+    const totalToday = ordersList.totalToday;
+    const total = ordersList.total;
+
+    console.log(`ORDERS DATA: ${ordersData}`);
+    console.log(`${ordersData}`)
+    console.log(ordersData)
+    console.log(`TOTAL TODAY: ${totalToday}`);
+    console.log(`TOTAL: ${total}`);
 
     return (
+
         <section className={styles.feed}>
 
             <div className={styles.container}>
@@ -40,11 +49,11 @@ export default function Feed() {
 
                 <div className={styles.feed_list}>
                     <>
-                        {orders && orders.length > 0 &&
+                        {ordersList && ordersData.length > 0 &&
                             ordersData.map((order: TOrder, i: number) =>
                                 <Link
                                     key={i}
-                                    to={`${order.number}`}
+                                    to={`feed/${order.number}`}
                                     state={{background: location}}
                                 >
                                     <FeedItem order={order}/>
