@@ -20,19 +20,14 @@
 
   .feed_details {
     width: 50%;
-    border: 1px solid red;
 
-    .feed_details_info {
+    .feed_details_order_status {
       display: flex;
-      flex-flow: row wrap;
-      justify-content: space-between;
 
       width: 100%;
 
       .feed_details_ready {
         width: 40%;
-
-        border: 1px solid green;
 
         p {
           color: $ready_order_color;
@@ -40,10 +35,17 @@
       }
 
       .feed_details_await {
-        border: 1px solid orangered;
         width: 40%;
+      }
+    }
+
+    .feed_details_total {
+
+      h1 {
+        @include digits_box_shadow;
       }
     }
   }
 }
+
 

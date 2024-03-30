@@ -12,6 +12,9 @@ export const ProtectedRoute = ({unAuth = false, component}: { unAuth: boolean, c
     const isAuthChecked = useSelector((state: RootState) => state.authSlice.authChecked)
     const location = useLocation();
 
+
+    // --------------- LOADER ---------------
+
     if (!isAuthChecked) {
         return <Loader/>
     }

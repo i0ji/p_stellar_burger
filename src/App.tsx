@@ -28,18 +28,18 @@ import {useCallback, useEffect} from "react";
 
 export default function App() {
 
+
+    // --------------- VARS/STATES ---------------
+
     const dispatch = useDispatch();
     const location = useLocation();
     const state = location.state as { background?: Location };
     const navigate = useNavigate();
-
     const ingredientsStatus = useSelector((state: RootState) => state.ingredients.status);
     const accessToken = localStorage.getItem('accessToken');
-
     const handleCloseModal = useCallback(() => {
         navigate(-1);
     }, [navigate]);
-
 
     useEffect(() => {
         dispatch(getIngredients());
@@ -48,6 +48,9 @@ export default function App() {
     }, [dispatch, accessToken]);
 
     console.log('v:0.1.9.6.6');
+
+
+    // --------------- LOADER ---------------
 
     if (ingredientsStatus == 'loading') {
         return <Loader/>;
@@ -62,9 +65,7 @@ export default function App() {
                 <Route path="/" element={<HomePage/>}/>
                 <Route path="reset-password" element={<ResetPage/>}/>
                 <Route path="reset-success" element={<SuccessPage/>}/>
-
                 <Route path="ingredient/:id" element={<IngredientDetails/>}/>
-
 
                 {/*SPRINT 5 NEW ROUTES*/}
                 <Route path="feed" element={<FeedPage/>}>
@@ -77,7 +78,6 @@ export default function App() {
                     </Route>
                 </Route>
                 {/*SPRINT 5 NEW ROUTES*/}
-
 
                 <Route path="login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
                 <Route path="register" element={<ProtectedRoute unAuth={true} component={<RegisterPage/>}/>}/>

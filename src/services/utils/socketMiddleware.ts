@@ -1,8 +1,9 @@
 import {Middleware} from "redux";
 import {RootState} from "declarations/rootState.ts";
-import {refreshToken} from "utils/api.ts";
 import {TAppAction} from "declarations/actionTypes.ts";
 import {TwsActionTypes} from "declarations/types";
+
+import {refreshToken} from "utils/api.ts";
 
 export const socketMiddleware = (
     wsActions: TwsActionTypes,

@@ -1,20 +1,17 @@
 import styles from "pages/IngredientDetailsPage/IngredientDetailsStyles.module.scss";
 
-import {useParams, useLocation} from "react-router-dom";
-
 import {IIngredient} from "declarations/interfaces";
 import {IBurgerState} from "declarations/interfaces";
 
 import Loader from "common/Loader/Loader.tsx";
 
 import {useSelector} from "hooks/reduxHooks.ts";
+import {useParams, useLocation} from "react-router-dom";
 
 export default function IngredientDetails() {
 
 
     // --------------- VARS/STATES ---------------
-
-    const {id} = useParams<{ "id"?: string }>();
 
     const {ingredients: ingredientsData, status, error}: IBurgerState = useSelector((state: {
         ingredients: IBurgerState
@@ -23,6 +20,8 @@ export default function IngredientDetails() {
 
 
     // --------------- SETTING BACKGROUND ---------------
+
+    const {id} = useParams<{ "id"?: string }>();
 
     const location = useLocation();
 

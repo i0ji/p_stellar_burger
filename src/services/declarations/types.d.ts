@@ -40,7 +40,7 @@ export type TAppThunk<TReturn = void> = ActionCreator<
     ThunkAction<TReturn, Action, RootState>
 >;
 
-export type TBurgerComplete = 'done' | 'cancel' | 'await' | 'idle';
+export type TBurgerComplete = 'done' | 'created' | 'pending';
 
 export type TOrder = {
     createdAt?: string,

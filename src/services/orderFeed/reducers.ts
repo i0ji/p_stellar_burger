@@ -27,7 +27,7 @@ const initialState: TOrderFeedStore & TError = {
             {
                 ingredients: [],
                 _id: '',
-                status: 'idle',
+                status: 'created',
                 number: null,
                 createdAt: '',
                 updatedAt: '',

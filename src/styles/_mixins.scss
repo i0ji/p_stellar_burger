@@ -42,3 +42,8 @@
 @mixin box_shadow {
   box-shadow: 0 0 15px 1px $bg_main;
 }
+
+@mixin digits_box_shadow {
+  text-shadow: 0 0 7px $scroll_active,
+  0 0 14px $scroll_active
+}

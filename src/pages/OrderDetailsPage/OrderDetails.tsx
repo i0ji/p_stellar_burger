@@ -10,8 +10,8 @@ import Thumbnail from "common/Thumbnail/Thumbnail.tsx";
 import {useSelector} from "hooks/reduxHooks.ts";
 import {useParams, useLocation} from "react-router-dom";
 
-
 export default function OrderDetails() {
+
 
     // --------------- NAVIGATION & BACKGROUND ---------------
 
@@ -20,6 +20,8 @@ export default function OrderDetails() {
     const location = useLocation();
 
     const modalBackground = (location.key === 'default') ? styles.transparent : styles.dark;
+
+    // --------------- ORDERS DATA ---------------
 
     const order = useSelector((state: RootState) => state.orderFeed).orders.orders;
 
@@ -33,9 +35,10 @@ export default function OrderDetails() {
 
     const orderStatus = (currentOrder.status === 'done') ? 'Выполнен' : 'Готовится';
     const OrderDate = () => {
-        const dateFromServer = '2022-10-10T17:33:32.877Z'
-        return <FormattedDate date={new Date(dateFromServer)}/>
+        const dateFromServer = currentOrder?.createdAt;
+        return <FormattedDate date={new Date(dateFromServer)} />
     }
+
     const orderBun = orderIngredients.find(elem => elem.type === 'bun');
     const calculateTotalAmount = (orderIngredients: IIngredient[], buns: IIngredient | undefined): number => {
         const ingredientsTotal = orderIngredients.reduce((acc, ingredient) => acc + (ingredient?.price || 0), 0);
@@ -49,7 +52,6 @@ export default function OrderDetails() {
     // --------------- INGREDIENT STRIPE
     const IngredientInfo = ({elem}: { elem: IIngredient }) => {
         return (
-            <>
                 <div className={styles.order_ingredient}>
                     <Thumbnail
                         image={elem.image}
@@ -68,7 +70,6 @@ export default function OrderDetails() {
                         </p>
                     </div>
                 </div>
-            </>
         )
     }
 
@@ -100,7 +101,6 @@ export default function OrderDetails() {
                             }
                         </ul>
                     </div>
-
                     <div className={styles.order_details_footer}>
                         <OrderDate/>
                         <span className="text text_type_digits-default">
@@ -108,10 +108,8 @@ export default function OrderDetails() {
                             {orderPrice}
                         </span>
                     </div>
-
                 </div>
             }
         </>
     )
-
 }
