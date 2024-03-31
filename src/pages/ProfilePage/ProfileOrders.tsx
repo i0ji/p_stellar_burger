@@ -10,17 +10,17 @@ import {Link, useLocation} from "react-router-dom";
 
 export default function ProfileOrders() {
 
+
+    // --------------- VARS/STATES ---------------
+
     const dispatch = useDispatch();
-
-    const accessToken = localStorage.getItem('accessToken');
-
-    const WS_URL_WITH_TOKEN = `${WS_URL}?token=${accessToken}`
-
 
     const location = useLocation();
 
     const modalBackground = (location.key === 'default') ? styles.background : styles.dark;
 
+    const accessToken = localStorage.getItem('accessToken').replace("Bearer ", "");
+    const WS_URL_WITH_TOKEN = `${WS_URL}?token=${accessToken}`;
 
     useEffect(() => {
         dispatch({
@@ -29,15 +29,17 @@ export default function ProfileOrders() {
         });
     }, [dispatch])
 
-    const ordersList = useSelector((state: RootState) => state.orderFeed.orders);
+    const ordersList = useSelector((state: RootState) => state.orderFeed.orders);1
 
     const ordersData = ordersList.orders;
+
+    const reversedOrdersData = [...ordersData].reverse();
     // --------------- READY ORDERS
 
     return (
         <div className={`${styles.profile_orders} ${modalBackground}`}>
             {ordersList && ordersData.length > 0 &&
-                ordersData.map((order: TOrder, i: number) =>
+                reversedOrdersData.map((order: TOrder, i: number) =>
                     <Link
                         key={i}
                         to={`${order.number}`}

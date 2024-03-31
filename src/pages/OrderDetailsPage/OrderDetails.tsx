@@ -27,9 +27,9 @@ export default function OrderDetails() {
     const ingredientsData = useSelector((state: RootState) => state.ingredients.ingredients);
 
     const currentOrder = order.find((elem: TOrder) => elem.number?.toString() == number);
-    const orderIngredientIDs = currentOrder.ingredients;
+    const orderIngredientIDs = currentOrder?.ingredients;
     const orderIngredients = ingredientsData.filter(elem => orderIngredientIDs.includes(elem._id));
-    const orderStatus = (currentOrder.status === 'done') ? 'Выполнен' : 'Готовится';
+    const orderStatus = (currentOrder?.status === 'done') ? 'Выполнен' : 'Готовится';
     const OrderDate = () => {
         const dateFromServer = currentOrder?.createdAt;
         return <FormattedDate date={new Date(dateFromServer)}/>

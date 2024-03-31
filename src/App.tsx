@@ -74,10 +74,7 @@ export default function App() {
                 {/*    <Route path=":number" element={<OrderDetails/>}/>*/}
                 {/*</Route>*/}
                 <Route path="feed" element={<FeedPage/>}/>
-                    <Route path="feed/:number" element={<OrderDetails/>}/>
-
-
-
+                <Route path="feed/:number" element={<OrderDetails/>}/>
 
                 <Route path="profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}>
                     <Route path="orders" element={<ProtectedRoute unAuth={false} component={<ProfileOrders/>}/>}>

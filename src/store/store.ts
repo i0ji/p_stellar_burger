@@ -33,15 +33,15 @@ import {
     wsError as FeedErrorAction,
 } from "services/orderFeed/actions.ts";
 
-import {
-    wsUserConnect as UserFeedConnectAction,
-    wsUserConnecting as UserFeedConnectionAction,
-    wsUserOpen as UserFeedOpenAction,
-    wsUserMessage as UserFeedMessageAction,
-    wsUserClose as UserFeedCloseAction,
-    wsUserDisconnect as UserFeedDisconnectAction,
-    wsUserError as UserFeedErrorAction,
-} from "services/userOrderFeed/actions.ts";
+// import {
+//     wsUserConnect as UserFeedConnectAction,
+//     wsUserConnecting as UserFeedConnectionAction,
+//     wsUserOpen as UserFeedOpenAction,
+//     wsUserMessage as UserFeedMessageAction,
+//     wsUserClose as UserFeedCloseAction,
+//     wsUserDisconnect as UserFeedDisconnectAction,
+//     wsUserError as UserFeedErrorAction,
+// } from "services/userOrderFeed/actions.ts";
 
 export const wsActions = {
     wsConnect: FeedConnectAction,
@@ -53,18 +53,18 @@ export const wsActions = {
     onOpen: FeedOpenAction,
 }
 
-export const wsUserActions = {
-    wsUserConnect: UserFeedConnectAction,
-    wsUserConnecting: UserFeedConnectionAction,
-    wsUserMessage: UserFeedMessageAction,
-    wsUserClose: UserFeedCloseAction,
-    wsUserDisconnect: UserFeedDisconnectAction,
-    wsUserError: UserFeedErrorAction,
-    onOpen: UserFeedOpenAction,
-}
+// export const wsUserActions = {
+//     wsUserConnect: UserFeedConnectAction,
+//     wsUserConnecting: UserFeedConnectionAction,
+//     wsUserMessage: UserFeedMessageAction,
+//     wsUserClose: UserFeedCloseAction,
+//     wsUserDisconnect: UserFeedDisconnectAction,
+//     wsUserError: UserFeedErrorAction,
+//     onOpen: UserFeedOpenAction,
+// }
 
 const feedMiddleware = socketMiddleware(wsActions, false);
-const userFeedMiddleware = socketMiddleware(wsUserActions, checkToken);
+const userFeedMiddleware = socketMiddleware(wsActions, checkToken);
 
 export const store = configureStore({
         reducer: rootReducers,

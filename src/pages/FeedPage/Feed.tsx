@@ -23,7 +23,7 @@ export default function Feed() {
     useEffect(() => {
         dispatch({
             type: wsConnect,
-            payload: WS_URL
+            payload: `${WS_URL}/all`
         });
     }, [dispatch])
 
