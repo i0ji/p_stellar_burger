@@ -19,57 +19,51 @@ export default function OrderDetails() {
 
     const location = useLocation();
 
-    const modalBackground = (location.key === 'default') ? styles.transparent : styles.dark;
+    const modalBackground = (location.key === 'default') ? `` : styles.modal_background;
 
     // --------------- ORDERS DATA ---------------
 
     const order = useSelector((state: RootState) => state.orderFeed).orders.orders;
-
-    const currentOrder = order.find((elem: TOrder) => elem.number?.toString() == number);
-
-    const orderIngredientIDs = currentOrder.ingredients;
-
     const ingredientsData = useSelector((state: RootState) => state.ingredients.ingredients);
 
+    const currentOrder = order.find((elem: TOrder) => elem.number?.toString() == number);
+    const orderIngredientIDs = currentOrder.ingredients;
     const orderIngredients = ingredientsData.filter(elem => orderIngredientIDs.includes(elem._id));
-
     const orderStatus = (currentOrder.status === 'done') ? 'Выполнен' : 'Готовится';
     const OrderDate = () => {
         const dateFromServer = currentOrder?.createdAt;
-        return <FormattedDate date={new Date(dateFromServer)} />
+        return <FormattedDate date={new Date(dateFromServer)}/>
     }
-
     const orderBun = orderIngredients.find(elem => elem.type === 'bun');
     const calculateTotalAmount = (orderIngredients: IIngredient[], buns: IIngredient | undefined): number => {
         const ingredientsTotal = orderIngredients.reduce((acc, ingredient) => acc + (ingredient?.price || 0), 0);
         const bunTotal = buns?.price || 0;
         return ingredientsTotal + bunTotal;
     };
-
     const orderPrice = calculateTotalAmount(orderIngredients, orderBun);
 
 
     // --------------- INGREDIENT STRIPE
     const IngredientInfo = ({elem}: { elem: IIngredient }) => {
         return (
-                <div className={styles.order_ingredient}>
-                    <Thumbnail
-                        image={elem.image}
-                        count={null}
-                        isLast={false}
-                    />
+            <div className={styles.order_ingredient}>
+                <Thumbnail
+                    image={elem.image}
+                    count={null}
+                    isLast={false}
+                />
 
-                    <p className="text text_type_main-default">
-                        {elem.name}
+                <p className="text text_type_main-default">
+                    {elem.name}
+                </p>
+
+                <div className={styles.order_ingredient_price}>
+                    <CurrencyIcon type="primary"/>
+                    <p className="text text_type_digits-default">
+                        {elem.price}
                     </p>
-
-                    <div className={styles.order_ingredient_price}>
-                        <CurrencyIcon type="primary"/>
-                        <p className="text text_type_digits-default">
-                            {elem.price}
-                        </p>
-                    </div>
                 </div>
+            </div>
         )
     }
 

@@ -65,9 +65,8 @@
   }
 }
 
-.dark {
-  background-color: $bg_modal;
-  @include box_shadow;
+.modal_background {
+  @include modal_background;
 }
 
 .status {

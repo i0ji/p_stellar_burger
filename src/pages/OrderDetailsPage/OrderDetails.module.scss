@@ -27,7 +27,7 @@
     }
 
     p {
-      color: $ready_order_color
+      color: $ready_order
     }
   }
 
@@ -90,10 +90,6 @@
   }
 }
 
-.dark {
-  background-color: $bg_modal;
-}
-
-.transparent {
-  background-color: transparent;
+.modal_background {
+  @include modal_background;
 }

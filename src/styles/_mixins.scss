@@ -4,13 +4,13 @@
   position: fixed;
   z-index: 100;
   overflow: auto;
-
-  width: 100%;
-  height: 100%;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
+
+  width: 100%;
+  height: 100%;
 
   background-color: #000000;
   opacity: .6;
@@ -46,4 +46,9 @@
 @mixin digits_box_shadow {
   text-shadow: 0 0 7px $scroll_active,
   0 0 14px $scroll_active
+}
+
+@mixin modal_background {
+  background-color: $bg_modal;
+  @include box_shadow;
 }

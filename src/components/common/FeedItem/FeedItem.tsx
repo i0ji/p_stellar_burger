@@ -36,9 +36,9 @@ export default function FeedItem({currentOrder}: { currentOrder: TOrder | undefi
         // --------------- DATE
         const OrderDate = () => {
             const dateFromServer = currentOrder.createdAt;
-            return <FormattedDate date={new Date(dateFromServer)} />
-        }
 
+            return dateFromServer && <FormattedDate date={new Date(dateFromServer)}/>
+        }
 
         return (
             <div

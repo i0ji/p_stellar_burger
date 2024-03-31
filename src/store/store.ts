@@ -27,7 +27,7 @@ import {
     wsConnect as FeedConnectAction,
     wsConnecting as FeedConnectionAction,
     wsOpen as FeedOpenAction,
-    wsMessage as FeedMessageError,
+    wsMessage as FeedMessageAction,
     wsClose as FeedCloseAction,
     wsDisconnect as FeedDisconnectAction,
     wsError as FeedErrorAction,
@@ -37,7 +37,7 @@ import {
     wsUserConnect as UserFeedConnectAction,
     wsUserConnecting as UserFeedConnectionAction,
     wsUserOpen as UserFeedOpenAction,
-    wsUserMessage as UserFeedMessageError,
+    wsUserMessage as UserFeedMessageAction,
     wsUserClose as UserFeedCloseAction,
     wsUserDisconnect as UserFeedDisconnectAction,
     wsUserError as UserFeedErrorAction,
@@ -46,37 +46,21 @@ import {
 export const wsActions = {
     wsConnect: FeedConnectAction,
     wsConnecting: FeedConnectionAction,
-    wsOpen: FeedOpenAction,
-    wsMessage: FeedMessageError,
+    wsMessage: FeedMessageAction,
     wsClose: FeedCloseAction,
     wsDisconnect: FeedDisconnectAction,
     wsError: FeedErrorAction,
-    onOpen: () => {
-    },
-    onMessage: () => {
-    },
-    onClose: () => {
-    },
-    onError: () => {
-    }
+    onOpen: FeedOpenAction,
 }
 
 export const wsUserActions = {
     wsUserConnect: UserFeedConnectAction,
     wsUserConnecting: UserFeedConnectionAction,
-    wsUserOpen: UserFeedOpenAction,
-    wsUserMessage: UserFeedMessageError,
+    wsUserMessage: UserFeedMessageAction,
     wsUserClose: UserFeedCloseAction,
     wsUserDisconnect: UserFeedDisconnectAction,
     wsUserError: UserFeedErrorAction,
-    onUserOpen: () => {
-    },
-    onUserMessage: () => {
-    },
-    onUserClose: () => {
-    },
-    onUserError: () => {
-    }
+    onOpen: UserFeedOpenAction,
 }
 
 const feedMiddleware = socketMiddleware(wsActions, false);

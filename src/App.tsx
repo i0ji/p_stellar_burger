@@ -1,3 +1,5 @@
+import "styles/_scrollbar.scss"
+
 import {Routes, Route, useNavigate} from 'react-router-dom';
 import {ProtectedRoute} from "common/ProtectedRoute/ProtectedRoute.tsx"
 import {checkUserAuth, getUserData, getIngredients} from "utils/api.ts";
@@ -68,9 +70,14 @@ export default function App() {
                 <Route path="ingredient/:id" element={<IngredientDetails/>}/>
 
                 {/*SPRINT 5 NEW ROUTES*/}
-                <Route path="feed" element={<FeedPage/>}>
-                    <Route path=":number" element={<OrderDetails/>}/>
-                </Route>
+                {/*<Route path="feed" element={<FeedPage/>}>*/}
+                {/*    <Route path=":number" element={<OrderDetails/>}/>*/}
+                {/*</Route>*/}
+                <Route path="feed" element={<FeedPage/>}/>
+                    <Route path="feed/:number" element={<OrderDetails/>}/>
+
+
+
 
                 <Route path="profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}>
                     <Route path="orders" element={<ProtectedRoute unAuth={false} component={<ProfileOrders/>}/>}>

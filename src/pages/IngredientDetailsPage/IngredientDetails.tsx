@@ -13,19 +13,20 @@ export default function IngredientDetails() {
 
     // --------------- VARS/STATES ---------------
 
+    const {id} = useParams<{ "id"?: string }>();
+
     const {ingredients: ingredientsData, status, error}: IBurgerState = useSelector((state: {
         ingredients: IBurgerState
     }) => state.ingredients);
     const [ingredient] = ingredientsData.filter((ingredient: IIngredient) => ingredient._id === id);
 
 
-    // --------------- SETTING BACKGROUND ---------------
+    // --------------- NAVIGATION & BACKGROUND ---------------
 
-    const {id} = useParams<{ "id"?: string }>();
 
     const location = useLocation();
 
-    const modalBackground = (location.key === 'default') ? styles.background : styles.dark;
+    const modalBackground = (location.key === 'default') ? `` : styles.modal_background;
 
 
     // --------------- STATUSES ---------------
