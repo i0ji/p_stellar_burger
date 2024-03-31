@@ -12,6 +12,7 @@ import {useEffect} from "react";
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {wsConnect} from "services/orderFeed/actions.ts";
 
+
 export default function Feed() {
 
 
@@ -64,7 +65,7 @@ export default function Feed() {
                             ordersData.map((currentOrder: TOrder, i: number) =>
                                 <Link
                                     key={i}
-                                    to={`${currentOrder.number}`}
+                                    to={`/feed/${currentOrder.number}`}
                                     state={{background: location}}
                                 >
                                     <FeedItem currentOrder={currentOrder}/>

@@ -35,7 +35,7 @@ export default function App() {
 
     const dispatch = useDispatch();
     const location = useLocation();
-    const state = location.state as { background?: Location };
+    const background = location.state && location.state.background;
     const navigate = useNavigate();
     const ingredientsStatus = useSelector((state: RootState) => state.ingredients.status);
     const accessToken = localStorage.getItem('accessToken');
@@ -62,7 +62,7 @@ export default function App() {
         <>
             <AppHeader/>
 
-            <Routes location={state?.background || location}>
+            <Routes location={background || location}>
 
                 <Route path="/" element={<HomePage/>}/>
                 <Route path="reset-password" element={<ResetPage/>}/>
@@ -70,11 +70,9 @@ export default function App() {
                 <Route path="ingredient/:id" element={<IngredientDetails/>}/>
 
                 {/*SPRINT 5 NEW ROUTES*/}
-                {/*<Route path="feed" element={<FeedPage/>}>*/}
-                {/*    <Route path=":number" element={<OrderDetails/>}/>*/}
-                {/*</Route>*/}
-                <Route path="feed" element={<FeedPage/>}/>
-                <Route path="feed/:number" element={<OrderDetails/>}/>
+                <Route path="feed" element={<FeedPage/>}>
+                    <Route path=":number" element={<OrderDetails/>}/>
+                </Route>
 
                 <Route path="profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}>
                     <Route path="orders" element={<ProtectedRoute unAuth={false} component={<ProfileOrders/>}/>}>
@@ -87,29 +85,32 @@ export default function App() {
                 <Route path="register" element={<ProtectedRoute unAuth={true} component={<RegisterPage/>}/>}/>
                 <Route path="forgot-password" element={<ProtectedRoute unAuth={true} component={<ForgotPage/>}/>}/>
 
-
                 <Route path="*" element={<NotFound404/>}/>
             </Routes>
 
             {
-                state?.background && (
+                background && (
                     <Routes>
-                        <Route path="ingredient/:id" element={
-                            <Modal onClose={handleCloseModal}>
-                                <IngredientDetails/>
-                            </Modal>
-                        }/>
+                        <Route path="ingredient/:id"
+                               element={
+                                   <Modal onClose={handleCloseModal}>
+                                       <IngredientDetails/>
+                                   </Modal>
+                               }
+                        />
                     </Routes>
                 )
             }
             {
-                state?.background && (
+                background && (
                     <Routes>
-                        <Route path="/feed/:number" element={
-                            <Modal onClose={handleCloseModal}>
-                                <OrderDetails/>
-                            </Modal>
-                        }/>
+                        <Route path="feed/:numbrt"
+                               element={
+                                   <Modal onClose={handleCloseModal}>
+                                       <OrderDetails/>
+                                   </Modal>
+                               }
+                        />
                     </Routes>
                 )
             }

@@ -26,9 +26,10 @@ export default function OrderDetails() {
     const order = useSelector((state: RootState) => state.orderFeed).orders.orders;
     const ingredientsData = useSelector((state: RootState) => state.ingredients.ingredients);
 
-    const currentOrder = order.find((elem: TOrder) => elem.number?.toString() == number);
+    const currentOrder = order.find((elem: TOrder) => elem._id?.toString() == number);
     const orderIngredientIDs = currentOrder?.ingredients;
-    const orderIngredients = ingredientsData.filter(elem => orderIngredientIDs.includes(elem._id));
+    const orderIngredients = ingredientsData.filter(elem => orderIngredientIDs?.includes(elem._id));
+
     const orderStatus = (currentOrder?.status === 'done') ? 'Выполнен' : 'Готовится';
     const OrderDate = () => {
         const dateFromServer = currentOrder?.createdAt;
@@ -43,7 +44,8 @@ export default function OrderDetails() {
     const orderPrice = calculateTotalAmount(orderIngredients, orderBun);
 
 
-    // --------------- INGREDIENT STRIPE
+    // --------------- INGREDIENT STRIPE ---------------
+
     const IngredientInfo = ({elem}: { elem: IIngredient }) => {
         return (
             <div className={styles.order_ingredient}>

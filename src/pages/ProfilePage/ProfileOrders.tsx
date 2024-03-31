@@ -29,7 +29,7 @@ export default function ProfileOrders() {
         });
     }, [dispatch])
 
-    const ordersList = useSelector((state: RootState) => state.orderFeed.orders);1
+    const ordersList = useSelector((state: RootState) => state.orderFeed.orders);
 
     const ordersData = ordersList.orders;
 
