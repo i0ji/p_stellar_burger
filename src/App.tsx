@@ -104,7 +104,7 @@ export default function App() {
             {
                 background && (
                     <Routes>
-                        <Route path="feed/:numbrt"
+                        <Route path="feed/:number"
                                element={
                                    <Modal onClose={handleCloseModal}>
                                        <OrderDetails/>

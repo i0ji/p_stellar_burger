@@ -18,8 +18,8 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
 
     // --------------- VARS/STATES ---------------
 
-    const location = useLocation();
     const dispatch = useDispatch();
+    const location = useLocation();
 
     const addedIngredients = useSelector((state: RootState) => state.constructorSlice.addedIngredients);
     const bunIngredients = useSelector((state: RootState) => state.constructorSlice.bun);

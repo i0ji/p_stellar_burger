@@ -39,6 +39,14 @@ export default function IngredientDetails() {
         return <p className={styles.status}>Ошибка: {error}</p>;
     }
 
+
+    // --------------- CONSOLE ---------------
+
+    console.log('number:', id);
+    console.log('location:', location);
+    console.log('currentOrder:', ingredient);
+
+
     return (
         <div
             className={`${styles.ingredients_details} ${modalBackground}`}

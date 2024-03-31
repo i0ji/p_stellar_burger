@@ -8,25 +8,27 @@ import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-
 import Thumbnail from "common/Thumbnail/Thumbnail.tsx";
 
 import {useSelector} from "hooks/reduxHooks.ts";
-import {useParams, useLocation} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 
 export default function OrderDetails() {
 
 
     // --------------- NAVIGATION & BACKGROUND ---------------
 
-    const {number} = useParams<{ "number"?: string }>();
+    // const {number} = useParams<{ 'number'?: string }>(); - do not work !? where is a mistake?
 
     const location = useLocation();
 
     const modalBackground = (location.key === 'default') ? `` : styles.modal_background;
+
+    const number = location.pathname.replace('/feed/', '');
 
     // --------------- ORDERS DATA ---------------
 
     const order = useSelector((state: RootState) => state.orderFeed).orders.orders;
     const ingredientsData = useSelector((state: RootState) => state.ingredients.ingredients);
 
-    const currentOrder = order.find((elem: TOrder) => elem._id?.toString() == number);
+    const currentOrder = order.find((elem: TOrder) => elem.number?.toString() === number);
     const orderIngredientIDs = currentOrder?.ingredients;
     const orderIngredients = ingredientsData.filter(elem => orderIngredientIDs?.includes(elem._id));
 
@@ -41,9 +43,16 @@ export default function OrderDetails() {
         const bunTotal = buns?.price || 0;
         return ingredientsTotal + bunTotal;
     };
+
     const orderPrice = calculateTotalAmount(orderIngredients, orderBun);
 
 
+    // --------------- CONSOLE ---------------
+    // console.log('pathname:', location.pathname);
+    // console.log('number:', location.pathname.replace('/feed/',''));
+    // console.log('location:', location);
+    console.log('order: ', number);
+    console.log('currentOrder:', currentOrder);
     // --------------- INGREDIENT STRIPE ---------------
 
     const IngredientInfo = ({elem}: { elem: IIngredient }) => {
