@@ -15,7 +15,7 @@ export default function OrderDetails() {
 
     // --------------- NAVIGATION & BACKGROUND ---------------
 
-    const {number} = useParams();
+    const {id} = useParams();
 
     const location = useLocation();
 
@@ -27,7 +27,7 @@ export default function OrderDetails() {
     const order = useSelector(state => state.orderFeed).orders.orders;
     const ingredientsData = useSelector(state => state.ingredients.ingredients);
 
-    const currentOrder = order.find((elem: TOrder) => Number(elem.number) === Number(number));
+    const currentOrder = order.find((elem: TOrder) => elem._id === id);
     const orderIngredientIDs = currentOrder?.ingredients;
     const orderIngredients = ingredientsData.filter(elem => orderIngredientIDs?.includes(elem._id));
 

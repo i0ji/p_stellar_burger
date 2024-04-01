@@ -69,12 +69,12 @@ export default function App() {
 
                 {/*SPRINT 5 NEW ROUTES*/}
                 <Route path="feed" element={<FeedPage/>}>
-                    <Route path=":number" element={<OrderDetails/>}/>
+                    <Route path=":id" element={<OrderDetails/>}/>
                 </Route>
 
                 <Route path="profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}>
                     <Route path="orders" element={<ProtectedRoute unAuth={false} component={<ProfileOrders/>}/>}>
-                        <Route path=":number"
+                        <Route path=":id"
                                element={<ProtectedRoute unAuth={false} component={<OrderDetails/>}/>}/>
                     </Route>
                 </Route>
@@ -105,7 +105,7 @@ export default function App() {
             {
                 background && (
                     <Routes>
-                        <Route path="feed/:number"
+                        <Route path="feed/:id"
                                element={
                                    <Modal onClose={handleCloseModal}>
                                        <OrderDetails/>
@@ -115,19 +115,19 @@ export default function App() {
                     </Routes>
                 )
             }
-            {/*{*/}
-            {/*    background && (*/}
-            {/*        <Routes>*/}
-            {/*            <Route path="profile/orders/:number"*/}
-            {/*                   element={*/}
-            {/*                       <Modal onClose={handleCloseModal}>*/}
-            {/*                           <OrderDetails/>*/}
-            {/*                       </Modal>*/}
-            {/*                   }*/}
-            {/*            />*/}
-            {/*        </Routes>*/}
-            {/*    )*/}
-            {/*}*/}
+            {
+                background && (
+                    <Routes>
+                        <Route path="profile/orders/:id"
+                               element={
+                                   <Modal onClose={handleCloseModal}>
+                                       <OrderDetails/>
+                                   </Modal>
+                               }
+                        />
+                    </Routes>
+                )
+            }
         </>
     )
 }

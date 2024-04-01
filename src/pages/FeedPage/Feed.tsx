@@ -73,7 +73,7 @@ export default function Feed() {
                             ordersData.map((currentOrder: TOrder, i: number) =>
                                 <Link
                                     key={i}
-                                    to={`/feed/${currentOrder.number}`}
+                                    to={`/feed/${currentOrder._id}`}
                                     state={{background: location}}
                                 >
                                     <FeedItem currentOrder={currentOrder}/>
