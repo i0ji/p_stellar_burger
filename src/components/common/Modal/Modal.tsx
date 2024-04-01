@@ -1,7 +1,5 @@
 import styles from "./ModalStyles.module.scss"
 
-import {RootState} from "declarations/rootState.ts";
-
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {useSelector} from "hooks/reduxHooks.ts";
@@ -14,7 +12,7 @@ export default function Modal({onClose, children}: {
 
     // --------------- ERROR CHECK ---------------
 
-    const hasError = useSelector((state: RootState) => state.orderSlice.error);
+    const hasError = useSelector(state => state.orderSlice.error);
 
 
     // --------------- CLOSING LOGIC ---------------

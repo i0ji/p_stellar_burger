@@ -3,7 +3,6 @@ import styles from "./ProfilePage.module.scss";
 import {Link, useNavigate} from "react-router-dom";
 import {getUserData, updateUserData, logoutUser} from "utils/api.ts";
 
-import {RootState} from "declarations/rootState.ts";
 import {TInputElementType} from "declarations/types";
 import {IForm} from "declarations/interfaces";
 
@@ -26,7 +25,7 @@ export default function ProfilePage() {
 
     const {values, handleChange, setValues} = useForm<IForm>({});
     const dispatch = useDispatch();
-    const userData = useSelector((state: RootState) => state.authSlice.userData);
+    const userData = useSelector(state => state.authSlice.userData);
     const [showUpdateButtons, setShowUpdateButtons] = useState<boolean>(false);
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [editingField, setEditingField] = useState<string | null>(null);
@@ -40,7 +39,7 @@ export default function ProfilePage() {
         password: null,
         email: null
     });
-    const authStatus = useSelector((state: RootState) => state.authSlice.status);
+    const authStatus = useSelector(state => state.authSlice.status);
     const nameInputRef = useRef<TInputElementType>(null);
     const emailInputRef = useRef<TInputElementType>(null);
     const passwordInputRef = useRef<TInputElementType>(null);

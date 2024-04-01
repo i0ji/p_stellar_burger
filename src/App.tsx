@@ -4,8 +4,6 @@ import {Routes, Route, useNavigate} from 'react-router-dom';
 import {ProtectedRoute} from "common/ProtectedRoute/ProtectedRoute.tsx"
 import {checkUserAuth, getUserData, getIngredients} from "utils/api.ts";
 
-import {RootState} from "declarations/rootState.ts";
-
 import AppHeader from "components/AppHeader/AppHeader.tsx";
 import Loader from "common/Loader/Loader.tsx";
 import Modal from "common/Modal/Modal.tsx";
@@ -37,7 +35,7 @@ export default function App() {
     const location = useLocation();
     const background = location.state && location.state.background;
     const navigate = useNavigate();
-    const ingredientsStatus = useSelector((state: RootState) => state.ingredients.status);
+    const ingredientsStatus = useSelector(state => state.ingredients.status);
     const accessToken = localStorage.getItem('accessToken');
     const handleCloseModal = useCallback(() => {
         navigate(-1);
@@ -117,19 +115,19 @@ export default function App() {
                     </Routes>
                 )
             }
-            {
-                background && (
-                    <Routes>
-                        <Route path="profile/orders/:number"
-                               element={
-                                   <Modal onClose={handleCloseModal}>
-                                       <OrderDetails/>
-                                   </Modal>
-                               }
-                        />
-                    </Routes>
-                )
-            }
+            {/*{*/}
+            {/*    background && (*/}
+            {/*        <Routes>*/}
+            {/*            <Route path="profile/orders/:number"*/}
+            {/*                   element={*/}
+            {/*                       <Modal onClose={handleCloseModal}>*/}
+            {/*                           <OrderDetails/>*/}
+            {/*                       </Modal>*/}
+            {/*                   }*/}
+            {/*            />*/}
+            {/*        </Routes>*/}
+            {/*    )*/}
+            {/*}*/}
         </>
     )
 }

@@ -4,13 +4,13 @@ import {Link, useLocation} from "react-router-dom";
 import {WS_URL} from "declarations/routs.ts";
 
 import {TOrder} from "declarations/types";
-import {RootState} from "declarations/rootState.ts";
 
 import FeedItem from "common/FeedItem/FeedItem.tsx";
 
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {wsClose, wsConnect} from "services/orderFeed/actions.ts";
+import Loader from "common/Loader/Loader.tsx";
 
 
 export default function Feed() {
@@ -26,13 +26,13 @@ export default function Feed() {
             type: wsConnect,
             payload: `${WS_URL}/all`
         });
-        return(() => dispatch(wsClose()));
+        return (() => dispatch(wsClose()));
     }, [dispatch])
 
 
     // --------------- ORDERS DATA ---------------
 
-    const ordersList = useSelector((state: RootState) => state.orderFeed.orders);
+    const ordersList = useSelector(state => state.orderFeed.orders);
 
     const ordersData = ordersList.orders;
     const totalToday = ordersList.totalToday;
@@ -42,6 +42,8 @@ export default function Feed() {
     const ordersReady = ordersData.filter((order: TOrder) => order.status === 'done').slice(0, 5);
     // --------------- AWAIT ORDERS
     const ordersPending = ordersData.filter((order: TOrder) => order.status === 'pending').slice(0, 5);
+    // --------------- STATUS
+    const status = useSelector(state => state.orderFeed.status);
 
 
     // --------------- CONSOLE ---------------
@@ -52,6 +54,11 @@ export default function Feed() {
     // console.log(ordersData)
     // console.log(`TOTAL TODAY: ${totalToday}`);
     // console.log(`TOTAL: ${total}`);
+
+
+    if (status !== 'ONLINE') {
+        return <Loader/>
+    }
 
     return (
         <section className={styles.feed}>

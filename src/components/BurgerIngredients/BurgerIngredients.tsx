@@ -1,7 +1,5 @@
 import styles from "./BurgerIngredientsStyles.module.scss"
 
-import {RootState} from "declarations/rootState.ts";
-
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "components/BurgerIngredients/IngredientGroup/IngredientGroup.tsx";
 
@@ -19,7 +17,7 @@ export default function BurgerIngredients() {
 
     // --------------- VARS/STATES ---------------
 
-    const {ingredients: ingredientsData} = useSelector((state: RootState) => state.ingredients);
+    const {ingredients: ingredientsData} = useSelector(state => state.ingredients);
 
     const filteredIngredients = useMemo(() => {
         return {

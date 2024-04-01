@@ -1,6 +1,5 @@
 import styles from "./OrderDetails.module.scss"
 
-import {RootState} from "declarations/rootState.ts";
 import {IIngredient} from "declarations/interfaces";
 import {TOrder} from "declarations/types";
 
@@ -25,8 +24,8 @@ export default function OrderDetails() {
 
     // --------------- ORDERS DATA ---------------
 
-    const order = useSelector((state: RootState) => state.orderFeed).orders.orders;
-    const ingredientsData = useSelector((state: RootState) => state.ingredients.ingredients);
+    const order = useSelector(state => state.orderFeed).orders.orders;
+    const ingredientsData = useSelector(state => state.ingredients.ingredients);
 
     const currentOrder = order.find((elem: TOrder) => Number(elem.number) === Number(number));
     const orderIngredientIDs = currentOrder?.ingredients;
@@ -48,6 +47,7 @@ export default function OrderDetails() {
 
 
     //const status = useSelector(state => state.orderFeed.status);
+
     // --------------- CONSOLE ---------------
 
     // console.log('pathname:', location.pathname);

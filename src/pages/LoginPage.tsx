@@ -5,7 +5,6 @@ import {Link} from "react-router-dom";
 
 import {IUserData} from "declarations/interfaces";
 import {IForm} from "declarations/interfaces";
-import {RootState} from "declarations/rootState.ts";
 
 import Loader from "common/Loader/Loader.tsx";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -20,7 +19,7 @@ export default function LoginPage() {
 
     const {values, handleChange} = useForm<IForm>({});
     const dispatch = useDispatch();
-    const userAuth = useSelector((state: RootState) => state.authSlice.isAuth);
+    const userAuth = useSelector(state => state.authSlice.isAuth);
 
 
     //  --------------- RERENDER CHECK ---------------
@@ -42,7 +41,7 @@ export default function LoginPage() {
 
     // --------------- ERROR MESSAGE ---------------
 
-    const loginError = useSelector((state: RootState) => state.authSlice.loginError);
+    const loginError = useSelector(state => state.authSlice.loginError);
     const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const userData: IUserData = {

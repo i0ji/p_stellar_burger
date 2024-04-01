@@ -3,7 +3,6 @@ import styles from "./FeedItem.module.scss"
 import {useSelector} from "hooks/reduxHooks.ts";
 
 import {TOrder} from "declarations/types";
-import {RootState} from "declarations/rootState.ts";
 import {IIngredient} from "declarations/interfaces";
 
 import Thumbnail from "common/Thumbnail/Thumbnail.tsx";
@@ -11,7 +10,7 @@ import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-
 
 export default function FeedItem({currentOrder}: { currentOrder: TOrder | undefined }) {
 
-    const ingredientsData = useSelector((state: RootState) => state.ingredients.ingredients);
+    const ingredientsData = useSelector(state => state.ingredients.ingredients);
 
     if (currentOrder && currentOrder.ingredients) {
 

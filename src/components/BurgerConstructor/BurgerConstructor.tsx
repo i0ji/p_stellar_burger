@@ -4,7 +4,6 @@ import awaitSpinner from "images/common/awaitSpinner.svg";
 import {createOrder} from "utils/api.ts";
 
 import {IIngredient} from "declarations/interfaces";
-import {RootState} from "declarations/rootState.ts";
 
 import {addIngredient, reorderIngredients} from "slices/constructorSlice.ts";
 import {updateIds, updateOrderNumber} from "slices/orderSlice.ts";
@@ -27,23 +26,23 @@ export default function BurgerConstructor() {
     const navigate = useNavigate();
 
     // --------------- VARS/STATES ---------------
-    const {addedIngredients, bun} = useSelector((state: RootState) => state.constructorSlice);
+    const {addedIngredients, bun} = useSelector(state => state.constructorSlice);
     // --------------- HIGHLIGHT STATE
     const [bunAvail, setBunAvail] = useState(false);
     const [ingredientsAvail, setIngredientsAvail] = useState(false);
     // --------------- PRELOADER CONSTANTS
-    const isLoaded = useSelector((state: RootState) => state.orderSlice.status);
-    const hasError = useSelector((state: RootState) => state.orderSlice.error);
+    const isLoaded = useSelector(state => state.orderSlice.status);
+    const hasError = useSelector(state => state.orderSlice.error);
     // --------------- CURRENT IDS
-    const ingredientIDs = useSelector((state: RootState) => state.constructorSlice.addedIngredients).map((elem:IIngredient) => elem._id);
+    const ingredientIDs = useSelector(state => state.constructorSlice.addedIngredients).map((elem: IIngredient) => elem._id);
     // --------------- MODAL
     const {isVisible, openModal, closeModal} = useModal();
     // --------------- TOTAL AMOUNT
-    const totalAmount = useSelector((state: RootState) => state.constructorSlice.totalAmount);
+    const totalAmount = useSelector(state => state.constructorSlice.totalAmount);
     // --------------- BUNS STATE
-    const isBun: IIngredient = useSelector((state: RootState) => state.constructorSlice.bun);
+    const isBun: IIngredient = useSelector(state => state.constructorSlice.bun);
     //--------------- AUTH STATE
-    const isAuth = useSelector((state: RootState) => state.authSlice.isAuth);
+    const isAuth = useSelector(state => state.authSlice.isAuth);
 
 
     // --------------- CURRENT ID ---------------

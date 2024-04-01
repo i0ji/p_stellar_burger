@@ -1,15 +1,13 @@
 import styles from "./OrderDetailsStyles.module.scss";
 import done from "images/Modal/done.gif"
 
-import {RootState} from "declarations/rootState.ts";
-
 import Modal from "common/Modal/Modal.tsx";
 
 import {useSelector} from "hooks/reduxHooks.ts";
 
 export default function OrderDetails({onClose}:{onClose:()=>void}) {
 	
-	const orderNumber = useSelector((state: RootState) => state.orderSlice.orderNumber)
+	const orderNumber = useSelector(state => state.orderSlice.orderNumber)
 
 	return (
 		<Modal onClose={onClose}>

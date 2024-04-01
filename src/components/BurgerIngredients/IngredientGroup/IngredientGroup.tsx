@@ -4,7 +4,6 @@ import {updateSelectedIngredient} from "slices/currentIngredientSlice.ts";
 import {v4 as uuidv4} from 'uuid';
 
 import {IIngredient, IIngredientCardProps, IIngredientGroupProps} from "declarations/interfaces";
-import {RootState} from "declarations/rootState.ts";
 
 import {Link} from "react-router-dom";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -21,8 +20,8 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
     const dispatch = useDispatch();
     const location = useLocation();
 
-    const addedIngredients = useSelector((state: RootState) => state.constructorSlice.addedIngredients);
-    const bunIngredients = useSelector((state: RootState) => state.constructorSlice.bun);
+    const addedIngredients = useSelector(state => state.constructorSlice.addedIngredients);
+    const bunIngredients = useSelector(state => state.constructorSlice.bun);
 
     const onUpdateSelectedIngredient = (ingredient: IIngredient) => {
         dispatch(updateSelectedIngredient(ingredient));

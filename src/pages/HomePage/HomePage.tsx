@@ -4,7 +4,6 @@ import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from "react-dnd-html5-backend";
 
 import {IBurgerState} from "declarations/interfaces";
-import {RootState} from "declarations/rootState.ts";
 
 import Loader from "common/Loader/Loader.tsx";
 import BurgerIngredients from "components/BurgerIngredients/BurgerIngredients.tsx";
@@ -18,7 +17,7 @@ export default function HomePage() {
         ingredients: IBurgerState
     }) => state.ingredients);
 
-    const authStatus = useSelector((state: RootState) => state.authSlice.status);
+    const authStatus = useSelector(state => state.authSlice.status);
 
     // --------------- STATUSES ---------------
     if (burgerStatus === 'loading') {
