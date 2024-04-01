@@ -22,12 +22,13 @@ export default function OrderDetails() {
 
     const modalBackground = (location.key === 'default') ? `` : styles.modal_background;
 
+
     // --------------- ORDERS DATA ---------------
 
     const order = useSelector((state: RootState) => state.orderFeed).orders.orders;
     const ingredientsData = useSelector((state: RootState) => state.ingredients.ingredients);
 
-    const currentOrder = order.find((elem: TOrder) => elem.number?.toString() === number);
+    const currentOrder = order.find((elem: TOrder) => Number(elem.number) === Number(number));
     const orderIngredientIDs = currentOrder?.ingredients;
     const orderIngredients = ingredientsData.filter(elem => orderIngredientIDs?.includes(elem._id));
 
@@ -46,12 +47,18 @@ export default function OrderDetails() {
     const orderPrice = calculateTotalAmount(orderIngredients, orderBun);
 
 
+    //const status = useSelector(state => state.orderFeed.status);
     // --------------- CONSOLE ---------------
+
     // console.log('pathname:', location.pathname);
     // console.log('number:', location.pathname.replace('/feed/',''));
     // console.log('location:', location);
+    // console.log('WS STATUS: ', status);
     // console.log('number: ', number)
+    // console.log('order:', order);
     // console.log('currentOrder:', currentOrder);
+
+
     // --------------- INGREDIENT STRIPE ---------------
 
     const IngredientInfo = ({elem}: { elem: IIngredient }) => {
@@ -78,12 +85,9 @@ export default function OrderDetails() {
     }
 
     return (
-        <>
-            {currentOrder && ingredientsData.length && orderIngredientIDs &&
-                <div
-                    className={`${styles.order_details} ${modalBackground}`}
-                >
-
+        <div className={`${styles.order_details} ${modalBackground}`}>
+            {order.length && currentOrder &&
+                <>
                     <div className={styles.order_details_header}>
                         <h5 className="text text_type_digits-default mb-10 ">{currentOrder.number}</h5>
                         <h3 className="text text_type_main-medium mb-3">{currentOrder.name}</h3>
@@ -105,6 +109,7 @@ export default function OrderDetails() {
                             }
                         </ul>
                     </div>
+
                     <div className={styles.order_details_footer}>
                         <OrderDate/>
                         <span className="text text_type_digits-default">
@@ -112,8 +117,8 @@ export default function OrderDetails() {
                             {orderPrice}
                         </span>
                     </div>
-                </div>
+                </>
             }
-        </>
+        </div>
     )
 }

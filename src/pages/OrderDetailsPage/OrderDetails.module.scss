@@ -4,6 +4,9 @@
 .order_details {
   position: fixed;
 
+  left: calc(50% - 360px);
+  top: calc(50% - 320px);
+
   display: flex;
   flex-direction: column;
 
@@ -11,15 +14,12 @@
   width: 720px;
   padding: 30px;
 
-  left: calc(50% - 360px);
-  top: calc(50% - 320px);
-
   color: $theme_white;
 
   border-radius: 40px;
   @include box_shadow;
 
-  .order_details_header {
+  &_header {
     width: 100%;
 
     h5 {
@@ -31,7 +31,7 @@
     }
   }
 
-  .order_details_list {
+  &_list {
     padding: 10px 20px 10px 20px;
     overflow-y: scroll;
     flex: 1 1 auto;
@@ -45,8 +45,7 @@
     }
   }
 
-
-  .order_details_footer {
+  &_footer {
     display: flex;
     justify-content: space-between;
 
@@ -78,7 +77,7 @@
     text-align: start;
   }
 
-  .order_ingredient_price {
+  &_price {
     align-items: center;
     display: flex;
     justify-content: end;

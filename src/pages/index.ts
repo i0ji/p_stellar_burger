@@ -25,5 +25,5 @@ export {
     FeedPage,
     MemoLoginPage,
     OrderDetails,
-    ProfileOrders
+    ProfileOrders,
 };

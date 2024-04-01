@@ -23,7 +23,6 @@ export default function IngredientDetails() {
 
     // --------------- NAVIGATION & BACKGROUND ---------------
 
-
     const location = useLocation();
 
     const modalBackground = (location.key === 'default') ? `` : styles.modal_background;

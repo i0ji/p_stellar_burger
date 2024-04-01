@@ -10,7 +10,7 @@ import FeedItem from "common/FeedItem/FeedItem.tsx";
 
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
-import {wsConnect} from "services/orderFeed/actions.ts";
+import {wsClose, wsConnect} from "services/orderFeed/actions.ts";
 
 
 export default function Feed() {
@@ -26,6 +26,7 @@ export default function Feed() {
             type: wsConnect,
             payload: `${WS_URL}/all`
         });
+        return(() => dispatch(wsClose()));
     }, [dispatch])
 
 

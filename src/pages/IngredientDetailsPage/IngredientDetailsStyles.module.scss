@@ -2,21 +2,23 @@
 @import "styles/mixins";
 
 .ingredients_details {
-  height: 640px;
-  width: 720px;
-
   position: fixed;
+
   left: calc(50% - 360px);
   top: calc(50% - 320px);
-
-  color: $theme_white;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
+  height: 640px;
+  width: 720px;
+
+  color: $theme_white;
+
   border-radius: 40px;
+  @include box_shadow;
 
   &_title {
     width: 80%;

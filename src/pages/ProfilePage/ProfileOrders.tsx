@@ -43,7 +43,7 @@ export default function ProfileOrders() {
                 reversedOrdersData.map((order: TOrder, i: number) =>
                     <Link
                         key={i}
-                        to={`${order.number}`}
+                        to={`orders/${order.number}`}
                         state={{background: location}}
                     >
                         <FeedItem currentOrder={order}/>

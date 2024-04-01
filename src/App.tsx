@@ -21,7 +21,7 @@ import {
     SuccessPage,
     FeedPage,
     OrderDetails,
-    ProfileOrders
+    ProfileOrders,
 } from "./pages";
 
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
@@ -76,9 +76,11 @@ export default function App() {
 
                 <Route path="profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}>
                     <Route path="orders" element={<ProtectedRoute unAuth={false} component={<ProfileOrders/>}/>}>
-                        <Route path=":number" element={<ProtectedRoute unAuth={false} component={<OrderDetails/>}/>}/>
+                        <Route path=":number"
+                               element={<ProtectedRoute unAuth={false} component={<OrderDetails/>}/>}/>
                     </Route>
                 </Route>
+
                 {/*SPRINT 5 NEW ROUTES*/}
 
                 <Route path="login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
@@ -106,6 +108,19 @@ export default function App() {
                 background && (
                     <Routes>
                         <Route path="feed/:number"
+                               element={
+                                   <Modal onClose={handleCloseModal}>
+                                       <OrderDetails/>
+                                   </Modal>
+                               }
+                        />
+                    </Routes>
+                )
+            }
+            {
+                background && (
+                    <Routes>
+                        <Route path="profile/orders/:number"
                                element={
                                    <Modal onClose={handleCloseModal}>
                                        <OrderDetails/>
