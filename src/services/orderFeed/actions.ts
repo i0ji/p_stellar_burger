@@ -14,3 +14,7 @@ export const wsClose = createAction('ORDER_FEED_WS_CLOSE');
 export const wsDisconnect = createAction('ORDER_FEED_WS_DISCONNECT');
 
 export const wsError = createAction<TError, 'ORDER_FEED_WS_ERROR'>('ORDER_FEED_WS_ERROR');
+
+export const onOpen = createAction('ORDER_FEED_ON_OPEN');
+export const onError = createAction<TError, 'ORDER_FEED_ON_ERROR'>('ORDER_FEED_ON_ERROR');
+export const onClose = createAction('ORDER_FEED_ON_CLOSE');

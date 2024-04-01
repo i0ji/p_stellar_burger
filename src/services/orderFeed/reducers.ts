@@ -8,6 +8,9 @@ import {
     wsDisconnect,
     wsError,
     wsOpen,
+    onOpen,
+    onError,
+    onClose
 } from "services/orderFeed/actions.ts";
 
 enum WebsocketStatus {
@@ -62,6 +65,17 @@ export const orderFeedReducer = createReducer(
                 state.status = WebsocketStatus.OFFLINE;
             })
             .addCase(wsError, (state, action: { payload: Error, type: string }) => {
+                state.status = WebsocketStatus.OFFLINE;
+                state.error = action.payload;
+            })
+            .addCase(onClose, (state) => {
+                state.status = WebsocketStatus.OFFLINE;
+            })
+            .addCase(onOpen, (state) => {
+                state.status = WebsocketStatus.ONLINE;
+                state.error = null;
+            })
+            .addCase(onError, (state, action: { payload: Error, type: string }) => {
                 state.status = WebsocketStatus.OFFLINE;
                 state.error = action.payload;
             })

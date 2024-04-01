@@ -20,6 +20,7 @@ export default function ProfileOrders() {
     const modalBackground = (location.key === 'default') ? styles.background : styles.dark;
 
     const accessToken = localStorage.getItem('accessToken').replace("Bearer ", "");
+
     const WS_URL_WITH_TOKEN = `${WS_URL}?token=${accessToken}`;
 
     useEffect(() => {

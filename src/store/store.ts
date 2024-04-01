@@ -21,7 +21,6 @@ export const rootReducers = combineReducers({
     userOrderFeed: userOrderFeedReducer,
 });
 
-const checkToken = !!(localStorage.getItem('accessToken'));
 
 import {
     wsConnect as FeedConnectAction,
@@ -31,37 +30,25 @@ import {
     wsClose as FeedCloseAction,
     wsDisconnect as FeedDisconnectAction,
     wsError as FeedErrorAction,
+    onOpen as FeedOnOpenAction,
+    onError as FeedOnErrorAction,
+    onClose as FeedOnCloseAction
 } from "services/orderFeed/actions.ts";
 
-// import {
-//     wsUserConnect as UserFeedConnectAction,
-//     wsUserConnecting as UserFeedConnectionAction,
-//     wsUserOpen as UserFeedOpenAction,
-//     wsUserMessage as UserFeedMessageAction,
-//     wsUserClose as UserFeedCloseAction,
-//     wsUserDisconnect as UserFeedDisconnectAction,
-//     wsUserError as UserFeedErrorAction,
-// } from "services/userOrderFeed/actions.ts";
-
 export const wsActions = {
+    wsOpen: FeedOpenAction,
     wsConnect: FeedConnectAction,
     wsConnecting: FeedConnectionAction,
     wsMessage: FeedMessageAction,
     wsClose: FeedCloseAction,
     wsDisconnect: FeedDisconnectAction,
     wsError: FeedErrorAction,
-    onOpen: FeedOpenAction,
+    onOpen: FeedOnOpenAction,
+    onError: FeedOnErrorAction,
+    onClose: FeedOnCloseAction
 }
 
-// export const wsUserActions = {
-//     wsUserConnect: UserFeedConnectAction,
-//     wsUserConnecting: UserFeedConnectionAction,
-//     wsUserMessage: UserFeedMessageAction,
-//     wsUserClose: UserFeedCloseAction,
-//     wsUserDisconnect: UserFeedDisconnectAction,
-//     wsUserError: UserFeedErrorAction,
-//     onOpen: UserFeedOpenAction,
-// }
+const checkToken = !!(localStorage.getItem('accessToken'));
 
 const feedMiddleware = socketMiddleware(wsActions, false);
 const userFeedMiddleware = socketMiddleware(wsActions, checkToken);
