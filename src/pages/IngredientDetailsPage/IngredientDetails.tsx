@@ -41,18 +41,16 @@ export default function IngredientDetails() {
 
     // --------------- CONSOLE ---------------
 
-    console.log('number:', id);
-    console.log('location:', location);
-    console.log('currentOrder:', ingredient);
+    // console.log('number:', id);
+    // console.log('location:', location);
+    // console.log('currentOrder:', ingredient);
 
 
     return (
         <div
             className={`${styles.ingredients_details} ${modalBackground}`}
         >
-
             {error ? (<p>Произошла ошибка: {error}</p>) : (ingredientsData.length > 0 && (
-
                 <>
                     <h3 className="text text_type_main-large">Детали ингредиента</h3>
                     <img

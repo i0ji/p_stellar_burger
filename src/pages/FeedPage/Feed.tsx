@@ -2,16 +2,16 @@ import styles from "./Feed.module.scss"
 
 import {Link, useLocation} from "react-router-dom";
 import {WS_URL} from "declarations/routs.ts";
+import {updateCurrentOrder} from "slices/orderSlice.ts";
 
 import {TOrder} from "declarations/types";
 
 import FeedItem from "common/FeedItem/FeedItem.tsx";
+import Loader from "common/Loader/Loader.tsx";
 
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {wsClose, wsConnect} from "services/orderFeed/actions.ts";
-import Loader from "common/Loader/Loader.tsx";
-
 
 export default function Feed() {
 
@@ -20,7 +20,6 @@ export default function Feed() {
 
     const dispatch = useDispatch();
     const location = useLocation();
-
     useEffect(() => {
         dispatch({
             type: wsConnect,
@@ -28,11 +27,12 @@ export default function Feed() {
         });
         return (() => dispatch(wsClose()));
     }, [dispatch])
-
-
-    // --------------- ORDERS DATA ---------------
-
+    // --------------- ORDERS ARRAY;
     const ordersList = useSelector(state => state.orderFeed.orders);
+    // --------------- STATUS
+    const status = useSelector(state => state.orderFeed.status);
+    // --------------- LOADER CONDITION
+    const renderCondition = useSelector(state => state.orderFeed.orders).orders.length !== 1;
 
     const ordersData = ordersList.orders;
     const totalToday = ordersList.totalToday;
@@ -42,11 +42,10 @@ export default function Feed() {
     const ordersReady = ordersData.filter((order: TOrder) => order.status === 'done').slice(0, 5);
     // --------------- AWAIT ORDERS
     const ordersPending = ordersData.filter((order: TOrder) => order.status === 'pending').slice(0, 5);
-    // --------------- STATUS
-    const status = useSelector(state => state.orderFeed.status);
 
 
     // --------------- CONSOLE ---------------
+    // console.log(listValue);
     // console.log(ordersData[5].status);
     // console.log(ordersReady.slice(0,5));
     // console.log(`ORDERS DATA: ${ordersData}`);
@@ -55,8 +54,13 @@ export default function Feed() {
     // console.log(`TOTAL TODAY: ${totalToday}`);
     // console.log(`TOTAL: ${total}`);
 
+    const onUpgradeCurrentOrder = (order: TOrder) => {
+        dispatch(updateCurrentOrder(order));
+    }
 
-    if (status !== 'ONLINE') {
+    // --------------- LOADER ---------------
+
+    if (status !== 'ONLINE' && renderCondition) {
         return <Loader/>
     }
 
@@ -69,12 +73,13 @@ export default function Feed() {
 
                 <div className={styles.feed_list}>
                     <>
-                        {ordersList && ordersData.length > 0 &&
-                            ordersData.map((currentOrder: TOrder, i: number) =>
+                        {
+                            ordersList && ordersData.map((currentOrder: TOrder, i: number) =>
                                 <Link
                                     key={i}
-                                    to={`/feed/${currentOrder._id}`}
+                                    to={`/feed/${currentOrder.number}`}
                                     state={{background: location}}
+                                    onClick={() => onUpgradeCurrentOrder(currentOrder)}
                                 >
                                     <FeedItem currentOrder={currentOrder}/>
                                 </Link>

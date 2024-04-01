@@ -69,7 +69,7 @@ export default function App() {
 
                 {/*SPRINT 5 NEW ROUTES*/}
                 <Route path="feed" element={<FeedPage/>}>
-                    <Route path=":id" element={<OrderDetails/>}/>
+                    <Route path=":number" element={<OrderDetails/>}/>
                 </Route>
 
                 <Route path="profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}>
@@ -105,7 +105,7 @@ export default function App() {
             {
                 background && (
                     <Routes>
-                        <Route path="feed/:id"
+                        <Route path="feed/:number"
                                element={
                                    <Modal onClose={handleCloseModal}>
                                        <OrderDetails/>
@@ -118,7 +118,7 @@ export default function App() {
             {
                 background && (
                     <Routes>
-                        <Route path="profile/orders/:id"
+                        <Route path="profile/orders/:number"
                                element={
                                    <Modal onClose={handleCloseModal}>
                                        <OrderDetails/>

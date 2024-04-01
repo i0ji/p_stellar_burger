@@ -46,11 +46,10 @@ export type TOrder = {
     createdAt?: string,
     ingredients?: Array<string>,
     name?: string,
-    number?: number,
+    number: number | null,
     status?: TBurgerComplete,
     _id?: string,
     updatedAt?: string,
-    order: TOrder
 };
 
 export type TOrdersFeed = {

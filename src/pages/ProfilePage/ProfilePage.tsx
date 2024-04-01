@@ -18,14 +18,13 @@ export default function ProfilePage() {
 
 
     // --------------- VARS/STATES ---------------
-    const refreshToken = localStorage.getItem('refreshToken');
 
-    const isActive = location.pathname === '/profile'
-    const navigate = useNavigate();
-
-    const {values, handleChange, setValues} = useForm<IForm>({});
-    const dispatch = useDispatch();
+    const authStatus = useSelector(state => state.authSlice.status);
     const userData = useSelector(state => state.authSlice.userData);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    // --------------- FORM HOOKS
+    const {values, handleChange, setValues} = useForm<IForm>({});
     const [showUpdateButtons, setShowUpdateButtons] = useState<boolean>(false);
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [editingField, setEditingField] = useState<string | null>(null);
@@ -39,10 +38,14 @@ export default function ProfilePage() {
         password: null,
         email: null
     });
-    const authStatus = useSelector(state => state.authSlice.status);
     const nameInputRef = useRef<TInputElementType>(null);
     const emailInputRef = useRef<TInputElementType>(null);
     const passwordInputRef = useRef<TInputElementType>(null);
+    // --------------- LOADER CONDITION
+    const renderCondition = useSelector(state => state.orderFeed.orders).orders.length !== 1;
+
+    const refreshToken = localStorage.getItem('refreshToken');
+    const isActive = location.pathname === '/profile'
 
     // --------------- BUTTON APPEARANCE ---------------
 
@@ -103,7 +106,7 @@ export default function ProfilePage() {
 
     //  --------------- LOADER ---------------
 
-    if (!userData || (authStatus === 'loading')) {
+    if (!userData || (authStatus === 'loading') && renderCondition) {
         return <Loader/>;
     }
 

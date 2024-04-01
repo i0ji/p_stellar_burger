@@ -1,5 +1,5 @@
 import {IIngredient} from "utils/interfaces/interfaces";
-import {TStatus, TError} from "declarations/types";
+import {TStatus, TError, TOrder} from "declarations/types";
 import {IIngredients} from "declarations/interfaces";
 
 export interface IConstructorSlice {
@@ -18,4 +18,10 @@ export interface IAuthSlice extends TStatus, TError {
     isAuth: boolean;
     authChecked: boolean;
     loginError: boolean;
+}
+
+export interface IOrderSlice extends TStatus, TError {
+    orderNumber: number | null,
+    IDs: Array<string>,
+    currentOrder: TOrder,
 }

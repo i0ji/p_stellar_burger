@@ -1,7 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-
-
 const currentIngredientSlice = createSlice({
     name: 'currentIngredientSlice',
     initialState: {

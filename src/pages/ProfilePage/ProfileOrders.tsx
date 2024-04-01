@@ -7,6 +7,7 @@ import {TOrder} from "declarations/types";
 import FeedItem from "common/FeedItem/FeedItem.tsx";
 import {Link, useLocation} from "react-router-dom";
 import Loader from "common/Loader/Loader.tsx";
+import {updateCurrentOrder} from "slices/orderSlice.ts";
 
 export default function ProfileOrders() {
 
@@ -19,16 +20,17 @@ export default function ProfileOrders() {
 
     const modalBackground = (location.key === 'default') ? styles.background : styles.dark;
 
-    const accessToken = localStorage.getItem('accessToken').replace("Bearer ", "");
-
-    const WS_URL_WITH_TOKEN = `${WS_URL}?token=${accessToken}`;
+    const accessToken = localStorage.getItem('accessToken');
+    const formattedAccessToken = accessToken ? accessToken.replace("Bearer ", "") : '';
+    
+    const WS_URL_WITH_TOKEN = `${WS_URL}?token=${formattedAccessToken}`;
 
     useEffect(() => {
         dispatch({
             type: wsConnect,
             payload: WS_URL_WITH_TOKEN
         });
-    }, [dispatch])
+    }, [WS_URL_WITH_TOKEN, dispatch])
 
     const ordersList = useSelector(state => state.orderFeed.orders);
 
@@ -46,16 +48,21 @@ export default function ProfileOrders() {
         return <Loader/>
     }
 
+    const onUpgradeCurrentOrder = (order: TOrder) => {
+        dispatch(updateCurrentOrder(order));
+    }
+
     return (
         <div className={`${styles.profile_orders} ${modalBackground}`}>
-            {ordersList &&
-                reversedOrdersData.map((order: TOrder, i: number) =>
+            {
+                ordersList && reversedOrdersData.map((currentOrder: TOrder, i: number) =>
                     <Link
                         key={i}
-                        to={`orders/${order.number}`}
+                        to={`orders/${currentOrder.number}`}
                         state={{background: location}}
+                        onClick={() => onUpgradeCurrentOrder(currentOrder)}
                     >
-                        <FeedItem currentOrder={order}/>
+                        <FeedItem currentOrder={currentOrder}/>
                     </Link>
                 )
             }

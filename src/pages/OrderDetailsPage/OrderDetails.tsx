@@ -1,52 +1,45 @@
 import styles from "./OrderDetails.module.scss"
 
 import {IIngredient} from "declarations/interfaces";
-import {TOrder} from "declarations/types";
 
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import Thumbnail from "common/Thumbnail/Thumbnail.tsx";
 
 import {useSelector} from "hooks/reduxHooks.ts";
 import {useLocation} from "react-router-dom";
-import {useParams} from "react-router-dom";
 
 export default function OrderDetails() {
 
-
     // --------------- NAVIGATION & BACKGROUND ---------------
 
-    const {id} = useParams();
 
     const location = useLocation();
 
     const modalBackground = (location.key === 'default') ? `` : styles.modal_background;
 
-
     // --------------- ORDERS DATA ---------------
 
-    const order = useSelector(state => state.orderFeed).orders.orders;
+    const currentOrder = useSelector(state => state.orderSlice.currentOrder)
     const ingredientsData = useSelector(state => state.ingredients.ingredients);
-
-    const currentOrder = order.find((elem: TOrder) => elem._id === id);
     const orderIngredientIDs = currentOrder?.ingredients;
-    const orderIngredients = ingredientsData.filter(elem => orderIngredientIDs?.includes(elem._id));
+    const orderIngredients = ingredientsData.filter(elem => orderIngredientIDs?.includes(elem._id!));
+
 
     const orderStatus = (currentOrder?.status === 'done') ? 'Выполнен' : 'Готовится';
+
+    const orderDate = currentOrder.createdAt;
     const OrderDate = () => {
-        const dateFromServer = currentOrder?.createdAt;
+        const dateFromServer = `${orderDate}`
         return <FormattedDate date={new Date(dateFromServer)}/>
     }
+
     const orderBun = orderIngredients.find(elem => elem.type === 'bun');
     const calculateTotalAmount = (orderIngredients: IIngredient[], buns: IIngredient | undefined): number => {
-        const ingredientsTotal = orderIngredients.reduce((acc, ingredient) => acc + (ingredient?.price || 0), 0);
-        const bunTotal = buns?.price || 0;
-        return ingredientsTotal + bunTotal;
+        const ingredientsPrice = orderIngredients.reduce((acc, ingredient) => acc + (ingredient?.price || 0), 0);
+        const bunPrice = buns?.price || 0;
+        return ingredientsPrice + bunPrice;
     };
-
     const orderPrice = calculateTotalAmount(orderIngredients, orderBun);
-
-
-    //const status = useSelector(state => state.orderFeed.status);
 
     // --------------- CONSOLE ---------------
 
@@ -86,7 +79,7 @@ export default function OrderDetails() {
 
     return (
         <div className={`${styles.order_details} ${modalBackground}`}>
-            {order.length && currentOrder &&
+            {currentOrder &&
                 <>
                     <div className={styles.order_details_header}>
                         <h5 className="text text_type_digits-default mb-10 ">{currentOrder.number}</h5>

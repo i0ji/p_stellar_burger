@@ -1,13 +1,9 @@
-import {createAsyncThunk} from "@reduxjs/toolkit";
-import {Dispatch} from "@reduxjs/toolkit";
-
-import {BASE_URL} from "declarations/routs.ts";
+import {createAsyncThunk, Dispatch} from "@reduxjs/toolkit";
+import {BASE_URL, ORDER_URL} from "declarations/routs.ts";
 import {setAuthChecked, setUser} from "slices/authSlice.ts";
 import {checkResponse} from "utils/check-response.ts";
-
-import {IUserData, IRegisterUser} from "declarations/interfaces";
-import {TIngredientResponse, TUserLoginResponse, TApiResponse, TUserRegister} from "declarations/types";
-import {IIngredient} from "declarations/interfaces";
+import {IIngredient, IRegisterUser, IUserData} from "declarations/interfaces";
+import {TApiResponse, TIngredientResponse, TOrder, TUserLoginResponse, TUserRegister} from "declarations/types";
 
 
 // --------------- REFRESH ---------------
@@ -86,6 +82,25 @@ export const getUserData = createAsyncThunk<IUserData, void>(
         return response.user;
     }
 );
+
+
+// --------------- GET CONCRETE ORDER ---------------
+
+export const getConcreteOrder = async (URL: string): Promise<TApiResponse<TOrder> | null> => {
+    try {
+        const response = await fetch(`${ORDER_URL}/${URL}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        return await checkResponse(response);
+    } catch (error) {
+        console.log('Ошибка при поиске заказа');
+        return null;
+    }
+}
 
 
 // --------------- GET INGREDIENTS ---------------
@@ -245,25 +260,6 @@ export const createOrder = createAsyncThunk<number, (string | undefined)[]>(
         return data.order.number;
     }
 );
-// --------------- FAST ORDER
-// export const createOrder = createAsyncThunk<number, (string | undefined)[]>(
-//     'orderSlice/createOrder',
-//     async (ingredientIds: (string | undefined)[]): Promise<number> => {
-//         const filteredIngredientIds = ingredientIds.filter(id => id !== undefined) as string[];
-//         const requestBody = {
-//             ingredients: filteredIngredientIds
-//         };
-//         const response = await fetch(`${BASE_URL}/orders`, {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify(requestBody),
-//         });
-//         const data = await checkResponse<{ order: { number: number } }>(response);
-//         return data.order.number;
-//     }
-// );
 
 
 // --------------- AUTH CHECK  ---------------

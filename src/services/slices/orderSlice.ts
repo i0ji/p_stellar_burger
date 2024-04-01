@@ -1,21 +1,37 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {createOrder} from "utils/api.ts";
+import {IOrderSlice} from "declarations/sliceInterfaces";
+
+const initialState: IOrderSlice = {
+    orderNumber: null as number | null,
+    IDs: [''],
+    status: 'idle',
+    error: null as string | null,
+    currentOrder: {
+        createdAt: '',
+        ingredients: [''],
+        name: '',
+        number: null,
+        status: 'pending',
+        _id: '',
+        updatedAt: '',
+    },
+}
+
 
 const orderSlice = createSlice({
     name: 'orderSlice',
-    initialState: {
-        orderNumber: null as number | null,
-        IDs: [],
-        status: 'idle',
-        error: null as string | null,
-    },
+    initialState: initialState,
     reducers: {
         updateIds: (state, action) => {
             state.IDs = action.payload;
         },
         updateOrderNumber: (state, action) => {
-            state.orderNumber = action.payload
-        }
+            state.orderNumber = action.payload;
+        },
+        updateCurrentOrder: (state, action) => {
+            state.currentOrder = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -32,5 +48,5 @@ const orderSlice = createSlice({
             })
     },
 });
-export const {updateIds, updateOrderNumber} = orderSlice.actions;
+export const {updateIds, updateOrderNumber, updateCurrentOrder} = orderSlice.actions;
 export default orderSlice.reducer;

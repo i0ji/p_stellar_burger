@@ -2,7 +2,7 @@ import {TError, TStatus} from "declarations/types";
 
 export interface IIngredient {
     id?: string;
-    _id?: string;
+    _id?: string | undefined;
     uuid?: string;
     name: string;
     type: string;
