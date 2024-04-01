@@ -20,9 +20,10 @@ export default function ProfilePage() {
 
     // --------------- VARS/STATES ---------------
     const refreshToken = localStorage.getItem('refreshToken');
-    const isActive = location.pathname === '/profile'
 
+    const isActive = location.pathname === '/profile'
     const navigate = useNavigate();
+
     const {values, handleChange, setValues} = useForm<IForm>({});
     const dispatch = useDispatch();
     const userData = useSelector((state: RootState) => state.authSlice.userData);
@@ -106,7 +107,6 @@ export default function ProfilePage() {
     if (!userData || (authStatus === 'loading')) {
         return <Loader/>;
     }
-
 
     return (
         <section className={styles.profile_section}>
@@ -231,6 +231,7 @@ export default function ProfilePage() {
                         </div>
                     </form>
                 }
+
             </div>
 
         </section>

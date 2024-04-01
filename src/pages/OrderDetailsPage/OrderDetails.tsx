@@ -9,19 +9,18 @@ import Thumbnail from "common/Thumbnail/Thumbnail.tsx";
 
 import {useSelector} from "hooks/reduxHooks.ts";
 import {useLocation} from "react-router-dom";
+import {useParams} from "react-router-dom";
 
 export default function OrderDetails() {
 
 
     // --------------- NAVIGATION & BACKGROUND ---------------
 
-    // const {number} = useParams<{ 'number'?: string }>(); - do not work !? where is a mistake?
+    const {number} = useParams();
 
     const location = useLocation();
 
     const modalBackground = (location.key === 'default') ? `` : styles.modal_background;
-
-    const number = location.pathname.replace('/feed/', '');
 
     // --------------- ORDERS DATA ---------------
 
@@ -51,8 +50,8 @@ export default function OrderDetails() {
     // console.log('pathname:', location.pathname);
     // console.log('number:', location.pathname.replace('/feed/',''));
     // console.log('location:', location);
-    console.log('order: ', number);
-    console.log('currentOrder:', currentOrder);
+    // console.log('number: ', number)
+    // console.log('currentOrder:', currentOrder);
     // --------------- INGREDIENT STRIPE ---------------
 
     const IngredientInfo = ({elem}: { elem: IIngredient }) => {

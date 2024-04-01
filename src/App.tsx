@@ -49,7 +49,7 @@ export default function App() {
         dispatch(getUserData());
     }, [dispatch, accessToken]);
 
-    console.log('v:0.1.9.6.6');
+    console.log('v:0.1.9.6.7');
 
 
     // --------------- LOADER ---------------
@@ -101,6 +101,7 @@ export default function App() {
                     </Routes>
                 )
             }
+
             {
                 background && (
                     <Routes>
