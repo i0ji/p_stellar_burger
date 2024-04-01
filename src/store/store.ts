@@ -1,7 +1,6 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import {socketMiddleware} from "utils/socketMiddleware.ts";
 import {orderFeedReducer} from "services/orderFeed/reducers.ts";
-import {userOrderFeedReducer} from "services/userOrderFeed/reducers.ts";
 
 import {
     authSlice,
@@ -18,7 +17,6 @@ export const rootReducers = combineReducers({
     orderSlice: orderSlice,
     authSlice: authSlice,
     orderFeed: orderFeedReducer,
-    userOrderFeed: userOrderFeedReducer,
 });
 
 import {

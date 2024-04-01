@@ -18,7 +18,6 @@ const initialState: IOrderSlice = {
     },
 }
 
-
 const orderSlice = createSlice({
     name: 'orderSlice',
     initialState: initialState,
