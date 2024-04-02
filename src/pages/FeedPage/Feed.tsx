@@ -45,6 +45,7 @@ export default function Feed() {
 
 
     // --------------- CONSOLE ---------------
+    //console.log(location.pathname);
     // console.log(listValue);
     // console.log(ordersData[5].status);
     // console.log(ordersReady.slice(0,5));
@@ -77,7 +78,7 @@ export default function Feed() {
                             ordersList && ordersData.map((currentOrder: TOrder, i: number) =>
                                 <Link
                                     key={i}
-                                    to={`${currentOrder.number}`}
+                                    to={`/feed/${currentOrder.number}`}
                                     state={{background: location}}
                                     onClick={() => onUpgradeCurrentOrder(currentOrder)}
                                 >

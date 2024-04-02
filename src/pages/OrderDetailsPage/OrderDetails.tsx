@@ -28,9 +28,10 @@ export default function OrderDetails({isDirect}: { isDirect: boolean }) {
 
     const [directOrder, setDirectOrder] = useState();
 
-    if (isDirect) {
-        useEffect(() => {
-            const fetchData = async () => {
+
+    useEffect(() => {
+        if (isDirect) {
+            const fetchOrder = async () => {
                 try {
                     const fetchedOrder = await getConcreteOrder(`${number}`);
                     setDirectOrder(fetchedOrder.orders[0])
@@ -39,10 +40,10 @@ export default function OrderDetails({isDirect}: { isDirect: boolean }) {
                 }
             };
 
-            fetchData();
+            fetchOrder();
+        }
 
-        }, [dispatch, number]);
-    }
+    }, [dispatch, isDirect, number]);
 
     const wsOrder = useSelector(state => state.orderSlice.currentOrder);
 
@@ -131,7 +132,7 @@ export default function OrderDetails({isDirect}: { isDirect: boolean }) {
                         style={{
                             scrollbarWidth: `${orderIngredients.length > 3 ? 'auto' : 'none'}`,
                             overflowY: `${orderIngredients.length > 3 ? 'auto' : 'hidden'}`,
-                    }}
+                        }}
                     >
                         <ul>
                             {
