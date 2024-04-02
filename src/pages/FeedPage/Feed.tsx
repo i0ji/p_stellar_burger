@@ -77,7 +77,7 @@ export default function Feed() {
                             ordersList && ordersData.map((currentOrder: TOrder, i: number) =>
                                 <Link
                                     key={i}
-                                    to={`/feed/${currentOrder.number}`}
+                                    to={`${currentOrder.number}`}
                                     state={{background: location}}
                                     onClick={() => onUpgradeCurrentOrder(currentOrder)}
                                 >

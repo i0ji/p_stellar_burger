@@ -1,7 +1,7 @@
 import styles from "./ProfilePage.module.scss";
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useEffect} from "react";
-import {wsConnect} from "services/orderFeed/actions.ts";
+import {wsClose, wsConnect} from "services/orderFeed/actions.ts";
 import {WS_URL} from "declarations/routs.ts";
 import {TOrder} from "declarations/types";
 import FeedItem from "common/FeedItem/FeedItem.tsx";
@@ -22,7 +22,7 @@ export default function ProfileOrders() {
 
     const accessToken = localStorage.getItem('accessToken');
     const formattedAccessToken = accessToken ? accessToken.replace("Bearer ", "") : '';
-    
+
     const WS_URL_WITH_TOKEN = `${WS_URL}?token=${formattedAccessToken}`;
 
     useEffect(() => {
@@ -30,6 +30,7 @@ export default function ProfileOrders() {
             type: wsConnect,
             payload: WS_URL_WITH_TOKEN
         });
+        return (() => dispatch(wsClose()));
     }, [WS_URL_WITH_TOKEN, dispatch])
 
     const ordersList = useSelector(state => state.orderFeed.orders);
