@@ -1,9 +1,15 @@
 import {createAsyncThunk, Dispatch} from "@reduxjs/toolkit";
-import {BASE_URL} from "declarations/routs.ts";
+import {BASE_URL, ORDER_URL} from "declarations/routs.ts";
 import {setAuthChecked, setUser} from "slices/authSlice.ts";
 import {checkResponse} from "utils/check-response.ts";
 import {IIngredient, IRegisterUser, IUserData} from "declarations/interfaces";
-import {TApiResponse, TIngredientResponse, TOrder, TUserLoginResponse, TUserRegister} from "declarations/types";
+import {
+    TApiResponse,
+    TIngredientResponse,
+    TOrders,
+    TUserLoginResponse,
+    TUserRegister
+} from "declarations/types";
 
 
 // --------------- REFRESH ---------------
@@ -82,16 +88,6 @@ export const getUserData = createAsyncThunk<IUserData, void>(
         return response.user;
     }
 );
-
-
-// --------------- GET CONCRETE ORDER ---------------
-
-export const getConcreteOrder = async (number: string | number): Promise<TOrder | unknown> => {
-    const response = await fetch(`${BASE_URL}/orders/${number}`);
-    const data = await checkResponse<TOrder>(response);
-    if (data) return data;
-    throw new Error('Ошибка при загрузке заказа!');
-}
 
 
 // --------------- GET INGREDIENTS ---------------
@@ -227,7 +223,7 @@ export const logoutUser = createAsyncThunk(
 
 
 // --------------- CREATE ORDER ---------------
-// --------------- SLOW ORDER
+
 export const createOrder = createAsyncThunk<number, (string | undefined)[]>(
     'orderSlice/createOrder',
     async (ingredientIds: (string | undefined)[]): Promise<number> => {
@@ -286,4 +282,17 @@ export const checkUserAuth = () => {
             dispatch(setAuthChecked(true));
         }
     };
+};
+
+
+// --------------- GET CONCRETE ORDER ---------------
+
+export const getConcreteOrder = async (number: string): Promise<TOrders> => {
+    try {
+        const response = await fetch(`${ORDER_URL}/${number}`);
+        return await checkResponse(response);
+    } catch (error) {
+        console.error('Ошибка при поиске заказа:', error);
+        throw error;
+    }
 };

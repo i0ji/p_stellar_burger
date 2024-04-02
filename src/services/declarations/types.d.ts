@@ -22,6 +22,8 @@ export type TStatus = {
 
 export type TError = Error | string | null;
 
+export type TOrders = {orders: array<TOrder>};
+
 export type TApiResponse<T> = TServerResponse<{
     [key: string]: T;
 }>;

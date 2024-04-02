@@ -68,13 +68,13 @@ export default function App() {
                 <Route path="ingredient/:id" element={<IngredientDetails/>}/>
 
                 {/*SPRINT 5 NEW ROUTES*/}
-                <Route path="feed" element={<FeedPage/>}/>
-                    <Route path="feed/:number" element={<OrderDetails isDirect={true}/>}>
+                <Route path="feed" element={<FeedPage/>}/>при
+                <Route path="feed/:number" element={<OrderDetails isDirect={true}/>}>
                 </Route>
 
                 <Route path="profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}>
                     <Route path="orders" element={<ProtectedRoute unAuth={false} component={<ProfileOrders/>}/>}>
-                        <Route path=":id"
+                        <Route path="o:number"
                                element={<ProtectedRoute unAuth={false} component={<OrderDetails isDirect={true}/>}/>}/>
                     </Route>
                 </Route>

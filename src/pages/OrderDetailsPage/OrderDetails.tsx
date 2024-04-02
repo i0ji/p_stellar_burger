@@ -5,10 +5,13 @@ import {IIngredient} from "declarations/interfaces";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import Thumbnail from "common/Thumbnail/Thumbnail.tsx";
 
-import {useSelector} from "hooks/reduxHooks.ts";
+import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useLocation, useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {getConcreteOrder} from "utils/api.ts";
 
 export default function OrderDetails({isDirect}: { isDirect: boolean }) {
+
 
     // --------------- NAVIGATION & BACKGROUND ---------------
 
@@ -19,13 +22,34 @@ export default function OrderDetails({isDirect}: { isDirect: boolean }) {
     const modalBackground = (location.key === 'default') ? `` : styles.modal_background;
 
 
-    // --------------- DIRECT LOGIC ---------------
+    // --------------- GET ORDER ---------------
 
-    const directOrder = useSelector(state => state.orderSlice.currentOrder);
+    const dispatch = useDispatch();
 
-    const currentOrder = useSelector(state => state.orderSlice.currentOrder);
+    const [directOrder, setDirectOrder] = useState();
+
+    if (isDirect) {
+        useEffect(() => {
+            const fetchData = async () => {
+                try {
+                    const fetchedOrder = await getConcreteOrder(`${number}`);
+                    setDirectOrder(fetchedOrder.orders[0])
+                } catch (error) {
+                    console.error('Произошла ошибка при загрузке заказа:', error);
+                }
+            };
+
+            fetchData();
+
+        }, [dispatch, number]);
+    }
+
+    const wsOrder = useSelector(state => state.orderSlice.currentOrder);
+
+    const currentOrder = isDirect ? directOrder : wsOrder;
+
+
     // --------------- ORDER DATA ---------------
-
 
     const ingredientsData = useSelector(state => state.ingredients.ingredients);
     const orderIngredientIDs = currentOrder?.ingredients;
@@ -33,7 +57,7 @@ export default function OrderDetails({isDirect}: { isDirect: boolean }) {
     // --------------- ORDER STATUS
     const orderStatus = (currentOrder?.status === 'done') ? 'Выполнен' : 'Готовится';
     // --------------- ORDER DATE
-    const orderDate = currentOrder.createdAt;
+    const orderDate = currentOrder?.createdAt;
     const OrderDate = () => {
         const dateFromServer = `${orderDate}`;
         return <FormattedDate date={new Date(dateFromServer)}/>
@@ -50,16 +74,20 @@ export default function OrderDetails({isDirect}: { isDirect: boolean }) {
 
     // --------------- CONSOLE ---------------
 
-    console.log('isDirect: ', isDirect);
-    console.log('direct order: ', directOrder);
-    console.log('currentOrder:', currentOrder);
+    console.log(orderIngredients.length)
+    // console.log('isDirect: ', isDirect);
+    // console.log('currentOrder:', currentOrder);
     // console.log('pathname:', location.pathname);
     // console.log('number:', location.pathname.replace('/feed/',''));
     // console.log('location:', location);
     // console.log('WS STATUS: ', status);
-    console.log('number: ', number);
+    // console.log('number: ', number);
     // console.log('order:', order);
 
+
+    // --------------- SCROLL BEHAVIOR ---------------
+
+    // const scrollbarVisibility = (currentOrder.ingredients.length <= 3) ? 'scrollBehavior: none' : '';
 
     // --------------- INGREDIENT STRIPE ---------------
 
@@ -98,7 +126,13 @@ export default function OrderDetails({isDirect}: { isDirect: boolean }) {
 
                     <h3 className="text text_type_main-medium mb-3">Состав:</h3>
 
-                    <div className={`mb-10 ${styles.order_details_list}`}>
+                    <div
+                        className={`mb-10 ${styles.order_details_list}`}
+                        style={{
+                            scrollbarWidth: `${orderIngredients.length > 3 ? 'auto' : 'none'}`,
+                            overflowY: `${orderIngredients.length > 3 ? 'auto' : 'hidden'}`,
+                    }}
+                    >
                         <ul>
                             {
                                 orderIngredients.map((elem: IIngredient, i: number) =>
