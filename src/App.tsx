@@ -69,13 +69,13 @@ export default function App() {
 
                 {/*SPRINT 5 NEW ROUTES*/}
                 <Route path="feed" element={<FeedPage/>}>
-                    <Route path=":number" element={<OrderDetails/>}/>
+                    <Route path=":number" element={<OrderDetails isDirect={true}/>}/>
                 </Route>
 
                 <Route path="profile" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}>
                     <Route path="orders" element={<ProtectedRoute unAuth={false} component={<ProfileOrders/>}/>}>
                         <Route path=":id"
-                               element={<ProtectedRoute unAuth={false} component={<OrderDetails/>}/>}/>
+                               element={<ProtectedRoute unAuth={false} component={<OrderDetails isDirect={true}/>}/>}/>
                     </Route>
                 </Route>
 
@@ -108,7 +108,7 @@ export default function App() {
                         <Route path="feed/:number"
                                element={
                                    <Modal onClose={handleCloseModal}>
-                                       <OrderDetails/>
+                                       <OrderDetails isDirect={false}/>
                                    </Modal>
                                }
                         />
@@ -121,7 +121,7 @@ export default function App() {
                         <Route path="profile/orders/:number"
                                element={
                                    <Modal onClose={handleCloseModal}>
-                                       <OrderDetails/>
+                                       <OrderDetails isDirect={false}/>
                                    </Modal>
                                }
                         />

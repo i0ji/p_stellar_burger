@@ -8,7 +8,7 @@ import Thumbnail from "common/Thumbnail/Thumbnail.tsx";
 import {useSelector} from "hooks/reduxHooks.ts";
 import {useLocation, useParams} from "react-router-dom";
 
-export default function OrderDetails() {
+export default function OrderDetails({isDirect}: { isDirect: boolean }) {
 
     // --------------- NAVIGATION & BACKGROUND ---------------
 
@@ -43,7 +43,7 @@ export default function OrderDetails() {
     const orderPrice = calculateTotalAmount(orderIngredients, orderBun);
 
     // --------------- CONSOLE ---------------
-
+    console.log(isDirect);
     // console.log('pathname:', location.pathname);
     // console.log('number:', location.pathname.replace('/feed/',''));
     // console.log('location:', location);
