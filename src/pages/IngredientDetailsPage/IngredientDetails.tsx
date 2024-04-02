@@ -11,21 +11,21 @@ import {useParams, useLocation} from "react-router-dom";
 export default function IngredientDetails() {
 
 
-    // --------------- VARS/STATES ---------------
+    // --------------- NAVIGATION & BACKGROUND---------------
 
     const {id} = useParams<{ "id"?: string }>();
+
+    const location = useLocation();
+
+    const modalBackground = (location.key === 'default') ? `` : styles.modal_background;
+
+
+    // --------------- INGREDIENT DATA ---------------
 
     const {ingredients: ingredientsData, status, error}: IBurgerState = useSelector((state: {
         ingredients: IBurgerState
     }) => state.ingredients);
     const [ingredient] = ingredientsData.filter((ingredient: IIngredient) => ingredient._id === id);
-
-
-    // --------------- NAVIGATION & BACKGROUND ---------------
-
-    const location = useLocation();
-
-    const modalBackground = (location.key === 'default') ? `` : styles.modal_background;
 
 
     // --------------- STATUSES ---------------

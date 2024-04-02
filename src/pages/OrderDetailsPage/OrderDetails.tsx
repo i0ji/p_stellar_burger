@@ -12,28 +12,33 @@ export default function OrderDetails({isDirect}: { isDirect: boolean }) {
 
     // --------------- NAVIGATION & BACKGROUND ---------------
 
-    const {number} = useParams();
+    const {number} = useParams<{ "number"?: string }>();
 
     const location = useLocation();
 
     const modalBackground = (location.key === 'default') ? `` : styles.modal_background;
 
-    // --------------- ORDERS DATA ---------------
 
-    const currentOrder = useSelector(state => state.orderSlice.currentOrder)
+    // --------------- DIRECT LOGIC ---------------
+
+    const directOrder = useSelector(state => state.orderSlice.currentOrder);
+
+    const currentOrder = useSelector(state => state.orderSlice.currentOrder);
+    // --------------- ORDER DATA ---------------
+
+
     const ingredientsData = useSelector(state => state.ingredients.ingredients);
     const orderIngredientIDs = currentOrder?.ingredients;
     const orderIngredients = ingredientsData.filter(elem => orderIngredientIDs?.includes(elem._id!));
-
-
+    // --------------- ORDER STATUS
     const orderStatus = (currentOrder?.status === 'done') ? 'Выполнен' : 'Готовится';
-
+    // --------------- ORDER DATE
     const orderDate = currentOrder.createdAt;
     const OrderDate = () => {
-        const dateFromServer = `${orderDate}`
+        const dateFromServer = `${orderDate}`;
         return <FormattedDate date={new Date(dateFromServer)}/>
     }
-
+    // --------------- AMOUNT CALCULATE
     const orderBun = orderIngredients.find(elem => elem.type === 'bun');
     const calculateTotalAmount = (orderIngredients: IIngredient[], buns: IIngredient | undefined): number => {
         const ingredientsPrice = orderIngredients.reduce((acc, ingredient) => acc + (ingredient?.price || 0), 0);
@@ -42,15 +47,18 @@ export default function OrderDetails({isDirect}: { isDirect: boolean }) {
     };
     const orderPrice = calculateTotalAmount(orderIngredients, orderBun);
 
+
     // --------------- CONSOLE ---------------
-    console.log(isDirect);
+
+    console.log('isDirect: ', isDirect);
+    console.log('direct order: ', directOrder);
+    console.log('currentOrder:', currentOrder);
     // console.log('pathname:', location.pathname);
     // console.log('number:', location.pathname.replace('/feed/',''));
     // console.log('location:', location);
     // console.log('WS STATUS: ', status);
     console.log('number: ', number);
     // console.log('order:', order);
-    // console.log('currentOrder:', currentOrder);
 
 
     // --------------- INGREDIENT STRIPE ---------------
