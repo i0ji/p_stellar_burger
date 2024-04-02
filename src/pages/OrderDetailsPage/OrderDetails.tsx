@@ -6,12 +6,13 @@ import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-
 import Thumbnail from "common/Thumbnail/Thumbnail.tsx";
 
 import {useSelector} from "hooks/reduxHooks.ts";
-import {useLocation} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 
 export default function OrderDetails() {
 
     // --------------- NAVIGATION & BACKGROUND ---------------
 
+    const {number} = useParams();
 
     const location = useLocation();
 
@@ -47,7 +48,7 @@ export default function OrderDetails() {
     // console.log('number:', location.pathname.replace('/feed/',''));
     // console.log('location:', location);
     // console.log('WS STATUS: ', status);
-    // console.log('number: ', number)
+    console.log('number: ', number);
     // console.log('order:', order);
     // console.log('currentOrder:', currentOrder);
 

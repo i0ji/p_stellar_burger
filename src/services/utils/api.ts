@@ -1,5 +1,5 @@
 import {createAsyncThunk, Dispatch} from "@reduxjs/toolkit";
-import {BASE_URL, ORDER_URL} from "declarations/routs.ts";
+import {BASE_URL} from "declarations/routs.ts";
 import {setAuthChecked, setUser} from "slices/authSlice.ts";
 import {checkResponse} from "utils/check-response.ts";
 import {IIngredient, IRegisterUser, IUserData} from "declarations/interfaces";
@@ -86,20 +86,11 @@ export const getUserData = createAsyncThunk<IUserData, void>(
 
 // --------------- GET CONCRETE ORDER ---------------
 
-export const getConcreteOrder = async (URL: string): Promise<TApiResponse<TOrder> | null> => {
-    try {
-        const response = await fetch(`${ORDER_URL}/${URL}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        return await checkResponse(response);
-    } catch (error) {
-        console.log('Ошибка при поиске заказа');
-        return null;
-    }
+export const getConcreteOrder = async (number: string | number): Promise<TOrder | unknown> => {
+    const response = await fetch(`${BASE_URL}/orders/${number}`);
+    const data = await checkResponse<TOrder>(response);
+    if (data) return data;
+    throw new Error('Ошибка при загрузке заказа!');
 }
 
 
