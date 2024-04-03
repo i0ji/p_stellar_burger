@@ -75,7 +75,9 @@ export default function OrderDetails({isDirect}: { isDirect: boolean }) {
 
     // --------------- CONSOLE ---------------
 
-    console.log(orderIngredients.length)
+    // console.log(orderIngredients.length)
+    console.log('KEY: ', location.key);
+    console.log('PATHNAME: ', location.pathname);
     // console.log('isDirect: ', isDirect);
     // console.log('currentOrder:', currentOrder);
     // console.log('pathname:', location.pathname);

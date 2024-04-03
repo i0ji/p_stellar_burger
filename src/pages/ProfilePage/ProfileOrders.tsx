@@ -1,13 +1,18 @@
 import styles from "./ProfilePage.module.scss";
+
+import {WS_URL} from "declarations/routs.ts";
+import {wsClose, wsConnect} from "services/orderFeed/actions.ts";
+import {updateCurrentOrder} from "slices/orderSlice.ts";
+
+import {TOrder} from "declarations/types";
+
+import FeedItem from "common/FeedItem/FeedItem.tsx";
+import ProfileMenu from "pages/ProfilePage/ProfileMenu.tsx";
+import Loader from "common/Loader/Loader.tsx";
+
+import {Link, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useEffect} from "react";
-import {wsClose, wsConnect} from "services/orderFeed/actions.ts";
-import {WS_URL} from "declarations/routs.ts";
-import {TOrder} from "declarations/types";
-import FeedItem from "common/FeedItem/FeedItem.tsx";
-import {Link, useLocation} from "react-router-dom";
-import Loader from "common/Loader/Loader.tsx";
-import {updateCurrentOrder} from "slices/orderSlice.ts";
 
 export default function ProfileOrders() {
 
@@ -54,19 +59,22 @@ export default function ProfileOrders() {
     }
 
     return (
-        <div className={`${styles.profile_orders} ${modalBackground}`}>
-            {
-                ordersList && reversedOrdersData.map((currentOrder: TOrder, i: number) =>
-                    <Link
-                        key={i}
-                        to={`profile/orders/${currentOrder.number}`}
-                        state={{background: location}}
-                        onClick={() => onUpgradeCurrentOrder(currentOrder)}
-                    >
-                        <FeedItem currentOrder={currentOrder}/>
-                    </Link>
-                )
-            }
-        </div>
+        <section className={styles.profile_section}>
+            <ProfileMenu/>
+            <div className={`${styles.profile_orders} ${modalBackground}`}>
+                {
+                    ordersList && reversedOrdersData.map((currentOrder: TOrder, i: number) =>
+                        <Link
+                            key={i}
+                            to={`${currentOrder.number}`}
+                            state={{background: location}}
+                            onClick={() => onUpgradeCurrentOrder(currentOrder)}
+                        >
+                            <FeedItem currentOrder={currentOrder}/>
+                        </Link>
+                    )
+                }
+            </div>
+        </section>
     )
 }

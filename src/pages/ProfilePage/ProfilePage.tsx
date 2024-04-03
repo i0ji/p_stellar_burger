@@ -1,7 +1,6 @@
 import styles from "./ProfilePage.module.scss";
 
-import {Link, useNavigate} from "react-router-dom";
-import {getUserData, updateUserData, logoutUser} from "utils/api.ts";
+import {getUserData, updateUserData} from "utils/api.ts";
 
 import {TInputElementType} from "declarations/types";
 import {IForm} from "declarations/interfaces";
@@ -13,6 +12,7 @@ import {ProfileOrders} from "pages/index.ts";
 
 import Loader from "common/Loader/Loader.tsx";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
+import ProfileMenu from "pages/ProfilePage/ProfileMenu.tsx";
 
 export default function ProfilePage() {
 
@@ -22,7 +22,7 @@ export default function ProfilePage() {
     const authStatus = useSelector(state => state.authSlice.status);
     const userData = useSelector(state => state.authSlice.userData);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+
     // --------------- FORM HOOKS
     const {values, handleChange, setValues} = useForm<IForm>({});
     const [showUpdateButtons, setShowUpdateButtons] = useState<boolean>(false);
@@ -44,8 +44,6 @@ export default function ProfilePage() {
     // --------------- LOADER CONDITION
     const renderCondition = useSelector(state => state.orderFeed.orders).orders.length !== 1;
 
-    const refreshToken = localStorage.getItem('refreshToken');
-    const isActive = location.pathname === '/profile'
 
     // --------------- BUTTON APPEARANCE ---------------
 
@@ -67,11 +65,6 @@ export default function ProfilePage() {
         }
     }, [isEditing, editingField]);
 
-    //  --------------- LOGOUT
-    const handleLogout = () => {
-        dispatch(logoutUser(refreshToken));
-        navigate('/');
-    };
     //  --------------- EDIT ---------------
     const handleEditIconClick = (fieldName: string) => {
         if (!isEditing) {
@@ -103,7 +96,6 @@ export default function ProfilePage() {
         }, 250);
     };
 
-
     //  --------------- LOADER ---------------
 
     if (!userData || (authStatus === 'loading') && renderCondition) {
@@ -113,54 +105,12 @@ export default function ProfilePage() {
     return (
         <section className={styles.profile_section}>
 
-            <div className={styles.profile_buttons}>
-                <Link
-                    to='/profile'
-                    className={`mb-10 `}
-                >
-                    <Button
-                        extraClass={`text text_type_main-medium ${isActive ? styles.isActive : ''}`}
-                        htmlType="button"
-                        type="secondary"
-                        size="medium"
-                    >
-                        Профиль
-                    </Button>
-                </Link>
-                <Link
-                    to='/profile/orders'
-                    className={`mb-10 `}
-                >
-                    <Button
-                        extraClass={`text text_type_main-medium ${!isActive ? styles.isActive : ''}`}
-                        htmlType="button"
-                        type="secondary"
-                        size="medium"
-                    >
-                        История заказов
-                    </Button>
-                </Link>
-                <Link
-                    to='/'
-                    className={`mb-10`}
-                >
-                    <Button
-                        extraClass={`text text_type_main-medium`}
-                        htmlType="button"
-                        type="secondary"
-                        size="medium"
-                        onClick={handleLogout}
-                    >
-                        Выход
-                    </Button>
-                </Link>
-                <p>В этом разделе вы можете изменить свои персональные данные</p>
-            </div>
+            <ProfileMenu/>
 
             <div className={styles.profile_content}>
 
                 {location.pathname === '/profile/orders' ? <ProfileOrders/> :
-                    <form>
+                    <form className={styles.profile_form}>
                         <div>
                             <Input
                                 type={'text'}

@@ -68,21 +68,27 @@ export default function App() {
                 <Route path="ingredient/:id" element={<IngredientDetails/>}/>
 
                 {/*SPRINT 5 NEW ROUTES*/}
-                <Route path="feed" element={<FeedPage/>}>
-                    {/*<Route path="/feed/:number" element={<OrderDetails isDirect={true}/>}/>*/}
-                </Route>
+                <Route path="feed" element={<FeedPage/>}/>
                 <Route path="feed/:number" element={<OrderDetails isDirect={true}/>}/>
 
-                <Route path="profile/" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}>
-                    <Route path="orders" element={<ProtectedRoute unAuth={false} component={<ProfileOrders/>}/>}>
-                        {/*<Route path="profile/orders/:number"*/}
-                        {/*       element={<ProtectedRoute unAuth={false} component={<OrderDetails isDirect={true}/>}/>}/>*/}
-                    </Route>
-                    {/*<Route path="orders/:number"*/}
-                    {/*       element={<ProtectedRoute unAuth={false} component={<OrderDetails isDirect={true}/>}/>}/>*/}
+                <Route
+                    path="profile"
+                    element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}
+                >
+
                 </Route>
-                <Route path="profiles/orders/:number"
-                       element={<ProtectedRoute unAuth={false} component={<OrderDetails isDirect={true}/>}/>}/>
+
+                <Route
+                    path="profile/orders"
+                    element={<ProtectedRoute unAuth={false} component={<ProfileOrders/>}/>}
+                />
+
+                <Route
+                    path="profile/orders/:number"
+                    element={<ProtectedRoute unAuth={false} component={<OrderDetails isDirect={true}/>}/>}
+                />
+
+
 
                 {/*SPRINT 5 NEW ROUTES*/}
 
@@ -123,7 +129,7 @@ export default function App() {
             {
                 background && (
                     <Routes>
-                        <Route path="profile/orders/:number"
+                        <Route path="/orders/:number"
                                element={
                                    <Modal onClose={handleCloseModal}>
                                        <OrderDetails isDirect={false}/>
