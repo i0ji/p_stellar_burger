@@ -66,7 +66,7 @@ export default function ProfileOrders() {
                     ordersList && reversedOrdersData.map((currentOrder: TOrder, i: number) =>
                         <Link
                             key={i}
-                            to={`${currentOrder.number}`}
+                            to={`/profile/orders/${currentOrder.number}`}
                             state={{background: location}}
                             onClick={() => onUpgradeCurrentOrder(currentOrder)}
                         >

@@ -47,7 +47,7 @@ export default function App() {
         dispatch(getUserData());
     }, [dispatch, accessToken]);
 
-    console.log('v:0.1.9.6.7');
+    console.log('v:0.1.9.7.0');
 
 
     // --------------- LOADER ---------------
@@ -74,9 +74,7 @@ export default function App() {
                 <Route
                     path="profile"
                     element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}
-                >
-
-                </Route>
+                />
 
                 <Route
                     path="profile/orders"
@@ -87,9 +85,6 @@ export default function App() {
                     path="profile/orders/:number"
                     element={<ProtectedRoute unAuth={false} component={<OrderDetails isDirect={true}/>}/>}
                 />
-
-
-
                 {/*SPRINT 5 NEW ROUTES*/}
 
                 <Route path="login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
@@ -129,7 +124,7 @@ export default function App() {
             {
                 background && (
                     <Routes>
-                        <Route path="/orders/:number"
+                        <Route path="profile/orders/:number"
                                element={
                                    <Modal onClose={handleCloseModal}>
                                        <OrderDetails isDirect={false}/>
