@@ -1,7 +1,7 @@
 import styles from "./BurgerIngredientsStyles.module.scss"
 
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientGroup from "components/BurgerIngredients/IngredientGroup/IngredientGroup.tsx";
+import IngredientGroup from "./IngredientGroup/IngredientGroup.tsx";
 
 import React, {useRef, useEffect, useMemo, useState} from "react";
 import {useSelector} from "hooks/reduxHooks.ts";

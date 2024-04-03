@@ -1,8 +1,8 @@
-import styles from "./WarningMessage.module.scss"
+import styles from "./WarningMessageStyles.module.scss"
 
 import {Link} from "react-router-dom";
 
-import Modal from "common/Modal/Modal.tsx";
+import {Modal} from "components/index.ts";
 
 export default function WarningMessage({onClose}: { onClose: () => void }) {
 

@@ -21,7 +21,10 @@ export default defineConfig({
             services: "/src/services",
             interfaces: "/src/utils/interfaces",
             declarations: "/src/services/declarations",
+            profile: "/src/pages/ProfilePage",
             src: ".",
+            ingredients: "/src/pages/IngredientDetailsPage",
+            orders: "/src/pages/OrderDetailsPage",
         }
     },
 })

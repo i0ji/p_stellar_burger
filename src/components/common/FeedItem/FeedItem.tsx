@@ -5,7 +5,7 @@ import {useSelector} from "hooks/reduxHooks.ts";
 import {TOrder} from "declarations/types";
 import {IIngredient} from "declarations/interfaces";
 
-import Thumbnail from "common/Thumbnail/Thumbnail.tsx";
+import {Thumbnail} from "components/index.ts";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 
 export default function FeedItem({currentOrder}: { currentOrder: TOrder | undefined }) {

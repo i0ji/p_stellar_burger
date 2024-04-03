@@ -5,9 +5,12 @@ import {HTML5Backend} from "react-dnd-html5-backend";
 
 import {IBurgerState} from "declarations/interfaces";
 
-import Loader from "common/Loader/Loader.tsx";
-import BurgerIngredients from "components/BurgerIngredients/BurgerIngredients.tsx";
-import BurgerConstructor from "components/BurgerConstructor/BurgerConstructor.tsx";
+import {
+    Loader,
+    BurgerIngredients,
+    BurgerConstructor
+} from "components/index.ts";
+
 
 import {useSelector} from "hooks/reduxHooks.ts";
 

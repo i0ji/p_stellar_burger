@@ -6,9 +6,11 @@ import {updateCurrentOrder} from "slices/orderSlice.ts";
 
 import {TOrder} from "declarations/types";
 
-import FeedItem from "common/FeedItem/FeedItem.tsx";
-import ProfileMenu from "pages/ProfilePage/ProfileMenu.tsx";
-import Loader from "common/Loader/Loader.tsx";
+import {
+    Loader,
+    FeedItem
+} from "components/index.ts"
+import ProfileMenu from "./ProfileMenu.tsx";
 
 import {Link, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";

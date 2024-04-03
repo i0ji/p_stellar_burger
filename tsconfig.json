@@ -27,11 +27,17 @@
       "src/*" : ["./*"],
       "store/*": ["store/*"],
       "components/*" : ["components/*"],
-      "pages/*" : ["pages/*"],
+
       "common/*": ["components/common/*"],
 
       /* ------ MODAL */
       "modal/*": ["components/Modal/*"],
+
+      /* ------ PAGES */
+      "pages/*" : ["pages/*"],
+      "profile/*": ["pages/ProfilePage/*"],
+      "ingredients/*": ["pages/IngredientDetailsPage/*"],
+      "orders/*": ["pages/OrderDetailsPage/*"],
 
       /* ------ HOOK */
       "hooks/*": ["services/hooks/*"],

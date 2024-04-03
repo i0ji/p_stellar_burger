@@ -8,11 +8,12 @@ import {IForm} from "declarations/interfaces";
 import {useForm} from "hooks/useForm.ts";
 import {useState, useRef, useEffect} from "react";
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
-import {ProfileOrders} from "pages/index.ts";
+import ProfileOrders from "./ProfileOrders.tsx";
+import ProfileMenu from "./ProfileMenu.tsx";
 
-import Loader from "common/Loader/Loader.tsx";
+import {Loader} from "components/index.ts";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import ProfileMenu from "pages/ProfilePage/ProfileMenu.tsx";
+
 
 export default function ProfilePage() {
 

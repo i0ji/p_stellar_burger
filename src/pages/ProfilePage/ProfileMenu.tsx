@@ -1,12 +1,11 @@
-import styles from "pages/ProfilePage/ProfilePage.module.scss";
+import styles from "profile/ProfilePage.module.scss";
 
-import {Link, useNavigate} from "react-router-dom";
 import {logoutUser} from "utils/api.ts";
 
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 
+import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "hooks/reduxHooks.ts";
-
 
 export default function ProfileMenu() {
     const navigate = useNavigate();

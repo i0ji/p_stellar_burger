@@ -12,8 +12,6 @@ import React, {useState} from "react";
 import {useDispatch} from "hooks/reduxHooks.ts";
 import {useForm} from "hooks/useForm.ts";
 
-
-
 export default function RegisterPage() {
 
     const dispatch = useDispatch();

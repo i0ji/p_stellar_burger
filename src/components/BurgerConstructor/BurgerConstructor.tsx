@@ -9,10 +9,12 @@ import {addIngredient, reorderIngredients} from "slices/constructorSlice.ts";
 import {updateIds, updateOrderNumber} from "slices/orderSlice.ts";
 
 import {ConstructorElement, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
-import CurrentIngredients from "components/BurgerConstructor/CurrentIngredients/CurrentIngredients.tsx";
-import OrderDetails from "common/Modal/OrderDetails/OrderDetails.tsx";
-import Loader from "common/Loader/Loader.tsx";
-import WarningMessage from "common/WarningMessage/WarningMessage.tsx";
+import CurrentIngredients from "./CurrentIngredients/CurrentIngredients.tsx";
+import {
+    Loader,
+    OrderAcceptance,
+    WarningMessage
+} from "components/index.ts";
 
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import useModal from "hooks/useModal.ts";
@@ -78,7 +80,6 @@ export default function BurgerConstructor() {
             />
         )
     }
-
 
     // --------------- PREVENT FROM ORDER ---------------
 
@@ -210,7 +211,6 @@ export default function BurgerConstructor() {
                         )}
                     </div>}
 
-
                 {/* --------------- PRICE --------------- */}
 
                 <div className={`mt-4 ${styles.price_info}`}>
@@ -232,7 +232,7 @@ export default function BurgerConstructor() {
                             htmlType="button"
                             onClick={handleOrder}
                         >
-                            Оформить заказ
+                            {isAuth ? 'Оформить заказ' : 'Войти в Аккаунт'}
                         </Button>
                     </div>
                 </div>
@@ -244,7 +244,10 @@ export default function BurgerConstructor() {
 
                 {isLoaded === 'failed' && <WarningMessage onClose={closeModal}/>}
 
-                {(isLoaded === 'succeeded') && isVisible && <OrderDetails onClose={closeModal}/>}
+                {(isLoaded === 'succeeded') && isVisible && <OrderAcceptance onClose={closeModal}/>
+
+                }
+
 
             </div>
 

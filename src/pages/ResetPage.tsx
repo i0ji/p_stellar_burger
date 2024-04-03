@@ -10,7 +10,6 @@ import {useNavigate} from "react-router-dom";
 
 export default function ResetPage() {
 
-
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');
     const navigate = useNavigate();
@@ -22,7 +21,7 @@ export default function ResetPage() {
     };
 
     const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         if (name === 'password') {
             setPassword(value);
         } else if (name === 'token') {

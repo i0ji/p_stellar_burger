@@ -3,7 +3,7 @@ import styles from "./OrderDetails.module.scss"
 import {IIngredient} from "declarations/interfaces";
 
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
-import Thumbnail from "common/Thumbnail/Thumbnail.tsx";
+import {Thumbnail} from "components/index.ts";
 
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useLocation, useParams} from "react-router-dom";

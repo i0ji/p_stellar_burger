@@ -1,13 +1,13 @@
 import styles from "pages/Pages.module.scss";
 
 import {forgotPassword} from "utils/api.ts";
-import {Link, useNavigate} from "react-router-dom";
 
 import {IForm} from "declarations/interfaces";
 
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
+import {Link, useNavigate} from "react-router-dom";
 import {useForm} from "hooks/useForm.ts";
 import {useDispatch} from "hooks/reduxHooks.ts";
 

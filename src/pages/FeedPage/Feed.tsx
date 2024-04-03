@@ -1,14 +1,16 @@
 import styles from "./Feed.module.scss"
 
-import {Link, useLocation} from "react-router-dom";
 import {WS_URL} from "declarations/routs.ts";
 import {updateCurrentOrder} from "slices/orderSlice.ts";
 
 import {TOrder} from "declarations/types";
 
-import FeedItem from "common/FeedItem/FeedItem.tsx";
-import Loader from "common/Loader/Loader.tsx";
+import {
+    Loader,
+    FeedItem
+} from "components/index.ts";
 
+import {Link, useLocation} from "react-router-dom";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {wsClose, wsConnect} from "services/orderFeed/actions.ts";

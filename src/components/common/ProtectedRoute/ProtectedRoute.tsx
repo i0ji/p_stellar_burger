@@ -1,6 +1,6 @@
 import React from "react";
 
-import Loader from "common/Loader/Loader.tsx";
+import {Loader} from "components/index.ts";
 
 import {useSelector} from "hooks/reduxHooks.ts";
 import {Navigate, useLocation} from "react-router-dom";

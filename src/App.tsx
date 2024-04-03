@@ -4,9 +4,12 @@ import {Routes, Route, useNavigate} from 'react-router-dom';
 import {ProtectedRoute} from "common/ProtectedRoute/ProtectedRoute.tsx"
 import {checkUserAuth, getUserData, getIngredients} from "utils/api.ts";
 
-import AppHeader from "components/AppHeader/AppHeader.tsx";
-import Loader from "common/Loader/Loader.tsx";
-import Modal from "common/Modal/Modal.tsx";
+import {
+    AppHeader,
+    Loader,
+    Modal,
+} from "components/index.ts"
+
 import {
     LoginPage,
     HomePage,
@@ -37,6 +40,7 @@ export default function App() {
     const navigate = useNavigate();
     const ingredientsStatus = useSelector(state => state.ingredients.status);
     const accessToken = localStorage.getItem('accessToken');
+    // --------------- HANDLE CLOSE MODAL
     const handleCloseModal = useCallback(() => {
         navigate(-1);
     }, [navigate]);

@@ -1,4 +1,4 @@
-import styles from "./Thumbnail.module.scss"
+import styles from "./ThumbnailStyles.module.scss"
 
 export default function Thumbnail(
     {image, count, isLast}: { image: string | undefined, count: number | null, isLast: boolean }
