@@ -57,7 +57,7 @@ export default function App() {
     // --------------- LOADER ---------------
 
     if (ingredientsStatus == 'loading') {
-        return <Loader/>;
+        return <Loader description={'Загрузка...'}/>;
     }
 
     return (

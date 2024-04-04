@@ -15,13 +15,14 @@ import {useEffect} from "react";
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {wsClose, wsConnect} from "services/orderFeed/actions.ts";
 
+
 export default function Feed() {
 
 
     // --------------- VARS/STATES ---------------
 
     const dispatch = useDispatch();
-
+    const renderCondition = useSelector(state => state.orderFeed.orders).orders.length !== 1;
 
     // --------------- NAVIGATION ---------------
 
@@ -42,7 +43,6 @@ export default function Feed() {
     // --------------- STATUS
     const status = useSelector(state => state.orderFeed.status);
     // --------------- LOADER CONDITION
-    const renderCondition = useSelector(state => state.orderFeed.orders).orders.length !== 1;
 
     const ordersData = ordersList.orders;
     const totalToday = ordersList.totalToday;
@@ -73,7 +73,7 @@ export default function Feed() {
     // --------------- LOADER ---------------
 
     if (status !== 'ONLINE' && renderCondition) {
-        return <Loader/>
+        return <Loader description={'Проверяем заказы...'}/>
     }
 
     return (
@@ -85,6 +85,9 @@ export default function Feed() {
 
                 <div className={styles.feed_list}>
                     <>
+
+                        {!renderCondition && <Loader description={'Заказы загружаются!'}/>}
+
                         {
                             ordersList && ordersData.map((currentOrder: TOrder, i: number) =>
                                 <Link

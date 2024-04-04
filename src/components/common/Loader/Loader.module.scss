@@ -3,4 +3,22 @@
 
 .loader {
   @include modal_loader_overlay;
+
+  &_content {
+    background-color: $bg_modal;
+    position: absolute;
+    z-index: 500;
+    left: calc(50% - 200px);
+    top: calc(50% - 150px);
+    width: 400px;
+    height: 300px;
+    border-radius: 40px;
+    @include flex_center;
+    flex-direction: column;
+
+    h1 {
+      text-align: center;
+      color: $theme_white;
+    }
+  }
 }

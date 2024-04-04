@@ -240,7 +240,7 @@ export default function BurgerConstructor() {
 
                 {/* -------------- MODAL + PRELOADER --------------- */}
 
-                {(isLoaded === 'loading') && !hasError && <Loader/>}
+                {(isLoaded === 'loading') && !hasError && <Loader description={'Оформляем заказа...'}/>}
 
                 {isLoaded === 'failed' && <WarningMessage onClose={closeModal}/>}
 

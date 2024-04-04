@@ -51,7 +51,7 @@ export default function LoginPage() {
     };
 
     if (userAuth) {
-        return <Loader/>;
+        return <Loader description={'Проходим фейсконтроль...'}/>;
     }
 
     return (

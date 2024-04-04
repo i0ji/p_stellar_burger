@@ -18,7 +18,6 @@
   color: $theme_white;
 
   border-radius: 40px;
-  @include box_shadow;
 
   &_title {
     width: 80%;
@@ -67,14 +66,14 @@
   }
 }
 
-.modal_background {
-  @include modal_background;
-}
-
 .status {
   position: absolute;
   left: 50%;
   top: 50%;
 
   font-size: 30px;
+}
+
+.modal_background {
+  @include modal_background;
 }

@@ -53,7 +53,7 @@ export default function ProfileOrders() {
     // --------------- READY ORDERS
 
     if (status !== 'ONLINE') {
-        return <Loader/>
+        return <Loader description={'Ищем заказы...'}/>
     }
 
     const onUpgradeCurrentOrder = (order: TOrder) => {

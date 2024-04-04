@@ -5,7 +5,7 @@
   position: fixed;
 
   left: calc(50% - 360px);
-  top: calc(50% - 320px);
+  top: calc(50% - 310px);
 
   display: flex;
   flex-direction: column;
@@ -17,7 +17,6 @@
   color: $theme_white;
 
   border-radius: 40px;
-  @include box_shadow;
 
   &_header {
     width: 100%;

@@ -100,7 +100,7 @@ export default function ProfilePage() {
     //  --------------- LOADER ---------------
 
     if (!userData || (authStatus === 'loading') && renderCondition) {
-        return <Loader/>;
+        return <Loader description={'Загрузка Ваших заказов...'}/>;
     }
 
     return (

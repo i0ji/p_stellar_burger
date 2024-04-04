@@ -14,7 +14,7 @@ export const ProtectedRoute = ({unAuth = false, component}: { unAuth: boolean, c
     // --------------- LOADER ---------------
 
     if (!isAuthChecked) {
-        return <Loader/>
+        return <Loader description={'Проверяем документы...'}/>
     }
 
     if (unAuth && user) {

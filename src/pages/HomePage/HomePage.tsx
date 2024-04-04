@@ -24,7 +24,7 @@ export default function HomePage() {
 
     // --------------- STATUSES ---------------
     if (burgerStatus === 'loading') {
-        return <Loader/>;
+        return <Loader description={'Загрузка...'}/>;
     }
 
     if (burgerStatus === 'failed') {
@@ -32,7 +32,7 @@ export default function HomePage() {
     }
 
     if (authStatus === 'loading') {
-        return <Loader/>;
+        return <Loader description={'Загрузка...'}/>;
     }
 
     return (

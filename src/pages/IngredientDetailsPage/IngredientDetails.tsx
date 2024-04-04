@@ -31,7 +31,7 @@ export default function IngredientDetails() {
     // --------------- STATUSES ---------------
 
     if (status === 'loading') {
-        return <Loader/>;
+        return <Loader description={'Проверяем ингредиенты...'}/>;
     }
 
     if (status === 'failed') {
