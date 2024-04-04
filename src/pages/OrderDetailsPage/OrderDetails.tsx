@@ -7,11 +7,14 @@ import {Thumbnail} from "components/index.ts";
 
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useLocation, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {getConcreteOrder} from "utils/api.ts";
+import {updateCurrentOrder} from "slices/orderSlice.ts";
 
-export default function OrderDetails({isDirect}: { isDirect: boolean }) {
+export default function OrderDetails() {
 
+
+    const dispatch = useDispatch();
 
     // --------------- NAVIGATION & BACKGROUND ---------------
 
@@ -24,17 +27,16 @@ export default function OrderDetails({isDirect}: { isDirect: boolean }) {
 
     // --------------- GET ORDER ---------------
 
-    const dispatch = useDispatch();
 
-    const [directOrder, setDirectOrder] = useState();
-
+    const currentOrder = useSelector(state => state.orderSlice.currentOrder);
 
     useEffect(() => {
-        if (isDirect) {
+        if (currentOrder.number == null) {
+            console.log('USE EFFECT START')
             const fetchOrder = async () => {
                 try {
                     const fetchedOrder = await getConcreteOrder(`${number}`);
-                    setDirectOrder(fetchedOrder.orders[0])
+                    dispatch(updateCurrentOrder(fetchedOrder.orders[0]))
                 } catch (error) {
                     console.error('Произошла ошибка при загрузке заказа:', error);
                 }
@@ -43,11 +45,7 @@ export default function OrderDetails({isDirect}: { isDirect: boolean }) {
             fetchOrder();
         }
 
-    }, [dispatch, isDirect, number]);
-
-    const wsOrder = useSelector(state => state.orderSlice.currentOrder);
-
-    const currentOrder = isDirect ? directOrder : wsOrder;
+    },);
 
 
     // --------------- ORDER DATA ---------------
@@ -76,9 +74,11 @@ export default function OrderDetails({isDirect}: { isDirect: boolean }) {
     // --------------- CONSOLE ---------------
 
     // console.log(orderIngredients.length)
-    console.log('KEY: ', location.key);
-    console.log('PATHNAME: ', location.pathname);
-    // console.log('isDirect: ', isDirect);
+    // console.log('KEY: ', location.key);
+    // console.log('PATHNAME: ', location.pathname);
+    // console.log('IS DIRECT:', isDirect);
+    // console.log('WEBSOCKET ORDER:', wsOrder);
+    // console.log('DIRECT ORDER:', directOrder);
     // console.log('currentOrder:', currentOrder);
     // console.log('pathname:', location.pathname);
     // console.log('number:', location.pathname.replace('/feed/',''));

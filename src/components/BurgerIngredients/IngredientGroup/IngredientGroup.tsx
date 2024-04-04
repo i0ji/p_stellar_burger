@@ -85,10 +85,10 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
 
                 {/* --------------- MAPPING INGREDIENTS --------------- */}
 
-                {ingredients.map((ingredientItem: IIngredient, i) => (
+                {ingredients.map((ingredientItem) => (
                     <Link
                         className={styles.ingredient_card}
-                        key={i}
+                        key={ingredientItem._id}
                         to={`/ingredient/${ingredientItem._id}`}
                         state={{background: location}}
                         onClick={() => onUpdateSelectedIngredient(ingredientItem)}

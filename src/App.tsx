@@ -51,7 +51,7 @@ export default function App() {
         dispatch(getUserData());
     }, [dispatch, accessToken]);
 
-    console.log('v:0.1.9.7.0');
+    console.log('v:0.1.9.7.1');
 
 
     // --------------- LOADER ---------------
@@ -73,7 +73,7 @@ export default function App() {
 
                 {/*SPRINT 5 NEW ROUTES*/}
                 <Route path="feed" element={<FeedPage/>}/>
-                <Route path="feed/:number" element={<OrderDetails isDirect={true}/>}/>
+                <Route path="feed/:number" element={<OrderDetails/>}/>
 
                 <Route
                     path="profile"
@@ -87,7 +87,7 @@ export default function App() {
 
                 <Route
                     path="profile/orders/:number"
-                    element={<ProtectedRoute unAuth={false} component={<OrderDetails isDirect={true}/>}/>}
+                    element={<ProtectedRoute unAuth={false} component={<OrderDetails/>}/>}
                 />
                 {/*SPRINT 5 NEW ROUTES*/}
 
@@ -118,7 +118,7 @@ export default function App() {
                         <Route path="feed/:number"
                                element={
                                    <Modal onClose={handleCloseModal}>
-                                       <OrderDetails isDirect={false}/>
+                                       <OrderDetails/>
                                    </Modal>
                                }
                         />
@@ -131,7 +131,7 @@ export default function App() {
                         <Route path="profile/orders/:number"
                                element={
                                    <Modal onClose={handleCloseModal}>
-                                       <OrderDetails isDirect={false}/>
+                                       <OrderDetails/>
                                    </Modal>
                                }
                         />
