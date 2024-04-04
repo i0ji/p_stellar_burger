@@ -24,10 +24,11 @@ import {useNavigate} from "react-router-dom";
 
 export default function BurgerConstructor() {
 
+
+    // --------------- VARS & STATES ---------------
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    // --------------- VARS/STATES ---------------
     const {addedIngredients, bun} = useSelector(state => state.constructorSlice);
     // --------------- HIGHLIGHT STATE
     const [bunAvail, setBunAvail] = useState(false);
@@ -52,6 +53,7 @@ export default function BurgerConstructor() {
     if (isBun) {
         ingredientIDs.push(isBun._id)
     }
+
     useEffect(() => {
         dispatch(updateIds(ingredientIDs));
     }, [dispatch, addedIngredients, ingredientIDs]);
@@ -137,7 +139,7 @@ export default function BurgerConstructor() {
     }
 
 
-    // --------------- ORDER NUMBER LOGIC ---------------
+    // --------------- GET ORDER NUMBER LOGIC ---------------
 
     const handleOrder = async (): Promise<void> => {
 
@@ -149,6 +151,9 @@ export default function BurgerConstructor() {
         const orderNumber = dispatch(createOrder(ingredientIDs));
         dispatch(updateOrderNumber(orderNumber.payload));
     }
+
+
+    // --------------- COMPONENT  ---------------
 
     return (
         <section

@@ -59,6 +59,10 @@ export default function CurrentIngredients({ingredient, index, moveIngredient}: 
 	
 	const opacity = isDragging ? 0 : 1
 	drag(drop(ref));
+
+
+	// --------------- COMPONENT  ---------------
+
 	return (
 		<div
 			className={CurrentIngredientsStyles.constructor_order_item}

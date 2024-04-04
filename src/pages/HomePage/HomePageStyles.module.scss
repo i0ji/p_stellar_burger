@@ -4,8 +4,6 @@
   composes: pl-4 pr-4 from global;
 
   .container {
-    //margin: 0 auto;
-    //max-width: 1240px;
     @include container_center;
 
     max-height: 80vh;

@@ -15,7 +15,7 @@ import {useDrag} from "react-dnd";
 export default function IngredientGroup({type, ingredients}: IIngredientGroupProps) {
 
 
-    // --------------- VARS/STATES ---------------
+    // --------------- VARS & STATES ---------------
 
     const dispatch = useDispatch();
     const location = useLocation();
@@ -77,27 +77,30 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
         );
     };
 
+
+    // ----------------- COMPONENT -----------------
+
     return (
         <>
             <div className={styles.ingredient_list}>
                 <h3 className="text text_type_main-medium pb-6">{type}</h3>
 
+                {
+                    ingredients.map((ingredientItem) => (
+                        <Link
+                            className={styles.ingredient_card}
+                            key={ingredientItem._id}
+                            to={`/ingredient/${ingredientItem._id}`}
+                            state={{background: location}}
+                            onClick={() => onUpdateSelectedIngredient(ingredientItem)}
+                        >
+                            <IngredientCard
+                                {...ingredientItem}
+                            />
+                        </Link>
+                    ))
+                }
 
-                {/* --------------- MAPPING INGREDIENTS --------------- */}
-
-                {ingredients.map((ingredientItem) => (
-                    <Link
-                        className={styles.ingredient_card}
-                        key={ingredientItem._id}
-                        to={`/ingredient/${ingredientItem._id}`}
-                        state={{background: location}}
-                        onClick={() => onUpdateSelectedIngredient(ingredientItem)}
-                    >
-                        <IngredientCard
-                            {...ingredientItem}
-                        />
-                    </Link>
-                ))}
             </div>
         </>
     );

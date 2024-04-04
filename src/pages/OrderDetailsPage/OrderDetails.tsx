@@ -1,6 +1,6 @@
 import styles from "./OrderDetails.module.scss"
 
-import {IIngredient, IIngredientsWithQuantity} from "declarations/interfaces";
+import {IIngredientsWithQuantity} from "declarations/interfaces";
 
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Loader, Thumbnail} from "components/index.ts";
@@ -10,13 +10,19 @@ import {useLocation, useParams} from "react-router-dom";
 import {useEffect} from "react";
 import {getConcreteOrder} from "utils/api.ts";
 import {updateCurrentOrder} from "slices/orderSlice.ts";
+import {calculateTotalPrice, getIngredientsWithQuantity} from "utils/currentOrderCalculation.ts";
 
 export default function OrderDetails() {
 
 
-    // --------------- NAVIGATION & BACKGROUND ---------------
+    // --------------- VARS & STATES ---------------
 
     const dispatch = useDispatch();
+
+
+    // --------------- NAVIGATION & BACKGROUND ---------------
+
+
 
     const currentOrder = useSelector(state => state.orderSlice.currentOrder);
 
@@ -33,7 +39,6 @@ export default function OrderDetails() {
 
     useEffect(() => {
         if (currentOrder.number == null) {
-            console.log('USE EFFECT START')
             const fetchOrder = async () => {
                 try {
                     const fetchedOrder = await getConcreteOrder(`${number}`);
@@ -46,6 +51,7 @@ export default function OrderDetails() {
             fetchOrder();
         }
     },);
+
 
     // --------------- ORDER DATA ---------------
 
@@ -66,46 +72,16 @@ export default function OrderDetails() {
 
     if (!orderIngredientIDs) {
         return (
-            <>
-                <Loader description={'Ждём заказ...'}/>
-            </>
+            <Loader description={'Ждём заказ...'}/>
         )
     }
 
 
     // --------------- INGREDIENT QTY & PRICE CALCULATION ---------------
 
-    const ingredientCounts: { [key: string]: number } = {};
+    const ingredientsWithQuantity = getIngredientsWithQuantity(orderIngredientIDs, ingredientsData);
 
-    orderIngredientIDs.forEach(order => {
-        ingredientCounts[order] = (ingredientCounts[order] || 0) + 1;
-    });
-
-    const ingredientsWithQuantity: { ingredient: IIngredient, qty: number }[] = [];
-
-    if (orderIngredientIDs) {
-        ingredientsData.forEach(ingredient => {
-            if (orderIngredientIDs.includes(ingredient._id as string)) {
-                let qty = ingredientCounts[ingredient._id as string];
-
-                if (ingredient.type === 'bun') {
-                    qty = 2;
-                }
-
-                ingredientsWithQuantity.push({ingredient, qty});
-            }
-        });
-    }
-
-    let totalOrderPrice = 0;
-
-    ingredientsWithQuantity.forEach(item => {
-
-        const itemPrice = item.ingredient.price;
-
-        totalOrderPrice += itemPrice * item.qty;
-    });
-
+    const totalOrderPrice = calculateTotalPrice(ingredientsWithQuantity);
 
     // --------------- INGREDIENT INFO ---------------
 

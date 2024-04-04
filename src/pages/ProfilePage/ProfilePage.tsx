@@ -18,7 +18,7 @@ import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components"
 export default function ProfilePage() {
 
 
-    // --------------- VARS/STATES ---------------
+    // --------------- VARS & STATES ---------------
 
     const authStatus = useSelector(state => state.authSlice.status);
     const userData = useSelector(state => state.authSlice.userData);

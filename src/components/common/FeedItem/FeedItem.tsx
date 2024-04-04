@@ -6,8 +6,7 @@ import {TOrder} from "declarations/types";
 
 import {Thumbnail, Loader} from "components/index.ts";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
-import {IIngredient} from "declarations/interfaces";
-
+import {calculateTotalPrice, getIngredientsWithQuantity} from "utils/currentOrderCalculation.ts";
 
 export default function FeedItem({currentOrder}: { currentOrder: TOrder | undefined }) {
 
@@ -20,9 +19,10 @@ export default function FeedItem({currentOrder}: { currentOrder: TOrder | undefi
     }
 
 
-    // --------------- VARS/STATES ---------------
+    // --------------- VARS & STATES ---------------
 
     const orderIngredientIDs = currentOrder.ingredients;
+
     if (!orderIngredientIDs) {
         return (
             <Loader description={'Please stand by...'}/>
@@ -37,39 +37,16 @@ export default function FeedItem({currentOrder}: { currentOrder: TOrder | undefi
 
     const ingredientCounts: { [key: string]: number } = {};
 
-    let totalOrderPrice = 0;
-
-
     // --------------- CALCULATING PRICE ---------------
 
     orderIngredientIDs?.forEach(order => {
         ingredientCounts[order] = (ingredientCounts[order] || 0) + 1;
     });
 
-    const ingredientsWithQuantity: { ingredient: IIngredient, qty: number }[] = [];
 
-    if (orderIngredientIDs) {
-        ingredientsData.forEach(ingredient => {
-            if (orderIngredientIDs.includes(ingredient._id as string)) {
-                let qty = ingredientCounts[ingredient._id as string];
+    const ingredientsWithQuantity = getIngredientsWithQuantity(orderIngredientIDs, ingredientsData)
 
-                if (ingredient.type === 'bun') {
-                    qty = 2;
-                }
-
-                ingredientsWithQuantity.push({ingredient, qty});
-            }
-        });
-    }
-
-
-    ingredientsWithQuantity.forEach(item => {
-
-        const itemPrice = item.ingredient.price;
-
-        totalOrderPrice += itemPrice * item.qty;
-    });
-
+    const totalOrderPrice = calculateTotalPrice(ingredientsWithQuantity);
 
     // --------------- DATE
     const OrderDate = () => {
@@ -98,7 +75,6 @@ export default function FeedItem({currentOrder}: { currentOrder: TOrder | undefi
                     <div className={`${styles.feed_item_ingredients} pt-6 pb-6`}>
 
                         <div className={styles.ingredients_thumbnail}>
-
                             {
                                 orderIngredients.slice(0, 5).map(
                                     (elem, i: number) =>
@@ -122,7 +98,6 @@ export default function FeedItem({currentOrder}: { currentOrder: TOrder | undefi
                             </p>
                             <CurrencyIcon type={"primary"}/>
                         </div>
-
                     </div>
                 </>
             }

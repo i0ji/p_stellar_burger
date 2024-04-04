@@ -7,6 +7,9 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
         return isActive ? 'active' : 'not_active';
     }
 
+
+    // --------------- COMPONENT  ---------------
+
     switch (typeFor) {
         case 'builder':
             return (

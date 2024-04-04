@@ -32,7 +32,7 @@ import {useCallback, useEffect} from "react";
 export default function App() {
 
 
-    // --------------- VARS/STATES ---------------
+    // --------------- VARS & STATES ---------------
 
     const dispatch = useDispatch();
     const location = useLocation();

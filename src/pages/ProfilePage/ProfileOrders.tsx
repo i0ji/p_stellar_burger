@@ -19,7 +19,7 @@ import {useEffect} from "react";
 export default function ProfileOrders() {
 
 
-    // --------------- VARS/STATES ---------------
+    // --------------- VARS & STATES ---------------
 
     const dispatch = useDispatch();
 

@@ -8,9 +8,17 @@ import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "hooks/reduxHooks.ts";
 
 export default function ProfileMenu() {
+
+
+    // --------------- NAVIGATION & BACKGROUND---------------
+
     const navigate = useNavigate();
+
+
+    // --------------- VARS & STATES ---------------
+
     const dispatch = useDispatch();
-    const isActive = location.pathname === '/profile'
+    const isActive = location.pathname === '/profile';
     const refreshToken = localStorage.getItem('refreshToken');
     //  --------------- LOGOUT
     const handleLogout = () => {

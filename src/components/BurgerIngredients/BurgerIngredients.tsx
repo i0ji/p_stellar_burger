@@ -15,7 +15,7 @@ enum TabValues {
 export default function BurgerIngredients() {
 
 
-    // --------------- VARS/STATES ---------------
+    // --------------- VARS & STATES ---------------
 
     const {ingredients: ingredientsData} = useSelector(state => state.ingredients);
 
@@ -87,6 +87,9 @@ export default function BurgerIngredients() {
             });
         }
     };
+
+
+    // --------------- COMPONENT  ---------------
 
     return (
         <section

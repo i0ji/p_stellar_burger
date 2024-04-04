@@ -19,7 +19,7 @@ import {wsClose, wsConnect} from "services/orderFeed/actions.ts";
 export default function Feed() {
 
 
-    // --------------- VARS/STATES ---------------
+    // --------------- VARS & STATES ---------------
 
     const dispatch = useDispatch();
     const renderCondition = useSelector(state => state.orderFeed.orders).orders.length !== 1;
