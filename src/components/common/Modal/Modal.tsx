@@ -28,6 +28,9 @@ export default function Modal({onClose, children}: {
 
     }, [onClose]);
 
+
+    // --------------- COMPONENT ---------------
+
     return (
         <>
             <div

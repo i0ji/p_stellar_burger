@@ -54,7 +54,6 @@ export default function App() {
     console.log('v:0.1.9.7.2');
 
 
-
     // --------------- LOADER ---------------
 
     if (ingredientsStatus == 'loading') {
@@ -72,9 +71,8 @@ export default function App() {
                 <Route path="reset-success" element={<SuccessPage/>}/>
                 <Route path="ingredient/:id" element={<IngredientDetails/>}/>
 
-                {/*SPRINT 5 NEW ROUTES*/}
                 <Route path="feed" element={<FeedPage/>}/>
-                <Route path="feed/:number" element={<OrderDetails/>}/>
+                <Route path="feed/:number" element={<OrderDetails isVisible={true}/>}/>
 
                 <Route
                     path="profile"
@@ -88,9 +86,9 @@ export default function App() {
 
                 <Route
                     path="profile/orders/:number"
-                    element={<ProtectedRoute unAuth={false} component={<OrderDetails/>}/>}
+                    element={<ProtectedRoute unAuth={false} component={<OrderDetails isVisible={true}/>}/>}
                 />
-                {/*SPRINT 5 NEW ROUTES*/}
+
 
                 <Route path="login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
                 <Route path="register" element={<ProtectedRoute unAuth={true} component={<RegisterPage/>}/>}/>
@@ -119,7 +117,7 @@ export default function App() {
                         <Route path="feed/:number"
                                element={
                                    <Modal onClose={handleCloseModal}>
-                                       <OrderDetails/>
+                                       <OrderDetails isVisible={true}/>
                                    </Modal>
                                }
                         />
@@ -132,7 +130,7 @@ export default function App() {
                         <Route path="profile/orders/:number"
                                element={
                                    <Modal onClose={handleCloseModal}>
-                                       <OrderDetails/>
+                                       <OrderDetails isVisible={true}/>
                                    </Modal>
                                }
                         />

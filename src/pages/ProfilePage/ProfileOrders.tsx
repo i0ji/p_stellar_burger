@@ -44,19 +44,15 @@ export default function ProfileOrders() {
 
     // --------------- STATUS
     const status = useSelector(state => state.orderFeed.status);
-
+    // --------------- DATA
     const ordersData = ordersList.orders;
-
     // --------------- CONDITION
     if (!ordersData) {
         return (
             <Loader description={'Летим за едой...'}/>
         )
     }
-
-    const reversedOrdersData = [...ordersData].reverse();
-
-
+    const reversedOrdersData: Array<TOrder> = [...ordersData].reverse();
 
 
     // --------------- READY ORDERS
@@ -65,13 +61,12 @@ export default function ProfileOrders() {
         return <Loader description={'Ищем заказы...'}/>
     }
 
-
     const onUpgradeCurrentOrder = (order: TOrder) => {
         dispatch(updateCurrentOrder(order));
     }
 
 
-
+    // --------------- COMPONENT ---------------
 
     return (
         <section className={styles.profile_section}>

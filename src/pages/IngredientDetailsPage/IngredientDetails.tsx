@@ -46,6 +46,8 @@ export default function IngredientDetails() {
     // console.log('currentOrder:', ingredient);
 
 
+    // --------------- COMPONENT ---------------
+
     return (
         <div
             className={`${styles.ingredients_details} ${modalBackground}`}
