@@ -29,6 +29,10 @@
 
     border-radius: 50%;
 
+  span {
+    z-index: 101;
+  }
+
     img {
       height: 60px;
       border-radius: 50%;
@@ -43,5 +47,5 @@
 }
 
 .img {
-  filter: brightness(50%);
+  filter: brightness(30%);
 }

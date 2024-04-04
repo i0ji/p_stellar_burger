@@ -14,7 +14,11 @@ import {updateCurrentOrder} from "slices/orderSlice.ts";
 export default function OrderDetails() {
 
 
+    // --------------- NAVIGATION & BACKGROUND ---------------
+
     const dispatch = useDispatch();
+
+    const currentOrder = useSelector(state => state.orderSlice.currentOrder);
 
     // --------------- NAVIGATION & BACKGROUND ---------------
 
@@ -26,9 +30,6 @@ export default function OrderDetails() {
 
 
     // --------------- GET ORDER ---------------
-
-
-    const currentOrder = useSelector(state => state.orderSlice.currentOrder);
 
     useEffect(() => {
         if (currentOrder.number == null) {
@@ -59,6 +60,9 @@ export default function OrderDetails() {
         const dateFromServer = `${orderDate}`;
         return <FormattedDate date={new Date(dateFromServer)}/>
     }
+
+
+    // --------------- STATUSES & CONDITIONS
 
     if (!orderIngredientIDs) {
         return (

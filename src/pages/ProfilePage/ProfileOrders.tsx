@@ -45,20 +45,30 @@ export default function ProfileOrders() {
     // --------------- STATUS
     const status = useSelector(state => state.orderFeed.status);
 
-    console.log(status);
-
     const ordersData = ordersList.orders;
-
     const reversedOrdersData = [...ordersData].reverse();
+
+    // --------------- CONDITION
+    if (!ordersData) {
+        return (
+            <Loader description={'Летим за едой...'}/>
+        )
+    }
+
+
     // --------------- READY ORDERS
 
     if (status !== 'ONLINE') {
         return <Loader description={'Ищем заказы...'}/>
     }
 
+
     const onUpgradeCurrentOrder = (order: TOrder) => {
         dispatch(updateCurrentOrder(order));
     }
+
+
+
 
     return (
         <section className={styles.profile_section}>
