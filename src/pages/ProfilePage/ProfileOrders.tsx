@@ -46,7 +46,6 @@ export default function ProfileOrders() {
     const status = useSelector(state => state.orderFeed.status);
 
     const ordersData = ordersList.orders;
-    const reversedOrdersData = [...ordersData].reverse();
 
     // --------------- CONDITION
     if (!ordersData) {
@@ -54,6 +53,10 @@ export default function ProfileOrders() {
             <Loader description={'Летим за едой...'}/>
         )
     }
+
+    const reversedOrdersData = [...ordersData].reverse();
+
+
 
 
     // --------------- READY ORDERS
