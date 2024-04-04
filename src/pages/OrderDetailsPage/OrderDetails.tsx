@@ -1,6 +1,6 @@
 import styles from "./OrderDetails.module.scss"
 
-import {IIngredient} from "declarations/interfaces";
+import {IIngredient, IIngredientsWithQuantity} from "declarations/interfaces";
 
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Thumbnail} from "components/index.ts";
@@ -61,23 +61,79 @@ export default function OrderDetails() {
         const dateFromServer = `${orderDate}`;
         return <FormattedDate date={new Date(dateFromServer)}/>
     }
-    // --------------- AMOUNT CALCULATE
-    const orderBun = orderIngredients.find(elem => elem.type === 'bun');
-    const calculateTotalAmount = (orderIngredients: IIngredient[], buns: IIngredient | undefined): number => {
-        const ingredientsPrice = orderIngredients.reduce((acc, ingredient) => acc + (ingredient?.price || 0), 0);
-        const bunPrice = buns?.price || 0;
-        return ingredientsPrice + bunPrice;
-    };
-    const orderPrice = calculateTotalAmount(orderIngredients, orderBun);
+
+
+    // --------------- INGREDIENT QTY & PRICE CALCULATION ---------------
+
+    const ingredientCounts: { [key: string]: number } = {};
+
+    orderIngredientIDs?.forEach(order => {
+        ingredientCounts[order] = (ingredientCounts[order] || 0) + 1;
+    });
+
+    const ingredientsWithQuantity: { ingredient: IIngredient, qty: number }[] = [];
+
+    if (orderIngredientIDs) {
+        ingredientsData.forEach(ingredient => {
+            if (orderIngredientIDs.includes(ingredient._id as string)) {
+                let qty = ingredientCounts[ingredient._id as string];
+
+                if (ingredient.type === 'bun') {
+                    qty = 2;
+                }
+
+                ingredientsWithQuantity.push({ingredient, qty});
+            }
+        });
+    }
+
+    let totalOrderPrice = 0;
+
+    ingredientsWithQuantity.forEach(item => {
+
+        const itemPrice = item.ingredient.price;
+
+        totalOrderPrice += itemPrice * item.qty;
+    });
+
+
+    // --------------- INGREDIENT INFO ---------------
+
+    const IngredientInfo = ({elem}: { elem: IIngredientsWithQuantity }) => {
+        return (
+            <div className={styles.order_ingredient}>
+                <Thumbnail
+                    image={elem.ingredient.image}
+                    isLast={false}
+                    count={null}
+                />
+
+                <p className="text text_type_main-default">
+                    {elem.ingredient.name}
+                </p>
+
+                <div className={styles.order_ingredient_price}>
+                    <p className="text text_type_digits-default">
+                        <span className="text text_type_digits-default">{elem.qty} X &nbsp;</span>
+                        {elem.ingredient.price}
+                    </p>
+                    <CurrencyIcon type="primary"/>
+                </div>
+            </div>
+        )
+    }
 
 
     // --------------- CONSOLE ---------------
 
     // console.log(orderIngredients.length)
+    // console.log('QTY', ingredientsWithQuantity);
+    // console.log('ALL INGREDIENTS: ',ingredientsData);
+    // console.log('ORDER IDS: ',orderIngredientIDs);
     // console.log('KEY: ', location.key);
     // console.log('PATHNAME: ', location.pathname);
     // console.log('IS DIRECT:', isDirect);
-    // console.log('WEBSOCKET ORDER:', wsOrder);
+    // console.log('WEBSOCKET ORDER:', wsOrder) ;
     // console.log('DIRECT ORDER:', directOrder);
     // console.log('currentOrder:', currentOrder);
     // console.log('pathname:', location.pathname);
@@ -86,36 +142,7 @@ export default function OrderDetails() {
     // console.log('WS STATUS: ', status);
     // console.log('number: ', number);
     // console.log('order:', order);
-
-
-    // --------------- SCROLL BEHAVIOR ---------------
-
-    // const scrollbarVisibility = (currentOrder.ingredients.length <= 3) ? 'scrollBehavior: none' : '';
-
-    // --------------- INGREDIENT STRIPE ---------------
-
-    const IngredientInfo = ({elem}: { elem: IIngredient }) => {
-        return (
-            <div className={styles.order_ingredient}>
-                <Thumbnail
-                    image={elem.image}
-                    count={null}
-                    isLast={false}
-                />
-
-                <p className="text text_type_main-default">
-                    {elem.name}
-                </p>
-
-                <div className={styles.order_ingredient_price}>
-                    <CurrencyIcon type="primary"/>
-                    <p className="text text_type_digits-default">
-                        {elem.price}
-                    </p>
-                </div>
-            </div>
-        )
-    }
+    // console.log(ingredientsWithQuantity);
 
     return (
         <div className={`${styles.order_details} ${modalBackground}`}>
@@ -138,7 +165,7 @@ export default function OrderDetails() {
                     >
                         <ul>
                             {
-                                orderIngredients.map((elem: IIngredient, i: number) =>
+                                ingredientsWithQuantity.map((elem: IIngredientsWithQuantity, i: number) =>
                                     <li key={i}>
                                         <IngredientInfo
                                             elem={elem}
@@ -149,11 +176,16 @@ export default function OrderDetails() {
                         </ul>
                     </div>
 
-                    <div className={styles.order_details_footer}>
+                    <div
+                        className={styles.order_details_footer}
+                        style={{
+                            paddingRight: `${orderIngredients.length > 3 ? '5.5%' : '3%'}`
+                        }}
+                    >
                         <OrderDate/>
                         <span className="text text_type_digits-default">
+                            {totalOrderPrice}
                             <CurrencyIcon type="primary"/>
-                            {orderPrice}
                         </span>
                     </div>
                 </>

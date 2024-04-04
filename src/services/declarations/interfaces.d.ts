@@ -70,3 +70,8 @@ export interface IUserData extends IUser {
 export interface IRegisterUser extends IRefreshData {
     user: IUser;
 }
+
+export interface IIngredientsWithQuantity {
+    ingredient: IIngredient;
+    qty: number;
+}

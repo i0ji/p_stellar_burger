@@ -3,41 +3,72 @@ import styles from "./FeedItem.module.scss"
 import {useSelector} from "hooks/reduxHooks.ts";
 
 import {TOrder} from "declarations/types";
-import {IIngredient} from "declarations/interfaces";
 
 import {Thumbnail} from "components/index.ts";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
+import {IIngredient} from "declarations/interfaces";
+
 
 export default function FeedItem({currentOrder}: { currentOrder: TOrder | undefined }) {
 
     const ingredientsData = useSelector(state => state.ingredients.ingredients);
 
+
     if (currentOrder && currentOrder.ingredients) {
 
 
-        // --------------- CALCULATION DATA ---------------
+        // --------------- VARS/STATES ---------------
 
-        const ingredients = currentOrder.ingredients;
+        const orderIngredientIDs = currentOrder.ingredients;
         // --------------- INGREDIENTS FULL DATA
-        const orderIngredients = ingredientsData.filter(elem => ingredients.includes(elem._id as string));
+        const orderIngredients = ingredientsData.filter(elem => orderIngredientIDs.includes(elem._id as string));
         // --------------- COUNTER
         const orderCount = (orderIngredients.length > 5) ? (orderIngredients.length - 5) : 1;
-        // --------------- BUN DATA
-        const orderBun = orderIngredients.find(elem => elem.type === 'bun');
-        // --------------- TOTAL AMOUNT
-        const calculateTotalAmount = (orderIngredients: IIngredient[], buns: IIngredient | undefined): number => {
-            const ingredientsTotal = orderIngredients.reduce((acc, ingredient) => acc + (ingredient?.price || 0), 0);
-            const bunTotal = buns?.price || 0;
-            return ingredientsTotal + bunTotal;
-        };
 
-        const orderPrice = calculateTotalAmount(orderIngredients, orderBun);
+        const ingredientCounts: { [key: string]: number } = {};
+
+        let totalOrderPrice = 0;
+
+
+        // --------------- CALCULATING PRICE ---------------
+
+        orderIngredientIDs?.forEach(order => {
+            ingredientCounts[order] = (ingredientCounts[order] || 0) + 1;
+        });
+
+        const ingredientsWithQuantity: { ingredient: IIngredient, qty: number }[] = [];
+
+        if (orderIngredientIDs) {
+            ingredientsData.forEach(ingredient => {
+                if (orderIngredientIDs.includes(ingredient._id as string)) {
+                    let qty = ingredientCounts[ingredient._id as string];
+
+                    if (ingredient.type === 'bun') {
+                        qty = 2;
+                    }
+
+                    ingredientsWithQuantity.push({ingredient, qty});
+                }
+            });
+        }
+
+
+
+        ingredientsWithQuantity.forEach(item => {
+
+            const itemPrice = item.ingredient.price;
+
+            totalOrderPrice += itemPrice * item.qty;
+        });
+
+
         // --------------- DATE
         const OrderDate = () => {
             const dateFromServer = currentOrder.createdAt;
 
             return dateFromServer && <FormattedDate date={new Date(dateFromServer)}/>
         }
+
 
         return (
             <div
@@ -79,7 +110,7 @@ export default function FeedItem({currentOrder}: { currentOrder: TOrder | undefi
 
                             <div className={styles.feed_item_price}>
                                 <p className="text text_type_digits-default">
-                                    {orderPrice}
+                                    {totalOrderPrice}
                                 </p>
                                 <CurrencyIcon type={"primary"}/>
                             </div>
