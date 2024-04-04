@@ -16,7 +16,7 @@
 
   margin-left: -20px;
 
-  .thumbnail_wrapper_background {
+  &_background {
     @include flex_center;
 
     width: 68px;
@@ -40,4 +40,8 @@
       position: absolute;
     }
   }
+}
+
+.img {
+  filter: brightness(50%);
 }

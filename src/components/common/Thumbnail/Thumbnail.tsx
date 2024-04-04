@@ -9,15 +9,16 @@ export default function Thumbnail(
             <div className={styles.thumbnail_wrapper_background}>
                 {
                     isLast &&
-                    <span
-                        className={`text text_type_digits-default ${styles.thumbnail_count}`}
-                    >
-                    +{count}
-                </span>
+                    <span className={`text text_type_digits-default ${styles.thumbnail_count}`}>
+                        +{count}
+                    </span>
                 }
-                <img src={image} alt=""/>
+                <img
+                    className={isLast ? styles.img : ''}
+                    src={image}
+                    alt="Ингредиент!"
+                />
             </div>
         </div>
     );
 }
-

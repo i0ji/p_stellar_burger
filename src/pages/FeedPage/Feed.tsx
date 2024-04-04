@@ -38,23 +38,38 @@ export default function Feed() {
         });
         return (() => dispatch(wsClose()));
     }, [dispatch])
+
     // --------------- ORDERS ARRAY;
     const ordersList = useSelector(state => state.orderFeed.orders);
+
     // --------------- STATUS
     const status = useSelector(state => state.orderFeed.status);
-    // --------------- LOADER CONDITION
 
+    // --------------- ORDER DATA
     const ordersData = ordersList.orders;
     const totalToday = ordersList.totalToday;
     const total = ordersList.total;
 
     // --------------- READY ORDERS
     const ordersReady = ordersData.filter((order: TOrder) => order.status === 'done').slice(0, 5);
+
     // --------------- AWAIT ORDERS
     const ordersPending = ordersData.filter((order: TOrder) => order.status === 'pending').slice(0, 5);
 
+    // --------------- ORDER DISPATCH
+    const onUpgradeCurrentOrder = (order: TOrder) => {
+        dispatch(updateCurrentOrder(order));
+    }
+
+    // --------------- LOADER ---------------
+
+    if (status !== 'ONLINE' && renderCondition) {
+        return <Loader description={'Проверяем заказы...'}/>
+    }
+
 
     // --------------- CONSOLE ---------------
+
     //console.log(location.pathname);
     // console.log('STATUS: ', status);
     // console.log(listValue);
@@ -65,16 +80,6 @@ export default function Feed() {
     // console.log(ordersData)
     // console.log(`TOTAL TODAY: ${totalToday}`);
     // console.log(`TOTAL: ${total}`);
-
-    const onUpgradeCurrentOrder = (order: TOrder) => {
-        dispatch(updateCurrentOrder(order));
-    }
-
-    // --------------- LOADER ---------------
-
-    if (status !== 'ONLINE' && renderCondition) {
-        return <Loader description={'Проверяем заказы...'}/>
-    }
 
     return (
         <section className={styles.feed}>

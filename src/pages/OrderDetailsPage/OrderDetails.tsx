@@ -3,7 +3,7 @@ import styles from "./OrderDetails.module.scss"
 import {IIngredient, IIngredientsWithQuantity} from "declarations/interfaces";
 
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Thumbnail} from "components/index.ts";
+import {Loader, Thumbnail} from "components/index.ts";
 
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useLocation, useParams} from "react-router-dom";
@@ -44,9 +44,7 @@ export default function OrderDetails() {
 
             fetchOrder();
         }
-
     },);
-
 
     // --------------- ORDER DATA ---------------
 
@@ -62,12 +60,20 @@ export default function OrderDetails() {
         return <FormattedDate date={new Date(dateFromServer)}/>
     }
 
+    if (!orderIngredientIDs) {
+        return (
+            <>
+                <Loader description={'Ждём заказ...'}/>
+            </>
+        )
+    }
+
 
     // --------------- INGREDIENT QTY & PRICE CALCULATION ---------------
 
     const ingredientCounts: { [key: string]: number } = {};
 
-    orderIngredientIDs?.forEach(order => {
+    orderIngredientIDs.forEach(order => {
         ingredientCounts[order] = (ingredientCounts[order] || 0) + 1;
     });
 
