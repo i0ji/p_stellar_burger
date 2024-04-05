@@ -42,8 +42,8 @@ export const wsActions = {
     wsError: FeedErrorAction,
     onOpen: FeedOnOpenAction,
     onError: FeedOnErrorAction,
-    onClose: FeedOnCloseAction
-}
+    onClose: FeedOnCloseAction,
+};
 
 const checkToken = !!(localStorage.getItem('accessToken'));
 
