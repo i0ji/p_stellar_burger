@@ -1,15 +1,14 @@
 import styles from "pages/Pages.module.scss"
 
+import {resetPassword} from "utils/api.ts";
+
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
-
-import {resetPassword} from "utils/api.ts";
 
 import React, {useState, useCallback} from "react";
 import {useNavigate} from "react-router-dom";
 
 export default function ResetPage() {
-
 
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');
@@ -22,7 +21,7 @@ export default function ResetPage() {
     };
 
     const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         if (name === 'password') {
             setPassword(value);
         } else if (name === 'token') {
@@ -35,8 +34,6 @@ export default function ResetPage() {
         resetPassword(password, token)
             .then((response) => {
                 if (response.success) {
-                    console.log('Пароль восстановлен:', response.success);
-                    console.log('Пароль васстоновлен:', response.message);
                     navigate('/reset-success');
                 } else {
                     console.error('Ошибка при восстановлении пароля:', response.message);

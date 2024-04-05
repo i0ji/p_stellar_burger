@@ -1,0 +1,51 @@
+@import "styles/mixins";
+@import "styles/theme_colors";
+
+.container {
+  @include container_scroll;
+}
+
+.feed {
+
+  h1 {
+    width: 100%;
+  }
+
+  .feed_list {
+    width: 50%;
+    height: 60vh;
+
+    overflow-y: scroll;
+  }
+
+  .feed_details {
+    width: 50%;
+
+    .feed_details_order_status {
+      display: flex;
+
+      width: 100%;
+
+      .feed_details_ready {
+        width: 40%;
+
+        p {
+          color: $ready_order;
+        }
+      }
+
+      .feed_details_await {
+        width: 40%;
+      }
+    }
+
+    .feed_details_total {
+
+      h1 {
+        @include digits_box_shadow;
+      }
+    }
+  }
+}
+
+

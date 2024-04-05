@@ -1,0 +1,99 @@
+@import "styles/theme_colors";
+@import "styles/mixins";
+
+.order_details {
+  position: fixed;
+
+  left: calc(50% - 360px);
+  top: calc(50% - 310px);
+
+  display: flex;
+  flex-direction: column;
+
+  max-height: 660px;
+  width: 720px;
+  padding: 30px;
+
+  color: $theme_white;
+
+  border-radius: 40px;
+
+  &_header {
+    width: 100%;
+
+    h5 {
+      text-align: center;
+    }
+
+    p {
+      color: $ready_order
+    }
+  }
+
+  $b: 1.5em;
+
+  &_list {
+    padding: 10px 20px 10px 20px;
+    overflow-y: scroll;
+    flex: 1 1 auto;
+
+    ul {
+      list-style-type: none;
+
+      li {
+        margin-bottom: 16px;
+      }
+    }
+  }
+
+  &_footer {
+    display: flex;
+    justify-content: space-between;
+
+    p {
+      color: $theme_light;
+    }
+
+    span {
+      display: flex;
+      justify-content: end;
+      gap: 10px
+    }
+
+    svg {
+      position: static;
+    }
+  }
+}
+
+.order_ingredient {
+  display: grid;
+  grid-template-columns: 1fr 3fr 3fr;
+
+  width: 100%;
+
+  align-items: center;
+
+  p {
+    text-align: start;
+  }
+
+  &_price {
+    align-items: center;
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+
+    span {
+      color: $scroll_active;
+    }
+
+    svg {
+      position: static;
+    }
+  }
+}
+
+.modal_background {
+  @include modal_background;
+}

@@ -1,19 +1,14 @@
 import styles from './Loader.module.scss'
 import loading from "images/common/loading.svg"
 
-export default function Loader() {
+export default function Loader({description}: { description: string }) {
     return (
         <>
             <div className={styles.loader}/>
-            <div
-                style={{
-                    position: 'absolute',
-                    zIndex: '500',
-                    top: 'calc(50% - 100px)',
-                    left: 'calc(50% - 100px)'
-                }}>
+            <div className={styles.loader_content}>
                 <img src={loading} alt="ЗАГРУЗКА..."/>
+                <h1 className="text text_type_main-medium">{description}</h1>
             </div>
         </>
-    );
+    )
 }

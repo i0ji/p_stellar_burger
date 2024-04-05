@@ -1,48 +1,58 @@
-import styles from "pages/IngredientDetailsPage/IngredientDetailsStyles.module.scss";
-import {useSelector} from "react-redux";
-import {useParams, useLocation} from "react-router-dom";
+import styles from "./IngredientDetailsStyles.module.scss";
+
 import {IIngredient} from "declarations/interfaces";
-import {IBurgerState} from "declarations/sliceInterfaces";
-import Loader from "common/Loader/Loader.tsx";
+import {IBurgerState} from "declarations/interfaces";
+
+import {Loader} from "components/index.ts";
+
+import {useSelector} from "hooks/reduxHooks.ts";
+import {useParams, useLocation} from "react-router-dom";
 
 export default function IngredientDetails() {
 
 
-    // --------------- VARS & STATES ---------------
+    // --------------- NAVIGATION & BACKGROUND---------------
 
     const {id} = useParams<{ "id"?: string }>();
+
+    const location = useLocation();
+
+    const modalBackground = (location.key === 'default') ? `` : styles.modal_background;
+
+
+    // --------------- INGREDIENT DATA ---------------
 
     const {ingredients: ingredientsData, status, error}: IBurgerState = useSelector((state: {
         ingredients: IBurgerState
     }) => state.ingredients);
-
     const [ingredient] = ingredientsData.filter((ingredient: IIngredient) => ingredient._id === id);
-
-
-    // --------------- SETTING BACKGROUND ---------------
-
-    const location = useLocation();
-
-    const modalBackground = (location.key === 'default') ? styles.transparent : styles.dark;
 
 
     // --------------- STATUSES ---------------
 
     if (status === 'loading') {
-        return <Loader/>;
+        return <Loader description={'Проверяем ингредиенты...'}/>;
     }
 
     if (status === 'failed') {
         return <p className={styles.status}>Ошибка: {error}</p>;
     }
 
-    return (
 
+    // --------------- CONSOLE ---------------
+
+    // console.log('number:', id);
+    // console.log('location:', location);
+    // console.log('currentOrder:', ingredient);
+
+
+    // --------------- COMPONENT ---------------
+
+    return (
         <div
             className={`${styles.ingredients_details} ${modalBackground}`}
         >
             {error ? (<p>Произошла ошибка: {error}</p>) : (ingredientsData.length > 0 && (
-
                 <>
                     <h3 className="text text_type_main-large">Детали ингредиента</h3>
                     <img

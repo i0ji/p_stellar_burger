@@ -1,19 +1,15 @@
 @import "styles/_theme_colors";
 
-::-webkit-scrollbar {
-  display: block;
-  width: 12px;
+* {
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+  scroll-behavior: smooth;
 }
 
-::-webkit-scrollbar-track {
-  border: 1px solid $theme_light;
-  background: $scroll_dark;
-}
-
-::-webkit-scrollbar-thumb {
-  background: $theme_light;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: $scroll_active;
+*::-webkit-scrollbar-thumb {
+  background: rgb(150, 150, 150);
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
 }

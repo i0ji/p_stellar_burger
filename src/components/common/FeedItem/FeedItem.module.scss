@@ -1,0 +1,78 @@
+@import "styles/theme_colors";
+
+.feed_item {
+  composes: pt-6 mt-1 mb-1 from global;
+  margin-bottom: 15px;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  width: 95%;
+
+  background-color: $bg_modal;
+  color: $theme_white;
+
+  border-radius: 40px;
+
+  transition: .5s all;
+
+  .feed_item_info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 90%;
+
+    p:nth-child(1) {
+      font-size: 20px;
+    }
+
+    .order_date {
+      color: $theme_light;
+    }
+  }
+
+  .feed_item_name {
+    width: 90%;
+    text-align: start;
+
+    h4 {
+      font-size: 24px;
+    }
+  }
+
+  .feed_item_ingredients {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 90%;
+
+
+    .ingredients_thumbnail {
+      display: flex;
+      align-items: center;
+
+      width: 70%;
+
+      padding-left: 20px;
+    }
+  }
+
+  .feed_item_price {
+    display: flex;
+
+    gap: 10px;
+
+    font-size: 20px;
+
+    svg {
+      scale: 1.1;
+    }
+  }
+}
+
+.feed_item:hover {
+  scale: 0.98;
+}

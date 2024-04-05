@@ -1,16 +1,20 @@
 import React from "react";
-import {useSelector} from "react-redux";
+
+import {Loader} from "components/index.ts";
+
+import {useSelector} from "hooks/reduxHooks.ts";
 import {Navigate, useLocation} from "react-router-dom";
-import Loader from "common/Loader/Loader.tsx";
-import {RootState} from "declarations/rootState.ts";
 
 export const ProtectedRoute = ({unAuth = false, component}: { unAuth: boolean, component: React.ReactNode }) => {
-    const user = useSelector((state: RootState) => state.authSlice.user);
-    const isAuthChecked = useSelector((state: RootState) => state.authSlice.authChecked)
+    const user = useSelector(state => state.authSlice.user);
+    const isAuthChecked = useSelector(state => state.authSlice.authChecked)
     const location = useLocation();
 
+
+    // --------------- LOADER ---------------
+
     if (!isAuthChecked) {
-        return <Loader/>
+        return <Loader description={'Проверяем документы...'}/>
     }
 
     if (unAuth && user) {

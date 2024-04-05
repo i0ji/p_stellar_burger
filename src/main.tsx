@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 
-import store from "src/store/store.ts";
+import {store} from "src/store/store.ts";
 
 import App from './App.tsx'
 

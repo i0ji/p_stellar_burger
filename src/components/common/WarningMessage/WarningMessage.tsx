@@ -1,7 +1,8 @@
-import styles from "./WarningMessage.module.scss"
+import styles from "./WarningMessageStyles.module.scss"
 
-import Modal from "common/Modal/Modal.tsx";
 import {Link} from "react-router-dom";
+
+import {Modal} from "components/index.ts";
 
 export default function WarningMessage({onClose}: { onClose: () => void }) {
 
@@ -14,7 +15,7 @@ export default function WarningMessage({onClose}: { onClose: () => void }) {
 
                     <br/>Но Вы не переживайте - Ваши деньги за бургер мы получили!</p>
                 <Link
-                    to={'/'}>На главную</Link>
+                    to='/'>На главную</Link>
             </div>
         </Modal>
 

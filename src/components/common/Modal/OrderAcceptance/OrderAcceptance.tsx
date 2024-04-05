@@ -1,12 +1,13 @@
-import styles from "./OrderDetailsStyles.module.scss";
+import styles from "./OrderAcceptanceStyles.module.scss";
 import done from "images/Modal/done.gif"
-import {useSelector} from "react-redux";
-import {RootState} from "declarations/rootState.ts";
+
 import Modal from "common/Modal/Modal.tsx";
 
-export default function OrderDetails({onClose}:{onClose:()=>void}) {
+import {useSelector} from "hooks/reduxHooks.ts";
+
+export default function OrderAcceptance({onClose}:{onClose:()=>void}) {
 	
-	const orderNumber = useSelector((state: RootState) => state.orderSlice.orderNumber)
+	const orderNumber = useSelector(state => state.orderSlice.orderNumber)
 
 	return (
 		<Modal onClose={onClose}>

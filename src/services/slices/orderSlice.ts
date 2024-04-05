@@ -1,22 +1,38 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {createOrder} from "utils/api.ts";
+import {IOrderSlice} from "declarations/sliceInterfaces";
 
-
-export const orderSlice = createSlice({
-    name: 'orderSlice',
-    initialState: {
-        orderNumber: null as number | null,
-        IDs: [],
-        status: 'idle',
-        error: null as string | null,
+const initialState: IOrderSlice = {
+    orderNumber: null as number | null,
+    IDs: [''],
+    status: 'idle',
+    error: null as string | null,
+    currentOrder: {
+        createdAt: '',
+        ingredients: [''],
+        name: '',
+        number: null,
+        status: 'pending',
+        _id: '',
+        updatedAt: '',
     },
+}
+
+const orderSlice = createSlice({
+    name: 'orderSlice',
+    initialState: initialState,
     reducers: {
         updateIds: (state, action) => {
             state.IDs = action.payload;
         },
         updateOrderNumber: (state, action) => {
-            state.orderNumber = action.payload
-        }
+            state.orderNumber = action.payload;
+            state.error = null;
+        },
+        updateCurrentOrder: (state, action) => {
+            state.currentOrder = action.payload;
+            state.error = null;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -26,6 +42,7 @@ export const orderSlice = createSlice({
             .addCase(createOrder.fulfilled, (state, action) => {
                 state.status = 'succeeded';
                 state.orderNumber = action.payload;
+                state.error = null;
             })
             .addCase(createOrder.rejected, (state, action) => {
                 state.status = 'failed';
@@ -33,5 +50,11 @@ export const orderSlice = createSlice({
             })
     },
 });
-export const {updateIds, updateOrderNumber} = orderSlice.actions;
+
+export const {
+    updateIds,
+    updateOrderNumber,
+    updateCurrentOrder,
+} = orderSlice.actions;
+
 export default orderSlice.reducer;

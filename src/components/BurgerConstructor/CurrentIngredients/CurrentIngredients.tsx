@@ -1,7 +1,7 @@
 import CurrentIngredientsStyles from "./CurrentIngredientsStyles.module.scss"
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {IIngredient, IDragItem} from "declarations/interfaces";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "hooks/reduxHooks.ts";
 import {removeIngredient} from "slices/constructorSlice.ts";
 import {useRef} from "react";
 import {useDrag, useDrop, DragSourceMonitor, DropTargetMonitor} from "react-dnd";
@@ -16,7 +16,6 @@ export default function CurrentIngredients({ingredient, index, moveIngredient}: 
 	
 	const dispatch = useDispatch();
 	const handleRemoveIngredient = (id: string) => {
-		console.log(id)
 		dispatch(removeIngredient(id));
 	}
 	
@@ -60,6 +59,10 @@ export default function CurrentIngredients({ingredient, index, moveIngredient}: 
 	
 	const opacity = isDragging ? 0 : 1
 	drag(drop(ref));
+
+
+	// --------------- COMPONENT  ---------------
+
 	return (
 		<div
 			className={CurrentIngredientsStyles.constructor_order_item}

@@ -1,0 +1,54 @@
+@import "./theme_colors";
+
+@mixin modal_loader_overlay {
+  position: fixed;
+  z-index: 100;
+  overflow: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: #000000;
+  opacity: .6;
+}
+
+@mixin flex_center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin container_center {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+@mixin container_scroll {
+  @include container_center;
+
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+
+  max-height: 80vh;
+
+  overflow: hidden;
+}
+
+@mixin box_shadow {
+  box-shadow: 0 0 15px 1px $bg_main;
+}
+
+@mixin digits_box_shadow {
+  text-shadow: 0 0 7px $scroll_active,
+  0 0 14px $scroll_active
+}
+
+@mixin modal_background {
+  background-color: $bg_modal;
+  @include box_shadow;
+}

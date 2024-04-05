@@ -1,7 +1,13 @@
 @import "styles/theme_colors";
+@import "styles/mixins";
 
 .orders_modal {
   composes: pt-30 pb-30 from global;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 
   width: 720px;
   height: 718px;
@@ -9,16 +15,10 @@
   background-color: $bg_modal;
   color: $theme_white;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-
   border-radius: 40px;
 
   h1 {
-    text-shadow: 0 0 7px $scroll_active,
-    0 0 14px $scroll_active
+    @include digits_box_shadow;
   }
 
   img {

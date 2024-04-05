@@ -1,5 +1,6 @@
 @import "styles/_theme_colors";
 @import "styles/_scrollbar";
+@import "styles/mixins";
 
 * {
   padding: 0;
@@ -24,6 +25,7 @@ a:active,
 a:hover {
   text-decoration: none;
   color: $scroll_active;
+  cursor: pointer;
 }
 
 html {
@@ -35,9 +37,7 @@ html {
 body {
   max-height: 100vh;
   overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex_center;
 }
 
 #root {

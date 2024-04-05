@@ -1,27 +1,27 @@
-import styles from "pages/Pages.module.scss"
+import styles from "pages/Pages.module.scss";
 
-import {Link, useNavigate} from "react-router-dom";
+import {forgotPassword} from "utils/api.ts";
+
+import {IForm} from "declarations/interfaces";
+
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
-import {forgotPassword} from "utils/api.ts"
-
+import {Link, useNavigate} from "react-router-dom";
 import {useForm} from "hooks/useForm.ts";
-import {useDispatch} from "react-redux";
-import {IForm} from "declarations/interfaces";
-import {AppDispatch} from "declarations/types";
+import {useDispatch} from "hooks/reduxHooks.ts";
 
 export default function ForgotPage() {
 
     const {values, handleChange} = useForm<IForm>({});
 
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleForgotPassword = async () => {
         const action = dispatch(forgotPassword(values.email));
         navigate('/reset-password');
-        return  action.payload;
+        return action.payload;
     }
 
     return (

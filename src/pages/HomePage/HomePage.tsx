@@ -1,29 +1,38 @@
 import styles from "./HomePageStyles.module.scss"
-import {IBurgerState} from "declarations/sliceInterfaces";
-
-import Loader from "common/Loader/Loader.tsx";
-import BurgerIngredients from "components/BurgerIngredients/BurgerIngredients.tsx";
-import BurgerConstructor from "components/BurgerConstructor/BurgerConstructor.tsx";
-
-import {useSelector} from "react-redux";
 
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from "react-dnd-html5-backend";
 
+import {IBurgerState} from "declarations/interfaces";
+
+import {
+    Loader,
+    BurgerIngredients,
+    BurgerConstructor
+} from "components/index.ts";
+
+
+import {useSelector} from "hooks/reduxHooks.ts";
+
 export default function HomePage() {
 
-    const {ingredients: ingredientsData, status, error}: IBurgerState = useSelector((state: {
+    const {ingredients: ingredientsData, burgerStatus, error}: IBurgerState = useSelector((state: {
         ingredients: IBurgerState
     }) => state.ingredients);
 
+    const authStatus = useSelector(state => state.authSlice.status);
 
     // --------------- STATUSES ---------------
-    if (status === 'loading') {
-        return <Loader/>;
+    if (burgerStatus === 'loading') {
+        return <Loader description={'Загрузка...'}/>;
     }
 
-    if (status === 'failed') {
+    if (burgerStatus === 'failed') {
         return <p className={styles.status}>Ошибка: {error}</p>;
+    }
+
+    if (authStatus === 'loading') {
+        return <Loader description={'Загрузка...'}/>;
     }
 
     return (

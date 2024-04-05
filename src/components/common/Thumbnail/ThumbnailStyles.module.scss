@@ -1,0 +1,51 @@
+@import "styles/mixins";
+
+.thumbnail_wrapper {
+  position: relative;
+
+  @include flex_center;
+
+  width: 72px;
+  height: 72px;
+
+  background: linear-gradient(180deg,
+          rgb(128, 26, 178),
+          rgb(76, 76, 255));
+
+  border-radius: 50%;
+
+  margin-left: -20px;
+
+  &_background {
+    @include flex_center;
+
+    width: 68px;
+    height: 68px;
+
+    padding-right: 1px;
+    padding-top: 1px;
+
+    background-color: $bg_modal;
+
+    border-radius: 50%;
+
+  span {
+    z-index: 101;
+  }
+
+    img {
+      height: 60px;
+      border-radius: 50%;
+      padding-left: 2px;
+    }
+
+    .thumbnail_count {
+      font-weight: bold;
+      position: absolute;
+    }
+  }
+}
+
+.img {
+  filter: brightness(30%);
+}

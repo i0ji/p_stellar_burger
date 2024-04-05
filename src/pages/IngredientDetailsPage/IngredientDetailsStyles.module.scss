@@ -1,19 +1,21 @@
 @import "styles/theme_colors";
+@import "styles/mixins";
 
 .ingredients_details {
-  height: 640px;
-  width: 720px;
-
   position: fixed;
+
   left: calc(50% - 360px);
   top: calc(50% - 320px);
-
-  color: $theme_white;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  height: 640px;
+  width: 720px;
+
+  color: $theme_white;
 
   border-radius: 40px;
 
@@ -55,16 +57,13 @@
   }
 }
 
-.fade-in-image {
-  animation: fadeIn 5s;
-}
-
 .transparent {
   background-color: transparent;
-}
+  box-shadow: none;
 
-.dark {
-  background-color: $bg_modal;
+  svg {
+    display: none;
+  }
 }
 
 .status {
@@ -73,4 +72,8 @@
   top: 50%;
 
   font-size: 30px;
+}
+
+.modal_background {
+  @include modal_background;
 }

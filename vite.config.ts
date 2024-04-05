@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import {defineConfig} from 'vite'
 import react from '@vitejs/plugin-react'
 
@@ -11,15 +13,18 @@ export default defineConfig({
             common: "/src/components/common/",
             pages: "/src/pages",
             styles: "/src/styles",
-            utils: "/src/utils/",
+            utils: "/src/services/utils/",
             images: "/src/images",
             slices: "/src/services/slices",
-            hooks: "/src/hooks",
+            hooks: "/src/services/hooks",
             modal: "/src/components/Modal",
             services: "/src/services",
             interfaces: "/src/utils/interfaces",
-            declarations: "/src/declarations",
+            declarations: "/src/services/declarations",
+            profile: "/src/pages/ProfilePage",
             src: ".",
+            ingredients: "/src/pages/IngredientDetailsPage",
+            orders: "/src/pages/OrderDetailsPage",
         }
     },
 })

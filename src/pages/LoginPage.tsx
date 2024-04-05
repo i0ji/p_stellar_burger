@@ -1,23 +1,34 @@
 import styles from "pages/Pages.module.scss"
 
+import {loginUser} from "utils/api.ts";
+
+import {IUserData} from "declarations/interfaces";
+import {IForm} from "declarations/interfaces";
+
+import {Loader} from "components/index.ts";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
-
-import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 
-import {loginUser} from "utils/api.ts";
+import React, {useState, useEffect, useRef} from "react";
+import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useForm} from "hooks/useForm.ts";
-import {IUserData} from "declarations/sliceInterfaces";
-import {IForm} from "declarations/interfaces";
-import {RootState} from "declarations/rootState.ts";
-import {AppDispatch} from "declarations/types";
 
-function LoginPage() {
+export default function LoginPage() {
 
-    const dispatch = useDispatch<AppDispatch>();
     const {values, handleChange} = useForm<IForm>({});
+    const dispatch = useDispatch();
+    const userAuth = useSelector(state => state.authSlice.isAuth);
+
+
+    //  --------------- RERENDER CHECK ---------------
+
+    const renderCount = useRef(0);
+    useEffect(() => {
+        renderCount.current += 1;
+    });
+    console.log(`Rerender counter: ${renderCount.current}`)
+
 
     // --------------- PWD VISIBILITY  ---------------
 
@@ -26,24 +37,25 @@ function LoginPage() {
         setIsPasswordShow(!isPasswordShow);
     };
 
+
     // --------------- ERROR MESSAGE ---------------
-    const loginError = useSelector((state: RootState) => state.authSlice.loginError);
-    console.log(loginError)
+
+    const loginError = useSelector(state => state.authSlice.loginError);
     const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const userData: IUserData = {
             email: values.email,
             password: values.password,
         };
-
-        console.log('+++++++++++before login')
-        console.log(loginError)
         dispatch(loginUser(userData));
-        console.log('after login +++++++++++++++')
-        console.log(loginError)
     };
 
+    if (userAuth) {
+        return <Loader description={'Проходим фейсконтроль...'}/>;
+    }
+
     return (
+
         <section className={styles.section}>
             <form onSubmit={handleLogin}>
                 <h1 className="text text text_type_main-medium pb-6">Вход</h1>
@@ -95,5 +107,3 @@ function LoginPage() {
         </section>
     );
 }
-
-export default React.memo(LoginPage);

@@ -1,26 +1,35 @@
+@import "styles/theme_colors";
+@import "styles/animation";
+
 .constructor_block {
-  composes: mt-25 pl-5 pr-5 pb-10 from global;
+  composes: mt-25 pl-5 pb-10 from global;
+
   width: 50%;
   height: 75vh;
 
   .constructor_list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+
     max-height: 95%;
 
+    gap: 10px;
 
     .constructor_item_top,
     .constructor_item_bottom,
-    .constructor_item_initial_bun {
-      width: 89%;
-      align-self: center;
-      margin-right: 15px;
-      margin-left: 30px;
+    .constructor_initial_bun,
+    .constructor_initial_ingredient {
       display: flex;
+      align-self: center;
+
+      width: 90%;
+
+      margin-right: 30px;
+      margin-left: 30px;
     }
 
-    .constructor_item_initial_bun {
+    .constructor_initial_bun,
+    .constructor_initial_ingredient {
       display: flex;
       justify-content: center;
 
@@ -38,7 +47,8 @@
         letter-spacing: .15em;
       }
 
-      span:nth-child(3) {
+      span:nth-child(3),
+      span:nth-child(4) {
         display: none;
       }
     }
@@ -49,20 +59,44 @@
       margin: 0 5px;
     }
 
+    .constructor_initial_ingredient {
+      align-self: center;
+
+      width: 90%;
+      min-height: 30px;
+
+      border-radius: 40px;
+
+      span:nth-child(3),
+      span:nth-child(4) {
+        display: none;
+      }
+    }
+
     .constructor_order {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+
       overflow-x: hidden;
       overflow-y: scroll;
+
+      width: 30%;
+
+      border-radius: 40px;
+
+      gap: 5px;
     }
   }
 
   .price_info {
-    width: 100%;
+    position: relative;
+
     display: flex;
     align-items: center;
     justify-content: end;
+
+    width: 100%;
+
     padding-right: 30px;
 
     svg {

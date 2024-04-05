@@ -1,10 +1,11 @@
+@import "styles/mixins";
+
 .burger_builder {
   composes: pl-4 pr-4 from global;
 
   .container {
-    margin: 0 auto;
+    @include container_center;
 
-    max-width: 1240px;
     max-height: 80vh;
 
     display: flex;
