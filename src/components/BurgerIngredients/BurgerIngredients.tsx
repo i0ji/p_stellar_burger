@@ -123,7 +123,6 @@ export default function BurgerIngredients() {
                 <div id="mainSection" ref={mainRef}>
                     <IngredientGroup type="Начинки" ingredients={filteredIngredients.main}/>
                 </div>
-
             </div>
         </section>
     );

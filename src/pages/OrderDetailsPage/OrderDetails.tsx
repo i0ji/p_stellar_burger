@@ -14,7 +14,7 @@ import {useEffect} from "react";
 
 import {calculateTotalPrice, getIngredientsWithQuantity} from "utils/currentOrderCalculation.ts";
 
-export default function OrderDetails({isVisible}: { isVisible: boolean }) {
+export default function OrderDetails() {
 
 
     // --------------- VARS & STATES ---------------
@@ -149,55 +149,51 @@ export default function OrderDetails({isVisible}: { isVisible: boolean }) {
     // --------------- COMPONENT ---------------
 
     return (
-        <>
-            {isVisible && (
-                <div className={`${styles.order_details} ${modalBackground}`}>
-                    {currentOrder &&
-                        <>
-                            <div className={styles.order_details_header}>
-                                <h5 className="text text_type_digits-default mb-10 ">{currentOrder.number}</h5>
-                                <h3 className="text text_type_main-medium mb-3">{currentOrder.name}</h3>
-                                <p className="text text_type_main-default mb-15">{orderStatus}</p>
-                            </div>
+        <div className={`${styles.order_details} ${modalBackground}`}>
+            {currentOrder &&
+                <>
+                    <div className={styles.order_details_header}>
+                        <h5 className="text text_type_digits-default mb-10 ">{currentOrder.number}</h5>
+                        <h3 className="text text_type_main-medium mb-3">{currentOrder.name}</h3>
+                        <p className="text text_type_main-default mb-15">{orderStatus}</p>
+                    </div>
 
-                            <h3 className="text text_type_main-medium mb-3">Состав:</h3>
+                    <h3 className="text text_type_main-medium mb-3">Состав:</h3>
 
-                            <div
-                                className={`mb-10 ${styles.order_details_list}`}
-                                style={{
-                                    scrollbarWidth: `${orderIngredients.length > 3 ? 'auto' : 'none'}`,
-                                    overflowY: `${orderIngredients.length > 3 ? 'auto' : 'hidden'}`,
-                                }}
-                            >
-                                <ul>
-                                    {
-                                        ingredientsWithQuantity.map((elem: IIngredientsWithQuantity, i: number) =>
-                                            <li key={i}>
-                                                <IngredientInfo
-                                                    elem={elem}
-                                                />
-                                            </li>
-                                        )
-                                    }
-                                </ul>
-                            </div>
+                    <div
+                        className={`mb-10 ${styles.order_details_list}`}
+                        style={{
+                            scrollbarWidth: `${orderIngredients.length > 3 ? 'auto' : 'none'}`,
+                            overflowY: `${orderIngredients.length > 3 ? 'auto' : 'hidden'}`,
+                        }}
+                    >
+                        <ul>
+                            {
+                                ingredientsWithQuantity.map((elem: IIngredientsWithQuantity, i: number) =>
+                                    <li key={i}>
+                                        <IngredientInfo
+                                            elem={elem}
+                                        />
+                                    </li>
+                                )
+                            }
+                        </ul>
+                    </div>
 
-                            <div
-                                className={styles.order_details_footer}
-                                style={{
-                                    paddingRight: `${orderIngredients.length > 3 ? '5.5%' : '3%'}`
-                                }}
-                            >
-                                <OrderDate/>
-                                <span className="text text_type_digits-default">
+                    <div
+                        className={styles.order_details_footer}
+                        style={{
+                            paddingRight: `${orderIngredients.length > 3 ? '5.5%' : '3%'}`
+                        }}
+                    >
+                        <OrderDate/>
+                        <span className="text text_type_digits-default">
                             {totalOrderPrice}
-                                    <CurrencyIcon type="primary"/>
+                            <CurrencyIcon type="primary"/>
                         </span>
-                            </div>
-                        </>
-                    }
-                </div>
-            )}
-        </>
+                    </div>
+                </>
+            }
+        </div>
     )
 }

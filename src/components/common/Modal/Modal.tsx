@@ -12,6 +12,7 @@ export default function Modal({onClose, children}: {
     children: React.ReactNode,
 }) {
 
+
     // --------------- ERROR CHECK ---------------
 
     const hasError = useSelector(state => state.orderSlice.error);
@@ -27,7 +28,6 @@ export default function Modal({onClose, children}: {
         return () => {
             document.body.removeEventListener("keydown", closeOnEscapeKey);
         };
-
     }, [onClose]);
 
 
@@ -39,7 +39,7 @@ export default function Modal({onClose, children}: {
                 key="modal"
                 initial={{opacity: 0}}
                 animate={{opacity: 1}}
-                exit={{opacity: 0}}
+                exit={{opacity: 0, transition: {duration: 2.5}}}
             >
                 <div
                     className={`${styles.modal_overlay}  ${hasError && styles.modal_error}`}
@@ -59,5 +59,5 @@ export default function Modal({onClose, children}: {
                 </div>
             </motion.div>
         </AnimatePresence>
-)
+    )
 }

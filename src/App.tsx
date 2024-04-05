@@ -72,7 +72,7 @@ export default function App() {
                 <Route path="ingredient/:id" element={<IngredientDetails/>}/>
 
                 <Route path="feed" element={<FeedPage/>}/>
-                <Route path="feed/:number" element={<OrderDetails isVisible={true}/>}/>
+                <Route path="feed/:number" element={<OrderDetails/>}/>
 
                 <Route
                     path="profile"
@@ -86,7 +86,7 @@ export default function App() {
 
                 <Route
                     path="profile/orders/:number"
-                    element={<ProtectedRoute unAuth={false} component={<OrderDetails isVisible={true}/>}/>}
+                    element={<ProtectedRoute unAuth={false} component={<OrderDetails/>}/>}
                 />
 
 
@@ -117,7 +117,7 @@ export default function App() {
                         <Route path="feed/:number"
                                element={
                                    <Modal onClose={handleCloseModal}>
-                                       <OrderDetails isVisible={true}/>
+                                       <OrderDetails/>
                                    </Modal>
                                }
                         />
@@ -130,7 +130,7 @@ export default function App() {
                         <Route path="profile/orders/:number"
                                element={
                                    <Modal onClose={handleCloseModal}>
-                                       <OrderDetails isVisible={true}/>
+                                       <OrderDetails/>
                                    </Modal>
                                }
                         />
