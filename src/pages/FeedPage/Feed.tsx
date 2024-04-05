@@ -23,6 +23,8 @@ export default function Feed() {
 
     const dispatch = useDispatch();
     const renderCondition = useSelector(state => state.orderFeed.orders).orders.length !== 1;
+    const WS_URL_ALL = `${WS_URL}/all`;
+
 
     // --------------- NAVIGATION ---------------
 
@@ -34,10 +36,21 @@ export default function Feed() {
     useEffect(() => {
         dispatch({
             type: wsConnect,
-            payload: `${WS_URL}/all`
+            payload: WS_URL_ALL
         });
         return (() => dispatch(wsClose()));
-    }, [dispatch])
+    }, [WS_URL_ALL,dispatch])
+
+
+    // useEffect(() => {
+    //     dispatch({
+    //         type: `${wsConnect}`,
+    //         payload: WS_URL_ALL
+    //     });
+    //     return (() => dispatch(wsClose()));
+    // }, [WS_URL_ALL,dispatch])
+
+
 
     // --------------- ORDERS ARRAY;
     const ordersList = useSelector(state => state.orderFeed.orders);
@@ -80,6 +93,9 @@ export default function Feed() {
     // console.log(ordersData)
     // console.log(`TOTAL TODAY: ${totalToday}`);
     // console.log(`TOTAL: ${total}`);
+
+
+    // --------------- COMPONENT ---------------
 
     return (
         <section className={styles.feed}>

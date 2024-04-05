@@ -105,11 +105,8 @@ export default function ProfilePage() {
 
     return (
         <section className={styles.profile_section}>
-
             <ProfileMenu/>
-
             <div className={styles.profile_content}>
-
                 {location.pathname === '/profile/orders' ? <ProfileOrders/> :
                     <form className={styles.profile_form}>
                         <div>
@@ -160,7 +157,6 @@ export default function ProfilePage() {
                                     <div
                                         className={`${styles.profile_update_button} ${showUpdateButtons ? styles.fadeIn : styles.fadeOut}`}
                                     >
-
                                         <Button
                                             htmlType="button"
                                             onClick={handleSave}
@@ -177,16 +173,13 @@ export default function ProfilePage() {
                                         >
                                             Отмена
                                         </Button>
-
                                     </div>
                                 )
                             }
                         </div>
                     </form>
                 }
-
             </div>
-
         </section>
     )
 }

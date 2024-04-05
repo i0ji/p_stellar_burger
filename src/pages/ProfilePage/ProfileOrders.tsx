@@ -23,15 +23,20 @@ export default function ProfileOrders() {
 
     const dispatch = useDispatch();
 
-    const location = useLocation();
-
-    const modalBackground = (location.key === 'default') ? styles.background : styles.dark;
-
     const accessToken = localStorage.getItem('accessToken');
     const formattedAccessToken = accessToken ? accessToken.replace("Bearer ", "") : '';
 
     const WS_URL_WITH_TOKEN = `${WS_URL}?token=${formattedAccessToken}`;
 
+    // --------------- NAVIGATION ---------------
+    
+    const location = useLocation();
+
+    const modalBackground = (location.key === 'default') ? styles.background : styles.dark;
+
+
+    // --------------- WS & ORDERS ---------------
+    
     useEffect(() => {
         dispatch({
             type: wsConnect,
