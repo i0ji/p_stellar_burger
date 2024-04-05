@@ -51,7 +51,7 @@ export default function App() {
         dispatch(getUserData());
     }, [dispatch, accessToken]);
 
-    console.log('v:0.1.9.7.2');
+    console.log('v:0.1.9.7.3');
 
 
     // --------------- LOADER ---------------
