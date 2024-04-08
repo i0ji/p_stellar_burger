@@ -45,14 +45,13 @@ export const wsActions = {
     onClose: FeedOnCloseAction,
 };
 
-const checkToken = !!(localStorage.getItem('accessToken'));
 
-const feedMiddleware = socketMiddleware(wsActions, false);
-const userFeedMiddleware = socketMiddleware(wsActions, checkToken);
+const checkToken = !!(localStorage.getItem('accessToken'));
 
 export const store = configureStore({
         reducer: rootReducers,
         middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware().concat(feedMiddleware, userFeedMiddleware)
+            //getDefaultMiddleware().concat(feedMiddleware, userFeedMiddleware)
+            getDefaultMiddleware().concat(socketMiddleware(wsActions, checkToken))
     }
 )

@@ -10,7 +10,7 @@ import {
     wsOpen,
     onOpen,
     onError,
-    onClose
+    onClose,
 } from "services/orderFeed/actions.ts";
 
 enum WebsocketStatus {

@@ -22,6 +22,7 @@ export default function Feed() {
 
     const dispatch = useDispatch();
     const renderCondition = useSelector(state => state.orderFeed.orders).orders.length !== 1;
+
     const WS_URL_ALL = `${WS_URL}/all`;
 
 
@@ -73,7 +74,7 @@ export default function Feed() {
     // --------------- CONSOLE ---------------
 
     //console.log(location.pathname);
-    // console.log('STATUS: ', status);
+    console.log('STATUS: ', status);
     // console.log(listValue);
     // console.log(ordersData[5].status);
     // console.log(ordersReady.slice(0,5));
