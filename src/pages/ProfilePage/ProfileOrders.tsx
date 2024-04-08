@@ -1,8 +1,8 @@
 import styles from "./ProfilePage.module.scss";
 
 import {WS_URL} from "declarations/routs.ts";
-import {wsClose, wsConnect} from "services/orderFeed/actions.ts";
 import {updateCurrentOrder} from "slices/orderSlice.ts";
+import {wsClose, wsConnect} from "services/orderFeed/actions.ts";
 
 import {TOrder} from "declarations/types";
 
@@ -29,19 +29,20 @@ export default function ProfileOrders() {
     const WS_URL_WITH_TOKEN = `${WS_URL}?token=${formattedAccessToken}`;
 
     // --------------- NAVIGATION ---------------
-    
+
     const location = useLocation();
 
     const modalBackground = (location.key === 'default') ? styles.background : styles.dark;
 
 
     // --------------- WS & ORDERS ---------------
-    
+
     useEffect(() => {
-        dispatch({
-            type: wsConnect,
-            payload: WS_URL_WITH_TOKEN
-        });
+        // dispatch({
+        //     type: wsConnect,
+        //     payload: WS_URL_WITH_TOKEN
+        // });
+        dispatch(wsConnect());
         return (() => dispatch(wsClose()));
     }, [WS_URL_WITH_TOKEN, dispatch])
 

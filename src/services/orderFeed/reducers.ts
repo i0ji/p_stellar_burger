@@ -44,7 +44,7 @@ export const orderFeedReducer = createReducer(
     builder => {
         builder
             .addCase(wsConnect, (state) => {
-                state.status = WebsocketStatus.OFFLINE;
+                state.status = WebsocketStatus.CONNECTING;
             })
             .addCase(wsConnecting, (state) => {
                 state.status = WebsocketStatus.CONNECTING;

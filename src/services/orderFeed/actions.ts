@@ -1,7 +1,6 @@
 import {createAction} from "@reduxjs/toolkit";
 import {TError, TOrdersFeed} from "declarations/types";
 
-
 export const wsConnect = createAction<string, 'ORDER_FEED_WS_CONNECT'>('ORDER_FEED_WS_CONNECT');
 
 export const wsConnecting = createAction('ORDER_FEED_WS_CONNECTING');
