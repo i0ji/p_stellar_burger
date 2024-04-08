@@ -38,6 +38,7 @@ export default function Feed() {
             type: wsConnect,
             payload: WS_URL_ALL
         });
+        //dispatch( wsConnect(WS_URL_ALL))
         return (() => dispatch(wsClose()));
     }, [WS_URL_ALL, dispatch])
 
