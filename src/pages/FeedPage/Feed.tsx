@@ -30,6 +30,7 @@ export default function Feed() {
 
     const location = useLocation();
 
+    //const wsDispatch = () => dispatch(WS_URL_ALL)
 
     // --------------- WS & ORDERS ---------------
 
@@ -37,7 +38,7 @@ export default function Feed() {
         dispatch({
             type: wsConnect,
             payload: WS_URL_ALL
-        });
+        })
         //dispatch( wsConnect(WS_URL_ALL))
         return (() => dispatch(wsClose()));
     }, [WS_URL_ALL, dispatch])

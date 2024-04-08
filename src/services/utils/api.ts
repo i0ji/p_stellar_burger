@@ -1,7 +1,7 @@
 import {createAsyncThunk, Dispatch} from "@reduxjs/toolkit";
 import {BASE_URL, ORDER_URL} from "declarations/routs.ts";
 import {setAuthChecked, setUser} from "slices/authSlice.ts";
-import {checkResponse} from "utils/check-response.ts";
+import {checkResponse} from "utils/checkResponse.ts";
 import {IIngredient, IRegisterUser, IUserData} from "declarations/interfaces";
 import {
     TApiResponse,

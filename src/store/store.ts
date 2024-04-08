@@ -51,7 +51,6 @@ const checkToken = !!(localStorage.getItem('accessToken'));
 export const store = configureStore({
         reducer: rootReducers,
         middleware: (getDefaultMiddleware) =>
-            //getDefaultMiddleware().concat(feedMiddleware, userFeedMiddleware)
             getDefaultMiddleware().concat(socketMiddleware(wsActions, checkToken))
     }
 )
