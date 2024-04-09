@@ -38,11 +38,7 @@ export default function ProfileOrders() {
     // --------------- WS & ORDERS ---------------
 
     useEffect(() => {
-        // dispatch({
-        //     type: wsConnect,
-        //     payload: WS_URL_WITH_TOKEN
-        // });
-        dispatch(wsConnect());
+        dispatch(wsConnect(WS_URL_WITH_TOKEN));
         return (() => dispatch(wsClose()));
     }, [WS_URL_WITH_TOKEN, dispatch])
 

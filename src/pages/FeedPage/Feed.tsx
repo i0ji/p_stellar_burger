@@ -21,7 +21,10 @@ export default function Feed() {
     // --------------- VARS & STATES ---------------
 
     const dispatch = useDispatch();
+
+
     const renderCondition = useSelector(state => state.orderFeed.orders).orders.length !== 1;
+
 
     const WS_URL_ALL = `${WS_URL}/all`;
 
@@ -34,11 +37,7 @@ export default function Feed() {
     // --------------- WS & ORDERS ---------------
     
     useEffect(() => {
-        // dispatch(wsConnect(WS_URL_ALL));
-        dispatch({
-            type:wsConnect,
-            payload: WS_URL_ALL
-        })
+        dispatch(wsConnect(WS_URL_ALL));
         return (() => dispatch(wsClose()));
     }, [WS_URL_ALL, dispatch])
 
@@ -75,7 +74,7 @@ export default function Feed() {
     // --------------- CONSOLE ---------------
 
     //console.log(location.pathname);
-    console.log('STATUS: ', status);
+    // console.log('STATUS: ', status);
     // console.log(listValue);
     // console.log(ordersData[5].status);
     // console.log(ordersReady.slice(0,5));
