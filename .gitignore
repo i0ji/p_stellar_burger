@@ -8,10 +8,10 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # Misc
-
 temp
 node_modules
 dist
+build
 dist-ssr
 *.local
 
