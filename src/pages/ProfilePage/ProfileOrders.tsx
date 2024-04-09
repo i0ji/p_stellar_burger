@@ -40,7 +40,7 @@ export default function ProfileOrders() {
     useEffect(() => {
         dispatch(wsConnect(WS_URL_WITH_TOKEN));
         return (() => dispatch(wsClose()));
-    }, [WS_URL_WITH_TOKEN, dispatch])
+    }, [WS_URL_WITH_TOKEN, dispatch]);
 
     const ordersList = useSelector(state => state.orderFeed.orders);
 

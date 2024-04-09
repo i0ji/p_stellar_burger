@@ -45,7 +45,6 @@ export const wsActions = {
     onClose: FeedOnCloseAction,
 };
 
-
 const checkToken = !!(localStorage.getItem('accessToken'));
 
 export const store = configureStore({

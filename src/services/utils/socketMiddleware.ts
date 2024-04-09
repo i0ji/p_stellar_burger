@@ -41,7 +41,7 @@ export const socketMiddleware = (
                 socket.onerror = (event) => {
                     dispatch({
                         type: 'ORDER_FEED_ON_ERROR',
-                        payload: event
+                        payload: event,
                     });
                 };
 
@@ -59,7 +59,7 @@ export const socketMiddleware = (
                             );
                             dispatch({
                                 type: 'ORDER_FEED_WS_CONNECT',
-                                payload: wssUrl
+                                payload: wssUrl,
                             });
                         });
                     } else {

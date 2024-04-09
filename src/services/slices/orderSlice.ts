@@ -2,7 +2,7 @@ import {createSlice} from '@reduxjs/toolkit';
 import {createOrder} from "utils/api.ts";
 import {IOrderSlice} from "declarations/sliceInterfaces";
 
-const initialState: IOrderSlice = {
+export const initialState: IOrderSlice = {
     orderNumber: null as number | null,
     IDs: [''],
     status: 'idle',

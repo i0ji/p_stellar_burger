@@ -22,9 +22,7 @@ export default function Feed() {
 
     const dispatch = useDispatch();
 
-
     const renderCondition = useSelector(state => state.orderFeed.orders).orders.length !== 1;
-
 
     const WS_URL_ALL = `${WS_URL}/all`;
 
@@ -39,7 +37,7 @@ export default function Feed() {
     useEffect(() => {
         dispatch(wsConnect(WS_URL_ALL));
         return (() => dispatch(wsClose()));
-    }, [WS_URL_ALL, dispatch])
+    }, [WS_URL_ALL, dispatch]);
 
 
     // --------------- ORDERS ARRAY;
