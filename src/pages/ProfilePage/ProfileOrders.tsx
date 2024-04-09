@@ -54,8 +54,8 @@ export default function ProfileOrders() {
             <Loader description={'Летим за едой...'}/>
         )
     }
-    const reversedOrdersData: Array<TOrder> = [...ordersData].reverse();
 
+    const reversedOrdersData: Array<TOrder> = [...ordersData].reverse();
 
     // --------------- READY ORDERS
 

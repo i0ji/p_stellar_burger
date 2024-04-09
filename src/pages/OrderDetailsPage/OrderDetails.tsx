@@ -6,7 +6,7 @@ import {updateCurrentOrder} from "slices/orderSlice.ts";
 import {getConcreteOrder} from "utils/api.ts";
 
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Loader, Thumbnail} from "components/index.ts";
+import {Thumbnail, Loader} from "components/index.ts";
 
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useLocation, useParams} from "react-router-dom";
@@ -72,24 +72,13 @@ export default function OrderDetails() {
 
     // --------------- STATUSES & CONDITIONS
 
+    // checkCondition(orderIngredientIDs, 'Ждём заказ...');
+
     if (!orderIngredientIDs) {
         return (
             <Loader description={'Ждём заказ...'}/>
         )
     }
-
-    // function conditionCheck(text: string, entity: Array<string> | undefined) {
-    //     if (!entity) {
-    //         return (
-    //             <Loader description={text}/>
-    //         )
-    //     } else {
-    //         return
-    //     }
-    // }
-
-    // conditionCheck('Ждёмс...', orderIngredientIDs);
-    // console.log(conditionCheck('Ждёмс...', orderIngredientIDs));
 
 
     // --------------- INGREDIENT QTY & PRICE CALCULATION ---------------

@@ -70,8 +70,8 @@ export const socketMiddleware = (
                     }
                 };
 
-                socket.onclose = (event) => {
-                    dispatch({type: 'ORDER_FEED_ON_CLOSE', payload: event});
+                socket.onclose = () => {
+                    dispatch({type: 'ORDER_FEED_ON_CLOSE'});
                 };
             }
 
