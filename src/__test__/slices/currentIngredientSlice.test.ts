@@ -1,6 +1,6 @@
 import currentIngredientReducer, {updateSelectedIngredient} from 'slices/currentIngredientSlice';
 
-describe('currentIngredientSlice reducer', () => {
+describe('currentIngredientSlice test', () => {
     it('should update selected ingredient', () => {
         const ingredient = {
             id: 1,

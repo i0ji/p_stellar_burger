@@ -19,7 +19,7 @@ enum WebsocketStatus {
     OFFLINE = 'OFFLINE'
 }
 
-const initialState: TOrderFeedStore & TError = {
+export const initialState: TOrderFeedStore & TError = {
     status: WebsocketStatus.OFFLINE,
     url: '',
     error: '',

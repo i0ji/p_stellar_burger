@@ -1,7 +1,7 @@
 import ingredientsListReducer from 'slices/ingredientsSlice';
 import {getIngredients} from 'utils/api.ts';
 
-describe('ingredientsListSlice reducer', () => {
+describe('ingredientsListSlice test', () => {
     it('should get ingredients: pending', () => {
         const state = ingredientsListReducer(undefined, {type: getIngredients.pending.type});
         expect(state.status).toEqual('loading');
