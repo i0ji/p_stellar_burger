@@ -47,12 +47,12 @@ describe('orderSlice test', () => {
         expect(state.error).toBeNull();
     });
 
-    it('should create order.pending', () => {
+    it('should create order: pending', () => {
         const state = orderReducer(initialState, {type: createOrder.pending.type});
         expect(state.status).toEqual('loading');
     });
 
-    it('should create order.fulfilled', () => {
+    it('should create order: fulfilled', () => {
         const action = {
             type: createOrder.fulfilled.type,
             payload: 123
@@ -63,7 +63,7 @@ describe('orderSlice test', () => {
         expect(state.error).toBeNull();
     });
 
-    it('should create order.rejected', () => {
+    it('should create order: rejected', () => {
         const action = {
             type: createOrder.rejected.type,
             error: {message: 'Error message'}
