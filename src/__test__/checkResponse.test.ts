@@ -1,25 +1,21 @@
-import {checkResponse} from "utils/checkResponse.ts";
+import {checkResponse} from 'utils/checkResponse';
 
-describe("checkResponse()", () => {
-
-    test("should return success", () => {
-        const testRes: Partial<Response> = {
+describe('checkResponse function', () => {
+    it('should resolve', async () => {
+        const responseData = { message: 'Success' };
+        const response = {
             ok: true,
-            json: jest.fn().mockResolvedValue({ result: 'OK' })
-        };
-
-        const result = checkResponse(testRes as Response);
-        return expect(result).resolves.toEqual({ result: 'OK' });
+            json: () => Promise.resolve(responseData)
+        } as Response;
+        const result = await checkResponse(response);
+        expect(result).toEqual(responseData);
     });
 
-    test("should return fail",  async () => {
-        const errorResponse: Partial<Response> = {
+    it('should reject', async () => {
+        const response = {
             ok: false,
-            status: 400,
-            json: jest.fn().mockRejectedValue({ message: 'Error occurred' })
-        };
-
-        const resultPromise = checkResponse(errorResponse as Response);
-        return await expect(resultPromise).rejects.toEqual(400);
+            json: () => Promise.resolve({ status: 404 })
+        } as Response;
+        await expect(checkResponse(response)).rejects.toEqual(404);
     });
 });

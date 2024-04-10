@@ -1,52 +1,58 @@
-import constructorReducer, { initialState, addIngredient, removeIngredient, reorderIngredients, resetIngredients } from 'slices/constructorSlice';
+import constructorReducer, {
+    initialState,
+    addIngredient,
+    removeIngredient,
+    reorderIngredients,
+    resetIngredients
+} from 'slices/constructorSlice';
 
 describe('constructorSlice test', () => {
-    it('should handle addIngredient', () => {
-        const bun = { _id: 'bun_id', type: 'bun', price: 5 };
-        const action = { type: addIngredient.type, payload: bun };
+    it('should add ingredient', () => {
+        const bun = {_id: '123abc123abc', type: 'bun', price: 5};
+        const action = {type: addIngredient.type, payload: bun};
         const state = constructorReducer(initialState, action);
         expect(state.bun).toEqual(bun);
         expect(state.totalAmount).toEqual(10); // 5 * 2
     });
 
-    it('should handle removeIngredient', () => {
+    it('should remove ingredient', () => {
         const initialStateWithIngredient = {
             ...initialState,
-            addedIngredients: [{ _id: 'ingredient_id', type: 'main', price: 2 }],
+            addedIngredients: [{_id: '123abc123abc', type: 'main', price: 2}],
             totalAmount: 2,
         };
-        const action = { type: removeIngredient.type, payload: 'ingredient_id' };
+        const action = {type: removeIngredient.type, payload: '123abc123abc'};
         const state = constructorReducer(initialStateWithIngredient, action);
         expect(state.addedIngredients).toHaveLength(0);
         expect(state.totalAmount).toEqual(0);
     });
 
-    it('should handle reorderIngredients', () => {
+    it('should reorder ingredients', () => {
         const initialStateWithIngredients = {
             ...initialState,
             addedIngredients: [
-                { _id: 'ingredient_id_1', type: 'main', price: 2 },
-                { _id: 'ingredient_id_2', type: 'main', price: 3 },
+                {_id: '123abc123abc', type: 'main', price: 2},
+                {_id: '456def456def', type: 'bun', price: 3},
             ],
             totalAmount: 5,
         };
-        const action = { type: reorderIngredients.type, payload: { dragIndex: 0, hoverIndex: 1 } };
+        const action = {type: reorderIngredients.type, payload: {dragIndex: 0, hoverIndex: 1}};
         const state = constructorReducer(initialStateWithIngredients, action);
         expect(state.addedIngredients).toEqual([
-            { _id: 'ingredient_id_2', type: 'main', price: 3 },
-            { _id: 'ingredient_id_1', type: 'main', price: 2 },
+            {_id: '456def456def', type: 'bun', price: 3},
+            {_id: '123abc123abc', type: 'main', price: 2},
         ]);
         expect(state.totalAmount).toEqual(5);
     });
 
-    it('should handle resetIngredients', () => {
+    it('should reset ingredients', () => {
         const initialStateWithIngredients = {
             ...initialState,
-            addedIngredients: [{ _id: 'ingredient_id', type: 'main', price: 2 }],
-            bun: { _id: 'bun_id', type: 'bun', price: 5 },
+            addedIngredients: [{_id: '123abc123abc', type: 'main', price: 2}],
+            bun: {_id: '123abc123abc', type: 'bun', price: 5},
             totalAmount: 7,
         };
-        const action = { type: resetIngredients.type };
+        const action = {type: resetIngredients.type};
         const state = constructorReducer(initialStateWithIngredients, action);
         expect(state.addedIngredients).toHaveLength(0);
         expect(state.bun).toBeNull();

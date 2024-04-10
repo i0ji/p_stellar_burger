@@ -13,19 +13,14 @@ export const socketMiddleware = (
         let socket: WebSocket | null = null;
         let url: string | null = null;
         const {
-            // wsConnect,
             wsDisconnect,
-            // onOpen,
-            // wsMessage,
-            // onClose,
-            // onError,
         }: TwsActionTypes = wsActions;
 
         return (next) => (action) => {
             const {dispatch} = store;
             const {type, payload}: TAppAction = action;
 
-            console.log('CURRENT ACTION TYPE: ', type);
+            // console.log('CURRENT ACTION TYPE: ', type);
             if (type === 'ORDER_FEED_WS_CONNECT') {
                 //console.log('CONDITION START: ', type);
                 socket = new WebSocket(payload);
