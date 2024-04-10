@@ -21,7 +21,7 @@ describe('ingredientsListSlice reducer', () => {
         expect(state.ingredients).toEqual(ingredients);
     });
 
-    it('should get ingredients: rejected', () => {
+    it('should get ingredients: rejected with error message', () => {
         const errorMessage = 'Error fetching ingredients';
         const action = {
             type: getIngredients.rejected.type,
@@ -30,5 +30,15 @@ describe('ingredientsListSlice reducer', () => {
         const state = ingredientsListReducer(undefined, action);
         expect(state.status).toEqual('failed');
         expect(state.error).toEqual(errorMessage);
+    });
+
+    it('should handle get ingredients: rejected without error message', () => {
+        const action = {
+            type: getIngredients.rejected.type,
+            error: {}
+        };
+        const state = ingredientsListReducer(undefined, action);
+        expect(state.status).toEqual('failed');
+        expect(state.error).toBeNull();
     });
 });

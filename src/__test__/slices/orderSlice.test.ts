@@ -63,13 +63,24 @@ describe('orderSlice test', () => {
         expect(state.error).toBeNull();
     });
 
-    it('should create order: rejected', () => {
+    it('should create order: rejected with error message', () => {
+        const errorMessage = 'Error creating order';
         const action = {
             type: createOrder.rejected.type,
-            error: {message: 'Error message'}
+            error: {message: errorMessage}
         };
-        const state = orderReducer(initialState, action);
+        const state = orderReducer(undefined, action);
         expect(state.status).toEqual('failed');
-        expect(state.error).toEqual('Error message');
+        expect(state.error).toEqual(errorMessage);
+    });
+
+    it('should create order: rejected without error message', () => {
+        const action = {
+            type: createOrder.rejected.type,
+            error: {message: null}
+        };
+        const state = orderReducer(undefined, action);
+        expect(state.status).toEqual('failed');
+        expect(state.error).toBeNull();
     });
 });

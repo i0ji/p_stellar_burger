@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {calculateTotalAmount} from "utils/slicePriceCalculation.ts";
 import {IConstructorSlice} from 'declarations/sliceInterfaces'
 import {IIngredient} from "declarations/interfaces";
 
@@ -45,14 +46,6 @@ const constructorSlice = createSlice({
         }
     },
 });
-
-const calculateTotalAmount = (addedIngredients: IIngredient[], bun: IIngredient | null): number => {
-
-    const ingredientsTotal = addedIngredients?.reduce((acc, ingredient) => acc + (ingredient?.price || 0), 0) || 0;
-    const bunTotal = bun?.price || 0;
-
-    return ingredientsTotal + (bunTotal * 2);
-};
 
 export const {
     addIngredient,
