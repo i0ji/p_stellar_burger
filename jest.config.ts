@@ -16,5 +16,7 @@ module.exports = {
     moduleNameMapper: {
         "^@/(.*)$": "<rootDir>/$1",
         '^utils(.*)': '<rootDir>/src/services/utils/$1',
+        '^slices(.*)': '<rootDir>/src/services/slices/$1',
+        '^declarations(.*)': '<rootDir>/src/services/declarations/$1',
     },
 };

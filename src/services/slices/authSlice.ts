@@ -5,7 +5,7 @@ import {loginUser, registerUser, logoutUser, getUserData, updateUserData} from "
 import {IAuthSlice} from "declarations/sliceInterfaces";
 import {IUserData} from "declarations/interfaces";
 
-const initialState: IAuthSlice = {
+export const initialState: IAuthSlice = {
     user: null,
     status: 'idle',
     userData: null as null | IUserData,

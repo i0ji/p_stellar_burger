@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {IConstructorSlice} from 'declarations/sliceInterfaces'
 import {IIngredient} from "declarations/interfaces";
 
-const initialState: IConstructorSlice = {
+export const initialState: IConstructorSlice = {
     totalAmount: 0,
     ingredients: [],
     addedIngredients: [],

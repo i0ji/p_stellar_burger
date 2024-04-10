@@ -18,7 +18,7 @@ export const initialState: IOrderSlice = {
     },
 }
 
-const orderSlice = createSlice({
+export const orderSlice = createSlice({
     name: 'orderSlice',
     initialState: initialState,
     reducers: {

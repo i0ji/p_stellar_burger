@@ -6,7 +6,7 @@
   "homepage": "./",
   "scripts": {
     "dev": "vite",
-    "test": "jest",
+    "test": "jest --coverage",
     "deploy": "gh-pages -d build",
     "build": "tsc && vite build",
     "build_prod": "tsc && vite build --mode production",
