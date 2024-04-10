@@ -15,5 +15,6 @@ module.exports = {
     },
     moduleNameMapper: {
         "^@/(.*)$": "<rootDir>/$1",
+        '^utils(.*)': '<rootDir>/src/services/utils/$1',
     },
 };
