@@ -13,7 +13,7 @@
     "buildClear": "vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "cypress:open": "./node_modules/.bin/cypress open"
+    "cypress": "./node_modules/.bin/cypress open"
   },
   "dependencies": {
     "@ya.praktikum/react-developer-burger-ui-components": "^1.14.0",
@@ -69,5 +69,10 @@
     "uuid": "^9.0.1",
     "vite": "^5.2.8"
   },
-  "packageManager": "yarn@4.1.1"
+  "packageManager": "yarn@4.1.1",
+  "browserslist": [
+    ">0.2%",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

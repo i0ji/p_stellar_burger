@@ -93,6 +93,7 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
                             to={`/ingredient/${ingredientItem._id}`}
                             state={{background: location}}
                             onClick={() => onUpdateSelectedIngredient(ingredientItem)}
+                            data-testid="list_bun_elem"
                         >
                             <IngredientCard
                                 {...ingredientItem}

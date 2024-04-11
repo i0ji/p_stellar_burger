@@ -1,17 +1,10 @@
 import { defineConfig } from "cypress";
-import vitePreprocessor from 'cypress-vite';
 
 export default defineConfig({
   e2e: {
-    setupNodeEvents(on) {
-      on('file:preprocessor', vitePreprocessor())
+    setupNodeEvents(on, config) {
+      // implement node event listeners here
     },
-  },
-
-  component: {
-    devServer: {
-      framework: "react",
-      bundler: "vite",
-    },
+    baseUrl: 'http://localhost:5173',
   },
 });

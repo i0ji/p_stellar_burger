@@ -1,4 +1,3 @@
-
 import {orderFeedReducer, initialState} from "../../services/orderFeed/reducers.ts";
 
 import {
@@ -13,17 +12,6 @@ import {
     onError,
     onClose
 } from 'services/orderFeed/actions.ts';
-import {TOrder} from "declarations/types";
-
-const testOrder: TOrder = {
-    createdAt: '01.01.24',
-    ingredients: ['123abc123abc', '456def456def'],
-    name: 'Spicy sauce',
-    number: 400,
-    status: 'done',
-    _id: '789ghi789ghi',
-    updatedAt: '01.02.24',
-}
 
 describe('orderFeedReducer/Actions test', () => {
     it('should wsConnect', () => {
@@ -47,7 +35,7 @@ describe('orderFeedReducer/Actions test', () => {
             success: true,
             total: '10',
             totalToday: '5',
-            orders: [testOrder, testOrder]
+            orders: [initialState.orders, initialState.orders]
         };
         const state = orderFeedReducer(initialState, wsMessage(payload));
         expect(state.status).toEqual('ONLINE');

@@ -74,6 +74,7 @@ export default function LoginPage() {
             <form onSubmit={handleLogin}>
                 <h1 className="text text text_type_main-medium pb-6">Вход</h1>
                 <Input
+                    data-testid="login_page_input_email"
                     onChange={handleChange}
                     name={'email'}
                     type={'text'}
@@ -86,6 +87,7 @@ export default function LoginPage() {
                     extraClass="mb-6"
                 />
                 <Input
+                    data-testid="login_page_input_password"
                     onChange={handleChange}
                     name={'password'}
                     type={isPasswordShow ? 'text' : 'password'}
@@ -115,6 +117,7 @@ export default function LoginPage() {
                     </p>
                 }
                 <Button
+                    data-testid="login_page_button_submit"
                     htmlType="submit"
                     extraClass="mb-20"
                     type="primary"

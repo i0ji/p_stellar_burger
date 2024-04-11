@@ -236,6 +236,7 @@ export default function BurgerConstructor() {
                             type="primary"
                             htmlType="button"
                             onClick={handleOrder}
+                            data-testid="constructor_page_button_checkout"
                         >
                             {isAuth ? 'Оформить заказ' : 'Войти в Аккаунт'}
                         </Button>
