@@ -1,7 +1,7 @@
 {
   "name": "p_stellar_burger",
   "private": true,
-  "version": "0.1.9.7.4.1",
+  "version": "0.1.9.7.4.2",
   "type": "module",
   "homepage": "./",
   "scripts": {
@@ -53,6 +53,7 @@
     "gh-pages": "^6.1.1",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "jest-fetch-mock": "^3.0.3",
     "prop-types": "^15.8.1",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",

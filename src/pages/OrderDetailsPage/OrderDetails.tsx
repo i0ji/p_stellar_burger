@@ -12,7 +12,7 @@ import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useLocation, useParams} from "react-router-dom";
 import {useEffect} from "react";
 
-import {calculateTotalPrice, getIngredientsWithQuantity} from "utils/currentOrderCalculation.ts";
+import {orderPriceCalculation, getIngredientsWithQuantity} from "utils/orderPriceCalculation.ts";
 
 export default function OrderDetails() {
 
@@ -85,7 +85,7 @@ export default function OrderDetails() {
 
     const ingredientsWithQuantity = getIngredientsWithQuantity(orderIngredientIDs, ingredientsData);
 
-    const totalOrderPrice = calculateTotalPrice(ingredientsWithQuantity);
+    const totalOrderPrice = orderPriceCalculation(ingredientsWithQuantity);
 
     // --------------- INGREDIENT INFO ---------------
 

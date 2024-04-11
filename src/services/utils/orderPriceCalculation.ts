@@ -1,6 +1,6 @@
 import {IIngredient, IIngredientsWithQuantity} from "declarations/interfaces";
 
-export const calculateTotalPrice = (ingredientsWithQuantity: Array<IIngredientsWithQuantity>) => {
+export const orderPriceCalculation = (ingredientsWithQuantity: Array<IIngredientsWithQuantity>) => {
     let totalOrderPrice = 0;
 
     ingredientsWithQuantity.forEach(item => {

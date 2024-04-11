@@ -6,7 +6,7 @@ import {TOrder} from "declarations/types";
 
 import {Thumbnail, Loader} from "components/index.ts";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
-import {calculateTotalPrice, getIngredientsWithQuantity} from "utils/currentOrderCalculation.ts";
+import {orderPriceCalculation, getIngredientsWithQuantity} from "utils/orderPriceCalculation.ts";
 
 export default function FeedItem({currentOrder}: { currentOrder: TOrder | undefined }) {
 
@@ -46,7 +46,7 @@ export default function FeedItem({currentOrder}: { currentOrder: TOrder | undefi
 
     const ingredientsWithQuantity = getIngredientsWithQuantity(orderIngredientIDs, ingredientsData)
 
-    const totalOrderPrice = calculateTotalPrice(ingredientsWithQuantity);
+    const totalOrderPrice = orderPriceCalculation(ingredientsWithQuantity);
 
     // --------------- DATE
     const OrderDate = () => {

@@ -3,8 +3,8 @@ import {TStatus, TError, TOrder} from "declarations/types";
 import {IIngredients} from "declarations/interfaces";
 
 export interface IConstructorSlice {
+    totalPrice: number;
     ingredients: Array<IIngredient>;
-    totalAmount: number;
     addedIngredients: Array<IIngredient>;
     bun: IIngredient | null;
 }

@@ -1,6 +1,6 @@
 import {checkResponse} from 'utils/checkResponse';
 
-describe('checkResponse function', () => {
+describe('checkResponse test', () => {
     it('should resolve', async () => {
         const responseData = { message: 'Success' };
         const response = {

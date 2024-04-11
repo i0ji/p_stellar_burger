@@ -41,7 +41,7 @@ export default function BurgerConstructor() {
     // --------------- MODAL
     const {isVisible, openModal, closeModal} = useModal();
     // --------------- TOTAL AMOUNT
-    const totalAmount = useSelector(state => state.constructorSlice.totalAmount);
+    const totalAmount = useSelector(state => state.constructorSlice.totalPrice);
     // --------------- BUNS STATE
     const isBun: IIngredient = useSelector(state => state.constructorSlice.bun);
     //--------------- AUTH STATE

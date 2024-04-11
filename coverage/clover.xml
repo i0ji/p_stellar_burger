@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1712776172071" clover="3.2.0">
-  <project timestamp="1712776172071" name="All files">
-    <metrics statements="256" coveredstatements="168" conditionals="29" coveredconditionals="15" methods="67" coveredmethods="51" elements="352" coveredelements="234" complexity="0" loc="256" ncloc="256" packages="4" files="12" classes="12"/>
+<coverage generated="1712823177155" clover="3.2.0">
+  <project timestamp="1712823177155" name="All files">
+    <metrics statements="256" coveredstatements="169" conditionals="29" coveredconditionals="17" methods="67" coveredmethods="51" elements="352" coveredelements="237" complexity="0" loc="256" ncloc="256" packages="4" files="12" classes="12"/>
     <package name="declarations">
       <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="routs.ts" path="D:\code\p_stellar_burger\src\services\declarations\routs.ts">
+      <file name="routs.ts" path="C:\Users\adm.ivan.udodenko\Documents\scripts\p_stellar_burger\src\services\declarations\routs.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="3" type="stmt"/>
         <line num="3" count="3" type="stmt"/>
@@ -13,7 +13,7 @@
     </package>
     <package name="orderFeed">
       <metrics statements="36" coveredstatements="36" conditionals="2" coveredconditionals="2" methods="12" coveredmethods="12"/>
-      <file name="actions.ts" path="D:\code\p_stellar_burger\src\services\orderFeed\actions.ts">
+      <file name="actions.ts" path="C:\Users\adm.ivan.udodenko\Documents\scripts\p_stellar_burger\src\services\orderFeed\actions.ts">
         <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -27,7 +27,7 @@
         <line num="20" count="1" type="stmt"/>
         <line num="22" count="1" type="stmt"/>
       </file>
-      <file name="reducers.ts" path="D:\code\p_stellar_burger\src\services\orderFeed\reducers.ts">
+      <file name="reducers.ts" path="C:\Users\adm.ivan.udodenko\Documents\scripts\p_stellar_burger\src\services\orderFeed\reducers.ts">
         <metrics statements="25" coveredstatements="25" conditionals="2" coveredconditionals="2" methods="12" coveredmethods="12"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -58,7 +58,7 @@
     </package>
     <package name="slices">
       <metrics statements="102" coveredstatements="102" conditionals="5" coveredconditionals="5" methods="34" coveredmethods="34"/>
-      <file name="authSlice.ts" path="D:\code\p_stellar_burger\src\services\slices\authSlice.ts">
+      <file name="authSlice.ts" path="C:\Users\adm.ivan.udodenko\Documents\scripts\p_stellar_burger\src\services\slices\authSlice.ts">
         <metrics statements="45" coveredstatements="45" conditionals="0" coveredconditionals="0" methods="17" coveredmethods="17"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -106,7 +106,7 @@
         <line num="98" count="4" type="stmt"/>
         <line num="100" count="4" type="stmt"/>
       </file>
-      <file name="constructorSlice.ts" path="D:\code\p_stellar_burger\src\services\slices\constructorSlice.ts">
+      <file name="constructorSlice.ts" path="C:\Users\adm.ivan.udodenko\Documents\scripts\p_stellar_burger\src\services\slices\constructorSlice.ts">
         <metrics statements="23" coveredstatements="23" conditionals="3" coveredconditionals="3" methods="5" coveredmethods="5"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -132,7 +132,7 @@
         <line num="50" count="1" type="stmt"/>
         <line num="57" count="1" type="stmt"/>
       </file>
-      <file name="currentIngredientSlice.ts" path="D:\code\p_stellar_burger\src\services\slices\currentIngredientSlice.ts">
+      <file name="currentIngredientSlice.ts" path="C:\Users\adm.ivan.udodenko\Documents\scripts\p_stellar_burger\src\services\slices\currentIngredientSlice.ts">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -140,7 +140,7 @@
         <line num="15" count="1" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
       </file>
-      <file name="ingredientsSlice.ts" path="D:\code\p_stellar_burger\src\services\slices\ingredientsSlice.ts">
+      <file name="ingredientsSlice.ts" path="C:\Users\adm.ivan.udodenko\Documents\scripts\p_stellar_burger\src\services\slices\ingredientsSlice.ts">
         <metrics statements="11" coveredstatements="11" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -154,7 +154,7 @@
         <line num="26" count="2" type="cond" truecount="2" falsecount="0"/>
         <line num="31" count="1" type="stmt"/>
       </file>
-      <file name="orderSlice.ts" path="D:\code\p_stellar_burger\src\services\slices\orderSlice.ts">
+      <file name="orderSlice.ts" path="C:\Users\adm.ivan.udodenko\Documents\scripts\p_stellar_burger\src\services\slices\orderSlice.ts">
         <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="7"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -177,8 +177,8 @@
       </file>
     </package>
     <package name="utils">
-      <metrics statements="115" coveredstatements="27" conditionals="22" coveredconditionals="8" methods="21" coveredmethods="5"/>
-      <file name="api.ts" path="D:\code\p_stellar_burger\src\services\utils\api.ts">
+      <metrics statements="115" coveredstatements="28" conditionals="22" coveredconditionals="10" methods="21" coveredmethods="5"/>
+      <file name="api.ts" path="C:\Users\adm.ivan.udodenko\Documents\scripts\p_stellar_burger\src\services\utils\api.ts">
         <metrics statements="104" coveredstatements="17" conditionals="12" coveredconditionals="0" methods="16" coveredmethods="0"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
@@ -285,25 +285,25 @@
         <line num="295" count="0" type="stmt"/>
         <line num="296" count="0" type="stmt"/>
       </file>
-      <file name="checkEmail.ts" path="D:\code\p_stellar_burger\src\services\utils\checkEmail.ts">
-        <metrics statements="5" coveredstatements="4" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+      <file name="checkEmail.ts" path="C:\Users\adm.ivan.udodenko\Documents\scripts\p_stellar_burger\src\services\utils\checkEmail.ts">
+        <metrics statements="5" coveredstatements="5" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="4" count="0" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="4" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
       </file>
-      <file name="checkResponse.ts" path="D:\code\p_stellar_burger\src\services\utils\checkResponse.ts">
+      <file name="checkResponse.ts" path="C:\Users\adm.ivan.udodenko\Documents\scripts\p_stellar_burger\src\services\utils\checkResponse.ts">
         <metrics statements="2" coveredstatements="2" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="2" type="cond" truecount="2" falsecount="0"/>
       </file>
-      <file name="slicePriceCalculation.ts" path="D:\code\p_stellar_burger\src\services\utils\slicePriceCalculation.ts">
-        <metrics statements="4" coveredstatements="4" conditionals="6" coveredconditionals="5" methods="2" coveredmethods="2"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="5" count="4" type="cond" truecount="3" falsecount="1"/>
-        <line num="6" count="4" type="cond" truecount="2" falsecount="0"/>
-        <line num="8" count="4" type="stmt"/>
+      <file name="slicePriceCalculation.ts" path="C:\Users\adm.ivan.udodenko\Documents\scripts\p_stellar_burger\src\services\utils\slicePriceCalculation.ts">
+        <metrics statements="4" coveredstatements="4" conditionals="6" coveredconditionals="6" methods="2" coveredmethods="2"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="5" count="8" type="cond" truecount="4" falsecount="0"/>
+        <line num="7" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="9" count="7" type="stmt"/>
       </file>
     </package>
   </project>
