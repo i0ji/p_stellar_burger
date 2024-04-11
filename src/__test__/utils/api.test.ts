@@ -16,7 +16,6 @@ import {
 } from 'utils/api.ts';
 import {BASE_URL, ORDER_URL} from 'declarations/routs.ts';
 
-
 jest.mock('utils/checkResponse.ts');
 
 describe('refreshToken', () => {
