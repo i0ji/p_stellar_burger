@@ -104,6 +104,7 @@ export default function LoginPage() {
                     loginError && <p
                         className="pb-6"
                         style={{color: '#b90101'}}
+                        data-testid="login_page_error_password"
                     >
                         Неверный пароль или Email. Попробуйте ещё раз.
                     </p>
@@ -112,6 +113,7 @@ export default function LoginPage() {
                     emailError && <p
                         className="pb-6"
                         style={{color: '#b90101'}}
+                        data-testid="login_page_error_email"
                     >
                         Некорректный Email.
                     </p>

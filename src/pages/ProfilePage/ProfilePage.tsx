@@ -104,7 +104,7 @@ export default function ProfilePage() {
     }
 
     return (
-        <section className={styles.profile_section}>
+        <section className={styles.profile_section} data-testid="profile_section">
             <ProfileMenu/>
             <div className={styles.profile_content}>
                 {location.pathname === '/profile/orders' ? <ProfileOrders/> :

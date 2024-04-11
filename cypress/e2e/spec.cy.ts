@@ -1,38 +1,56 @@
 describe('template spec', () => {
-    beforeEach(()=> {
-        let email = 'Ozymandias@test.ru';
-        let password = 'kingofkings';
-    })
 
-    it('passes', () => {
+    // const email = 'Ozymandias@test.ru';
+    // const password = 'KingOfKings';
 
-
-        const email = 'Ozymandias@test.ru';
-        const password = 'kingofkings';
-
-
+    beforeEach(() => {
+        cy.intercept('GET', 'ingredients', {fixture: 'ingredients.json'}).as('getIngredients');
         cy.visit('/');
-        // cy.get('[data-testid=list_bun_elem]:first').click();
-        cy.get('[data-testid=nav_button_profile]').click();
-        cy.wait(2000);
-        cy.get('[data-testid=login_page_input_email]').type(`${email}`)
-        cy.get('[data-testid=login_page_input_email]').type(`${password}`)
-        cy.get('[data-testid=login_page_button_submit]').click();
-        cy.intercept('GET', 'me', 'me.json');
-        cy.wait(3000);
-        cy.get('[data-testid=nav_button_main]').click();
-        cy.intercept('POST', 'signin',{fixture: "login.json"}).as('postLogin');
-        // cy.wait(3000);
-        // cy.get('[data-testid=constructor_page_button_checkout]');
+    });
+
+    it('should load ingredients', () => {
+        cy.get('[data-testid=ingredient_item]').should('exist');
     })
-})
 
-// cy.intercept('GET', 'cards',{fixture: "card.json"});
-// cy.intercept('GET', 'me',{fixture: "login.json"});
-// cy.intercept('POST', 'signin',{fixture: "login.json"}).as('postLogin');
 
-// it('passes', () => {
-//   cy.visit('/');
-//   cy.get('[data-testid=header_feed_link').click();
-//   cy.get('p').should('have.text', 'Сегодня');
+    // it('should login', () => {
+    //     cy.get('[data-testid=nav_button_profile]').click();
+    //     cy.get('[data-testid=login_page_input_email]').type(`${email}`);
+    //     cy.get('[data-testid=login_page_input_password]').type(`${password}`);
+    //     cy.get('[data-testid=login_page_button_submit]').click();
+    //     cy.intercept('GET', 'me', {fixture: 'me.json'});
+    //     cy.intercept('POST', 'signin', {fixture: "login.json"});
+    //     cy.get('[data-testid=nav_button_profile]').click();
+    //     cy.get('[data-testid=profile_section]').should('exist');
+    //
+    //
+    //     window.localStorage.setItem(
+    //         'refreshToken',
+    //         JSON.stringify('test-refreshToken')
+    //     );
+    //     console.log('REFRESH TOKEN: ', localStorage.getItem('refreshToken'));
+    // })
+
+
+// it('should show email error', () => {
+//     cy.visit('/#/profile');
+//     cy.get('[data-testid=login_page_input_email]').type('test@.ry');
+//     cy.get('[data-testid=login_page_button_submit]').click();
+//     cy.get('[data-testid=login_page_error_email]').should('exist');
 // })
+//
+// it('should show pwd error', () => {
+//     cy.visit('/#/profile');
+//     cy.get('[data-testid=login_page_input_email]').type(`${email}`);
+//     cy.get('[data-testid=login_page_input_password]').type('44444');
+//     cy.get('[data-testid=login_page_button_submit]').click();
+//     cy.get('[data-testid=login_page_error_password]').should('exist');
+// })
+
+
+    afterEach(function () {
+        cy.clearLocalStorage();
+        cy.visit('/');
+    })
+
+})
