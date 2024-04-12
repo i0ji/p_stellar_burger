@@ -22,7 +22,6 @@ export default function LoginPage() {
     const dispatch = useDispatch();
     const userAuth = useSelector(state => state.authSlice.isAuth);
 
-
     //  --------------- RERENDER CHECK ---------------
 
     // const renderCount = useRef(0);
@@ -42,8 +41,8 @@ export default function LoginPage() {
 
     // --------------- ERROR MESSAGE ---------------
 
-
     const loginError = useSelector(state => state.authSlice.loginError);
+
     const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         console.log(values.email);

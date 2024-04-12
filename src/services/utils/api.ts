@@ -63,6 +63,7 @@ export const loginUser = createAsyncThunk<IUserData, IUserData>('auth/login',
         };
         const response = await fetch(`${BASE_URL}/auth/login`, requestOptions);
         const data = await checkResponse<TUserLoginResponse>(response);
+        console.log(data)
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('refreshToken', data.refreshToken);
         return data.user;

@@ -86,7 +86,9 @@ export default function Feed() {
     // --------------- COMPONENT ---------------
 
     return (
-        <section className={styles.feed}>
+        <section
+            data-testid="section_feed"
+            className={styles.feed}>
 
             <div className={styles.container}>
 

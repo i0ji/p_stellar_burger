@@ -162,13 +162,16 @@ export default function BurgerConstructor() {
             <div
                 className={`${styles.constructor_list} mb-10`}
                 ref={dropIngredients}
+                data-testid="constructor_list"
             >
 
 
                 {/* --------------- TOP BUN --------------- */}
 
                 {!isBun ? <InitialBun pos={"top"}/> :
-                    <div className={styles.constructor_order_item}>
+                    <div
+                        className={styles.constructor_order_item}
+                    >
                         {bun && (
                             <ConstructorElement
                                 extraClass={styles.constructor_item_top}
@@ -236,7 +239,7 @@ export default function BurgerConstructor() {
                             type="primary"
                             htmlType="button"
                             onClick={handleOrder}
-                            data-testid="constructor_page_button_checkout"
+                            data-testid="constructor_button_checkout"
                         >
                             {isAuth ? 'Оформить заказ' : 'Войти в Аккаунт'}
                         </Button>
@@ -256,7 +259,6 @@ export default function BurgerConstructor() {
 
 
             </div>
-
         </section>
     )
 }

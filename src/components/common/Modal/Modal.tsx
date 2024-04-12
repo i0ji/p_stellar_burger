@@ -44,6 +44,7 @@ export default function Modal({onClose, children}: {
                 <div
                     className={`${styles.modal_overlay}  ${hasError && styles.modal_error}`}
                     onClick={onClose}
+                    data-testid="modal_overlay"
                 >
                 </div>
                 <div
