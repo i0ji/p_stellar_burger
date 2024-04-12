@@ -1,9 +1,0 @@
-{
-  "success": true,
-  "user": {
-    "email": "Ozymandias@test.ru",
-    "name": "Ozymandias"
-  },
-  "accessToken": "Bearer eyJhbGciOi9.eyJpZCI6IjY1ZGIxYzBhOTdlZGUwMDAxZDA1ZTJkNiIsImlhdCI6MTJIUzI1NiIsInR5cCI6IkpXVCJcxMjkyOTM4NiwiZXhwIjoxNzEyOTMwNTg2fQ.ri3hsvktHSOd9n3yLdh-j5pJV6TqRKaYZwXrp4r-UUg",
-  "refreshToken": "c0b273a35d15575e5c6a186f93d5ed062d983da4b73b5d983da4b73b5ddddddddddddddc1b182b61"
-}
