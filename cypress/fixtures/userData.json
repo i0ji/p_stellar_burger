@@ -4,5 +4,6 @@
     "email": "Ozymandias@test.ru",
     "name": "Ozymandias"
   },
-  "token": "eyJhbGciOiJIUzI1NeyJhbGciOiJIUzI1121e8912ewandasd112esadjubaduiqwd18293NwMDAxZDA1ZTJkNiIsImlhdCI6MTcxMjg0MjI1MywiZXhwIjoxNzEQzRO6cdF7o6SpI3urXzL-eq3EqS8l6nLD9lxg"
+  "accessToken": "Bearer eyJhbGciOi9.eyJpZCI6IjY1ZGIxYzBhOTdlZGUwMDAxZDA1ZTJkNiIsImlhdCI6MTJIUzI1NiIsInR5cCI6IkpXVCJcxMjkyOTM4NiwiZXhwIjoxNzEyOTMwNTg2fQ.ri3hsvktHSOd9n3yLdh-j5pJV6TqRKaYZwXrp4r-UUg",
+  "refreshToken": "c0b273a35d15575e5c6a186f93d5ed062d983da4b73b5d983da4b73b5ddddddddddddddc1b182b61"
 }

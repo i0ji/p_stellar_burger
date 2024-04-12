@@ -1,7 +1,8 @@
 describe('Happy path spec', () => {
     const email = 'Ozymandias@test.ru';
     const password = 'KingOfKings';
-
+    const refreshToken = 'c0b273a35d15575e5c6a186f93d5ed062d983da4b73b5d983da4b73b5ddddddddddddddc1b182b61';
+    const accessToken = 'Bearer eyJhbGciOi9.eyJpZCI6IjY1ZGIxYzBhOTdlZGUwMDAxZDA1ZTJkNiIsImlhdCI6MTJIUzI1NiIsInR5cCI6IkpXVCJcxMjkyOTM4NiwiZXhwIjoxNzEyOTMwNTg2fQ.ri3hsvktHSOd9n3yLdh-j5pJV6TqRKaYZwXrp4r-UUg';
 
     // --------------- BEFORE EACH ---------------
 
@@ -36,14 +37,18 @@ describe('Happy path spec', () => {
         cy.get('[data-testid=login_page_input_password]').type(`${password}`);
         cy.get('[data-testid=login_page_button_submit]').click();
         cy.intercept('POST', 'https://norma.nomoreparties.space/api/auth/login', {fixture: 'userData.json'}).as('authUser');
-        cy.intercept('GET', 'https://norma.nomoreparties.space/api/auth/user', {fixture: 'token.json'})
 
         window.localStorage.setItem(
             'refreshToken',
-            JSON.stringify('testToken')
-        );
+            JSON.stringify(refreshToken)
+        )
 
-        cy.log(window.localStorage.getItem('token'));
+        window.localStorage.setItem(
+            'accessToken',
+            JSON.stringify(accessToken)
+        )
+
+        cy.log(window.localStorage.getItem('accessToken'));
 
         cy.visit('/');
         // --------------- ADD BUN
@@ -109,7 +114,7 @@ describe('Happy path spec', () => {
 
     // --------------- AFTER EACH  ---------------
 
-    afterEach(function () {
-        cy.clearLocalStorage();
-    })
+    // afterEach(function () {
+    //     cy.clearLocalStorage();
+    // })
 })
