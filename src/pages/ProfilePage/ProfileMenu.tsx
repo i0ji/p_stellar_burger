@@ -67,6 +67,7 @@ export default function ProfileMenu() {
                         type="secondary"
                         size="medium"
                         onClick={handleLogout}
+                        data-testid="profile_quit_button"
                     >
                         Выход
                     </Button>
