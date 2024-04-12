@@ -26,3 +26,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+/cypress/e2e/HappyPath.cy.ts
+/cypress/e2e/Primaty.cy.ts

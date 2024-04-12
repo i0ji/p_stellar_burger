@@ -11,7 +11,10 @@ export default function OrderAcceptance({onClose}: { onClose: () => void }) {
 
     return (
         <Modal onClose={onClose}>
-            <div className={styles.orders_modal}>
+            <div
+                className={styles.orders_modal}
+                data-testid="order_acceptance"
+            >
                 <h1 className='text text_type_digits-large mb-8'>{orderNumber}</h1>
                 <p className='text text_type_main-medium mb-15'>идентификатор заказа</p>
                 <img
