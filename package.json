@@ -1,7 +1,7 @@
 {
   "name": "p_stellar_burger",
   "private": true,
-  "version": "0.1.9.7.4.4",
+  "version": "0.1.9.7.4.5",
   "type": "module",
   "homepage": "./",
   "scripts": {

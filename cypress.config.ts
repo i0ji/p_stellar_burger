@@ -1,7 +1,5 @@
 import {defineConfig} from 'cypress'
 
-
-
 // noinspection JSUnusedGlobalSymbols
 export default defineConfig({
         component: {
@@ -15,5 +13,7 @@ export default defineConfig({
             // },
             baseUrl: 'http://localhost:5173',
         },
+        viewportWidth: 1400,
+        viewportHeight: 860,
     },
 )
