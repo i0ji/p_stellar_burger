@@ -18,7 +18,12 @@ import {useForm} from "hooks/useForm.ts";
 export default function LoginPage() {
 
     const {values, handleChange} = useForm<IForm>({});
-    const [emailError, setEmailError] = useState<string>("");
+
+    const [emailError, setEmailError] = useState<boolean>(false);
+    const [loginError, setLoginError] = useState<boolean>(false);
+
+    const stateLoginError = useSelector(state => state.authSlice.loginError);
+
     const dispatch = useDispatch();
     const userAuth = useSelector(state => state.authSlice.isAuth);
 
@@ -41,27 +46,24 @@ export default function LoginPage() {
 
     // --------------- ERROR MESSAGE ---------------
 
-    const loginError = useSelector(state => state.authSlice.loginError);
 
     const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         console.log(values.email);
-        if (checkEmail(values.email)) {
-            setEmailError("ОШИБКА В ПОЧТЕ");
-            return;
-        } else {
-            setEmailError('');
-        }
+        checkEmail(values.email) ? setEmailError(true) : setEmailError(false);
+
+        stateLoginError && setLoginError(true);
 
         const userData: IUserData = {
             email: values.email,
             password: values.password,
         };
+
         dispatch(loginUser(userData));
     };
 
 
-    // --------------- CONDITION ---------------
+// --------------- CONDITION ---------------
 
     if (userAuth) {
         return <Loader description={'Проходим фейсконтроль...'}/>;
@@ -100,7 +102,7 @@ export default function LoginPage() {
                     onIconClick={togglePasswordVisibility}
                 />
                 {
-                    loginError && <p
+                    !emailError && loginError && <p
                         className="pb-6"
                         style={{color: '#b90101'}}
                         data-testid="login_page_error_password"
