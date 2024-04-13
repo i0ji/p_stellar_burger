@@ -9,6 +9,7 @@ import orderReducer, {
 jest.mock('utils/api.ts');
 
 describe('orderSlice test', () => {
+    // --------------- UPDATE IDS
     it('should update IDs', () => {
         const action = {
             type: updateIds.type,
@@ -17,7 +18,7 @@ describe('orderSlice test', () => {
         const state = orderReducer(initialState, action);
         expect(state.IDs).toEqual(['123abc123abc', '456def456def']);
     });
-
+    // --------------- UPDATE ORDER NUMBER
     it('should update order number', () => {
         const action = {
             type: updateOrderNumber.type,
@@ -27,7 +28,7 @@ describe('orderSlice test', () => {
         expect(state.orderNumber).toEqual(123);
         expect(state.error).toBeNull();
     });
-
+    // --------------- UPDATE CURRENT ORDER
     it('should update current order', () => {
         const orderData = {
             createdAt: '2024-04-10',
@@ -46,7 +47,7 @@ describe('orderSlice test', () => {
         expect(state.currentOrder).toEqual(orderData);
         expect(state.error).toBeNull();
     });
-
+    // --------------- CREATE ORDER
     it('should create order: pending', () => {
         const state = orderReducer(initialState, {type: createOrder.pending.type});
         expect(state.status).toEqual('loading');
@@ -83,4 +84,12 @@ describe('orderSlice test', () => {
         expect(state.status).toEqual('failed');
         expect(state.error).toBeNull();
     });
+    // --------------- INVALID ACTION TYPE
+    it('should return initial state due to an invalid action', () => {
+        const action = {
+            type: 'invalid action type',
+        };
+        const state = orderReducer(initialState, action);
+        expect(state).toEqual(initialState);
+    })
 });

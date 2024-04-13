@@ -10,6 +10,7 @@ import authReducer, {initialState, setAuthChecked, setUser} from 'slices/authSli
 jest.mock('utils/api.ts');
 
 describe('authSlice test', () => {
+    // --------------- AUTH
     it('should set user', () => {
         const user = {
             id: 1,
@@ -32,7 +33,7 @@ describe('authSlice test', () => {
         const state = authReducer(initialState, action);
         expect(state.authChecked).toBe(true);
     });
-
+    // --------------- LOGIN
     it('should check login user: pending', () => {
         const state = authReducer(initialState, {type: loginUser.pending.type});
         expect(state.status).toEqual('loading');
@@ -64,7 +65,7 @@ describe('authSlice test', () => {
         expect(state.error).toEqual('Error message');
         expect(state.loginError).toBe(true);
     });
-
+    // --------------- REGISTER
     it('should check register user: pending', () => {
         const state = authReducer(initialState, {type: registerUser.pending.type});
         expect(state.status).toEqual('loading');
@@ -94,7 +95,7 @@ describe('authSlice test', () => {
         expect(state.status).toEqual('failed');
         expect(state.error).toEqual('Error message');
     });
-
+    // --------------- LOGOUT
     it('should check logout user: pending', () => {
         const state = authReducer(initialState, {type: logoutUser.pending.type});
         expect(state.status).toEqual('loading');
@@ -117,7 +118,7 @@ describe('authSlice test', () => {
         expect(state.error).toEqual('Error message');
         expect(state.isAuth).toBe(false);
     });
-
+    // --------------- GET DATA
     it('should get user data: fulfilled', () => {
         const userData = {
             id: 1,
@@ -141,7 +142,7 @@ describe('authSlice test', () => {
         expect(state.status).toEqual('failed');
         expect(state.error).toEqual('Error message');
     });
-
+    // --------------- UPDATE DATA
     it('should update user data: pending', () => {
         const state = authReducer(initialState, {type: updateUserData.pending.type});
         expect(state.status).toEqual('loading');
@@ -170,4 +171,12 @@ describe('authSlice test', () => {
         expect(state.status).toEqual('failed');
         expect(state.error).toEqual('Error message');
     });
+    // --------------- INVALID ACTION TYPE
+    it('should return initial state due to an invalid action', () => {
+        const action = {
+            type: 'invalid action type',
+        };
+        const state = authReducer(initialState, action);
+        expect(state.userData).toEqual(initialState.userData);
+    })
 });

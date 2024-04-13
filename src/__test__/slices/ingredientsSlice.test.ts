@@ -1,7 +1,9 @@
 import ingredientsListReducer from 'slices/ingredientsSlice';
 import {getIngredients} from 'utils/api.ts';
+import {IIngredientsListSlice} from "declarations/sliceInterfaces";
 
 describe('ingredientsListSlice test', () => {
+    // --------------- GET INGREDIENTS
     it('should get ingredients: pending', () => {
         const state = ingredientsListReducer(undefined, {type: getIngredients.pending.type});
         expect(state.status).toEqual('loading');
@@ -41,4 +43,17 @@ describe('ingredientsListSlice test', () => {
         expect(state.status).toEqual('failed');
         expect(state.error).toBeNull();
     });
+    // --------------- INVALID ACTION TYPE
+    it('should return initial state due to an invalid action', () => {
+        const action = {
+            type: 'invalid action type',
+        };
+        const initialState: IIngredientsListSlice = {
+            ingredients: [],
+            status: 'idle',
+            error: null,
+        }
+        const state = ingredientsListReducer(initialState, action);
+        expect(state).toEqual(initialState);
+    })
 });

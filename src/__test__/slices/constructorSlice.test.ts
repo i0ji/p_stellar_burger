@@ -7,7 +7,7 @@ import constructorReducer, {
 } from 'slices/constructorSlice';
 
 describe('constructorSlice test', () => {
-
+    // --------------- ADD BUN
     it('should add bun', () => {
         const bun = {
             name: 'Purple bun',
@@ -20,7 +20,7 @@ describe('constructorSlice test', () => {
         expect(state.bun).toEqual(bun);
         expect(state.totalPrice).toEqual(10);
     });
-
+    // --------------- ADD INGREDIENT
     it('should add non-bun', () => {
         const initialIngredient = {_id: 'ingredient_id', type: 'main', price: 2};
         const initialStateWithIngredients = {
@@ -40,7 +40,7 @@ describe('constructorSlice test', () => {
         expect(state.addedIngredients[1]).toEqual(newIngredient);
         expect(state.totalPrice).toEqual(5);
     });
-
+    // --------------- REMOVE INGREDIENT
     it('should remove existing ingredient', () => {
         const initialIngredient = {_id: 'ingredient_id', type: 'main', price: 2};
         const initialStateWithIngredients = {
@@ -53,7 +53,7 @@ describe('constructorSlice test', () => {
         expect(state.addedIngredients).toHaveLength(0);
         expect(state.totalPrice).toEqual(0);
     });
-
+    // --------------- REMOVE NON-EXISTING INGREDIENT
     it('should remove non-existing ingredient', () => {
         const initialIngredient = {_id: 'ingredient_id', type: 'main', price: 2};
         const initialStateWithIngredients = {
@@ -66,7 +66,7 @@ describe('constructorSlice test', () => {
         expect(state.addedIngredients).toHaveLength(1);
         expect(state.totalPrice).toEqual(2);
     });
-
+    // --------------- REORDER INGREDIENTS
     it('should reorder ingredients', () => {
         const initialStateWithIngredients = {
             ...initialState,
@@ -87,7 +87,7 @@ describe('constructorSlice test', () => {
         ]);
         expect(state.totalPrice).toEqual(5);
     });
-
+    // --------------- RESET INGREDIENT
     it('should reset ingredients', () => {
         const initialStateWithIngredients = {
             ...initialState,
@@ -101,4 +101,12 @@ describe('constructorSlice test', () => {
         expect(state.bun).toBeNull();
         expect(state.totalPrice).toEqual(0);
     });
+    // --------------- INVALID ACTION TYPE
+    it('should return initial state due to an invalid action', () => {
+        const action = {
+            type: 'invalid action type',
+        };
+        const state = constructorReducer(initialState, action);
+        expect(state).toEqual(initialState);
+    })
 });

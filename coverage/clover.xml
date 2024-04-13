@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1712936530795" clover="3.2.0">
-  <project timestamp="1712936530795" name="All files">
-    <metrics statements="257" coveredstatements="191" conditionals="29" coveredconditionals="19" methods="67" coveredmethods="58" elements="353" coveredelements="268" complexity="0" loc="257" ncloc="257" packages="4" files="12" classes="12"/>
+<coverage generated="1712989094987" clover="3.2.0">
+  <project timestamp="1712989094987" name="All files">
+    <metrics statements="257" coveredstatements="175" conditionals="29" coveredconditionals="18" methods="67" coveredmethods="54" elements="353" coveredelements="247" complexity="0" loc="257" ncloc="257" packages="4" files="12" classes="12"/>
     <package name="declarations">
       <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="routs.ts" path="D:\code\p_stellar_burger\src\services\declarations\routs.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
       </file>
     </package>
     <package name="orderFeed">
@@ -60,10 +60,10 @@
       <metrics statements="102" coveredstatements="102" conditionals="5" coveredconditionals="5" methods="34" coveredmethods="34"/>
       <file name="authSlice.ts" path="D:\code\p_stellar_burger\src\services\slices\authSlice.ts">
         <metrics statements="45" coveredstatements="45" conditionals="0" coveredconditionals="0" methods="17" coveredmethods="17"/>
-        <line num="1" count="5" type="stmt"/>
-        <line num="3" count="5" type="stmt"/>
-        <line num="8" count="5" type="stmt"/>
-        <line num="18" count="5" type="stmt"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="3" count="6" type="stmt"/>
+        <line num="8" count="6" type="stmt"/>
+        <line num="18" count="6" type="stmt"/>
         <line num="23" count="1" type="stmt"/>
         <line num="24" count="1" type="stmt"/>
         <line num="27" count="1" type="stmt"/>
@@ -103,8 +103,8 @@
         <line num="89" count="1" type="stmt"/>
         <line num="92" count="1" type="stmt"/>
         <line num="93" count="1" type="stmt"/>
-        <line num="98" count="5" type="stmt"/>
-        <line num="100" count="5" type="stmt"/>
+        <line num="98" count="6" type="stmt"/>
+        <line num="100" count="6" type="stmt"/>
       </file>
       <file name="constructorSlice.ts" path="D:\code\p_stellar_burger\src\services\slices\constructorSlice.ts">
         <metrics statements="23" coveredstatements="23" conditionals="3" coveredconditionals="3" methods="5" coveredmethods="5"/>
@@ -177,21 +177,21 @@
       </file>
     </package>
     <package name="utils">
-      <metrics statements="116" coveredstatements="50" conditionals="22" coveredconditionals="12" methods="21" coveredmethods="12"/>
+      <metrics statements="116" coveredstatements="34" conditionals="22" coveredconditionals="11" methods="21" coveredmethods="8"/>
       <file name="api.ts" path="D:\code\p_stellar_burger\src\services\utils\api.ts">
-        <metrics statements="105" coveredstatements="39" conditionals="12" coveredconditionals="2" methods="16" coveredmethods="7"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="17" count="4" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="26" count="1" type="stmt"/>
-        <line num="32" count="4" type="stmt"/>
-        <line num="33" count="2" type="stmt"/>
-        <line num="34" count="2" type="stmt"/>
-        <line num="35" count="2" type="stmt"/>
-        <line num="37" count="0" type="cond" truecount="0" falsecount="2"/>
+        <metrics statements="105" coveredstatements="23" conditionals="12" coveredconditionals="1" methods="16" coveredmethods="3"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="17" count="5" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="32" count="5" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="37" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="38" count="0" type="stmt"/>
         <line num="39" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="40" count="0" type="stmt"/>
@@ -199,8 +199,8 @@
         <line num="43" count="0" type="stmt"/>
         <line num="44" count="0" type="stmt"/>
         <line num="45" count="0" type="stmt"/>
-        <line num="47" count="0" type="stmt"/>
-        <line num="55" count="4" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="55" count="5" type="stmt"/>
         <line num="57" count="0" type="stmt"/>
         <line num="64" count="0" type="stmt"/>
         <line num="65" count="0" type="stmt"/>
@@ -208,24 +208,24 @@
         <line num="67" count="0" type="stmt"/>
         <line num="68" count="0" type="stmt"/>
         <line num="69" count="0" type="stmt"/>
-        <line num="75" count="4" type="stmt"/>
+        <line num="75" count="5" type="stmt"/>
         <line num="78" count="0" type="stmt"/>
         <line num="79" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="80" count="0" type="stmt"/>
         <line num="82" count="0" type="stmt"/>
         <line num="89" count="0" type="stmt"/>
-        <line num="96" count="4" type="stmt"/>
+        <line num="96" count="5" type="stmt"/>
         <line num="99" count="0" type="stmt"/>
         <line num="100" count="0" type="stmt"/>
         <line num="101" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="102" count="0" type="stmt"/>
-        <line num="108" count="4" type="stmt"/>
+        <line num="108" count="5" type="stmt"/>
         <line num="111" count="0" type="stmt"/>
         <line num="112" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="113" count="0" type="stmt"/>
         <line num="115" count="0" type="stmt"/>
         <line num="126" count="0" type="stmt"/>
-        <line num="133" count="4" type="stmt"/>
+        <line num="133" count="5" type="stmt"/>
         <line num="136" count="0" type="stmt"/>
         <line num="143" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="144" count="0" type="stmt"/>
@@ -234,27 +234,27 @@
         <line num="147" count="0" type="stmt"/>
         <line num="149" count="0" type="stmt"/>
         <line num="150" count="0" type="stmt"/>
-        <line num="158" count="4" type="stmt"/>
-        <line num="159" count="2" type="stmt"/>
-        <line num="163" count="2" type="stmt"/>
-        <line num="164" count="2" type="stmt"/>
-        <line num="171" count="2" type="stmt"/>
+        <line num="158" count="5" type="stmt"/>
+        <line num="159" count="0" type="stmt"/>
+        <line num="163" count="0" type="stmt"/>
+        <line num="164" count="0" type="stmt"/>
+        <line num="171" count="0" type="stmt"/>
         <line num="173" count="0" type="stmt"/>
         <line num="174" count="0" type="stmt"/>
-        <line num="181" count="4" type="stmt"/>
+        <line num="181" count="5" type="stmt"/>
         <line num="184" count="0" type="stmt"/>
         <line num="187" count="0" type="stmt"/>
         <line num="188" count="0" type="stmt"/>
         <line num="196" count="0" type="stmt"/>
         <line num="198" count="0" type="stmt"/>
         <line num="199" count="0" type="stmt"/>
-        <line num="207" count="4" type="stmt"/>
+        <line num="207" count="5" type="stmt"/>
         <line num="210" count="0" type="stmt"/>
         <line num="219" count="0" type="stmt"/>
         <line num="220" count="0" type="stmt"/>
         <line num="221" count="0" type="stmt"/>
         <line num="222" count="0" type="stmt"/>
-        <line num="228" count="4" type="stmt"/>
+        <line num="228" count="5" type="stmt"/>
         <line num="231" count="0" type="stmt"/>
         <line num="232" count="0" type="stmt"/>
         <line num="233" count="0" type="stmt"/>
@@ -264,25 +264,25 @@
         <line num="242" count="0" type="stmt"/>
         <line num="247" count="0" type="stmt"/>
         <line num="248" count="0" type="stmt"/>
-        <line num="255" count="4" type="stmt"/>
-        <line num="256" count="2" type="stmt"/>
-        <line num="257" count="2" type="stmt"/>
-        <line num="258" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="259" count="2" type="stmt"/>
-        <line num="260" count="2" type="stmt"/>
-        <line num="265" count="2" type="stmt"/>
-        <line num="270" count="2" type="cond" truecount="1" falsecount="0"/>
-        <line num="271" count="2" type="stmt"/>
-        <line num="273" count="2" type="stmt"/>
+        <line num="255" count="5" type="stmt"/>
+        <line num="256" count="0" type="stmt"/>
+        <line num="257" count="0" type="stmt"/>
+        <line num="258" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="259" count="0" type="stmt"/>
+        <line num="260" count="0" type="stmt"/>
+        <line num="265" count="0" type="stmt"/>
+        <line num="270" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="271" count="0" type="stmt"/>
+        <line num="273" count="0" type="stmt"/>
         <line num="276" count="0" type="stmt"/>
         <line num="277" count="0" type="stmt"/>
         <line num="278" count="0" type="stmt"/>
-        <line num="280" count="2" type="stmt"/>
+        <line num="280" count="0" type="stmt"/>
         <line num="283" count="0" type="stmt"/>
-        <line num="291" count="4" type="stmt"/>
-        <line num="292" count="2" type="stmt"/>
-        <line num="293" count="2" type="stmt"/>
-        <line num="294" count="2" type="stmt"/>
+        <line num="291" count="5" type="stmt"/>
+        <line num="292" count="0" type="stmt"/>
+        <line num="293" count="0" type="stmt"/>
+        <line num="294" count="0" type="stmt"/>
         <line num="296" count="0" type="stmt"/>
         <line num="297" count="0" type="stmt"/>
       </file>
@@ -296,8 +296,8 @@
       </file>
       <file name="checkResponse.ts" path="D:\code\p_stellar_burger\src\services\utils\checkResponse.ts">
         <metrics statements="2" coveredstatements="2" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
-        <line num="1" count="5" type="stmt"/>
-        <line num="2" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="2" count="4" type="cond" truecount="2" falsecount="0"/>
       </file>
       <file name="slicePriceCalculation.ts" path="D:\code\p_stellar_burger\src\services\utils\slicePriceCalculation.ts">
         <metrics statements="4" coveredstatements="4" conditionals="6" coveredconditionals="6" methods="2" coveredmethods="2"/>
