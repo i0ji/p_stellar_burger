@@ -11,7 +11,6 @@ import {
     BurgerConstructor
 } from "components/index.ts";
 
-
 import {useSelector} from "hooks/reduxHooks.ts";
 
 export default function HomePage() {
@@ -34,6 +33,9 @@ export default function HomePage() {
     if (authStatus === 'loading') {
         return <Loader description={'Загрузка...'}/>;
     }
+
+
+    // --------------- COMPONENT ---------------
 
     return (
         <main>

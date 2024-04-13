@@ -1,9 +1,10 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {slicePriceCalculation} from "utils/slicePriceCalculation.ts";
 import {IConstructorSlice} from 'declarations/sliceInterfaces'
 import {IIngredient} from "declarations/interfaces";
 
-const initialState: IConstructorSlice = {
-    totalAmount: 0,
+export const initialState: IConstructorSlice = {
+    totalPrice: 0,
     ingredients: [],
     addedIngredients: [],
     bun: null,
@@ -19,7 +20,7 @@ const constructorSlice = createSlice({
             } else {
                 state.addedIngredients = Array.from(new Set([...state.addedIngredients, action.payload]));
             }
-            state.totalAmount = calculateTotalAmount(state.addedIngredients, state.bun);
+            state.totalPrice = slicePriceCalculation(state.addedIngredients, state.bun);
         },
         removeIngredient: (state, action: PayloadAction<string | undefined>) => {
             const idToRemove = action.payload;
@@ -27,7 +28,7 @@ const constructorSlice = createSlice({
             if (ingredientIndex !== -1) {
                 state.addedIngredients.splice(ingredientIndex, 1);
             }
-            state.totalAmount = calculateTotalAmount(state.addedIngredients, state.bun);
+            state.totalPrice = slicePriceCalculation(state.addedIngredients, state.bun);
         },
         reorderIngredients: (state, action) => {
             const {dragIndex, hoverIndex} = action.payload;
@@ -41,18 +42,10 @@ const constructorSlice = createSlice({
         resetIngredients: (state) => {
             state.addedIngredients = [];
             state.bun = null;
-            state.totalAmount = 0;
+            state.totalPrice = 0;
         }
     },
 });
-
-const calculateTotalAmount = (addedIngredients: IIngredient[], bun: IIngredient | null): number => {
-
-    const ingredientsTotal = addedIngredients?.reduce((acc, ingredient) => acc + (ingredient?.price || 0), 0) || 0;
-    const bunTotal = bun?.price || 0;
-
-    return ingredientsTotal + (bunTotal * 2);
-};
 
 export const {
     addIngredient,

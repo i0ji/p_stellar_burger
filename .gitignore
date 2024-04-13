@@ -8,12 +8,13 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # Misc
-
 temp
 node_modules
 dist
+build
 dist-ssr
 *.local
+
 
 # Editor directories and files
 .vscode/*
@@ -25,4 +26,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-/src/data/
+/cypress/e2e/HappyPath.cy.ts
+/cypress/e2e/Primaty.cy.ts

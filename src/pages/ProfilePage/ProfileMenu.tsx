@@ -4,7 +4,7 @@ import {logoutUser} from "utils/api.ts";
 
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useDispatch} from "hooks/reduxHooks.ts";
 
 export default function ProfileMenu() {
@@ -14,11 +14,13 @@ export default function ProfileMenu() {
 
     const navigate = useNavigate();
 
+    const location = useLocation();
 
     // --------------- VARS & STATES ---------------
 
     const dispatch = useDispatch();
     const isActive = location.pathname === '/profile';
+    console.log(location.pathname)
     const refreshToken = localStorage.getItem('refreshToken');
     //  --------------- LOGOUT
     const handleLogout = () => {
@@ -65,6 +67,7 @@ export default function ProfileMenu() {
                         type="secondary"
                         size="medium"
                         onClick={handleLogout}
+                        data-testid="profile_quit_button"
                     >
                         Выход
                     </Button>

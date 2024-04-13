@@ -15,14 +15,17 @@ import {useEffect} from "react";
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {wsClose, wsConnect} from "services/orderFeed/actions.ts";
 
-
 export default function Feed() {
 
 
     // --------------- VARS & STATES ---------------
 
     const dispatch = useDispatch();
+
     const renderCondition = useSelector(state => state.orderFeed.orders).orders.length !== 1;
+
+    const WS_URL_ALL = `${WS_URL}/all`;
+
 
     // --------------- NAVIGATION ---------------
 
@@ -30,14 +33,12 @@ export default function Feed() {
 
 
     // --------------- WS & ORDERS ---------------
-
+    
     useEffect(() => {
-        dispatch({
-            type: wsConnect,
-            payload: `${WS_URL}/all`
-        });
+        dispatch(wsConnect(WS_URL_ALL));
         return (() => dispatch(wsClose()));
-    }, [dispatch])
+    }, [WS_URL_ALL, dispatch]);
+
 
     // --------------- ORDERS ARRAY;
     const ordersList = useSelector(state => state.orderFeed.orders);
@@ -81,8 +82,13 @@ export default function Feed() {
     // console.log(`TOTAL TODAY: ${totalToday}`);
     // console.log(`TOTAL: ${total}`);
 
+
+    // --------------- COMPONENT ---------------
+
     return (
-        <section className={styles.feed}>
+        <section
+            data-testid="section_feed"
+            className={styles.feed}>
 
             <div className={styles.container}>
 
@@ -105,18 +111,21 @@ export default function Feed() {
                                 </Link>
                             )
                         }
+
                     </>
                 </div>
 
                 <div className={`${styles.feed_details} pl-15`}>
 
                     <div className={`${styles.feed_details_order_status} mb-15`}>
+
                         <div className={styles.feed_details_ready}>
                             <h5>Готовы:</h5>
                             {ordersReady.map((elem: TOrder, i: number) =>
                                 <p key={i}>{elem.number}</p>
                             )}
                         </div>
+
                         <div className={styles.feed_details_await}>
                             <h5
                             >Готовятся:</h5>
@@ -125,6 +134,7 @@ export default function Feed() {
                             )}
                         </div>
                     </div>
+
                     <div className={styles.feed_details_total}>
                         <p className="text text_type_main-default">Выполнено за всё время:</p>
                         <h1 className="text text_type_digits-large mb-15">{total}</h1>

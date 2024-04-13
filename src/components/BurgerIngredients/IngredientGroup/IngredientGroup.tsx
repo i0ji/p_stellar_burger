@@ -59,6 +59,7 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
                 ref={drag}
                 className={`pb-8 ${styles.ingredient_card} ${isDragging ? styles.dragging : ''}`}
                 onClick={onOpenDetailsPage}
+                data-testid="ingredient_item"
             >
                 <img src={image} alt={name}/>
                 <p className="text text_type_digits-default pt-1 pb-1">

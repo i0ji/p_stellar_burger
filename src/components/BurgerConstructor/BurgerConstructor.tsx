@@ -41,7 +41,7 @@ export default function BurgerConstructor() {
     // --------------- MODAL
     const {isVisible, openModal, closeModal} = useModal();
     // --------------- TOTAL AMOUNT
-    const totalAmount = useSelector(state => state.constructorSlice.totalAmount);
+    const totalAmount = useSelector(state => state.constructorSlice.totalPrice);
     // --------------- BUNS STATE
     const isBun: IIngredient = useSelector(state => state.constructorSlice.bun);
     //--------------- AUTH STATE
@@ -162,13 +162,16 @@ export default function BurgerConstructor() {
             <div
                 className={`${styles.constructor_list} mb-10`}
                 ref={dropIngredients}
+                data-testid="constructor_list"
             >
 
 
                 {/* --------------- TOP BUN --------------- */}
 
                 {!isBun ? <InitialBun pos={"top"}/> :
-                    <div className={styles.constructor_order_item}>
+                    <div
+                        className={styles.constructor_order_item}
+                    >
                         {bun && (
                             <ConstructorElement
                                 extraClass={styles.constructor_item_top}
@@ -236,6 +239,7 @@ export default function BurgerConstructor() {
                             type="primary"
                             htmlType="button"
                             onClick={handleOrder}
+                            data-testid="constructor_button_checkout"
                         >
                             {isAuth ? 'Оформить заказ' : 'Войти в Аккаунт'}
                         </Button>
@@ -255,7 +259,6 @@ export default function BurgerConstructor() {
 
 
             </div>
-
         </section>
     )
 }

@@ -99,13 +99,25 @@ export default function BurgerIngredients() {
             <h1 className="text text_type_main-large mb-5">Соберите бургер</h1>
 
             <div className={styles.ingredients_menu}>
-                <Tab value={TabValues.Bun} active={current === TabValues.Bun} onClick={() => scrollToRef(bunRef)}>
+                <Tab
+                    value={TabValues.Bun}
+                    active={current === TabValues.Bun}
+                    onClick={() => scrollToRef(bunRef)}
+                >
                     Булки
                 </Tab>
-                <Tab value={TabValues.Sauce} active={current === TabValues.Sauce} onClick={() => scrollToRef(sauceRef)}>
+                <Tab
+                    value={TabValues.Sauce}
+                    active={current === TabValues.Sauce}
+                    onClick={() => scrollToRef(sauceRef)}
+                >
                     Соусы
                 </Tab>
-                <Tab value={TabValues.Main} active={current === TabValues.Main} onClick={() => scrollToRef(mainRef)}>
+                <Tab
+                    value={TabValues.Main}
+                    active={current === TabValues.Main}
+                    onClick={() => scrollToRef(mainRef)}
+                >
                     Начинки
                 </Tab>
             </div>
@@ -113,17 +125,29 @@ export default function BurgerIngredients() {
             <div
                 className={styles.ingredients_list}
                 id="burgerIngredientGroups"
+                data-testid="scroll_area"
             >
-                <div id="bunSection" ref={bunRef}>
+                <div
+                    id="bunSection"
+                    ref={bunRef}
+                    data-testid="ingredients_group_bun"
+                >
                     <IngredientGroup type="Булки" ingredients={filteredIngredients.bun}/>
                 </div>
-                <div id="sauceSection" ref={sauceRef}>
+                <div
+                    id="sauceSection"
+                    ref={sauceRef}
+                    data-testid="ingredients_group_sauce"
+                >
                     <IngredientGroup type="Соусы" ingredients={filteredIngredients.sauce}/>
                 </div>
-                <div id="mainSection" ref={mainRef}>
+                <div
+                    id="mainSection"
+                    ref={mainRef}
+                    data-testid="ingredients_group_main"
+                >
                     <IngredientGroup type="Начинки" ingredients={filteredIngredients.main}/>
                 </div>
-
             </div>
         </section>
     );

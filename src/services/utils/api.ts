@@ -1,7 +1,7 @@
 import {createAsyncThunk, Dispatch} from "@reduxjs/toolkit";
 import {BASE_URL, ORDER_URL} from "declarations/routs.ts";
 import {setAuthChecked, setUser} from "slices/authSlice.ts";
-import {checkResponse} from "utils/check-response.ts";
+import {checkResponse} from "utils/checkResponse.ts";
 import {IIngredient, IRegisterUser, IUserData} from "declarations/interfaces";
 import {
     TApiResponse,
@@ -63,6 +63,7 @@ export const loginUser = createAsyncThunk<IUserData, IUserData>('auth/login',
         };
         const response = await fetch(`${BASE_URL}/auth/login`, requestOptions);
         const data = await checkResponse<TUserLoginResponse>(response);
+        console.log(data)
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('refreshToken', data.refreshToken);
         return data.user;

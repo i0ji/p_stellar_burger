@@ -10,7 +10,7 @@ import {
     wsOpen,
     onOpen,
     onError,
-    onClose
+    onClose,
 } from "services/orderFeed/actions.ts";
 
 enum WebsocketStatus {
@@ -19,7 +19,7 @@ enum WebsocketStatus {
     OFFLINE = 'OFFLINE'
 }
 
-const initialState: TOrderFeedStore & TError = {
+export const initialState: TOrderFeedStore & TError = {
     status: WebsocketStatus.OFFLINE,
     url: '',
     error: '',
@@ -44,7 +44,7 @@ export const orderFeedReducer = createReducer(
     builder => {
         builder
             .addCase(wsConnect, (state) => {
-                state.status = WebsocketStatus.OFFLINE;
+                state.status = WebsocketStatus.CONNECTING;
             })
             .addCase(wsConnecting, (state) => {
                 state.status = WebsocketStatus.CONNECTING;

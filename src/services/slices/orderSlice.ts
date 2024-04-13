@@ -2,7 +2,7 @@ import {createSlice} from '@reduxjs/toolkit';
 import {createOrder} from "utils/api.ts";
 import {IOrderSlice} from "declarations/sliceInterfaces";
 
-const initialState: IOrderSlice = {
+export const initialState: IOrderSlice = {
     orderNumber: null as number | null,
     IDs: [''],
     status: 'idle',
@@ -18,7 +18,7 @@ const initialState: IOrderSlice = {
     },
 }
 
-const orderSlice = createSlice({
+export const orderSlice = createSlice({
     name: 'orderSlice',
     initialState: initialState,
     reducers: {
@@ -46,7 +46,7 @@ const orderSlice = createSlice({
             })
             .addCase(createOrder.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.error.message !== undefined ? action.error.message : '';
+                state.error = action.error.message;
             })
     },
 });

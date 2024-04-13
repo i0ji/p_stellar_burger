@@ -1,11 +1,12 @@
-// noinspection JSUnusedGlobalSymbols
-
 import {defineConfig} from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
     plugins: [react()],
-    base: './',
+    base: './', // Set your source folder as the root
+    build: {
+        outDir: './build' // Set your desired output directory
+    },
     resolve: {
         alias: {
             store: "/src/store",

@@ -1,6 +1,7 @@
 import styles from "pages/Pages.module.scss"
 
 import {loginUser} from "utils/api.ts";
+import checkEmail from "utils/checkEmail.ts";
 
 import {IUserData} from "declarations/interfaces";
 import {IForm} from "declarations/interfaces";
@@ -10,24 +11,24 @@ import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link} from "react-router-dom";
 
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState} from "react";
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useForm} from "hooks/useForm.ts";
 
 export default function LoginPage() {
 
     const {values, handleChange} = useForm<IForm>({});
+    const [emailError, setEmailError] = useState<string>("");
     const dispatch = useDispatch();
     const userAuth = useSelector(state => state.authSlice.isAuth);
 
-
     //  --------------- RERENDER CHECK ---------------
 
-    const renderCount = useRef(0);
-    useEffect(() => {
-        renderCount.current += 1;
-    });
-    console.log(`Rerender counter: ${renderCount.current}`)
+    // const renderCount = useRef(0);
+    // useEffect(() => {
+    //     renderCount.current += 1;
+    // });
+    // console.log(`Rerender counter: ${renderCount.current}`)
 
 
     // --------------- PWD VISIBILITY  ---------------
@@ -41,14 +42,26 @@ export default function LoginPage() {
     // --------------- ERROR MESSAGE ---------------
 
     const loginError = useSelector(state => state.authSlice.loginError);
+
     const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        console.log(values.email);
+        if (checkEmail(values.email)) {
+            setEmailError("ОШИБКА В ПОЧТЕ");
+            return;
+        } else {
+            setEmailError('');
+        }
+
         const userData: IUserData = {
             email: values.email,
             password: values.password,
         };
         dispatch(loginUser(userData));
     };
+
+
+    // --------------- CONDITION ---------------
 
     if (userAuth) {
         return <Loader description={'Проходим фейсконтроль...'}/>;
@@ -60,6 +73,7 @@ export default function LoginPage() {
             <form onSubmit={handleLogin}>
                 <h1 className="text text text_type_main-medium pb-6">Вход</h1>
                 <Input
+                    data-testid="login_page_input_email"
                     onChange={handleChange}
                     name={'email'}
                     type={'text'}
@@ -72,6 +86,7 @@ export default function LoginPage() {
                     extraClass="mb-6"
                 />
                 <Input
+                    data-testid="login_page_input_password"
                     onChange={handleChange}
                     name={'password'}
                     type={isPasswordShow ? 'text' : 'password'}
@@ -88,11 +103,22 @@ export default function LoginPage() {
                     loginError && <p
                         className="pb-6"
                         style={{color: '#b90101'}}
+                        data-testid="login_page_error_password"
                     >
-                        Ошибка. Попробуйте ещё раз.
+                        Неверный пароль или Email. Попробуйте ещё раз.
+                    </p>
+                }
+                {
+                    emailError && <p
+                        className="pb-6"
+                        style={{color: '#b90101'}}
+                        data-testid="login_page_error_email"
+                    >
+                        Некорректный Email.
                     </p>
                 }
                 <Button
+                    data-testid="login_page_button_submit"
                     htmlType="submit"
                     extraClass="mb-20"
                     type="primary"
