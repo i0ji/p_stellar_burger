@@ -28,8 +28,6 @@ dist-ssr
 *.sw?
 
 # Tests
-/cypress/e2e/HappyPath.cy.ts
-/cypress/e2e/Primaty.cy.ts
-/coverage/
 coverage
 cypress
+/src/__test__/
