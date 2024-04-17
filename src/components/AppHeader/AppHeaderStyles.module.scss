@@ -10,82 +10,96 @@
 
   nav {
     @include container_center;
+
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    align-items: center;
 
     ul {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+
+      list-style-type: none;
 
       li {
-        list-style: none;
+        width: 45%;
+
+        a {
+          transition: .2s all;
+        }
       }
     }
 
     .header_logo {
       @include flex_center;
+
+      a:hover {
+        box-shadow: none;
+      }
     }
 
-    .header_button {
+    .header_profile {
       display: flex;
-      align-content: center;
+      justify-content: right;
 
-      padding: 16px;
-
-      border-radius: 35px;
-
-      transition: .5s all ease-in-out;
-
-      color: $theme_light;
-
-      svg {
-        margin-right: 8px;
-
-        transition: inherit;
-
-        fill: $theme_light;
-      }
-    }
-
-    .active {
-      color: $theme_white;
-
-      svg {
-        fill: $theme_white;
-      }
-    }
-
-    .header_button:hover {
-      box-shadow: 0 0 6px 1px $theme_light;
-      color: $theme_white;
-
-      svg {
-        fill: $theme_white
-      }
-    }
-
-    .header_button:last-child {
-      float: right;
-    }
-
-    a[class="active"] {
       button {
+        margin-left: 10px;
+      }
+
+      a:hover {
         color: $theme_white;
-      }
-
-      svg {
-        fill: $theme_white;
-      }
-    }
-
-    a[class="not_active"] {
-      color: $theme_light;
-
-      svg {
-        fill: $theme_light;
       }
     }
   }
+
+  a:hover {
+    box-shadow: 0 0 6px 1px $theme_light;
+
+    button {
+      color: $theme_white;
+    }
+  }
+
+  a[class="active"],
+  {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    border-radius: 35px;
+
+    padding: 10px;
+
+    button {
+      color: $theme_white;
+    }
+
+    svg {
+      fill: $theme_white;
+      transition: .6s all;
+    }
+  }
+
+
+  a[class="not_active"] {
+    padding: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    border-radius: 35px;
+
+    button {
+      color: $theme_light;
+    }
+
+    svg {
+      fill: $theme_light;
+      transition: .6s all;
+    }
+  }
+}
+
+.red {
+  background: red !important;
 }

@@ -1,37 +1,40 @@
 import {Button, BurgerIcon, ListIcon, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {NavLink, useLocation} from "react-router-dom";
-import styles from "./AppHeaderStyles.module.scss"
+import styles from "./AppHeaderStyles.module.scss";
 
 export default function HeaderButton({typeFor}: { typeFor: string }) {
 
 
     // --------------- VARS & STATES  ---------------
 
-    const location = useLocation().pathname,
+    const location = useLocation();
+    console.log(location.pathname);
 
-    activeStyle = ({isActive}: { isActive: boolean }) => {
+    const activeStyle = ({isActive}: { isActive: boolean }) => {
         return isActive ? 'active' : 'not_active';
     }
 
+    const loginPathname = (location.pathname === '/login')
 
-    // --------------- MARKUP  ---------------
+
+    // --------------- COMPONENT  ---------------
 
     switch (typeFor) {
         case 'builder':
             return (
                 <NavLink
+                    className={activeStyle}
                     to="/"
                 >
-
+                    <BurgerIcon
+                        type='primary'
+                    />
                     <Button
-                        extraClass={`p-1 text text_type_main-default ${activeStyle} ${styles.header_button}`}
+                        extraClass='p-1 text text_type_main-default'
                         htmlType="button"
                         type="secondary"
                         size="medium"
                     >
-                        <BurgerIcon
-                            type='primary'
-                        />
                         Конструктор
                     </Button>
                 </NavLink>
@@ -39,18 +42,18 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
         case 'feed':
             return (
                 <NavLink
+                    className={activeStyle}
                     to="/feed"
                 >
-
+                    <ListIcon
+                        type='secondary'
+                    />
                     <Button
-                        extraClass={`p-1 text text_type_main-default ${activeStyle} ${styles.header_button}`}
+                        extraClass='p-1 text text_type_main-default'
                         htmlType="button"
                         type="secondary"
                         size="medium"
                     >
-                        <ListIcon
-                            type='secondary'
-                        />
                         Лента заказов
                     </Button>
                 </NavLink>
@@ -58,18 +61,19 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
         case 'profile':
             return (
                 <NavLink
+                    className={activeStyle   (loginPathname && 'active')}
+                    // to={"/profile" || "/login"}
                     to="/profile"
                 >
-
+                    <ProfileIcon
+                        type='primary'
+                    />
                     <Button
-                        extraClass={`p-1 text text_type_main-default ${location === '/login' && styles.active} ${styles.header_button}`}
+                        extraClass='p-1 text text_type_main-default'
                         htmlType="button"
                         type="secondary"
                         size="medium"
                     >
-                        <ProfileIcon
-                            type='primary'
-                        />
                         Личный кабинет
                     </Button>
                 </NavLink>
