@@ -114,27 +114,6 @@ export default function OrderDetails() {
     }
 
 
-    // --------------- CONSOLE ---------------
-
-    // console.log(orderIngredients.length)
-    // console.log('QTY', ingredientsWithQuantity);
-    // console.log('ALL INGREDIENTS: ',ingredientsData);
-    // console.log('ORDER IDS: ',orderIngredientIDs);
-    // console.log('KEY: ', location.key);
-    // console.log('PATHNAME: ', location.pathname);
-    // console.log('IS DIRECT:', isDirect);
-    // console.log('WEBSOCKET ORDER:', wsOrder) ;
-    // console.log('DIRECT ORDER:', directOrder);
-    // console.log('currentOrder:', currentOrder);
-    // console.log('pathname:', location.pathname);
-    // console.log('number:', location.pathname.replace('/feed/',''));
-    // console.log('location:', location);
-    // console.log('WS STATUS: ', status);
-    // console.log('number: ', number);
-    // console.log('order:', order);
-    // console.log(ingredientsWithQuantity);
-
-
     // --------------- COMPONENT ---------------
 
     return (

@@ -16,7 +16,6 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
                 <NavLink
                     className={activeStyle}
                     to="/"
-                    data-testid="nav_button_main"
                 >
                     <BurgerIcon
                         type='primary'
@@ -36,7 +35,6 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
                 <NavLink
                     className={activeStyle}
                     to="/feed"
-                    data-testid="nav_button_feed"
                 >
                     <ListIcon
                         type='secondary'
@@ -56,7 +54,6 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
                 <NavLink
                     className={activeStyle}
                     to="/profile"
-                    data-testid="nav_button_profile"
                 >
                     <ProfileIcon
                         type='primary'

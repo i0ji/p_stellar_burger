@@ -20,7 +20,6 @@ export default function ProfileMenu() {
 
     const dispatch = useDispatch();
     const isActive = location.pathname === '/profile';
-    console.log(location.pathname)
     const refreshToken = localStorage.getItem('refreshToken');
     //  --------------- LOGOUT
     const handleLogout = () => {

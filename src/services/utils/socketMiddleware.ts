@@ -20,19 +20,15 @@ export const socketMiddleware = (
             const {dispatch} = store;
             const {type, payload}: TAppAction = action;
 
-            // console.log('CURRENT ACTION TYPE: ', type);
+
             if (type === 'ORDER_FEED_WS_CONNECT') {
-                //console.log('CONDITION START: ', type);
                 socket = new WebSocket(payload);
                 url = payload;
-                // console.log('SOCKET: ', socket);
-                // console.log('PAYLOAD: ', payload);
                 socket.onopen = () => {
                     dispatch({
                         type: 'ORDER_FEED_ON_OPEN',
                     });
                 };
-                //console.log('ONERROR: ', socket.onerror);
                 socket.onerror = (event) => {
                     dispatch({
                         type: 'ORDER_FEED_ON_ERROR',
@@ -41,7 +37,6 @@ export const socketMiddleware = (
                 };
 
                 socket.onmessage = (event) => {
-                    //console.log('EVENT.DATA:', event.data);
                     const {data} = event;
                     const parsedData = JSON.parse(data);
 

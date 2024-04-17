@@ -36,7 +36,7 @@ export default function App() {
 
     const dispatch = useDispatch();
     const location = useLocation();
-    const background = location.state && location.state.background;
+    const background: string = location.state && location.state.background;
     const navigate = useNavigate();
     const ingredientsStatus = useSelector(state => state.ingredients.status);
     const accessToken = localStorage.getItem('accessToken');
@@ -50,9 +50,6 @@ export default function App() {
         dispatch(checkUserAuth());
         dispatch(getUserData());
     }, [dispatch, accessToken]);
-
-    console.log('v:0.1.9.7.5');
-
 
     // --------------- LOADER ---------------
 

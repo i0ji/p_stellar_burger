@@ -69,20 +69,6 @@ export default function Feed() {
     }
 
 
-    // --------------- CONSOLE ---------------
-
-    //console.log(location.pathname);
-    // console.log('STATUS: ', status);
-    // console.log(listValue);
-    // console.log(ordersData[5].status);
-    // console.log(ordersReady.slice(0,5));
-    // console.log(`ORDERS DATA: ${ordersData}`);
-    // console.log(`${ordersData}`)
-    // console.log(ordersData)
-    // console.log(`TOTAL TODAY: ${totalToday}`);
-    // console.log(`TOTAL: ${total}`);
-
-
     // --------------- COMPONENT ---------------
 
     return (

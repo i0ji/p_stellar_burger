@@ -162,7 +162,6 @@ export default function BurgerConstructor() {
             <div
                 className={`${styles.constructor_list} mb-10`}
                 ref={dropIngredients}
-                data-testid="constructor_list"
             >
 
 
@@ -239,7 +238,6 @@ export default function BurgerConstructor() {
                             type="primary"
                             htmlType="button"
                             onClick={handleOrder}
-                            data-testid="constructor_button_checkout"
                         >
                             {isAuth ? 'Оформить заказ' : 'Войти в Аккаунт'}
                         </Button>

@@ -69,7 +69,6 @@ export default function CurrentIngredients({ingredient, index, moveIngredient}: 
             ref={ref}
             style={{opacity}}
             data-handler-id={handlerId}
-            data-testid="constructor_list_item"
         >
             <DragIcon type="primary"/>
             <ConstructorElement

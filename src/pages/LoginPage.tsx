@@ -49,7 +49,6 @@ export default function LoginPage() {
 
     const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log(values.email);
         checkEmail(values.email) ? setEmailError(true) : setEmailError(false);
 
         stateLoginError && setLoginError(true);
@@ -75,7 +74,6 @@ export default function LoginPage() {
             <form onSubmit={handleLogin}>
                 <h1 className="text text text_type_main-medium pb-6">Вход</h1>
                 <Input
-                    data-testid="login_page_input_email"
                     onChange={handleChange}
                     name={'email'}
                     type={'text'}
@@ -88,7 +86,6 @@ export default function LoginPage() {
                     extraClass="mb-6"
                 />
                 <Input
-                    data-testid="login_page_input_password"
                     onChange={handleChange}
                     name={'password'}
                     type={isPasswordShow ? 'text' : 'password'}
@@ -105,7 +102,6 @@ export default function LoginPage() {
                     !emailError && loginError && <p
                         className="pb-6"
                         style={{color: '#b90101'}}
-                        data-testid="login_page_error_password"
                     >
                         Неверный пароль или Email. Попробуйте ещё раз.
                     </p>
@@ -114,13 +110,11 @@ export default function LoginPage() {
                     emailError && <p
                         className="pb-6"
                         style={{color: '#b90101'}}
-                        data-testid="login_page_error_email"
                     >
                         Некорректный Email.
                     </p>
                 }
                 <Button
-                    data-testid="login_page_button_submit"
                     htmlType="submit"
                     extraClass="mb-20"
                     type="primary"

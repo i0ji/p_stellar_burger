@@ -125,26 +125,22 @@ export default function BurgerIngredients() {
             <div
                 className={styles.ingredients_list}
                 id="burgerIngredientGroups"
-                data-testid="scroll_area"
             >
                 <div
                     id="bunSection"
                     ref={bunRef}
-                    data-testid="ingredients_group_bun"
                 >
                     <IngredientGroup type="Булки" ingredients={filteredIngredients.bun}/>
                 </div>
                 <div
                     id="sauceSection"
                     ref={sauceRef}
-                    data-testid="ingredients_group_sauce"
                 >
                     <IngredientGroup type="Соусы" ingredients={filteredIngredients.sauce}/>
                 </div>
                 <div
                     id="mainSection"
                     ref={mainRef}
-                    data-testid="ingredients_group_main"
                 >
                     <IngredientGroup type="Начинки" ingredients={filteredIngredients.main}/>
                 </div>

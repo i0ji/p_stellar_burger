@@ -10,6 +10,7 @@ import './index.scss'
 import {Provider} from 'react-redux';
 import {HashRouter} from 'react-router-dom';
 
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <HashRouter>
@@ -17,5 +18,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                 <App/>
             </Provider>
         </HashRouter>
-    </React.StrictMode>,
+    </React.StrictMode>
+    ,
 )
