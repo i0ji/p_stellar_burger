@@ -49,6 +49,14 @@
       }
     }
 
+    .active {
+      color: $theme_white;
+
+      svg {
+        fill: $theme_white;
+      }
+    }
+
     .header_button:hover {
       box-shadow: 0 0 6px 1px $theme_light;
       color: $theme_white;
@@ -58,27 +66,15 @@
       }
     }
 
-
-    .header_button[class="active"] {
-      color: $theme_white;
-
-      svg {
-        fill: $theme_white;
-      }
-    }
-
-    .header_button[class="not_active"] {
-      color: $theme_light;
-
-      svg {
-        fill: $theme_light;
-      }
+    .header_button:last-child {
+      float: right;
     }
 
     a[class="active"] {
       button {
         color: $theme_white;
       }
+
       svg {
         fill: $theme_white;
       }
@@ -92,10 +88,8 @@
       }
     }
 
-    .header_button:last-child {
-      float: right;
-    }
 
   }
 }
+
 

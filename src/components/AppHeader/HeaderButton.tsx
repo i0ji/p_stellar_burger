@@ -11,7 +11,6 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
 
     console.log(location);
 
-
     const activeStyle = ({isActive}: { isActive: boolean }) => {
         return isActive ? 'active' : 'not_active';
     }
@@ -27,7 +26,7 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
                 >
 
                     <Button
-                        extraClass={`p-1 text text_type_main-default  ${activeStyle} ${styles.header_button}`}
+                        extraClass={`p-1 text text_type_main-default ${activeStyle} ${styles.header_button}`}
                         htmlType="button"
                         type="secondary"
                         size="medium"
@@ -46,7 +45,7 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
                 >
 
                     <Button
-                        extraClass={`p-1 text text_type_main-default ${activeStyle}  ${styles.header_button}`}
+                        extraClass={`p-1 text text_type_main-default ${activeStyle} ${styles.header_button}`}
                         htmlType="button"
                         type="secondary"
                         size="medium"
@@ -65,7 +64,7 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
                 >
 
                     <Button
-                        extraClass={`p-1 text text_type_main-default  ${activeStyle} ${styles.header_button}`}
+                        extraClass={`p-1 text text_type_main-default ${location === '/login' && styles.active} ${styles.header_button}`}
                         htmlType="button"
                         type="secondary"
                         size="medium"
