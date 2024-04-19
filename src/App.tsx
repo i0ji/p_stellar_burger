@@ -29,6 +29,10 @@ import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useLocation} from "react-router-dom";
 import {useCallback, useEffect} from "react";
 
+
+import {AnimatePresence} from "framer-motion";
+
+
 export default function App() {
 
 
@@ -57,43 +61,47 @@ export default function App() {
         return <Loader description={'Загрузка...'}/>;
     }
 
+
     return (
         <>
+
             <AppHeader/>
 
-            <Routes location={background || location}>
+            <AnimatePresence>
+                <Routes location={background || location}>
 
-                <Route path="/" element={<HomePage/>}/>
-                <Route path="reset-password" element={<ResetPage/>}/>
-                <Route path="reset-success" element={<SuccessPage/>}/>
-                <Route path="ingredient/:id" element={<IngredientDetails/>}/>
+                    <Route path="/" element={<HomePage/>}/>
+                    <Route path="reset-password" element={<ResetPage/>}/>
+                    <Route path="reset-success" element={<SuccessPage/>}/>
+                    <Route path="ingredient/:id" element={<IngredientDetails/>}/>
 
-                <Route path="feed" element={<FeedPage/>}/>
-                <Route path="feed/:number" element={<OrderDetails/>}/>
+                    <Route path="feed" element={<FeedPage/>}/>
+                    <Route path="feed/:number" element={<OrderDetails/>}/>
 
-                <Route
-                    path="profile"
-                    element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}
-                />
+                    <Route
+                        path="profile"
+                        element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}
+                    />
 
-                <Route
-                    path="profile/orders"
-                    element={<ProtectedRoute unAuth={false} component={<ProfileOrders/>}/>}
-                />
+                    <Route
+                        path="profile/orders"
+                        element={<ProtectedRoute unAuth={false} component={<ProfileOrders/>}/>}
+                    />
 
-                <Route
-                    path="profile/orders/:number"
-                    element={<ProtectedRoute unAuth={false} component={<OrderDetails/>}/>}
-                />
+                    <Route
+                        path="profile/orders/:number"
+                        element={<ProtectedRoute unAuth={false} component={<OrderDetails/>}/>}
+                    />
 
-                <Route path="login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
-                <Route path="login" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}/>
-                <Route path="register" element={<ProtectedRoute unAuth={true} component={<RegisterPage/>}/>}/>
-                <Route path="forgot-password" element={<ProtectedRoute unAuth={true} component={<ForgotPage/>}/>}/>
+                    <Route path="login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
+                    <Route path="login" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}/>
+                    <Route path="register" element={<ProtectedRoute unAuth={true} component={<RegisterPage/>}/>}/>
+                    <Route path="forgot-password" element={<ProtectedRoute unAuth={true} component={<ForgotPage/>}/>}/>
 
-                <Route path="*" element={<NotFound404/>}/>
-            </Routes>
+                    <Route path="*" element={<NotFound404/>}/>
 
+                </Routes>
+            </AnimatePresence>
             {
                 background && (
                     <Routes>

@@ -17,10 +17,10 @@ import {useSelector} from "hooks/reduxHooks.ts";
 export default function HomePage() {
 
     const {ingredients: ingredientsData, burgerStatus, error}: IBurgerState = useSelector((state: {
-            ingredients: IBurgerState
-        }) => state.ingredients),
+        ingredients: IBurgerState
+    }) => state.ingredients);
 
-        authStatus = useSelector(state => state.authSlice.status);
+    const authStatus = useSelector(state => state.authSlice.status);
 
     // --------------- STATUSES ---------------
     if (burgerStatus === 'loading') {
@@ -36,12 +36,11 @@ export default function HomePage() {
     }
 
 
-    // --------------- MARKUP ---------------
+    // --------------- COMPONENT ---------------
 
     return (
-        <Transitions>
-            <main>
-
+        <main>
+            <Transitions>
                 {error ? (<p>Произошла ошибка: {error}</p>) : (ingredientsData.length > 0 && (
                     <section className={styles.burger_builder}>
                         <DndProvider backend={HTML5Backend}>
@@ -54,8 +53,7 @@ export default function HomePage() {
                         </DndProvider>
                     </section>
                 ))}
-
-            </main>
-        </Transitions>
+            </Transitions>
+        </main>
     );
 }

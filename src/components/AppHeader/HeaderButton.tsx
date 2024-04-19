@@ -9,8 +9,6 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
 
     const location = useLocation().pathname;
 
-    console.log(location);
-
     const activeStyle = ({isActive}: { isActive: boolean }) => {
         return isActive ? 'active' : 'not_active';
     }

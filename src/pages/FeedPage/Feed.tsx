@@ -21,11 +21,11 @@ export default function Feed() {
 
     // --------------- VARS & STATES ---------------
 
-    const dispatch = useDispatch(),
+    const dispatch = useDispatch();
 
-        renderCondition = useSelector(state => state.orderFeed.orders).orders.length !== 1,
+    const renderCondition = useSelector(state => state.orderFeed.orders).orders.length !== 1;
 
-        WS_URL_ALL = `${WS_URL}/all`;
+    const WS_URL_ALL = `${WS_URL}/all`;
 
 
     // --------------- NAVIGATION ---------------
@@ -42,27 +42,26 @@ export default function Feed() {
 
 
     // --------------- ORDERS ARRAY;
-    const ordersList = useSelector(state => state.orderFeed.orders),
+    const ordersList = useSelector(state => state.orderFeed.orders);
 
-        // --------------- STATUS
-        status = useSelector(state => state.orderFeed.status),
+    // --------------- STATUS
+    const status = useSelector(state => state.orderFeed.status);
 
-        // --------------- ORDER DATA
-        ordersData = ordersList.orders,
-        totalToday = ordersList.totalToday,
-        total = ordersList.total,
+    // --------------- ORDER DATA
+    const ordersData = ordersList.orders;
+    const totalToday = ordersList.totalToday;
+    const total = ordersList.total;
 
-        // --------------- READY ORDERS
-        ordersReady = ordersData.filter((order: TOrder) => order.status === 'done').slice(0, 5),
+    // --------------- READY ORDERS
+    const ordersReady = ordersData.filter((order: TOrder) => order.status === 'done').slice(0, 5);
 
-        // --------------- AWAIT ORDERS
-        ordersPending = ordersData.filter((order: TOrder) => order.status === 'pending').slice(0, 5),
+    // --------------- AWAIT ORDERS
+    const ordersPending = ordersData.filter((order: TOrder) => order.status === 'pending').slice(0, 5);
 
-        // --------------- ORDER DISPATCH
-
-        onUpgradeCurrentOrder = (order: TOrder) => {
-            dispatch(updateCurrentOrder(order));
-        }
+    // --------------- ORDER DISPATCH
+    const onUpgradeCurrentOrder = (order: TOrder) => {
+        dispatch(updateCurrentOrder(order));
+    }
 
     // --------------- LOADER ---------------
 
@@ -71,13 +70,13 @@ export default function Feed() {
     }
 
 
-    // --------------- MARKUP ---------------
+    // --------------- COMPONENT ---------------
 
     return (
-        <Transitions>
-            <section
-                data-testid="section_feed"
-                className={styles.feed}>
+        <section
+            data-testid="section_feed"
+            className={styles.feed}>
+            <Transitions>
 
                 <div className={styles.container}>
 
@@ -85,6 +84,7 @@ export default function Feed() {
 
                     <div className={styles.feed_list}>
                         <>
+
                             {!renderCondition && <Loader description={'Заказы загружаются!'}/>}
 
                             {
@@ -99,6 +99,7 @@ export default function Feed() {
                                     </Link>
                                 )
                             }
+
                         </>
                     </div>
 
@@ -134,7 +135,7 @@ export default function Feed() {
 
                 </div>
 
-            </section>
-        </Transitions>
+            </Transitions>
+        </section>
     );
 }

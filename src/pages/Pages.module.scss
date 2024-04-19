@@ -8,21 +8,21 @@
   height: $content_height;
 
   form {
-    height: 100%;
-
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+    height: 100%;
   }
 
   .not_found {
-    height: 90vh;
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+    @include flex_center;
     flex-direction: column;
+
+    height: 90vh;
 
     .astronaut {
       position: absolute;

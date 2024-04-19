@@ -8,12 +8,10 @@ import {IForm} from "declarations/interfaces";
 import {useForm} from "hooks/useForm.ts";
 import {useState, useRef, useEffect} from "react";
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
-
 import ProfileOrders from "./ProfileOrders.tsx";
 import ProfileMenu from "./ProfileMenu.tsx";
 
-import {Transitions} from "components/index.ts";
-import {Loader} from "components/index.ts";
+import {Loader, Transitions} from "components/index.ts";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
 
@@ -105,13 +103,9 @@ export default function ProfilePage() {
         return <Loader description={'Загрузка Ваших заказов...'}/>;
     }
 
-
-    // --------------- MARKUP ---------------
-
     return (
-        <Transitions>
-            <section className={styles.profile_section} data-testid="profile_section">
-
+        <section className={styles.profile_section} data-testid="profile_section">
+            <Transitions>
                 <ProfileMenu/>
                 <div className={styles.profile_content}>
                     {location.pathname === '/profile/orders' ? <ProfileOrders/> :
@@ -187,8 +181,7 @@ export default function ProfilePage() {
                         </form>
                     }
                 </div>
-
-            </section>
-        </Transitions>
+            </Transitions>
+        </section>
     )
 }
