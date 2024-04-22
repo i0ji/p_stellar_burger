@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {slicePriceCalculation} from "utils/slicePriceCalculation.ts";
 import {IConstructorSlice} from 'declarations/sliceInterfaces'
 import {IIngredient} from "declarations/interfaces";
@@ -23,18 +23,18 @@ const constructorSlice = createSlice({
             state.totalPrice = slicePriceCalculation(state.addedIngredients, state.bun);
         },
         removeIngredient: (state, action: PayloadAction<string | undefined>) => {
-            const idToRemove = action.payload;
-            const ingredientIndex = state.addedIngredients.findIndex(ingredient => ingredient._id === idToRemove);
+            const idToRemove = action.payload,
+             ingredientIndex = state.addedIngredients.findIndex(ingredient => ingredient._id === idToRemove);
             if (ingredientIndex !== -1) {
                 state.addedIngredients.splice(ingredientIndex, 1);
             }
             state.totalPrice = slicePriceCalculation(state.addedIngredients, state.bun);
         },
         reorderIngredients: (state, action) => {
-            const {dragIndex, hoverIndex} = action.payload;
-            const addedIngredients = [...state.addedIngredients];
+            const {dragIndex, hoverIndex} = action.payload,
+             addedIngredients = [...state.addedIngredients],
 
-            const [movedIngredient] = addedIngredients.splice(dragIndex, 1);
+             [movedIngredient] = addedIngredients.splice(dragIndex, 1);
             addedIngredients.splice(hoverIndex, 0, movedIngredient);
 
             state.addedIngredients = addedIngredients;

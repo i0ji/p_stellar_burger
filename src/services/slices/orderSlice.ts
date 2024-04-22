@@ -20,7 +20,7 @@ export const initialState: IOrderSlice = {
 
 export const orderSlice = createSlice({
     name: 'orderSlice',
-    initialState: initialState,
+    initialState,
     reducers: {
         updateIds: (state, action) => {
             state.IDs = action.payload;

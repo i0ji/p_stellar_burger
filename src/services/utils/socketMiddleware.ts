@@ -8,17 +8,16 @@ import {refreshToken} from "utils/api.ts";
 export const socketMiddleware = (
     wsActions: TwsActionTypes,
     withTokenRefresh: boolean
-): Middleware<{}, RootState> => {
-    return (store) => {
-        let socket: WebSocket | null = null;
-        let url: string | null = null;
+): Middleware<{}, RootState> => (store) => {
+        let socket: WebSocket | null = null,
+         url: string | null = null;
         const {
             wsDisconnect,
         }: TwsActionTypes = wsActions;
 
         return (next) => (action) => {
-            const {dispatch} = store;
-            const {type, payload}: TAppAction = action;
+            const {dispatch} = store,
+             {type, payload}: TAppAction = action;
 
 
             if (type === 'ORDER_FEED_WS_CONNECT') {
@@ -37,8 +36,8 @@ export const socketMiddleware = (
                 };
 
                 socket.onmessage = (event) => {
-                    const {data} = event;
-                    const parsedData = JSON.parse(data);
+                    const {data} = event,
+                     parsedData = JSON.parse(data);
 
                     if (withTokenRefresh && parsedData.message === "Токен неверный или отсутствует!") {
                         refreshToken().then((refreshData) => {
@@ -72,4 +71,3 @@ export const socketMiddleware = (
             next(action);
         };
     };
-};

@@ -6,9 +6,9 @@ const initialState: IIngredientsListSlice = {
     ingredients: [],
     status: 'idle',
     error: null,
-}
+},
 
-const ingredientsListSlice = createSlice({
+ ingredientsListSlice = createSlice({
         name: 'ingredientsListSlice',
         initialState,
         reducers: {},

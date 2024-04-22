@@ -6,7 +6,7 @@ import {TInputElementType} from "declarations/types";
 import {IForm} from "declarations/interfaces";
 
 import {useForm} from "hooks/useForm.ts";
-import {useState, useRef, useEffect} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import ProfileOrders from "./ProfileOrders.tsx";
 import ProfileMenu from "./ProfileMenu.tsx";
@@ -20,16 +20,16 @@ export default function ProfilePage() {
 
     // --------------- VARS & STATES ---------------
 
-    const authStatus = useSelector(state => state.authSlice.status);
-    const userData = useSelector(state => state.authSlice.userData);
-    const dispatch = useDispatch();
+    const authStatus = useSelector(state => state.authSlice.status),
+     userData = useSelector(state => state.authSlice.userData),
+     dispatch = useDispatch(),
 
     // --------------- FORM HOOKS
-    const {values, handleChange, setValues} = useForm<IForm>({});
-    const [showUpdateButtons, setShowUpdateButtons] = useState<boolean>(false);
-    const [isEditing, setIsEditing] = useState<boolean>(false);
-    const [editingField, setEditingField] = useState<string | null>(null);
-    const [editedValues, setEditedValues] = useState<{
+     {values, handleChange, setValues} = useForm<IForm>({}),
+     [showUpdateButtons, setShowUpdateButtons] = useState<boolean>(false),
+     [isEditing, setIsEditing] = useState<boolean>(false),
+     [editingField, setEditingField] = useState<string | null>(null),
+     [editedValues, setEditedValues] = useState<{
         name: string | null;
         password: string | null;
         email: string | null;
@@ -38,12 +38,12 @@ export default function ProfilePage() {
         name: null,
         password: null,
         email: null
-    });
-    const nameInputRef = useRef<TInputElementType>(null);
-    const emailInputRef = useRef<TInputElementType>(null);
-    const passwordInputRef = useRef<TInputElementType>(null);
+    }),
+     nameInputRef = useRef<TInputElementType>(null),
+     emailInputRef = useRef<TInputElementType>(null),
+     passwordInputRef = useRef<TInputElementType>(null),
     // --------------- LOADER CONDITION
-    const renderCondition = useSelector(state => state.orderFeed.orders).orders.length !== 1;
+     renderCondition = useSelector(state => state.orderFeed.orders).orders.length !== 1;
 
 
     // --------------- BUTTON APPEARANCE ---------------
@@ -74,9 +74,9 @@ export default function ProfilePage() {
             setValues({...values, [fieldName]: ''});
         }
         setShowUpdateButtons(true);
-    }
+    },
     //  --------------- SAVE DATA
-    const handleSave = async () => {
+     handleSave = async () => {
         if (editingField) {
             const updatedValues = {...editedValues, [editingField]: values[editingField]};
             setEditedValues(updatedValues);
@@ -86,10 +86,10 @@ export default function ProfilePage() {
             setIsEditing(false);
             setShowUpdateButtons(false);
         }
-    };
+    },
 
     //  --------------- CANCEL CHANGE
-    const handleCancel = () => {
+     handleCancel = () => {
         setShowUpdateButtons(false);
         setTimeout(() => {
             setEditingField(null);
@@ -100,86 +100,91 @@ export default function ProfilePage() {
     //  --------------- LOADER ---------------
 
     if (!userData || (authStatus === 'loading') && renderCondition) {
-        return <Loader description={'Загрузка Ваших заказов...'}/>;
+        return <Loader description="Загрузка Ваших заказов..." />;
     }
 
     return (
-        <section className={styles.profile_section} data-testid="profile_section">
+        <section
+            className={styles.profile_section}
+            data-testid="profile_section"
+        >
             <Transitions>
-                <ProfileMenu/>
+                <ProfileMenu />
+
                 <div className={styles.profile_content}>
-                    {location.pathname === '/profile/orders' ? <ProfileOrders/> :
-                        <form className={styles.profile_form}>
-                            <div>
-                                <Input
-                                    type={'text'}
-                                    placeholder={'Имя'}
-                                    name={'name'}
-                                    error={false}
-                                    errorText={'Ошибка'}
-                                    size={'default'}
-                                    extraClass="mb-6"
-                                    value={(editingField === 'name') ? (values.name || '') : (editedValues.name || userData.name) ?? ''}
-                                    onChange={handleChange}
-                                    onIconClick={() => handleEditIconClick('name')}
-                                    icon={(editingField == 'name') ? undefined : 'EditIcon'}
-                                    ref={nameInputRef}
-                                />
-                                <Input
-                                    type={'text'}
-                                    placeholder={'Почта'}
-                                    name={'email'}
-                                    error={false}
-                                    errorText={'Ошибка'}
-                                    size={'default'}
-                                    extraClass="mb-6"
-                                    value={(editingField === 'email') ? (values.email || '') : (editedValues.email || userData.email) ?? ''}
-                                    onChange={handleChange}
-                                    onIconClick={() => handleEditIconClick('email')}
-                                    icon={(editingField == 'email') ? undefined : 'EditIcon'}
-                                    ref={emailInputRef}
-                                />
-                                <Input
-                                    type={'text'}
-                                    placeholder={'Пароль'}
-                                    name={'password'}
-                                    error={false}
-                                    errorText={'Ошибка'}
-                                    size={'default'}
-                                    extraClass="mb-6"
-                                    value={((editingField == 'password') && values.password || '') ?? ''}
-                                    onChange={handleChange}
-                                    onIconClick={() => handleEditIconClick('password')}
-                                    icon={(editingField == 'password') ? undefined : 'EditIcon'}
-                                    ref={passwordInputRef}
-                                />
-                                {
-                                    isEditing && editingField && (
-                                        <div
-                                            className={`${styles.profile_update_button} ${showUpdateButtons ? styles.fadeIn : styles.fadeOut}`}
+                    {location.pathname === '/profile/orders' ? <ProfileOrders /> :
+                    <form className={styles.profile_form}>
+                        <div>
+                            <Input
+                                error={false}
+                                errorText="Ошибка"
+                                extraClass="mb-6"
+                                icon={(editingField == 'name') ? undefined : 'EditIcon'}
+                                name="name"
+                                onChange={handleChange}
+                                onIconClick={() => handleEditIconClick('name')}
+                                placeholder="Имя"
+                                ref={nameInputRef}
+                                size="default"
+                                type="text"
+                                value={(editingField === 'name') ? (values.name || '') : (editedValues.name || userData.name) ?? ''}
+                            />
+
+                            <Input
+                                error={false}
+                                errorText="Ошибка"
+                                extraClass="mb-6"
+                                icon={(editingField == 'email') ? undefined : 'EditIcon'}
+                                name="email"
+                                onChange={handleChange}
+                                onIconClick={() => handleEditIconClick('email')}
+                                placeholder="Почта"
+                                ref={emailInputRef}
+                                size="default"
+                                type="text"
+                                value={(editingField === 'email') ? (values.email || '') : (editedValues.email || userData.email) ?? ''}
+                            />
+
+                            <Input
+                                error={false}
+                                errorText="Ошибка"
+                                extraClass="mb-6"
+                                icon={(editingField == 'password') ? undefined : 'EditIcon'}
+                                name="password"
+                                onChange={handleChange}
+                                onIconClick={() => handleEditIconClick('password')}
+                                placeholder="Пароль"
+                                ref={passwordInputRef}
+                                size="default"
+                                type="text"
+                                value={((editingField == 'password') && values.password || '') ?? ''}
+                            />
+
+                            {
+                                    isEditing && editingField ? <div
+                                        className={`${styles.profile_update_button} ${showUpdateButtons ? styles.fadeIn : styles.fadeOut}`}
+                                                                >
+                                        <Button
+                                            htmlType="button"
+                                            onClick={handleSave}
+                                            size="medium"
+                                            type="primary"
                                         >
-                                            <Button
-                                                htmlType="button"
-                                                onClick={handleSave}
-                                                type="primary"
-                                                size="medium"
-                                            >
-                                                Сохранить
-                                            </Button>
-                                            <Button
-                                                htmlType="button"
-                                                onClick={handleCancel}
-                                                type="secondary"
-                                                size="medium"
-                                            >
-                                                Отмена
-                                            </Button>
-                                        </div>
-                                    )
+                                            Сохранить
+                                        </Button>
+
+                                        <Button
+                                            htmlType="button"
+                                            onClick={handleCancel}
+                                            size="medium"
+                                            type="secondary"
+                                        >
+                                            Отмена
+                                        </Button>
+                                                                </div> : null
                                 }
-                            </div>
-                        </form>
-                    }
+                        </div>
+                    </form>}
                 </div>
             </Transitions>
         </section>

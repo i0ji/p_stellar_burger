@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-import {loginUser, registerUser, logoutUser, getUserData, updateUserData} from "utils/api.ts";
+import {getUserData, loginUser, logoutUser, registerUser, updateUserData} from "utils/api.ts";
 
 import {IAuthSlice} from "declarations/sliceInterfaces";
 import {IUserData} from "declarations/interfaces";
@@ -21,7 +21,7 @@ const authSlice = createSlice({
     reducers: {
         setUser(state, action) {
             state.user = action.payload;
-            state.isAuth = !!action.payload;
+            state.isAuth = Boolean(action.payload);
         },
         setAuthChecked(state, action) {
             state.authChecked = action.payload;

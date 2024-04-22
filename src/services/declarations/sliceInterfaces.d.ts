@@ -1,5 +1,5 @@
 import {IIngredient} from "utils/interfaces/interfaces";
-import {TStatus, TError, TOrder} from "declarations/types";
+import {TError, TOrder, TStatus} from "declarations/types";
 import {IIngredients} from "declarations/interfaces";
 
 export interface IConstructorSlice {

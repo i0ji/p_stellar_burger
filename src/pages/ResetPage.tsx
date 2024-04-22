@@ -5,84 +5,89 @@ import {resetPassword} from "utils/api.ts";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
-import React, {useState, useCallback} from "react";
+import React, {useCallback, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 export default function ResetPage() {
 
     const [password, setPassword] = useState(''),
-        [token, setToken] = useState(''),
-        navigate = useNavigate(),
+     [token, setToken] = useState(''),
+     navigate = useNavigate(),
 
-        // --------------- PWD VISIBILITY  ---------------
-        [isPasswordShow, setIsPasswordShow] = useState(false),
-        togglePasswordVisibility = () => {
-            setIsPasswordShow(!isPasswordShow)
-        },
+    // --------------- PWD VISIBILITY  ---------------
+     [isPasswordShow, setIsPasswordShow] = useState(false),
+     togglePasswordVisibility = () => {
+        setIsPasswordShow(!isPasswordShow);
+    },
 
-        handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-            const {name, value} = e.target;
-            if (name === 'password') {
-                setPassword(value);
-            } else if (name === 'token') {
-                setToken(value);
-            }
-        }, []),
+     handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        const {name, value} = e.target;
+        if (name === 'password') {
+            setPassword(value);
+        } else if (name === 'token') {
+            setToken(value);
+        }
+    }, []),
 
-        handleSavePassword = (e: React.FormEvent) => {
-            e.preventDefault();
-            resetPassword(password, token)
-                .then((response) => {
-                    if (response.success) {
-                        navigate('/reset-success');
-                    } else {
-                        console.error('Ошибка при восстановлении пароля:', response.message);
-                    }
-                })
-                .catch((error) => {
-                    console.error('Ошибка при восстановлении пароля:', error);
-                });
-        };
+     handleSavePassword = (e: React.FormEvent) => {
+        e.preventDefault();
+        resetPassword(password, token)
+            .then((response) => {
+                if (response.success) {
+                    navigate('/reset-success');
+                } else {
+                    console.error('Ошибка при восстановлении пароля:', response.message);
+                }
+            })
+            .catch((error) => {
+                console.error('Ошибка при восстановлении пароля:', error);
+            });
+    };
 
-
-    // --------------- MARKUP  ---------------
 
     return (
         <section className={styles.section}>
             <form onSubmit={(e) => {
                 e.preventDefault();
                 handleSavePassword(e);
-            }}>
-                <h1 className="text text text_type_main-medium pb-6">Смена пароля</h1>
+            }}
+            >
+                <h1 className="text text text_type_main-medium pb-6">
+                    Смена пароля
+                </h1>
+
                 <Input
-                    onChange={handleChange}
-                    type={isPasswordShow ? 'text' : 'password'}
-                    placeholder={'Введите новый пароль'}
-                    icon={'ShowIcon'}
-                    name={'password'}
-                    value={password}
                     error={false}
-                    errorText={'Ошибка'}
-                    size={'default'}
+                    errorText="Ошибка"
                     extraClass="mb-6"
+                    icon="ShowIcon"
+                    name="password"
+                    onChange={handleChange}
                     onIconClick={togglePasswordVisibility}
+                    placeholder="Введите новый пароль"
+                    size="default"
+                    type={isPasswordShow ? 'text' : 'password'}
+                    value={password}
                 />
+
                 <Input
-                    onChange={handleChange}
-                    type={'text'}
-                    placeholder={'Введите код из письма'}
-                    icon={undefined}
-                    name={'token'}
-                    value={token}
                     error={false}
-                    errorText={'Ошибка'}
-                    size={'default'}
+                    errorText="Ошибка"
                     extraClass="mb-6"
+                    icon={undefined}
+                    name="token"
+                    onChange={handleChange}
+                    placeholder="Введите код из письма"
+                    size="default"
+                    type="text"
+                    value={token}
                 />
+
                 <Button
-                    htmlType="submit"
                     extraClass="mb-20"
-                    type="primary">
+                    htmlType="submit"
+                    type="primary"
+                >
                     Сохранить
                 </Button>
             </form>

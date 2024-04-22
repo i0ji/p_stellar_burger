@@ -15,20 +15,23 @@ export default function AppHeader() {
             <nav className={styles.nav}>
                 <ul>
                     <li>
-                        <HeaderButton typeFor={"builder"}/>
+                        <HeaderButton typeFor="builder" />
                     </li>
+
                     <li>
-                        <HeaderButton typeFor={"feed"}/>
+                        <HeaderButton typeFor="feed" />
                     </li>
                 </ul>
+
                 <div className={styles.header_logo}>
                     <Link
-                        to="/">
-                        <Logo/>
+                        to="/"
+                    >
+                        <Logo />
                     </Link>
                 </div>
 
-                <HeaderButton typeFor={"profile"}/>
+                <HeaderButton typeFor="profile" />
 
             </nav>
         </header>

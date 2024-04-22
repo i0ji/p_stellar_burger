@@ -6,8 +6,8 @@ import {updateCurrentOrder} from "slices/orderSlice.ts";
 import {TOrder} from "declarations/types";
 
 import {
-    Loader,
     FeedItem,
+    Loader,
     Transitions
 } from "components/index.ts";
 
@@ -21,16 +21,16 @@ export default function Feed() {
 
     // --------------- VARS & STATES ---------------
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch(),
 
-    const renderCondition = useSelector(state => state.orderFeed.orders).orders.length !== 1;
+     renderCondition = useSelector(state => state.orderFeed.orders).orders.length !== 1,
 
-    const WS_URL_ALL = `${WS_URL}/all`;
+     WS_URL_ALL = `${WS_URL}/all`,
 
 
     // --------------- NAVIGATION ---------------
 
-    const location = useLocation();
+     location = useLocation();
 
 
     // --------------- WS & ORDERS ---------------
@@ -42,31 +42,31 @@ export default function Feed() {
 
 
     // --------------- ORDERS ARRAY;
-    const ordersList = useSelector(state => state.orderFeed.orders);
+    const ordersList = useSelector(state => state.orderFeed.orders),
 
     // --------------- STATUS
-    const status = useSelector(state => state.orderFeed.status);
+     status = useSelector(state => state.orderFeed.status),
 
     // --------------- ORDER DATA
-    const ordersData = ordersList.orders;
-    const totalToday = ordersList.totalToday;
-    const total = ordersList.total;
+     ordersData = ordersList.orders,
+     {totalToday} = ordersList,
+     {total} = ordersList,
 
     // --------------- READY ORDERS
-    const ordersReady = ordersData.filter((order: TOrder) => order.status === 'done').slice(0, 5);
+     ordersReady = ordersData.filter((order: TOrder) => order.status === 'done').slice(0, 5),
 
     // --------------- AWAIT ORDERS
-    const ordersPending = ordersData.filter((order: TOrder) => order.status === 'pending').slice(0, 5);
+     ordersPending = ordersData.filter((order: TOrder) => order.status === 'pending').slice(0, 5),
 
     // --------------- ORDER DISPATCH
-    const onUpgradeCurrentOrder = (order: TOrder) => {
+     onUpgradeCurrentOrder = (order: TOrder) => {
         dispatch(updateCurrentOrder(order));
     }
 
     // --------------- LOADER ---------------
 
     if (status !== 'ONLINE' && renderCondition) {
-        return <Loader description={'Проверяем заказы...'}/>
+        return <Loader description="Проверяем заказы..." />
     }
 
 
@@ -74,33 +74,32 @@ export default function Feed() {
 
     return (
         <section
+            className={styles.feed}
             data-testid="section_feed"
-            className={styles.feed}>
+        >
             <Transitions>
 
                 <div className={styles.container}>
 
-                    <h1 className={`${styles.feed_header} text text_type_main-large mt-10 pb-10`}>Лента заказов</h1>
+                    <h1 className={`${styles.feed_header} text text_type_main-large mt-10 pb-10`}>
+                        Лента заказов
+                    </h1>
 
                     <div className={styles.feed_list}>
-                        <>
+                        {!renderCondition && <Loader description="Заказы загружаются!" />}
 
-                            {!renderCondition && <Loader description={'Заказы загружаются!'}/>}
-
-                            {
-                                ordersList && ordersData.map((currentOrder: TOrder, i: number) =>
-                                    <Link
+                        {
+                                ordersList ? ordersData.map((currentOrder: TOrder, i: number) =>
+                                    (<Link
                                         key={i}
-                                        to={`/feed/${currentOrder.number}`}
-                                        state={{background: location}}
                                         onClick={() => onUpgradeCurrentOrder(currentOrder)}
+                                        state={{background: location}}
+                                        to={`/feed/${currentOrder.number}`}
                                     >
-                                        <FeedItem currentOrder={currentOrder}/>
-                                    </Link>
-                                )
+                                        <FeedItem currentOrder={currentOrder} />
+                                     </Link>)
+                                ) : null
                             }
-
-                        </>
                     </div>
 
                     <div className={`${styles.feed_details} pl-15`}>
@@ -108,27 +107,46 @@ export default function Feed() {
                         <div className={`${styles.feed_details_order_status} mb-15`}>
 
                             <div className={styles.feed_details_ready}>
-                                <h5>Готовы:</h5>
+                                <h5>
+                                    Готовы:
+                                </h5>
+
                                 {ordersReady.map((elem: TOrder, i: number) =>
-                                    <p key={i}>{elem.number}</p>
+                                    (<p key={i}>
+                                        {elem.number}
+                                    </p>)
                                 )}
                             </div>
 
                             <div className={styles.feed_details_await}>
-                                <h5
-                                >Готовятся:</h5>
+                                <h5 >
+                                    Готовятся:
+                                </h5>
+
                                 {ordersPending.map((elem: TOrder, i: number) =>
-                                    <p key={i}>{elem.number}</p>
+                                    (<p key={i}>
+                                        {elem.number}
+                                    </p>)
                                 )}
                             </div>
                         </div>
 
                         <div className={styles.feed_details_total}>
-                            <p className="text text_type_main-default">Выполнено за всё время:</p>
-                            <h1 className="text text_type_digits-large mb-15">{total}</h1>
+                            <p className="text text_type_main-default">
+                                Выполнено за всё время:
+                            </p>
 
-                            <p className="text text_type_main-default">Выполнено за сегодня:</p>
-                            <h1 className="text text_type_digits-large">{totalToday}</h1>
+                            <h1 className="text text_type_digits-large mb-15">
+                                {total}
+                            </h1>
+
+                            <p className="text text_type_main-default">
+                                Выполнено за сегодня:
+                            </p>
+
+                            <h1 className="text text_type_digits-large">
+                                {totalToday}
+                            </h1>
                         </div>
 
                     </div>

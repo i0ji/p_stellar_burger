@@ -1,6 +1,6 @@
 import {defineConfig} from 'cypress'
 
-// noinspection JSUnusedGlobalSymbols
+// Noinspection JSUnusedGlobalSymbols
 export default defineConfig({
         component: {
             devServer: {
@@ -9,8 +9,10 @@ export default defineConfig({
             },
         },
         e2e: {
-            // setupNodeEvents(on, config) {
-            // },
+            /*
+             * SetupNodeEvents(on, config) {
+             * },
+             */
             baseUrl: 'http://localhost:5173',
         },
         viewportWidth: 1400,

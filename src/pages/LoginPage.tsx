@@ -1,15 +1,13 @@
+import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Loader, Transitions} from "components/index.ts";
+import {Link} from "react-router-dom";
+
+import {IForm, IUserData} from "declarations/interfaces";
+
 import styles from "pages/Pages.module.scss"
 
 import {loginUser} from "utils/api.ts";
 import checkEmail from "utils/checkEmail.ts";
-
-import {IUserData} from "declarations/interfaces";
-import {IForm} from "declarations/interfaces";
-
-import {Loader, Transitions} from "components/index.ts";
-import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link} from "react-router-dom";
 
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
@@ -17,37 +15,39 @@ import {useForm} from "hooks/useForm.ts";
 
 export default function LoginPage() {
 
-    const {values, handleChange} = useForm<IForm>({});
+    const {values, handleChange} = useForm<IForm>({}),
 
-    const [emailError, setEmailError] = useState<boolean>(false);
-    const [loginError, setLoginError] = useState<boolean>(false);
+     [emailError, setEmailError] = useState<boolean>(false),
+     [loginError, setLoginError] = useState<boolean>(false),
 
-    const stateLoginError = useSelector(state => state.authSlice.loginError);
+     stateLoginError = useSelector(state => state.authSlice.loginError),
 
-    const dispatch = useDispatch();
-    const userAuth = useSelector(state => state.authSlice.isAuth);
+     dispatch = useDispatch(),
+     userAuth = useSelector(state => state.authSlice.isAuth),
 
     //  --------------- RERENDER CHECK ---------------
 
-    // const renderCount = useRef(0);
-    // useEffect(() => {
-    //     renderCount.current += 1;
-    // });
-    // console.log(`Rerender counter: ${renderCount.current}`)
+    /*
+     * Const renderCount = useRef(0);
+     * useEffect(() => {
+     *     renderCount.current += 1;
+     * });
+     * console.log(`Rerender counter: ${renderCount.current}`)
+     */
 
 
     // --------------- PWD VISIBILITY  ---------------
 
-    const [isPasswordShow, setIsPasswordShow] = useState(false);
-    const togglePasswordVisibility = () => {
+     [isPasswordShow, setIsPasswordShow] = useState(false),
+     togglePasswordVisibility = () => {
         setIsPasswordShow(!isPasswordShow);
-    };
+    },
 
 
     // --------------- ERROR MESSAGE ---------------
 
 
-    const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
+     handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         checkEmail(values.email) ? setEmailError(true) : setEmailError(false);
 
@@ -65,68 +65,86 @@ export default function LoginPage() {
 // --------------- CONDITION ---------------
 
     if (userAuth) {
-        return <Loader description={'Проходим фейсконтроль...'}/>;
+        return <Loader description="Проходим фейсконтроль..." />;
     }
 
     return (
 
         <section className={styles.section}>
             <Transitions>
-            <form onSubmit={handleLogin}>
-                <h1 className="text text text_type_main-medium pb-6">Вход</h1>
-                <Input
-                    onChange={handleChange}
-                    name={'email'}
-                    type={'text'}
-                    placeholder={'E-mail'}
-                    icon={undefined}
-                    value={values.email ?? ''}
-                    error={false}
-                    errorText={'Ошибка'}
-                    size={'default'}
-                    extraClass="mb-6"
-                />
-                <Input
-                    onChange={handleChange}
-                    name={'password'}
-                    type={isPasswordShow ? 'text' : 'password'}
-                    placeholder={'Пароль'}
-                    icon={'ShowIcon'}
-                    value={values.password ?? ''}
-                    error={false}
-                    errorText={'Ошибка'}
-                    size={'default'}
-                    extraClass="mb-6"
-                    onIconClick={togglePasswordVisibility}
-                />
-                {
-                    !emailError && loginError && <p
+                <form onSubmit={handleLogin}>
+                    <h1 className="text text text_type_main-medium pb-6">
+                        Вход
+                    </h1>
+
+                    <Input
+                        error={false}
+                        errorText="Ошибка"
+                        extraClass="mb-6"
+                        icon={undefined}
+                        name="email"
+                        onChange={handleChange}
+                        placeholder="E-mail"
+                        size="default"
+                        type="text"
+                        value={values.email ?? ''}
+                    />
+
+                    <Input
+                        error={false}
+                        errorText="Ошибка"
+                        extraClass="mb-6"
+                        icon="ShowIcon"
+                        name="password"
+                        onChange={handleChange}
+                        onIconClick={togglePasswordVisibility}
+                        placeholder="Пароль"
+                        size="default"
+                        type={isPasswordShow ? 'text' : 'password'}
+                        value={values.password ?? ''}
+                    />
+
+                    {
+                    !emailError && loginError ? <p
                         className="pb-6"
                         style={{color: '#b90101'}}
-                    >
+                                                >
                         Неверный пароль или Email. Попробуйте ещё раз.
-                    </p>
+                                                </p> : null
                 }
-                {
-                    emailError && <p
+
+                    {
+                    emailError ? <p
                         className="pb-6"
                         style={{color: '#b90101'}}
-                    >
+                                 >
                         Некорректный Email.
-                    </p>
+                                 </p> : null
                 }
-                <Button
-                    htmlType="submit"
-                    extraClass="mb-20"
-                    type="primary"
-                >
-                    Войти
-                </Button>
 
-                <p>Вы — новый пользователь? <Link to="/register">Зарегистрироваться</Link></p>
+                    <Button
+                        extraClass="mb-20"
+                        htmlType="submit"
+                        type="primary"
+                    >
+                        Войти
+                    </Button>
 
-                <p>Забыли пароль? <Link to="/forgot-password"> Восстановить пароль</Link></p>
-            </form>
+                    <p>
+                        Вы — новый пользователь?
+                        <Link to="/register">
+                            Зарегистрироваться
+                        </Link>
+                    </p>
+
+                    <p>
+                        Забыли пароль?
+                        <Link to="/forgot-password">
+                            {' '}
+                            Восстановить пароль
+                        </Link>
+                    </p>
+                </form>
             </Transitions>
         </section>
     );

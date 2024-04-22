@@ -1,17 +1,15 @@
-import {Button, BurgerIcon, ListIcon, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {BurgerIcon, Button, ListIcon, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {NavLink, useLocation} from "react-router-dom";
 import styles from "./AppHeaderStyles.module.scss"
 
-export default function HeaderButton({typeFor}: { typeFor: string }) {
+export default function HeaderButton({typeFor}: { readonly typeFor: string }) {
 
 
     // --------------- VARS & STATES  ---------------
 
-    const location = useLocation().pathname;
+    const location = useLocation().pathname,
 
-    const activeStyle = ({isActive}: { isActive: boolean }) => {
-        return isActive ? 'active' : 'not_active';
-    }
+     activeStyle = ({isActive}: { isActive: boolean }) => isActive ? 'active' : 'not_active'
 
 
     // --------------- COMPONENT  ---------------
@@ -26,8 +24,8 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
                     <Button
                         extraClass={`p-1 text text_type_main-default ${activeStyle} ${styles.header_button}`}
                         htmlType="button"
-                        type="secondary"
                         size="medium"
+                        type="secondary"
                     >
                         <BurgerIcon
                             type='primary'
@@ -45,8 +43,8 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
                     <Button
                         extraClass={`p-1 text text_type_main-default ${activeStyle} ${styles.header_button}`}
                         htmlType="button"
-                        type="secondary"
                         size="medium"
+                        type="secondary"
                     >
                         <ListIcon
                             type='secondary'
@@ -64,8 +62,8 @@ export default function HeaderButton({typeFor}: { typeFor: string }) {
                     <Button
                         extraClass={`p-1 text text_type_main-default ${location === '/login' && styles.active} ${styles.header_button}`}
                         htmlType="button"
-                        type="secondary"
                         size="medium"
+                        type="secondary"
                     >
                         <ProfileIcon
                             type='primary'

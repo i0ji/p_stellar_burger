@@ -7,8 +7,8 @@ import {wsClose, wsConnect} from "services/orderFeed/actions.ts";
 import {TOrder} from "declarations/types";
 
 import {
-    Loader,
-    FeedItem
+    FeedItem,
+    Loader
 } from "components/index.ts"
 import ProfileMenu from "./ProfileMenu.tsx";
 
@@ -21,18 +21,18 @@ export default function ProfileOrders() {
 
     // --------------- VARS & STATES ---------------
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch(),
 
-    const accessToken = localStorage.getItem('accessToken');
-    const formattedAccessToken = accessToken ? accessToken.replace("Bearer ", "") : '';
+     accessToken = localStorage.getItem('accessToken'),
+     formattedAccessToken = accessToken ? accessToken.replace("Bearer ", "") : '',
 
-    const WS_URL_WITH_TOKEN = `${WS_URL}?token=${formattedAccessToken}`;
+     WS_URL_WITH_TOKEN = `${WS_URL}?token=${formattedAccessToken}`,
 
     // --------------- NAVIGATION ---------------
 
-    const location = useLocation();
+     location = useLocation(),
 
-    const modalBackground = (location.key === 'default') ? styles.background : styles.dark;
+     modalBackground = (location.key === 'default') ? styles.background : styles.dark;
 
 
     // --------------- WS & ORDERS ---------------
@@ -42,16 +42,16 @@ export default function ProfileOrders() {
         return (() => dispatch(wsClose()));
     }, [WS_URL_WITH_TOKEN, dispatch]);
 
-    const ordersList = useSelector(state => state.orderFeed.orders);
+    const ordersList = useSelector(state => state.orderFeed.orders),
 
     // --------------- STATUS
-    const status = useSelector(state => state.orderFeed.status);
+     status = useSelector(state => state.orderFeed.status),
     // --------------- DATA
-    const ordersData = ordersList.orders;
+     ordersData = ordersList.orders;
     // --------------- CONDITION
     if (!ordersData) {
         return (
-            <Loader description={'Летим за едой...'}/>
+            <Loader description="Летим за едой..." />
         )
     }
 
@@ -60,7 +60,7 @@ export default function ProfileOrders() {
     // --------------- READY ORDERS
 
     if (status !== 'ONLINE') {
-        return <Loader description={'Ищем заказы...'}/>
+        return <Loader description="Ищем заказы..." />
     }
 
     const onUpgradeCurrentOrder = (order: TOrder) => {
@@ -72,19 +72,20 @@ export default function ProfileOrders() {
 
     return (
         <section className={styles.profile_section}>
-            <ProfileMenu/>
+            <ProfileMenu />
+
             <div className={`${styles.profile_orders} ${modalBackground}`}>
                 {
-                    ordersList && reversedOrdersData.map((currentOrder: TOrder, i: number) =>
-                        <Link
+                    ordersList ? reversedOrdersData.map((currentOrder: TOrder, i: number) =>
+                        (<Link
                             key={i}
-                            to={`/profile/orders/${currentOrder.number}`}
-                            state={{background: location}}
                             onClick={() => onUpgradeCurrentOrder(currentOrder)}
+                            state={{background: location}}
+                            to={`/profile/orders/${currentOrder.number}`}
                         >
-                            <FeedItem currentOrder={currentOrder}/>
-                        </Link>
-                    )
+                            <FeedItem currentOrder={currentOrder} />
+                        </Link>)
+                    ) : null
                 }
             </div>
         </section>

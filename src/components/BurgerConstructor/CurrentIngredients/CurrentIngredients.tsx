@@ -1,37 +1,37 @@
 import CurrentIngredientsStyles from "./CurrentIngredientsStyles.module.scss"
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {IIngredient, IDragItem} from "declarations/interfaces";
+import {IDragItem, IIngredient} from "declarations/interfaces";
 import {useDispatch} from "hooks/reduxHooks.ts";
 import {removeIngredient} from "slices/constructorSlice.ts";
 import {useRef} from "react";
-import {useDrag, useDrop, DragSourceMonitor, DropTargetMonitor} from "react-dnd";
+import {DragSourceMonitor, DropTargetMonitor, useDrag, useDrop} from "react-dnd";
 
 export default function CurrentIngredients({ingredient, index, moveIngredient}: {
-    ingredient: IIngredient,
-    index: number,
-    moveIngredient: (dragIndex: number, hoverIndex: number) => void
+    readonly ingredient: IIngredient,
+    readonly index: number,
+    readonly moveIngredient: (dragIndex: number, hoverIndex: number) => void
 }) {
 
-    const ref = useRef<HTMLDivElement>(null)
+    const ref = useRef<HTMLDivElement>(null),
 
-    const dispatch = useDispatch();
-    const handleRemoveIngredient = (id: string) => {
+     dispatch = useDispatch(),
+     handleRemoveIngredient = (id: string) => {
         dispatch(removeIngredient(id));
-    }
+    },
 
-    const [{handlerId}, drop] = useDrop({
+     [{handlerId}, drop] = useDrop({
         accept: 'ingredients',
         collect(monitor) {
             return {
                 handlerId: monitor.getHandlerId(),
             };
         },
-        hover: function (item: IDragItem) {
+        hover (item: IDragItem) {
             if (!ref.current) {
                 return;
             }
-            const dragIndex = item.index;
-            const hoverIndex = index;
+            const dragIndex = item.index,
+             hoverIndex = index;
             if (dragIndex === hoverIndex) {
                 return;
             }
@@ -43,9 +43,9 @@ export default function CurrentIngredients({ingredient, index, moveIngredient}: 
         accept: string,
         collect: (monitor: DropTargetMonitor) => { handlerId: string },
         hover: (item: IDragItem, monitor: DropTargetMonitor) => void
-    })
+    }),
 
-    const [{isDragging}, drag] = useDrag({
+     [{isDragging}, drag] = useDrag({
         type: 'ingredients',
         item: () => ({
             id: ingredient._id,
@@ -54,10 +54,10 @@ export default function CurrentIngredients({ingredient, index, moveIngredient}: 
         collect: (monitor: DragSourceMonitor) => ({
             isDragging: monitor.isDragging(),
         }),
-    });
+    }),
 
 
-    const opacity = isDragging ? 0 : 1
+     opacity = isDragging ? 0 : 1
     drag(drop(ref));
 
 
@@ -66,18 +66,19 @@ export default function CurrentIngredients({ingredient, index, moveIngredient}: 
     return (
         <div
             className={CurrentIngredientsStyles.constructor_order_item}
+            data-handler-id={handlerId}
             ref={ref}
             style={{opacity}}
-            data-handler-id={handlerId}
         >
-            <DragIcon type="primary"/>
+            <DragIcon type="primary" />
+
             <ConstructorElement
-                text={ingredient.name}
-                price={ingredient.price || 0}
-                thumbnail={ingredient.image || ''}
                 handleClose={
                     ingredient._id !== undefined ? () => handleRemoveIngredient(ingredient._id!) : undefined
                 }
+                price={ingredient.price || 0}
+                text={ingredient.name}
+                thumbnail={ingredient.image || ''}
             />
         </div>
     );

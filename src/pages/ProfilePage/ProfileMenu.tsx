@@ -12,17 +12,17 @@ export default function ProfileMenu() {
 
     // --------------- NAVIGATION & BACKGROUND---------------
 
-    const navigate = useNavigate();
+    const navigate = useNavigate(),
 
-    const location = useLocation();
+     location = useLocation(),
 
     // --------------- VARS & STATES ---------------
 
-    const dispatch = useDispatch();
-    const isActive = location.pathname === '/profile';
-    const refreshToken = localStorage.getItem('refreshToken');
+     dispatch = useDispatch(),
+     isActive = location.pathname === '/profile',
+     refreshToken = localStorage.getItem('refreshToken'),
     //  --------------- LOGOUT
-    const handleLogout = () => {
+     handleLogout = () => {
         dispatch(logoutUser(refreshToken));
         navigate('/');
     };
@@ -31,47 +31,52 @@ export default function ProfileMenu() {
         <div>
             <div className={styles.profile_buttons}>
                 <Link
-                    to='/profile'
                     className={`mb-10 `}
+                    to='/profile'
                 >
                     <Button
                         extraClass={`text text_type_main-medium ${isActive ? styles.isActive : ''}`}
                         htmlType="button"
-                        type="secondary"
                         size="medium"
+                        type="secondary"
                     >
                         Профиль
                     </Button>
                 </Link>
+
                 <Link
-                    to='/profile/orders'
                     className={`mb-10 `}
+                    to='/profile/orders'
                 >
                     <Button
                         extraClass={`text text_type_main-medium ${!isActive ? styles.isActive : ''}`}
                         htmlType="button"
-                        type="secondary"
                         size="medium"
+                        type="secondary"
                     >
                         История заказов
                     </Button>
                 </Link>
+
                 <Link
+                    className="mb-10"
                     to='/'
-                    className={`mb-10`}
                 >
                     <Button
-                        extraClass={`text text_type_main-medium`}
-                        htmlType="button"
-                        type="secondary"
-                        size="medium"
-                        onClick={handleLogout}
                         data-testid="profile_quit_button"
+                        extraClass="text text_type_main-medium"
+                        htmlType="button"
+                        onClick={handleLogout}
+                        size="medium"
+                        type="secondary"
                     >
                         Выход
                     </Button>
                 </Link>
-                <p>В этом разделе вы можете изменить свои персональные данные</p>
+
+                <p>
+                    В этом разделе вы можете изменить свои персональные данные
+                </p>
             </div>
         </div>
     );

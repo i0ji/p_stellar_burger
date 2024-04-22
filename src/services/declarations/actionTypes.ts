@@ -1,16 +1,16 @@
-import {loginUser, registerUser, logoutUser, getUserData, updateUserData} from 'utils/api.ts';
-import {addIngredient, resetIngredients, reorderIngredients, removeIngredient} from "slices/constructorSlice.ts";
+import {getUserData, loginUser, logoutUser, registerUser, updateUserData} from 'utils/api.ts';
+import {addIngredient, removeIngredient, reorderIngredients, resetIngredients} from "slices/constructorSlice.ts";
 import {updateSelectedIngredient} from "slices/currentIngredientSlice.ts";
 import {updateIds, updateOrderNumber} from "slices/orderSlice.ts";
 import {createOrder} from "utils/api.ts";
 import {getIngredients} from "utils/api.ts"
 import {
-    wsMessage,
     wsClose,
     wsConnect,
     wsConnecting,
     wsDisconnect,
     wsError,
+    wsMessage,
     wsOpen
 } from "services/orderFeed/actions.ts";
 

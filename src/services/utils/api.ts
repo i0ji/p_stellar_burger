@@ -1,4 +1,4 @@
-import {createAsyncThunk, Dispatch} from "@reduxjs/toolkit";
+import {Dispatch, createAsyncThunk} from "@reduxjs/toolkit";
 import {BASE_URL, ORDER_URL} from "declarations/routs.ts";
 import {setAuthChecked, setUser} from "slices/authSlice.ts";
 import {checkResponse} from "utils/checkResponse.ts";
@@ -14,8 +14,7 @@ import {
 
 // --------------- REFRESH ---------------
 
-export const refreshToken = async (): Promise<TApiResponse<string>> => {
-    return fetch(`${BASE_URL}/auth/token`, {
+export const refreshToken = async (): Promise<TApiResponse<string>> => fetch(`${BASE_URL}/auth/token`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json;charset=utf-8",
@@ -24,7 +23,6 @@ export const refreshToken = async (): Promise<TApiResponse<string>> => {
             token: localStorage.getItem("refreshToken"),
         }),
     }).then(res => checkResponse(res));
-};
 
 
 // --------------- FETCH WITH REFRESH ---------------
@@ -43,9 +41,9 @@ export const fetchWithRefresh = async <T>(url: RequestInfo, options: RequestInit
             localStorage.setItem('accessToken', refreshData.accessToken);
             const res = await fetch(url, options);
             return await checkResponse<T>(res);
-        } else {
+        } 
             throw err;
-        }
+        
     }
 };
 
@@ -60,9 +58,9 @@ export const loginUser = createAsyncThunk<IUserData, IUserData>('auth/login',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(userData),
-        };
-        const response = await fetch(`${BASE_URL}/auth/login`, requestOptions);
-        const data = await checkResponse<TUserLoginResponse>(response);
+        },
+         response = await fetch(`${BASE_URL}/auth/login`, requestOptions),
+         data = await checkResponse<TUserLoginResponse>(response);
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('refreshToken', data.refreshToken);
         return data.user;
@@ -95,9 +93,9 @@ export const getUserData = createAsyncThunk<IUserData, void>(
 export const getIngredients = createAsyncThunk<IIngredient[], void>(
     'ingredientsListSlice/fetchIngredients',
     async (): Promise<IIngredient[]> => {
-        const response = await fetch(`${BASE_URL}/ingredients`);
-        const data = await checkResponse<TIngredientResponse>(response);
-        if (data?.success) return data.data;
+        const response = await fetch(`${BASE_URL}/ingredients`),
+         data = await checkResponse<TIngredientResponse>(response);
+        if (data?.success) {return data.data;}
         throw new Error('Ошибка при загрузке ингредиентов!');
     });
 
@@ -144,10 +142,10 @@ export const registerUser = createAsyncThunk<IRegisterUser, TUserRegister>(
             localStorage.setItem('accessToken', responseData.accessToken);
             localStorage.setItem('refreshToken', responseData.refreshToken);
             return responseData;
-        } else {
+        } 
             const errorData = await response.json();
             return Promise.reject(errorData);
-        }
+        
     }
 );
 
@@ -156,8 +154,8 @@ export const registerUser = createAsyncThunk<IRegisterUser, TUserRegister>(
 
 export const resetPassword = async (password: string, token: string) => {
     const requestBody = {
-        password: password,
-        token: token,
+        password,
+        token,
     };
     try {
         const response = await fetch(`${BASE_URL}/password-reset/reset`, {
@@ -181,7 +179,7 @@ export const forgotPassword = createAsyncThunk(
     'auth/forgotPassword',
     async (email: string | undefined): Promise<TApiResponse<string>> => {
         const requestBody = {
-            email: email,
+            email,
         };
         try {
             const response = await fetch(`${BASE_URL}/password-reset`, {
@@ -214,8 +212,8 @@ export const logoutUser = createAsyncThunk(
             body: JSON.stringify({
                 token: refreshToken,
             }),
-        });
-        const logoutData = await checkResponse(response);
+        }),
+         logoutData = await checkResponse(response);
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         return logoutData;
@@ -227,12 +225,12 @@ export const logoutUser = createAsyncThunk(
 export const createOrder = createAsyncThunk<number, (string | undefined)[]>(
     'orderSlice/createOrder',
     async (ingredientIds: (string | undefined)[]): Promise<number> => {
-        const token = localStorage.getItem('accessToken');
-        const filteredIngredientIds = ingredientIds.filter(id => id !== undefined) as string[];
-        const requestBody = {
+        const token = localStorage.getItem('accessToken'),
+         filteredIngredientIds = ingredientIds.filter(id => id !== undefined) as string[],
+         requestBody = {
             ingredients: filteredIngredientIds
-        };
-        const headers: Record<string, string> = {
+        },
+         headers: Record<string, string> = {
             'Content-Type': 'application/json',
         };
         if (token) {
@@ -242,8 +240,8 @@ export const createOrder = createAsyncThunk<number, (string | undefined)[]>(
             method: 'POST',
             headers,
             body: JSON.stringify(requestBody),
-        });
-        const data = await checkResponse<{ order: { number: number } }>(response);
+        }),
+         data = await checkResponse<{ order: { number: number } }>(response);
         return data.order.number;
     }
 );
@@ -251,8 +249,7 @@ export const createOrder = createAsyncThunk<number, (string | undefined)[]>(
 
 // --------------- AUTH CHECK  ---------------
 
-export const checkUserAuth = () => {
-    return async (dispatch: Dispatch) => {
+export const checkUserAuth = () => async (dispatch: Dispatch) => {
         const accessToken = localStorage.getItem('accessToken');
         if (accessToken) {
             try {
@@ -282,7 +279,6 @@ export const checkUserAuth = () => {
             dispatch(setAuthChecked(true));
         }
     };
-};
 
 
 // --------------- GET CONCRETE ORDER ---------------

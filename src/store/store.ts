@@ -4,32 +4,32 @@ import {orderFeedReducer} from "services/orderFeed/reducers.ts";
 
 import {
     authSlice,
-    currentIngredientSlice,
-    orderSlice,
-    ingredientsSlice,
     constructorSlice,
+    currentIngredientSlice,
+    ingredientsSlice,
+    orderSlice,
 } from "slices/index.ts"
 
 export const rootReducers = combineReducers({
     ingredients: ingredientsSlice,
-    constructorSlice: constructorSlice,
-    currentIngredientSlice: currentIngredientSlice,
-    orderSlice: orderSlice,
-    authSlice: authSlice,
+    constructorSlice,
+    currentIngredientSlice,
+    orderSlice,
+    authSlice,
     orderFeed: orderFeedReducer,
 });
 
 import {
+    wsClose as FeedCloseAction,
     wsConnect as FeedConnectAction,
     wsConnecting as FeedConnectionAction,
-    wsOpen as FeedOpenAction,
-    wsMessage as FeedMessageAction,
-    wsClose as FeedCloseAction,
     wsDisconnect as FeedDisconnectAction,
     wsError as FeedErrorAction,
-    onOpen as FeedOnOpenAction,
+    wsMessage as FeedMessageAction,
+    onClose as FeedOnCloseAction,
     onError as FeedOnErrorAction,
-    onClose as FeedOnCloseAction
+    onOpen as FeedOnOpenAction,
+    wsOpen as FeedOpenAction
 } from "services/orderFeed/actions.ts";
 
 export const wsActions = {
@@ -45,7 +45,7 @@ export const wsActions = {
     onClose: FeedOnCloseAction,
 };
 
-const checkToken = !!(localStorage.getItem('accessToken'));
+const checkToken = Boolean(localStorage.getItem('accessToken'));
 
 export const store = configureStore({
         reducer: rootReducers,

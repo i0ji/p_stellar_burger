@@ -8,7 +8,7 @@ import {IIngredient} from "declarations/interfaces";
 import {addIngredient, reorderIngredients} from "slices/constructorSlice.ts";
 import {updateIds, updateOrderNumber} from "slices/orderSlice.ts";
 
-import {ConstructorElement, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Button, ConstructorElement, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import CurrentIngredients from "./CurrentIngredients/CurrentIngredients.tsx";
 import {
     Loader,
@@ -27,25 +27,25 @@ export default function BurgerConstructor() {
 
     // --------------- VARS & STATES ---------------
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const {addedIngredients, bun} = useSelector(state => state.constructorSlice);
+    const dispatch = useDispatch(),
+     navigate = useNavigate(),
+     {addedIngredients, bun} = useSelector(state => state.constructorSlice),
     // --------------- HIGHLIGHT STATE
-    const [bunAvail, setBunAvail] = useState(false);
-    const [ingredientsAvail, setIngredientsAvail] = useState(false);
+     [bunAvail, setBunAvail] = useState(false),
+     [ingredientsAvail, setIngredientsAvail] = useState(false),
     // --------------- PRELOADER CONSTANTS
-    const isLoaded = useSelector(state => state.orderSlice.status);
-    const hasError = useSelector(state => state.orderSlice.error);
+     isLoaded = useSelector(state => state.orderSlice.status),
+     hasError = useSelector(state => state.orderSlice.error),
     // --------------- CURRENT IDS
-    const ingredientIDs = useSelector(state => state.constructorSlice.addedIngredients).map((elem: IIngredient) => elem._id);
+     ingredientIDs = useSelector(state => state.constructorSlice.addedIngredients).map((elem: IIngredient) => elem._id),
     // --------------- MODAL
-    const {isVisible, openModal, closeModal} = useModal();
+     {isVisible, openModal, closeModal} = useModal(),
     // --------------- TOTAL AMOUNT
-    const totalAmount = useSelector(state => state.constructorSlice.totalPrice);
+     totalAmount = useSelector(state => state.constructorSlice.totalPrice),
     // --------------- BUNS STATE
-    const isBun: IIngredient = useSelector(state => state.constructorSlice.bun);
+     isBun: IIngredient = useSelector(state => state.constructorSlice.bun),
     //--------------- AUTH STATE
-    const isAuth = useSelector(state => state.authSlice.isAuth);
+     isAuth = useSelector(state => state.authSlice.isAuth);
 
 
     // --------------- CURRENT ID ---------------
@@ -61,79 +61,25 @@ export default function BurgerConstructor() {
 
     // --------------- DROP LOGIC ---------------
 
-    const [, dropIngredients] = useDrop({
-        accept: ['bun', 'ingredient'],
-        drop: (item: IIngredient) => {
-            dispatch(addIngredient(item));
-        }
-    });
+    function InitialBun({pos}: { readonly pos: "top" | "bottom" | undefined }) {
+  return (<ConstructorElement
+      extraClass={`${styles.constructor_initial_bun} ${bunAvail ? styles.highlight_problem : ''}`}
+      isLocked
+      price={0}
+      text="Перетащите сюда булочку"
+      thumbnail={awaitSpinner}
+      type={pos}
+  />)
+}
 
-    const moveIngredient = useCallback((dragIndex: number, hoverIndex: number) => {
-        dispatch(reorderIngredients({dragIndex, hoverIndex}));
-    }, [dispatch]);
-
-    const renderIngredients = (ingredient: IIngredient, uuid: number) => {
-        return (
-            <CurrentIngredients
-                key={ingredient.id}
-                ingredient={ingredient}
-                index={uuid}
-                moveIngredient={moveIngredient}
-            />
-        )
-    }
-
-    // --------------- PREVENT FROM ORDER ---------------
-
-    const preventOrderState = Boolean(isBun) && Boolean(addedIngredients.length);
-
-
-    // --------------- HIGHLIGHT CONDITION ---------------
-
-    const isIngredientInOrder = Boolean(addedIngredients.length);
-    const isBunInOrder = Boolean(isBun);
-
-    const handleBunHighlight = () => {
-        if (!isBunInOrder) {
-            setBunAvail(true);
-        }
-    };
-
-    const handleIngredientsHighlight = () => {
-        if (!isIngredientInOrder) {
-            setIngredientsAvail(true);
-        }
-    }
-
-    const handleButtonMouseOut = () => {
-        setBunAvail(false);
-        setIngredientsAvail(false);
-    };
-
-
-    // --------------- INITIAL CONSTRUCTOR LIST ---------------
-
-    const InitialBun = ({pos}: { pos: "top" | "bottom" | undefined }) => {
-        return (
-            <ConstructorElement
-                extraClass={`${styles.constructor_initial_bun} ${bunAvail ? styles.highlight_problem : ''}`}
-                text={'Перетащите сюда булочку'}
-                type={pos}
-                isLocked={true}
-                thumbnail={awaitSpinner}
-                price={0}
-            />
-        )
-    }
-
-    const InitialIngredient = () => {
+    function InitialIngredient() {
         return (
             <ConstructorElement
                 extraClass={`${styles.constructor_initial_ingredient} ${ingredientsAvail ? styles.highlight_problem : ''}`}
-                text={'Перетащите сюда ингредиенты'}
-                isLocked={true}
-                thumbnail={awaitSpinner}
+                isLocked
                 price={0}
+                text="Перетащите сюда ингредиенты"
+                thumbnail={awaitSpinner}
             />
         )
     }
@@ -167,77 +113,74 @@ export default function BurgerConstructor() {
 
                 {/* --------------- TOP BUN --------------- */}
 
-                {!isBun ? <InitialBun pos={"top"}/> :
-                    <div
-                        className={styles.constructor_order_item}
-                    >
-                        {bun && (
-                            <ConstructorElement
-                                extraClass={styles.constructor_item_top}
-                                type="top"
-                                isLocked={true}
-                                text={`${bun.name} (верх)`}
-                                price={bun.price ?? 0}
-                                thumbnail={bun.image || ''}
-                            />
-                        )}
-                    </div>
-                }
+                {!isBun ? <InitialBun pos="top" /> :
+                <div
+                    className={styles.constructor_order_item}
+                >
+                    {bun ? <ConstructorElement
+                        extraClass={styles.constructor_item_top}
+                        isLocked
+                        price={bun.price ?? 0}
+                        text={`${bun.name} (верх)`}
+                        thumbnail={bun.image || ''}
+                        type="top"
+                           /> : null}
+                </div>}
 
 
                 {/* --------------- INNER INGREDIENTS + ORDER CONDITION --------------- */}
 
-                {!isIngredientInOrder ? <InitialIngredient/> :
+                {!isIngredientInOrder ? <InitialIngredient /> :
 
-                    <div
-                        className={`${styles.constructor_order} ${ingredientsAvail ? styles.highlight_problem : ''}`}
-                        style={{
+                <div
+                    className={`${styles.constructor_order} ${ingredientsAvail ? styles.highlight_problem : ''}`}
+                    style={{
                             scrollbarWidth: (addedIngredients.length > 3) ? 'inherit' : 'none',
                             width: (addedIngredients.length > 3) ? '100%' : '97%',
                         }}
-                    >
-                        {addedIngredients.map((ingredient: IIngredient, uuid: number) => (
+                >
+                    {addedIngredients.map((ingredient: IIngredient, uuid: number) => (
                             renderIngredients(ingredient, uuid)
                         ))}
-                    </div>
-                }
+                </div>}
 
                 {/* --------------- BOTTOM BUN --------------- */}
 
-                {!isBun ? <InitialBun pos={'bottom'}/> :
-                    <div className={styles.constructor_order_item}>
-                        {bun && (
-                            <ConstructorElement
-                                extraClass={styles.constructor_item_bottom}
-                                type="bottom"
-                                isLocked={true}
-                                text={`${bun.name} (низ)`}
-                                price={bun.price ?? 0}
-                                thumbnail={bun.image || ''}
-                            />
-                        )}
-                    </div>}
+                {!isBun ? <InitialBun pos="bottom" /> :
+                <div className={styles.constructor_order_item}>
+                    {bun ? <ConstructorElement
+                        extraClass={styles.constructor_item_bottom}
+                        isLocked
+                        price={bun.price ?? 0}
+                        text={`${bun.name} (низ)`}
+                        thumbnail={bun.image || ''}
+                        type="bottom"
+                           /> : null}
+                </div>}
 
                 {/* --------------- PRICE --------------- */}
 
                 <div className={`mt-4 ${styles.price_info}`}>
-                    <h1 className="text text_type_digits-medium pr-3">{totalAmount}</h1>
-                    <CurrencyIcon type="primary"/>
+                    <h1 className="text text_type_digits-medium pr-3">
+                        {totalAmount}
+                    </h1>
+
+                    <CurrencyIcon type="primary" />
 
                     <div
+                        onMouseOut={handleButtonMouseOut}
                         onMouseOver={() => {
                             handleBunHighlight();
                             handleIngredientsHighlight();
                         }}
-                        onMouseOut={handleButtonMouseOut}
                     >
                         <Button
                             disabled={!preventOrderState}
                             extraClass="ml-3"
-                            size="large"
-                            type="primary"
                             htmlType="button"
                             onClick={handleOrder}
+                            size="large"
+                            type="primary"
                         >
                             {isAuth ? 'Оформить заказ' : 'Войти в Аккаунт'}
                         </Button>
@@ -247,13 +190,11 @@ export default function BurgerConstructor() {
 
                 {/* -------------- MODAL + PRELOADER --------------- */}
 
-                {(isLoaded === 'loading') && !hasError && <Loader description={'Готовим заказ...'}/>}
+                {(isLoaded === 'loading') && !hasError && <Loader description="Готовим заказ..." />}
 
-                {isLoaded === 'failed' && <WarningMessage onClose={closeModal}/>}
+                {isLoaded === 'failed' && <WarningMessage onClose={closeModal} />}
 
-                {(isLoaded === 'succeeded') && isVisible && <OrderAcceptance onClose={closeModal}/>
-
-                }
+                {(isLoaded === 'succeeded') && isVisible ? <OrderAcceptance onClose={closeModal} /> : null}
 
 
             </div>

@@ -15,8 +15,8 @@ export const getIngredientsWithQuantity = (
     orderIngredientIDs: Array<string>,
     ingredientsData: Array<IIngredient>
 ): Array<IIngredientsWithQuantity> => {
-    const ingredientCounts: { [key: string]: number } = {};
-    const ingredientsWithQuantity: Array<IIngredientsWithQuantity> = [];
+    const ingredientCounts: { [key: string]: number } = {},
+     ingredientsWithQuantity: Array<IIngredientsWithQuantity> = [];
 
     orderIngredientIDs.forEach(order => {
         ingredientCounts[order] = (ingredientCounts[order] || 0) + 1;

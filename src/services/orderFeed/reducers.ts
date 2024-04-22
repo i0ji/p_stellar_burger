@@ -1,16 +1,16 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {TError, TOrdersFeed, TOrderFeedStore} from "declarations/types"
+import {TError, TOrderFeedStore, TOrdersFeed} from "declarations/types"
 import {
-    wsMessage,
+    onClose,
+    onError,
+    onOpen,
     wsClose,
     wsConnect,
     wsConnecting,
     wsDisconnect,
     wsError,
+    wsMessage,
     wsOpen,
-    onOpen,
-    onError,
-    onClose,
 } from "services/orderFeed/actions.ts";
 
 enum WebsocketStatus {

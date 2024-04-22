@@ -1,8 +1,8 @@
 import "styles/_scrollbar.scss"
 
-import {Routes, Route, useNavigate} from 'react-router-dom';
-import {ProtectedRoute} from "common/ProtectedRoute/ProtectedRoute.tsx"
-import {checkUserAuth, getUserData, getIngredients} from "utils/api.ts";
+import {Route, Routes, useNavigate} from 'react-router-dom';
+import {checkUserAuth, getIngredients, getUserData} from "utils/api.ts";
+
 
 import {
     AppHeader,
@@ -11,23 +11,25 @@ import {
 } from "components/index.ts"
 
 import {
-    LoginPage,
-    HomePage,
-    NotFound404,
-    RegisterPage,
-    ForgotPage,
-    ProfilePage,
-    IngredientDetails,
-    ResetPage,
-    SuccessPage,
     FeedPage,
+    ForgotPage,
+    HomePage,
+    IngredientDetails,
+    LoginPage,
+    NotFound404,
     OrderDetails,
     ProfileOrders,
+    ProfilePage,
+    RegisterPage,
+    ResetPage,
+    SuccessPage,
 } from "./pages";
 
 import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useLocation} from "react-router-dom";
 import {useCallback, useEffect} from "react";
+
+import {ProtectedRoute} from "common/ProtectedRoute/ProtectedRoute.tsx"
 
 
 import {AnimatePresence} from "framer-motion";
@@ -36,18 +38,22 @@ import {AnimatePresence} from "framer-motion";
 export default function App() {
 
 
+    const print = (x: number) => {
+        console.log(x)
+    }
+
     // --------------- VARS & STATES ---------------
 
-    const dispatch = useDispatch();
-    const location = useLocation();
-    const background: string = location.state && location.state.background;
-    const navigate = useNavigate();
-    const ingredientsStatus = useSelector(state => state.ingredients.status);
-    const accessToken = localStorage.getItem('accessToken');
-    // --------------- HANDLE CLOSE MODAL
-    const handleCloseModal = useCallback(() => {
-        navigate(-1);
-    }, [navigate]);
+    const dispatch = useDispatch(),
+        location = useLocation(),
+        background: string = location.state && location.state.background,
+        navigate = useNavigate(),
+        ingredientsStatus = useSelector(state => state.ingredients.status),
+        accessToken = localStorage.getItem('accessToken'),
+        // --------------- HANDLE CLOSE MODAL
+        handleCloseModal = useCallback(() => {
+            navigate(-1);
+        }, [navigate]);
 
     useEffect(() => {
         dispatch(getIngredients());
@@ -58,7 +64,7 @@ export default function App() {
     // --------------- LOADER ---------------
 
     if (ingredientsStatus == 'loading') {
-        return <Loader description={'Загрузка...'}/>;
+        return <Loader description="Загрузка..."/>;
     }
 
 
@@ -70,77 +76,137 @@ export default function App() {
             <AnimatePresence>
                 <Routes location={background || location}>
 
-                    <Route path="/" element={<HomePage/>}/>
-                    <Route path="reset-password" element={<ResetPage/>}/>
-                    <Route path="reset-success" element={<SuccessPage/>}/>
-                    <Route path="ingredient/:id" element={<IngredientDetails/>}/>
-
-                    <Route path="feed" element={<FeedPage/>}/>
-                    <Route path="feed/:number" element={<OrderDetails/>}/>
+                    <Route
+                        element={<HomePage/>}
+                        path="/"
+                    />
 
                     <Route
+                        element={<ResetPage/>}
+                        path="reset-password"
+                    />
+
+                    <Route
+                        element={<SuccessPage/>}
+                        path="reset-success"
+                    />
+
+                    <Route
+                        element={<IngredientDetails/>}
+                        path="ingredient/:id"
+                    />
+
+                    <Route
+                        element={<FeedPage/>}
+                        path="feed"
+                    />
+
+                    <Route
+                        element={<OrderDetails/>}
+                        path="feed/:number"
+                    />
+
+                    <Route
+                        element={<ProtectedRoute
+                            component={<ProfilePage/>}
+                            unAuth={false}
+                        />}
                         path="profile"
-                        element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}
                     />
 
                     <Route
+                        element={<ProtectedRoute
+                            component={<ProfileOrders/>}
+                            unAuth={false}
+                        />}
                         path="profile/orders"
-                        element={<ProtectedRoute unAuth={false} component={<ProfileOrders/>}/>}
                     />
 
                     <Route
+                        element={<ProtectedRoute
+                            component={<OrderDetails/>}
+                            unAuth={false}
+                        />}
                         path="profile/orders/:number"
-                        element={<ProtectedRoute unAuth={false} component={<OrderDetails/>}/>}
                     />
 
-                    <Route path="login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
-                    <Route path="login" element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}/>
-                    <Route path="register" element={<ProtectedRoute unAuth={true} component={<RegisterPage/>}/>}/>
-                    <Route path="forgot-password" element={<ProtectedRoute unAuth={true} component={<ForgotPage/>}/>}/>
+                    <Route
+                        element={<ProtectedRoute
+                            component={<LoginPage/>}
+                            unAuth
+                        />}
+                        path="login"
+                    />
 
-                    <Route path="*" element={<NotFound404/>}/>
+                    <Route
+                        element={<ProtectedRoute
+                            component={<ProfilePage/>}
+                            unAuth={false}
+                        />}
+                        path="login"
+                    />
+
+                    <Route
+                        element={<ProtectedRoute
+                            component={<RegisterPage/>}
+                            unAuth
+                        />}
+                        path="register"
+                    />
+
+                    <Route
+                        element={<ProtectedRoute
+                            component={<ForgotPage/>}
+                            unAuth
+                        />}
+                        path="forgot-password"
+                    />
+
+                    <Route
+                        element={<NotFound404/>}
+                        path="*"
+                    />
 
                 </Routes>
             </AnimatePresence>
+
             {
-                background && (
-                    <Routes>
-                        <Route path="ingredient/:id"
-                               element={
-                                   <Modal onClose={handleCloseModal}>
-                                       <IngredientDetails/>
-                                   </Modal>
-                               }
-                        />
-                    </Routes>
-                )
+                background ? <Routes>
+                    <Route
+                        element={
+                            <Modal onClose={handleCloseModal}>
+                                <IngredientDetails/>
+                            </Modal>
+                        }
+                        path="ingredient/:id"
+                    />
+                </Routes> : null
             }
 
             {
-                background && (
-                    <Routes>
-                        <Route path="feed/:number"
-                               element={
-                                   <Modal onClose={handleCloseModal}>
-                                       <OrderDetails/>
-                                   </Modal>
-                               }
-                        />
-                    </Routes>
-                )
+                background ? <Routes>
+                    <Route
+                        element={
+                            <Modal onClose={handleCloseModal}>
+                                <OrderDetails/>
+                            </Modal>
+                        }
+                        path="feed/:number"
+                    />
+                </Routes> : null
             }
+
             {
-                background && (
-                    <Routes>
-                        <Route path="profile/orders/:number"
-                               element={
-                                   <Modal onClose={handleCloseModal}>
-                                       <OrderDetails/>
-                                   </Modal>
-                               }
-                        />
-                    </Routes>
-                )
+                background ? <Routes>
+                    <Route
+                        element={
+                            <Modal onClose={handleCloseModal}>
+                                <OrderDetails/>
+                            </Modal>
+                        }
+                        path="profile/orders/:number"
+                    />
+                </Routes> : null
             }
         </>
     )

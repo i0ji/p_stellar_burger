@@ -6,14 +6,14 @@ const animationConfiguration = {
     animate: {opacity: 1},
     exit: {opacity: 0},
 };
-export default function Transitions({children}: { children: React.ReactNode }) {
+export default function Transitions({children}: { readonly children: React.ReactNode }) {
     return (
         <motion.div
-            variants={animationConfiguration}
-            initial="initial"
             animate="animate"
             exit="exit"
+            initial="initial"
             transition={{duration: .3}}
+            variants={animationConfiguration}
         >
             {children}
         </motion.div>
