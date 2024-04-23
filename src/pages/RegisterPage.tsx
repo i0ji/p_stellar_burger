@@ -90,7 +90,7 @@ export default function RegisterPage() {
                 <p>
                     Уже зарегистрированы?
                     <Link to="/login">
-                        Войти
+                        &nbsp;Войти
                     </Link>
                 </p>
             </form>

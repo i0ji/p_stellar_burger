@@ -9,7 +9,7 @@ import {Link} from "react-router-dom";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {useLocation} from "react-router-dom";
-import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
+import {useSelector, useDispatch} from "hooks/reduxHooks.ts";
 import {useDrag} from "react-dnd";
 
 export default function IngredientGroup({type, ingredients}: IIngredientGroupProps) {
@@ -17,7 +17,20 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
 
     // --------------- VARS & STATES ---------------
 
-    function IngredientCard({onOpenDetailsPage, image, price, name, type, _id}: IIngredientCardProps) {
+    const dispatch = useDispatch();
+    const location = useLocation();
+
+    const addedIngredients = useSelector(state => state.constructorSlice.addedIngredients);
+    const bunIngredients = useSelector(state => state.constructorSlice.bun);
+
+    const onUpdateSelectedIngredient = (ingredient: IIngredient) => {
+        dispatch(updateSelectedIngredient(ingredient));
+    }
+
+
+    // ----------------- INGREDIENT ITEM CARD -----------------
+
+    const IngredientCard = ({onOpenDetailsPage, image, price, name, type, _id}: IIngredientCardProps) => {
         const [{isDragging}, drag] = useDrag({
             type: 'ingredient',
             item: {
@@ -31,63 +44,55 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
             collect: (monitor) => ({
                 isDragging: monitor.isDragging(),
             }),
-        }),
+        });
 
         // ----------------- INGREDIENTS COUNTER -----------------
 
-         ingredientCount = addedIngredients.reduce((count: number, ingredient: IIngredient) => ingredient.name === name ? count + 1 : count, 0),
+        const ingredientCount = addedIngredients.reduce((count: number, ingredient: IIngredient) => {
+            return ingredient.name === name ? count + 1 : count;
+        }, 0);
 
-         isCurrentBun = bunIngredients && bunIngredients.name === name && bunIngredients.price === price;
+        const isCurrentBun = bunIngredients && bunIngredients.name === name && bunIngredients.price === price;
 
         return (
             <div
+                ref={drag}
                 className={`pb-8 ${styles.ingredient_card} ${isDragging ? styles.dragging : ''}`}
                 onClick={onOpenDetailsPage}
-                ref={drag}
             >
-                <img
-                    alt={name}
-                    src={image}
-                />
-
+                <img src={image} alt={name}/>
                 <p className="text text_type_digits-default pt-1 pb-1">
                     {price}
-
-                    <CurrencyIcon type="primary" />
+                    <CurrencyIcon type="primary"/>
                 </p>
-
-                <p className="text text_type_main-default pt1">
-                    {name}
-                </p>
-
+                <p className="text text_type_main-default pt1">{name}</p>
                 {(ingredientCount > 0) ? <span className="text text_type_digits-default">
-                    {ingredientCount}
-                                         </span> : null}
-
-                {isCurrentBun ? <span className="text text_type_digits-default">
-                    2
-                                </span> : null}
+					{ingredientCount}
+				</span> : null}
+                {isCurrentBun && <span className="text text_type_digits-default">
+					2
+				</span>
+                }
             </div>
         );
-    }
+    };
 
 
     // ----------------- MARKUP -----------------
 
     return (
-        <div className={styles.ingredient_list}>
-            <h3 className="text text_type_main-medium pb-6">
-                {type}
-            </h3>
+        <>
+            <div className={styles.ingredient_list}>
+                <h3 className="text text_type_main-medium pb-6">{type}</h3>
 
-            {
+                {
                     ingredients.map((ingredientItem) => (
                         <Link
                             className={styles.ingredient_card}
                             key={ingredientItem._id}
-                            onClick={() => onUpdateSelectedIngredient(ingredientItem)}
-                            state={{background: location}}
                             to={`/ingredient/${ingredientItem._id}`}
+                            state={{background: location}}
+                            onClick={() => onUpdateSelectedIngredient(ingredientItem)}
                         >
                             <IngredientCard
                                 {...ingredientItem}
@@ -96,6 +101,7 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
                     ))
                 }
 
-        </div>
+            </div>
+        </>
     );
 }

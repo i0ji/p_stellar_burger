@@ -17,55 +17,55 @@ export default function LoginPage() {
 
     const {values, handleChange} = useForm<IForm>({}),
 
-     [emailError, setEmailError] = useState<boolean>(false),
-     [loginError, setLoginError] = useState<boolean>(false),
+        [emailError, setEmailError] = useState<boolean>(false),
+        [loginError, setLoginError] = useState<boolean>(false),
 
-     stateLoginError = useSelector(state => state.authSlice.loginError),
+        stateLoginError = useSelector(state => state.authSlice.loginError),
 
-     dispatch = useDispatch(),
-     userAuth = useSelector(state => state.authSlice.isAuth),
+        dispatch = useDispatch(),
+        userAuth = useSelector(state => state.authSlice.isAuth),
 
-    //  --------------- RERENDER CHECK ---------------
+        //  --------------- RERENDER CHECK ---------------
 
-    /*
-     * Const renderCount = useRef(0);
-     * useEffect(() => {
-     *     renderCount.current += 1;
-     * });
-     * console.log(`Rerender counter: ${renderCount.current}`)
-     */
-
-
-    // --------------- PWD VISIBILITY  ---------------
-
-     [isPasswordShow, setIsPasswordShow] = useState(false),
-     togglePasswordVisibility = () => {
-        setIsPasswordShow(!isPasswordShow);
-    },
+        /*
+         * Const renderCount = useRef(0);
+         * useEffect(() => {
+         *     renderCount.current += 1;
+         * });
+         * console.log(`Rerender counter: ${renderCount.current}`)
+         */
 
 
-    // --------------- ERROR MESSAGE ---------------
+        // --------------- PWD VISIBILITY  ---------------
+
+        [isPasswordShow, setIsPasswordShow] = useState(false),
+        togglePasswordVisibility = () => {
+            setIsPasswordShow(!isPasswordShow);
+        },
 
 
-     handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        checkEmail(values.email) ? setEmailError(true) : setEmailError(false);
+        // --------------- ERROR MESSAGE ---------------
 
-        stateLoginError && setLoginError(true);
 
-        const userData: IUserData = {
-            email: values.email,
-            password: values.password,
+        handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
+            event.preventDefault();
+            checkEmail(values.email) ? setEmailError(true) : setEmailError(false);
+
+            stateLoginError && setLoginError(true);
+
+            const userData: IUserData = {
+                email: values.email,
+                password: values.password,
+            };
+
+            dispatch(loginUser(userData));
         };
-
-        dispatch(loginUser(userData));
-    };
 
 
 // --------------- CONDITION ---------------
 
     if (userAuth) {
-        return <Loader description="Проходим фейсконтроль..." />;
+        return <Loader description="Проходим фейсконтроль..."/>;
     }
 
     return (
@@ -105,22 +105,22 @@ export default function LoginPage() {
                     />
 
                     {
-                    !emailError && loginError ? <p
-                        className="pb-6"
-                        style={{color: '#b90101'}}
-                                                >
-                        Неверный пароль или Email. Попробуйте ещё раз.
-                                                </p> : null
-                }
+                        !emailError && loginError ? <p
+                            className="pb-6"
+                            style={{color: '#b90101'}}
+                        >
+                            Неверный пароль или Email. Попробуйте ещё раз.
+                        </p> : null
+                    }
 
                     {
-                    emailError ? <p
-                        className="pb-6"
-                        style={{color: '#b90101'}}
-                                 >
-                        Некорректный Email.
-                                 </p> : null
-                }
+                        emailError ? <p
+                            className="pb-6"
+                            style={{color: '#b90101'}}
+                        >
+                            Некорректный Email.
+                        </p> : null
+                    }
 
                     <Button
                         extraClass="mb-20"
@@ -133,7 +133,7 @@ export default function LoginPage() {
                     <p>
                         Вы — новый пользователь?
                         <Link to="/register">
-                            Зарегистрироваться
+                            &nbsp;Зарегистрироваться
                         </Link>
                     </p>
 

@@ -5,6 +5,9 @@
 
 .section {
   @include container_center;
+
+  @include flex_center;
+
   height: $content_height;
 
   form {

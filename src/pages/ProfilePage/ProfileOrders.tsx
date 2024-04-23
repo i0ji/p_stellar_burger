@@ -8,7 +8,8 @@ import {TOrder} from "declarations/types";
 
 import {
     FeedItem,
-    Loader
+    Loader,
+    Transitions
 } from "components/index.ts"
 import ProfileMenu from "./ProfileMenu.tsx";
 
@@ -83,7 +84,9 @@ export default function ProfileOrders() {
                             state={{background: location}}
                             to={`/profile/orders/${currentOrder.number}`}
                         >
+                            <Transitions>
                             <FeedItem currentOrder={currentOrder} />
+                                </Transitions>
                         </Link>)
                     ) : null
                 }

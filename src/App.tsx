@@ -31,16 +31,11 @@ import {useCallback, useEffect} from "react";
 
 import {ProtectedRoute} from "common/ProtectedRoute/ProtectedRoute.tsx"
 
-
-import {AnimatePresence} from "framer-motion";
-
-
 export default function App() {
 
-
-    const print = (x: number) => {
-        console.log(x)
-    }
+    // const print = (x: number) => {
+    //     console.log(x)
+    // }
 
     // --------------- VARS & STATES ---------------
 
@@ -73,7 +68,6 @@ export default function App() {
 
             <AppHeader/>
 
-            <AnimatePresence>
                 <Routes location={background || location}>
 
                     <Route
@@ -168,7 +162,6 @@ export default function App() {
                     />
 
                 </Routes>
-            </AnimatePresence>
 
             {
                 background ? <Routes>
