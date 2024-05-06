@@ -1,15 +1,12 @@
 @import "styles/_theme_colors";
 
 * {
-  scrollbar-width: thin;
-  scrollbar-gutter: stable;
-  scroll-behavior: smooth;
+  scrollbar-width: thin!important;
+  scrollbar-gutter: stable!important;
+  scroll-behavior: smooth!important;
 }
 
 *::-webkit-scrollbar-thumb {
   background: rgb(150, 150, 150);
-  border-bottom-left-radius: 5px;
-  border-top-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-top-right-radius: 5px;
+  border-radius: 5px;
 }

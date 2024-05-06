@@ -1,5 +1,6 @@
 @import "styles/theme_colors";
 @import "styles/mixins";
+@import "styles/scrollbar";
 
 .order_details {
   position: fixed;
@@ -17,6 +18,7 @@
   color: $theme_white;
 
   border-radius: 40px;
+
 
   &_header {
     width: 100%;
