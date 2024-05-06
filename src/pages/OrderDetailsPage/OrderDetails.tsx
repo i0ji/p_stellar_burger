@@ -114,7 +114,7 @@ export default function OrderDetails() {
     }
 
 
-    // --------------- COMPONENT ---------------
+    // --------------- MARKUP ---------------
 
     return (
         <div className={`${styles.order_details} ${modalBackground}`}>

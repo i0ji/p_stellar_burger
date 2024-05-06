@@ -61,7 +61,7 @@ export default function CurrentIngredients({ingredient, index, moveIngredient}: 
     drag(drop(ref));
 
 
-    // --------------- COMPONENT  ---------------
+    // --------------- MARKUP  ---------------
 
     return (
         <div

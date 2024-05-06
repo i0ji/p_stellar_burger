@@ -39,7 +39,7 @@ export default function IngredientDetails() {
     }
 
 
-    // --------------- COMPONENT ---------------
+    // --------------- MARKUP ---------------
 
     return (
         <div

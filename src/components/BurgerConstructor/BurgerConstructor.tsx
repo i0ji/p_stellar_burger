@@ -153,7 +153,7 @@ export default function BurgerConstructor() {
     }
 
 
-    // --------------- COMPONENT  ---------------
+    // --------------- MARKUP  ---------------
 
     return (
         <section

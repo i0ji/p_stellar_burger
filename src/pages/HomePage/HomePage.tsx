@@ -8,7 +8,8 @@ import {IBurgerState} from "declarations/interfaces";
 import {
     Loader,
     BurgerIngredients,
-    BurgerConstructor
+    BurgerConstructor,
+    Transitions
 } from "components/index.ts";
 
 import {useSelector} from "hooks/reduxHooks.ts";
@@ -16,10 +17,10 @@ import {useSelector} from "hooks/reduxHooks.ts";
 export default function HomePage() {
 
     const {ingredients: ingredientsData, burgerStatus, error}: IBurgerState = useSelector((state: {
-        ingredients: IBurgerState
-    }) => state.ingredients);
+            ingredients: IBurgerState
+        }) => state.ingredients),
 
-    const authStatus = useSelector(state => state.authSlice.status);
+        authStatus = useSelector(state => state.authSlice.status);
 
     // --------------- STATUSES ---------------
     if (burgerStatus === 'loading') {
@@ -35,22 +36,26 @@ export default function HomePage() {
     }
 
 
-    // --------------- COMPONENT ---------------
+    // --------------- MARKUP ---------------
 
     return (
-        <main>
-            {error ? (<p>Произошла ошибка: {error}</p>) : (ingredientsData.length > 0 && (
-                <section className={styles.burger_builder}>
-                    <DndProvider backend={HTML5Backend}>
+        <Transitions>
+            <main>
 
-                        <div className={styles.container}>
-                            <BurgerIngredients/>
+                {error ? (<p>Произошла ошибка: {error}</p>) : (ingredientsData.length > 0 && (
+                    <section className={styles.burger_builder}>
+                        <DndProvider backend={HTML5Backend}>
 
-                            <BurgerConstructor/>
-                        </div>
-                    </DndProvider>
-                </section>
-            ))}
-        </main>
+                            <div className={styles.container}>
+                                <BurgerIngredients/>
+
+                                <BurgerConstructor/>
+                            </div>
+                        </DndProvider>
+                    </section>
+                ))}
+
+            </main>
+        </Transitions>
     );
 }

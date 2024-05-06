@@ -10,40 +10,42 @@ import {useNavigate} from "react-router-dom";
 
 export default function ResetPage() {
 
-    const [password, setPassword] = useState('');
-    const [token, setToken] = useState('');
-    const navigate = useNavigate();
+    const [password, setPassword] = useState(''),
+        [token, setToken] = useState(''),
+        navigate = useNavigate(),
 
-    // --------------- PWD VISIBILITY  ---------------
-    const [isPasswordShow, setIsPasswordShow] = useState(false);
-    const togglePasswordVisibility = () => {
-        setIsPasswordShow(!isPasswordShow);
-    };
+        // --------------- PWD VISIBILITY  ---------------
+        [isPasswordShow, setIsPasswordShow] = useState(false),
+        togglePasswordVisibility = () => {
+            setIsPasswordShow(!isPasswordShow)
+        },
 
-    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        const {name, value} = e.target;
-        if (name === 'password') {
-            setPassword(value);
-        } else if (name === 'token') {
-            setToken(value);
-        }
-    }, []);
+        handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+            const {name, value} = e.target;
+            if (name === 'password') {
+                setPassword(value);
+            } else if (name === 'token') {
+                setToken(value);
+            }
+        }, []),
 
-    const handleSavePassword = (e: React.FormEvent) => {
-        e.preventDefault();
-        resetPassword(password, token)
-            .then((response) => {
-                if (response.success) {
-                    navigate('/reset-success');
-                } else {
-                    console.error('Ошибка при восстановлении пароля:', response.message);
-                }
-            })
-            .catch((error) => {
-                console.error('Ошибка при восстановлении пароля:', error);
-            });
-    };
+        handleSavePassword = (e: React.FormEvent) => {
+            e.preventDefault();
+            resetPassword(password, token)
+                .then((response) => {
+                    if (response.success) {
+                        navigate('/reset-success');
+                    } else {
+                        console.error('Ошибка при восстановлении пароля:', response.message);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Ошибка при восстановлении пароля:', error);
+                });
+        };
 
+
+    // --------------- MARKUP  ---------------
 
     return (
         <section className={styles.section}>

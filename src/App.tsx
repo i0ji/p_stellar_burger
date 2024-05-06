@@ -1,4 +1,5 @@
 import "styles/_scrollbar.scss"
+import {AnimatePresence} from "framer-motion";
 
 import {Routes, Route, useNavigate} from 'react-router-dom';
 import {ProtectedRoute} from "common/ProtectedRoute/ProtectedRoute.tsx"
@@ -9,7 +10,6 @@ import {
     Loader,
     Modal,
 } from "components/index.ts"
-
 import {
     LoginPage,
     HomePage,
@@ -29,21 +29,22 @@ import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useLocation} from "react-router-dom";
 import {useCallback, useEffect} from "react";
 
+
 export default function App() {
 
 
     // --------------- VARS & STATES ---------------
 
-    const dispatch = useDispatch();
-    const location = useLocation();
-    const background: string = location.state && location.state.background;
-    const navigate = useNavigate();
-    const ingredientsStatus = useSelector(state => state.ingredients.status);
-    const accessToken = localStorage.getItem('accessToken');
-    // --------------- HANDLE CLOSE MODAL
-    const handleCloseModal = useCallback(() => {
-        navigate(-1);
-    }, [navigate]);
+    const dispatch = useDispatch(),
+        location = useLocation(),
+        background: string = location.state && location.state.background,
+        navigate = useNavigate(),
+        ingredientsStatus = useSelector(state => state.ingredients.status),
+        accessToken = localStorage.getItem('accessToken'),
+        // --------------- HANDLE CLOSE MODAL
+        handleCloseModal = useCallback(() => {
+            navigate(-1);
+        }, [navigate]);
 
     useEffect(() => {
         dispatch(getIngredients());
@@ -57,42 +58,47 @@ export default function App() {
         return <Loader description={'Загрузка...'}/>;
     }
 
+
+    // --------------- MARKUP ---------------
+
     return (
         <>
             <AppHeader/>
 
-            <Routes location={background || location}>
+            <AnimatePresence>
+                <Routes location={background || location}>
 
-                <Route path="/" element={<HomePage/>}/>
-                <Route path="reset-password" element={<ResetPage/>}/>
-                <Route path="reset-success" element={<SuccessPage/>}/>
-                <Route path="ingredient/:id" element={<IngredientDetails/>}/>
+                    <Route path="/" element={<HomePage/>}/>
+                    <Route path="reset-password" element={<ResetPage/>}/>
+                    <Route path="reset-success" element={<SuccessPage/>}/>
+                    <Route path="ingredient/:id" element={<IngredientDetails/>}/>
 
-                <Route path="feed" element={<FeedPage/>}/>
-                <Route path="feed/:number" element={<OrderDetails/>}/>
+                    <Route path="feed" element={<FeedPage/>}/>
+                    <Route path="feed/:number" element={<OrderDetails/>}/>
 
-                <Route
-                    path="profile"
-                    element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}
-                />
+                    <Route
+                        path="profile"
+                        element={<ProtectedRoute unAuth={false} component={<ProfilePage/>}/>}
+                    />
 
-                <Route
-                    path="profile/orders"
-                    element={<ProtectedRoute unAuth={false} component={<ProfileOrders/>}/>}
-                />
+                    <Route
+                        path="profile/orders"
+                        element={<ProtectedRoute unAuth={false} component={<ProfileOrders/>}/>}
+                    />
 
-                <Route
-                    path="profile/orders/:number"
-                    element={<ProtectedRoute unAuth={false} component={<OrderDetails/>}/>}
-                />
+                    <Route
+                        path="profile/orders/:number"
+                        element={<ProtectedRoute unAuth={false} component={<OrderDetails/>}/>}
+                    />
 
 
-                <Route path="login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
-                <Route path="register" element={<ProtectedRoute unAuth={true} component={<RegisterPage/>}/>}/>
-                <Route path="forgot-password" element={<ProtectedRoute unAuth={true} component={<ForgotPage/>}/>}/>
+                    <Route path="login" element={<ProtectedRoute unAuth={true} component={<LoginPage/>}/>}/>
+                    <Route path="register" element={<ProtectedRoute unAuth={true} component={<RegisterPage/>}/>}/>
+                    <Route path="forgot-password" element={<ProtectedRoute unAuth={true} component={<ForgotPage/>}/>}/>
 
-                <Route path="*" element={<NotFound404/>}/>
-            </Routes>
+                    <Route path="*" element={<NotFound404/>}/>
+                </Routes>
+            </AnimatePresence>
 
             {
                 background && (

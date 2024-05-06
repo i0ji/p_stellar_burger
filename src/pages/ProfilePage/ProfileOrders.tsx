@@ -68,7 +68,7 @@ export default function ProfileOrders() {
     }
 
 
-    // --------------- COMPONENT ---------------
+    // --------------- MARKUP ---------------
 
     return (
         <section className={styles.profile_section}>

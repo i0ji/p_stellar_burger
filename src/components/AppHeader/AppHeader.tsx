@@ -8,7 +8,7 @@ import {Logo} from "@ya.praktikum/react-developer-burger-ui-components";
 export default function AppHeader() {
 
 
-    // --------------- COMPONENT  ---------------
+    // --------------- MARKUP  ---------------
 
     return (
         <header className={styles.header}>
@@ -27,9 +27,9 @@ export default function AppHeader() {
                         <Logo/>
                     </Link>
                 </div>
-                <div className={styles.header_profile}>
-                    <HeaderButton typeFor={"profile"}/>
-                </div>
+
+                <HeaderButton typeFor={"profile"}/>
+
             </nav>
         </header>
     );

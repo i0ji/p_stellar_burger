@@ -89,7 +89,7 @@ export default function BurgerIngredients() {
     };
 
 
-    // --------------- COMPONENT  ---------------
+    // --------------- MARKUP  ---------------
 
     return (
         <section

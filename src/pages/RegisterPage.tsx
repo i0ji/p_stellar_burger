@@ -4,6 +4,7 @@ import {registerUser} from "utils/api.ts";
 
 import {IForm} from "declarations/interfaces";
 
+import {Transitions} from "components/index.ts";
 import {Link} from "react-router-dom";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -12,76 +13,82 @@ import React, {useState} from "react";
 import {useDispatch} from "hooks/reduxHooks.ts";
 import {useForm} from "hooks/useForm.ts";
 
+
 export default function RegisterPage() {
 
-    const dispatch = useDispatch();
-    const {values, handleChange} = useForm<IForm>({});
-    const [isPasswordShow, setIsPasswordShow] = useState(false);
-    const isFormEmpty = !values.email || !values.password || !values.name;
+    const dispatch = useDispatch(),
+        {values, handleChange} = useForm<IForm>({}),
+        [isPasswordShow, setIsPasswordShow] = useState(false),
+        isFormEmpty = !values.email || !values.password || !values.name,
 
-    // --------------- PWD VISIBILITY
-    const togglePasswordVisibility = () => {
-        setIsPasswordShow(!isPasswordShow);
-    };
-    // --------------- REGISTER
-    const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        dispatch(registerUser(values));
-    }
+        // --------------- PWD VISIBILITY
+        togglePasswordVisibility = () => {
+            setIsPasswordShow(!isPasswordShow);
+        },
+        // --------------- REGISTER
+        handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
+            dispatch(registerUser(values));
+        };
+
+
+    // --------------- MARKUP  ---------------
 
     return (
-        <section className={styles.section}>
-            <form
-                onSubmit={handleRegister}
-            >
-                <h1 className="text text text_type_main-medium pb-6">Регистрация</h1>
-                <Input
-                    onChange={handleChange}
-                    type={'text'}
-                    placeholder={'E-mail'}
-                    icon={undefined}
-                    name={'email'}
-                    value={values.email ?? ''}
-                    error={false}
-                    errorText={'Ошибка'}
-                    size={'default'}
-                    extraClass="mb-6"
-                />
-                <Input
-                    onChange={handleChange}
-                    type={isPasswordShow ? 'text' : 'password'}
-                    placeholder={'Пароль'}
-                    icon={'ShowIcon'}
-                    name={'password'}
-                    value={values.password ?? ''}
-                    error={false}
-                    errorText={'Ошибка'}
-                    size={'default'}
-                    extraClass="mb-6"
-                    onIconClick={togglePasswordVisibility}
-                />
-                <Input
-                    onChange={handleChange}
-                    type={'text'}
-                    placeholder={'Имя'}
-                    icon={undefined}
-                    name={'name'}
-                    value={values.name ?? ''}
-                    error={false}
-                    errorText={'Ошибка'}
-                    size={'default'}
-                    extraClass="mb-6"
-                />
-                <Button
-                    disabled={isFormEmpty}
-                    htmlType="submit"
-                    extraClass="mb-20"
-                    type="primary">
-                    Зарегистрироваться
-                </Button>
+        <Transitions>
+            <section className={styles.section}>
+                <form
+                    onSubmit={handleRegister}
+                >
+                    <h1 className="text text text_type_main-medium pb-6">Регистрация</h1>
+                    <Input
+                        onChange={handleChange}
+                        type={'text'}
+                        placeholder={'E-mail'}
+                        icon={undefined}
+                        name={'email'}
+                        value={values.email ?? ''}
+                        error={false}
+                        errorText={'Ошибка'}
+                        size={'default'}
+                        extraClass="mb-6"
+                    />
+                    <Input
+                        onChange={handleChange}
+                        type={isPasswordShow ? 'text' : 'password'}
+                        placeholder={'Пароль'}
+                        icon={'ShowIcon'}
+                        name={'password'}
+                        value={values.password ?? ''}
+                        error={false}
+                        errorText={'Ошибка'}
+                        size={'default'}
+                        extraClass="mb-6"
+                        onIconClick={togglePasswordVisibility}
+                    />
+                    <Input
+                        onChange={handleChange}
+                        type={'text'}
+                        placeholder={'Имя'}
+                        icon={undefined}
+                        name={'name'}
+                        value={values.name ?? ''}
+                        error={false}
+                        errorText={'Ошибка'}
+                        size={'default'}
+                        extraClass="mb-6"
+                    />
+                    <Button
+                        disabled={isFormEmpty}
+                        htmlType="submit"
+                        extraClass="mb-20"
+                        type="primary">
+                        Зарегистрироваться
+                    </Button>
 
-                <p>Уже зарегистрированы? <Link to="/login">Войти</Link></p>
-            </form>
-        </section>
+                    <p>Уже зарегистрированы? <Link to="/login">Войти</Link></p>
+                </form>
+            </section>
+        </Transitions>
     );
 }

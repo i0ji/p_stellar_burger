@@ -31,7 +31,7 @@ export default function Modal({onClose, children}: {
     }, [onClose]);
 
 
-    // --------------- COMPONENT ---------------
+    // --------------- MARKUP ---------------
 
     return (
         <AnimatePresence>

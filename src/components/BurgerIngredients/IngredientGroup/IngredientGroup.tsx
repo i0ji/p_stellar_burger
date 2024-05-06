@@ -78,7 +78,7 @@ export default function IngredientGroup({type, ingredients}: IIngredientGroupPro
     };
 
 
-    // ----------------- COMPONENT -----------------
+    // ----------------- MARKUP -----------------
 
     return (
         <>
