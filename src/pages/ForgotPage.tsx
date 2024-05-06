@@ -4,8 +4,8 @@ import {forgotPassword} from "utils/api.ts";
 
 import {IForm} from "declarations/interfaces";
 
-import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Transitions} from "components/index.ts";
+import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {Link, useNavigate} from "react-router-dom";
 import {useForm} from "hooks/useForm.ts";
@@ -15,56 +15,58 @@ export default function ForgotPage() {
 
     const {values, handleChange} = useForm<IForm>({}),
 
-     dispatch = useDispatch(),
-     navigate = useNavigate(),
+        dispatch = useDispatch(),
+        navigate = useNavigate(),
 
-     handleForgotPassword = async () => {
-        const action = dispatch(forgotPassword(values.email));
-        navigate('/reset-password');
-        return action.payload;
-    }
+        handleForgotPassword = async () => {
+            const action = dispatch(forgotPassword(values.email));
+            navigate('/reset-password');
+            return action.payload;
+        }
 
     return (
-        <section className={styles.section}>
-            <form onSubmit={(e) => {
-                e.preventDefault();
-                void handleForgotPassword();
-            }}
-            >
-                <h1 className="text text text_type_main-medium pb-6">
-                    Восстановить пароль
-                </h1>
-
-                <Input
-                    error={false}
-                    errorText="Ошибка"
-                    extraClass="mb-6"
-                    icon={undefined}
-                    name="email"
-                    onChange={handleChange}
-                    placeholder="E-mail"
-                    size="default"
-                    type="text"
-                    value={values.email ?? ``}
-                />
-
-                <Button
-                    extraClass="mb-20"
-                    htmlType="submit"
-                    type="primary"
+        <Transitions>
+            <section className={styles.section}>
+                <form onSubmit={(e) => {
+                    e.preventDefault();
+                    void handleForgotPassword();
+                }}
                 >
-                    Восстановить
-                </Button>
+                    <h1 className="text text text_type_main-medium pb-6">
+                        Восстановить пароль
+                    </h1>
 
-                <p>
-                    Вспомнили пароль?
-                    <Link
-                        to="/login"
+                    <Input
+                        error={false}
+                        errorText="Ошибка"
+                        extraClass="mb-6"
+                        icon={undefined}
+                        name="email"
+                        onChange={handleChange}
+                        placeholder="E-mail"
+                        size="default"
+                        type="text"
+                        value={values.email ?? ``}
+                    />
+
+                    <Button
+                        extraClass="mb-20"
+                        htmlType="submit"
+                        type="primary"
                     >
-&nbsp;Войти
-                    </Link>
-                </p>
-            </form>
-        </section>
+                        Восстановить
+                    </Button>
+
+                    <p>
+                        Вспомнили пароль?
+                        <Link
+                            to="/login"
+                        >
+                            &nbsp;Войти
+                        </Link>
+                    </p>
+                </form>
+            </section>
+        </Transitions>
     );
 }

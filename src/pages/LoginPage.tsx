@@ -62,16 +62,19 @@ export default function LoginPage() {
         };
 
 
-// --------------- CONDITION ---------------
+    // --------------- CONDITION ---------------
 
     if (userAuth) {
         return <Loader description="Проходим фейсконтроль..."/>;
     }
 
-    return (
 
+    // --------------- MARKUP ---------------
+
+    return (
         <section className={styles.section}>
             <Transitions>
+
                 <form onSubmit={handleLogin}>
                     <h1 className="text text text_type_main-medium pb-6">
                         Вход
@@ -145,6 +148,7 @@ export default function LoginPage() {
                         </Link>
                     </p>
                 </form>
+
             </Transitions>
         </section>
     );

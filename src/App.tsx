@@ -33,9 +33,7 @@ import {ProtectedRoute} from "common/ProtectedRoute/ProtectedRoute.tsx"
 
 export default function App() {
 
-    // const print = (x: number) => {
-    //     console.log(x)
-    // }
+    console.log('1.9.7.6.1');
 
     // --------------- VARS & STATES ---------------
 
@@ -63,105 +61,107 @@ export default function App() {
     }
 
 
+    // --------------- MARKUP ---------------
+
     return (
         <>
 
             <AppHeader/>
 
-                <Routes location={background || location}>
+            <Routes location={background || location}>
 
-                    <Route
-                        element={<HomePage/>}
-                        path="/"
-                    />
+                <Route
+                    element={<HomePage/>}
+                    path="/"
+                />
 
-                    <Route
-                        element={<ResetPage/>}
-                        path="reset-password"
-                    />
+                <Route
+                    element={<ResetPage/>}
+                    path="reset-password"
+                />
 
-                    <Route
-                        element={<SuccessPage/>}
-                        path="reset-success"
-                    />
+                <Route
+                    element={<SuccessPage/>}
+                    path="reset-success"
+                />
 
-                    <Route
-                        element={<IngredientDetails/>}
-                        path="ingredient/:id"
-                    />
+                <Route
+                    element={<IngredientDetails/>}
+                    path="ingredient/:id"
+                />
 
-                    <Route
-                        element={<FeedPage/>}
-                        path="feed"
-                    />
+                <Route
+                    element={<FeedPage/>}
+                    path="feed"
+                />
 
-                    <Route
-                        element={<OrderDetails/>}
-                        path="feed/:number"
-                    />
+                <Route
+                    element={<OrderDetails/>}
+                    path="feed/:number"
+                />
 
-                    <Route
-                        element={<ProtectedRoute
-                            component={<ProfilePage/>}
-                            unAuth={false}
-                        />}
-                        path="profile"
-                    />
+                <Route
+                    element={<ProtectedRoute
+                        component={<ProfilePage/>}
+                        unAuth={false}
+                    />}
+                    path="profile"
+                />
 
-                    <Route
-                        element={<ProtectedRoute
-                            component={<ProfileOrders/>}
-                            unAuth={false}
-                        />}
-                        path="profile/orders"
-                    />
+                <Route
+                    element={<ProtectedRoute
+                        component={<ProfileOrders/>}
+                        unAuth={false}
+                    />}
+                    path="profile/orders"
+                />
 
-                    <Route
-                        element={<ProtectedRoute
-                            component={<OrderDetails/>}
-                            unAuth={false}
-                        />}
-                        path="profile/orders/:number"
-                    />
+                <Route
+                    element={<ProtectedRoute
+                        component={<OrderDetails/>}
+                        unAuth={false}
+                    />}
+                    path="profile/orders/:number"
+                />
 
-                    <Route
-                        element={<ProtectedRoute
-                            component={<LoginPage/>}
-                            unAuth
-                        />}
-                        path="login"
-                    />
+                <Route
+                    element={<ProtectedRoute
+                        component={<LoginPage/>}
+                        unAuth
+                    />}
+                    path="login"
+                />
 
-                    <Route
-                        element={<ProtectedRoute
-                            component={<ProfilePage/>}
-                            unAuth={false}
-                        />}
-                        path="login"
-                    />
+                <Route
+                    element={<ProtectedRoute
+                        component={<ProfilePage/>}
+                        unAuth={false}
+                    />}
+                    path="login"
+                />
 
-                    <Route
-                        element={<ProtectedRoute
-                            component={<RegisterPage/>}
-                            unAuth
-                        />}
-                        path="register"
-                    />
+                <Route
+                    element={<ProtectedRoute
+                        component={<RegisterPage/>}
+                        unAuth
+                    />}
+                    path="register"
+                />
 
-                    <Route
-                        element={<ProtectedRoute
-                            component={<ForgotPage/>}
-                            unAuth
-                        />}
-                        path="forgot-password"
-                    />
+                <Route
+                    element={<ProtectedRoute
+                        component={<ForgotPage/>}
+                        unAuth
+                    />}
+                    path="forgot-password"
+                />
 
-                    <Route
-                        element={<NotFound404/>}
-                        path="*"
-                    />
+                <Route
+                    element={<NotFound404/>}
+                    path="*"
+                />
 
-                </Routes>
+            </Routes>
 
             {
                 background ? <Routes>

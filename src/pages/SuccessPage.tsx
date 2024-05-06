@@ -8,16 +8,16 @@ import {useEffect, useState} from "react";
 export default function SuccessPage() {
 
     const navigate = useNavigate(),
-     [count, setCount] = useState(10);
+        [count, setCount] = useState(10);
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
-            navigate('/');
-        }, 10000),
+                navigate('/');
+            }, 10000),
 
-         intervalId = setInterval(() => {
-            setCount((prevCount) => prevCount - 1);
-        }, 1000);
+            intervalId = setInterval(() => {
+                setCount((prevCount) => prevCount - 1);
+            }, 1000);
 
         return () => {
             clearTimeout(timeoutId);
@@ -49,7 +49,7 @@ export default function SuccessPage() {
                     <Link
                         to="/"
                     >
-&nbsp;На главную
+                        &nbsp;На главную
                     </Link>
                 </p>
             </form>
