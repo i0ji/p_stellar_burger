@@ -24,16 +24,16 @@ export default function ProfileOrders() {
 
     const dispatch = useDispatch(),
 
-     accessToken = localStorage.getItem('accessToken'),
-     formattedAccessToken = accessToken ? accessToken.replace("Bearer ", "") : '',
+        accessToken = localStorage.getItem('accessToken'),
+        formattedAccessToken = accessToken ? accessToken.replace("Bearer ", "") : '',
 
-     WS_URL_WITH_TOKEN = `${WS_URL}?token=${formattedAccessToken}`,
+        WS_URL_WITH_TOKEN = `${WS_URL}?token=${formattedAccessToken}`,
 
-    // --------------- NAVIGATION ---------------
+        // --------------- NAVIGATION ---------------
 
-     location = useLocation(),
+        location = useLocation(),
 
-     modalBackground = (location.key === 'default') ? styles.background : styles.dark;
+        modalBackground = (location.key === 'default') ? styles.background : styles.dark;
 
 
     // --------------- WS & ORDERS ---------------
@@ -45,24 +45,18 @@ export default function ProfileOrders() {
 
     const ordersList = useSelector(state => state.orderFeed.orders),
 
-    // --------------- STATUS
-     status = useSelector(state => state.orderFeed.status),
-    // --------------- DATA
-     ordersData = ordersList.orders;
+        // --------------- STATUS
+        status = useSelector(state => state.orderFeed.status),
+        // --------------- DATA
+        ordersData = ordersList.orders;
     // --------------- CONDITION
     if (!ordersData) {
         return (
-            <Loader description="Летим за едой..." />
+            <Loader description="Летим за едой..."/>
         )
     }
 
     const reversedOrdersData: Array<TOrder> = [...ordersData].reverse();
-
-    // --------------- READY ORDERS
-
-    if (status !== 'ONLINE') {
-        return <Loader description="Ищем заказы..." />
-    }
 
     const onUpgradeCurrentOrder = (order: TOrder) => {
         dispatch(updateCurrentOrder(order));
@@ -73,10 +67,11 @@ export default function ProfileOrders() {
 
     return (
         <section className={styles.profile_section}>
-            <ProfileMenu />
+            <ProfileMenu/>
 
             <div className={`${styles.profile_orders} ${modalBackground}`}>
-                {
+
+                {(status !== 'ONLINE') ? <Loader description=''/> :
                     ordersList ? reversedOrdersData.map((currentOrder: TOrder, i: number) =>
                         (<Link
                             key={i}
@@ -85,8 +80,8 @@ export default function ProfileOrders() {
                             to={`/profile/orders/${currentOrder.number}`}
                         >
                             <Transitions>
-                            <FeedItem currentOrder={currentOrder} />
-                                </Transitions>
+                                <FeedItem currentOrder={currentOrder}/>
+                            </Transitions>
                         </Link>)
                     ) : null
                 }
