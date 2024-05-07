@@ -1,4 +1,4 @@
-import {combineReducers, configureStore} from '@reduxjs/toolkit';
+import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import {socketMiddleware} from "utils/socketMiddleware.ts";
 import {orderFeedReducer} from "services/orderFeed/reducers.ts";
 
@@ -8,7 +8,20 @@ import {
     currentIngredientSlice,
     ingredientsSlice,
     orderSlice,
-} from 'slices/index.ts';
+} from "slices/index.ts";
+
+import {
+    onClose as FeedOnCloseAction,
+    onError as FeedOnErrorAction,
+    onOpen as FeedOnOpenAction,
+    wsClose as FeedCloseAction,
+    wsConnect as FeedConnectAction,
+    wsConnecting as FeedConnectionAction,
+    wsDisconnect as FeedDisconnectAction,
+    wsError as FeedErrorAction,
+    wsMessage as FeedMessageAction,
+    wsOpen as FeedOpenAction,
+} from "services/orderFeed/actions.ts";
 
 export const rootReducers = combineReducers({
     ingredients: ingredientsSlice,
@@ -18,19 +31,6 @@ export const rootReducers = combineReducers({
     authSlice,
     orderFeed: orderFeedReducer,
 });
-
-import {
-    wsClose as FeedCloseAction,
-    wsConnect as FeedConnectAction,
-    wsConnecting as FeedConnectionAction,
-    wsDisconnect as FeedDisconnectAction,
-    wsError as FeedErrorAction,
-    wsMessage as FeedMessageAction,
-    onClose as FeedOnCloseAction,
-    onError as FeedOnErrorAction,
-    onOpen as FeedOnOpenAction,
-    wsOpen as FeedOpenAction
-} from "services/orderFeed/actions.ts";
 
 export const wsActions = {
     wsOpen: FeedOpenAction,
@@ -45,11 +45,10 @@ export const wsActions = {
     onClose: FeedOnCloseAction,
 };
 
-const checkToken = Boolean(localStorage.getItem('accessToken'));
+const checkToken = Boolean(localStorage.getItem("accessToken"));
 
 export const store = configureStore({
-        reducer: rootReducers,
-        middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware().concat(socketMiddleware(wsActions, checkToken))
-    }
-)
+    reducer: rootReducers,
+    middleware: getDefaultMiddleware =>
+        getDefaultMiddleware().concat(socketMiddleware(wsActions, checkToken)),
+});

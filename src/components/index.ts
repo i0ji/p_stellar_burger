@@ -21,5 +21,5 @@ export {
     Thumbnail,
     WarningMessage,
     OrderAcceptance,
-    Transitions
-}
+    Transitions,
+};

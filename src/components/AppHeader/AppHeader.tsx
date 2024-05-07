@@ -1,4 +1,4 @@
-import styles from './AppHeaderStyles.module.scss'
+import styles from "./AppHeaderStyles.module.scss";
 
 import {Link} from "react-router-dom";
 
@@ -6,8 +6,6 @@ import HeaderButton from "./HeaderButton.tsx";
 import {Logo} from "@ya.praktikum/react-developer-burger-ui-components";
 
 export default function AppHeader() {
-
-
     // --------------- COMPONENT  ---------------
 
     return (
@@ -24,15 +22,12 @@ export default function AppHeader() {
                 </ul>
 
                 <div className={styles.header_logo}>
-                    <Link
-                        to="/"
-                    >
+                    <Link to="/">
                         <Logo />
                     </Link>
                 </div>
 
                 <HeaderButton typeFor="profile" />
-
             </nav>
         </header>
     );

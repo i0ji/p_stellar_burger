@@ -1,14 +1,14 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice} from "@reduxjs/toolkit";
 
 const currentIngredientSlice = createSlice({
-    name: 'currentIngredientSlice',
+    name: "currentIngredientSlice",
     initialState: {
-        selectedIngredient: {}
+        selectedIngredient: {},
     },
     reducers: {
         updateSelectedIngredient: (state, action) => {
             state.selectedIngredient = action.payload;
-        }
+        },
     },
 });
 

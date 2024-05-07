@@ -1,10 +1,13 @@
-import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+    Button,
+    Input,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Loader, Transitions} from "components/index.ts";
 import {Link} from "react-router-dom";
 
 import {IForm, IUserData} from "declarations/interfaces";
 
-import styles from "pages/Pages.module.scss"
+import styles from "pages/Pages.module.scss";
 
 import {loginUser} from "utils/api.ts";
 import checkEmail from "utils/checkEmail.ts";
@@ -14,17 +17,12 @@ import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import {useForm} from "hooks/useForm.ts";
 
 export default function LoginPage() {
-
     const {values, handleChange} = useForm<IForm>({}),
-
         [emailError, setEmailError] = useState<boolean>(false),
         [loginError, setLoginError] = useState<boolean>(false),
-
         stateLoginError = useSelector(state => state.authSlice.loginError),
-
         dispatch = useDispatch(),
         userAuth = useSelector(state => state.authSlice.isAuth),
-
         //  --------------- RERENDER CHECK ---------------
 
         /*
@@ -35,21 +33,19 @@ export default function LoginPage() {
          * console.log(`Rerender counter: ${renderCount.current}`)
          */
 
-
         // --------------- PWD VISIBILITY  ---------------
 
         [isPasswordShow, setIsPasswordShow] = useState(false),
         togglePasswordVisibility = () => {
             setIsPasswordShow(!isPasswordShow);
         },
-
-
         // --------------- ERROR MESSAGE ---------------
-
 
         handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
-            checkEmail(values.email) ? setEmailError(true) : setEmailError(false);
+            checkEmail(values.email)
+                ? setEmailError(true)
+                : setEmailError(false);
 
             stateLoginError && setLoginError(true);
 
@@ -61,20 +57,17 @@ export default function LoginPage() {
             dispatch(loginUser(userData));
         };
 
-
     // --------------- CONDITION ---------------
 
     if (userAuth) {
-        return <Loader description="Проходим фейсконтроль..."/>;
+        return <Loader description="Проходим фейсконтроль..." />;
     }
-
 
     // --------------- MARKUP ---------------
 
     return (
         <section className={styles.section}>
             <Transitions>
-
                 <form onSubmit={handleLogin}>
                     <h1 className="text text text_type_main-medium pb-6">
                         Вход
@@ -90,9 +83,10 @@ export default function LoginPage() {
                         placeholder="E-mail"
                         size="default"
                         type="text"
-                        value={values.email ?? ''}
+                        value={values.email ?? ""}
                         onPointerEnterCapture={undefined}
-                        onPointerLeaveCapture={undefined}                    />
+                        onPointerLeaveCapture={undefined}
+                    />
 
                     <Input
                         error={false}
@@ -104,52 +98,38 @@ export default function LoginPage() {
                         onIconClick={togglePasswordVisibility}
                         placeholder="Пароль"
                         size="default"
-                        type={isPasswordShow ? 'text' : 'password'}
-                        value={values.password ?? ''} onPointerEnterCapture={undefined}
-                        onPointerLeaveCapture={undefined}                    />
+                        type={isPasswordShow ? "text" : "password"}
+                        value={values.password ?? ""}
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}
+                    />
 
-                    {
-                        !emailError && loginError ? <p
-                            className="pb-6"
-                            style={{color: '#b90101'}}
-                        >
+                    {!emailError && loginError ? (
+                        <p className="pb-6" style={{color: "#b90101"}}>
                             Неверный пароль или Email. Попробуйте ещё раз.
-                        </p> : null
-                    }
+                        </p>
+                    ) : null}
 
-                    {
-                        emailError ? <p
-                            className="pb-6"
-                            style={{color: '#b90101'}}
-                        >
+                    {emailError ? (
+                        <p className="pb-6" style={{color: "#b90101"}}>
                             Некорректный Email.
-                        </p> : null
-                    }
+                        </p>
+                    ) : null}
 
-                    <Button
-                        extraClass="mb-20"
-                        htmlType="submit"
-                        type="primary"
-                    >
+                    <Button extraClass="mb-20" htmlType="submit" type="primary">
                         Войти
                     </Button>
 
                     <p>
                         Вы — новый пользователь?
-                        <Link to="/register">
-                            &nbsp;Зарегистрироваться
-                        </Link>
+                        <Link to="/register">&nbsp;Зарегистрироваться</Link>
                     </p>
 
                     <p>
                         Забыли пароль?
-                        <Link to="/forgot-password">
-                            {' '}
-                            Восстановить пароль
-                        </Link>
+                        <Link to="/forgot-password"> Восстановить пароль</Link>
                     </p>
                 </form>
-
             </Transitions>
         </section>
     );

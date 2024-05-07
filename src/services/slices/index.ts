@@ -9,5 +9,5 @@ export {
     constructorSlice,
     currentIngredientSlice,
     orderSlice,
-    ingredientsSlice
-}
+    ingredientsSlice,
+};
