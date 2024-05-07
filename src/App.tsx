@@ -1,14 +1,9 @@
-import "styles/_scrollbar.scss"
+import 'styles/_scrollbar.scss';
 
-import {Route, Routes, useNavigate} from 'react-router-dom';
-import {checkUserAuth, getIngredients, getUserData} from "utils/api.ts";
+import {Route, Routes, useLocation, useNavigate} from 'react-router-dom';
+import {checkUserAuth, getIngredients, getUserData} from 'utils/api.ts';
 
-
-import {
-    AppHeader,
-    Loader,
-    Modal,
-} from "components/index.ts"
+import {AppHeader, Loader, Modal} from 'components/index.ts';
 
 import {
     FeedPage,
@@ -23,17 +18,22 @@ import {
     RegisterPage,
     ResetPage,
     SuccessPage,
-} from "./pages";
+} from './pages';
 
-import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
-import {useLocation} from "react-router-dom";
-import {useCallback, useEffect} from "react";
+import {useDispatch, useSelector} from 'hooks/reduxHooks.ts';
+import {useCallback, useEffect} from 'react';
 
-import {ProtectedRoute} from "common/ProtectedRoute/ProtectedRoute.tsx"
+import {ProtectedRoute} from 'common/ProtectedRoute/ProtectedRoute.tsx';
 
 export default function App() {
-
     console.log('1.9.7.6.1');
+
+    // --------------- LINT TEST ---------------
+
+    // const testVar = 'testing';
+    // var testVar2 = 'still testing';
+    // const undef = undefined;
+    // console.log(undef);
 
     // --------------- VARS & STATES ---------------
 
@@ -57,150 +57,129 @@ export default function App() {
     // --------------- LOADER ---------------
 
     if (ingredientsStatus == 'loading') {
-        return <Loader description="Загрузка..."/>;
+        return <Loader description="Загрузка..." />;
     }
-
-
     // --------------- MARKUP ---------------
 
     return (
         <>
-
-            <AppHeader/>
+            <AppHeader />
 
             <Routes location={background || location}>
+                <Route element={<HomePage />} path="/" />
+
+                <Route element={<ResetPage />} path="reset-password" />
+
+                <Route element={<SuccessPage />} path="reset-success" />
+
+                <Route element={<IngredientDetails />} path="ingredient/:id" />
+
+                <Route element={<FeedPage />} path="feed" />
+
+                <Route element={<OrderDetails />} path="feed/:number" />
 
                 <Route
-                    element={<HomePage/>}
-                    path="/"
-                />
-
-                <Route
-                    element={<ResetPage/>}
-                    path="reset-password"
-                />
-
-                <Route
-                    element={<SuccessPage/>}
-                    path="reset-success"
-                />
-
-                <Route
-                    element={<IngredientDetails/>}
-                    path="ingredient/:id"
-                />
-
-                <Route
-                    element={<FeedPage/>}
-                    path="feed"
-                />
-
-                <Route
-                    element={<OrderDetails/>}
-                    path="feed/:number"
-                />
-
-                <Route
-                    element={<ProtectedRoute
-                        component={<ProfilePage/>}
-                        unAuth={false}
-                    />}
+                    element={
+                        <ProtectedRoute
+                            component={<ProfilePage />}
+                            unAuth={false}
+                        />
+                    }
                     path="profile"
                 />
 
                 <Route
-                    element={<ProtectedRoute
-                        component={<ProfileOrders/>}
-                        unAuth={false}
-                    />}
+                    element={
+                        <ProtectedRoute
+                            component={<ProfileOrders />}
+                            unAuth={false}
+                        />
+                    }
                     path="profile/orders"
                 />
 
                 <Route
-                    element={<ProtectedRoute
-                        component={<OrderDetails/>}
-                        unAuth={false}
-                    />}
+                    element={
+                        <ProtectedRoute
+                            component={<OrderDetails />}
+                            unAuth={false}
+                        />
+                    }
                     path="profile/orders/:number"
                 />
 
                 <Route
-                    element={<ProtectedRoute
-                        component={<LoginPage/>}
-                        unAuth
-                    />}
+                    element={
+                        <ProtectedRoute component={<LoginPage />} unAuth />
+                    }
                     path="login"
                 />
 
                 <Route
-                    element={<ProtectedRoute
-                        component={<ProfilePage/>}
-                        unAuth={false}
-                    />}
+                    element={
+                        <ProtectedRoute
+                            component={<ProfilePage />}
+                            unAuth={false}
+                        />
+                    }
                     path="login"
                 />
 
                 <Route
-                    element={<ProtectedRoute
-                        component={<RegisterPage/>}
-                        unAuth
-                    />}
+                    element={
+                        <ProtectedRoute component={<RegisterPage />} unAuth />
+                    }
                     path="register"
                 />
 
                 <Route
-                    element={<ProtectedRoute
-                        component={<ForgotPage/>}
-                        unAuth
-                    />}
+                    element={
+                        <ProtectedRoute component={<ForgotPage />} unAuth />
+                    }
                     path="forgot-password"
                 />
 
-                <Route
-                    element={<NotFound404/>}
-                    path="*"
-                />
-
+                <Route element={<NotFound404 />} path="*" />
             </Routes>
 
-            {
-                background ? <Routes>
+            {background ? (
+                <Routes>
                     <Route
                         element={
                             <Modal onClose={handleCloseModal}>
-                                <IngredientDetails/>
+                                <IngredientDetails />
                             </Modal>
                         }
                         path="ingredient/:id"
                     />
-                </Routes> : null
-            }
+                </Routes>
+            ) : null}
 
-            {
-                background ? <Routes>
+            {background ? (
+                <Routes>
                     <Route
                         element={
                             <Modal onClose={handleCloseModal}>
-                                <OrderDetails/>
+                                <OrderDetails />
                             </Modal>
                         }
                         path="feed/:number"
                     />
-                </Routes> : null
-            }
+                </Routes>
+            ) : null}
 
-            {
-                background ? <Routes>
+            {background ? (
+                <Routes>
                     <Route
                         element={
                             <Modal onClose={handleCloseModal}>
-                                <OrderDetails/>
+                                <OrderDetails />
                             </Modal>
                         }
                         path="profile/orders/:number"
                     />
-                </Routes> : null
-            }
+                </Routes>
+            ) : null}
         </>
-    )
+    );
 }

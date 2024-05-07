@@ -8,7 +8,7 @@ import {
     currentIngredientSlice,
     ingredientsSlice,
     orderSlice,
-} from "slices/index.ts"
+} from 'slices/index.ts';
 
 export const rootReducers = combineReducers({
     ingredients: ingredientsSlice,
