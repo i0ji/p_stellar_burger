@@ -11,19 +11,15 @@ import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
 import ProfileOrders from "./ProfileOrders.tsx";
 import ProfileMenu from "./ProfileMenu.tsx";
 
-import {Loader, Transitions} from "components/index.ts";
+import {Loader, Transition} from "components/index.ts";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
-
 export default function ProfilePage() {
-
-
     // --------------- VARS & STATES ---------------
 
     const authStatus = useSelector(state => state.authSlice.status),
         userData = useSelector(state => state.authSlice.userData),
         dispatch = useDispatch(),
-
         // --------------- FORM HOOKS
         {values, handleChange, setValues} = useForm<IForm>({}),
         [showUpdateButtons, setShowUpdateButtons] = useState<boolean>(false),
@@ -33,31 +29,30 @@ export default function ProfilePage() {
             name: string | null;
             password: string | null;
             email: string | null;
-        }>
-        ({
+        }>({
             name: null,
             password: null,
-            email: null
+            email: null,
         }),
         nameInputRef = useRef<TInputElementType>(null),
         emailInputRef = useRef<TInputElementType>(null),
         passwordInputRef = useRef<TInputElementType>(null),
         // --------------- LOADER CONDITION
-        renderCondition = useSelector(state => state.orderFeed.orders).orders.length !== 1;
-
+        renderCondition =
+            useSelector(state => state.orderFeed.orders).orders.length !== 1;
 
     // --------------- BUTTON APPEARANCE ---------------
 
     useEffect(() => {
         if (isEditing && editingField !== null) {
             switch (editingField) {
-                case 'name':
+                case "name":
                     nameInputRef.current?.focus();
                     break;
-                case 'email':
+                case "email":
                     emailInputRef.current?.focus();
                     break;
-                case 'password':
+                case "password":
                     passwordInputRef.current?.focus();
                     break;
                 default:
@@ -71,14 +66,17 @@ export default function ProfilePage() {
             if (!isEditing) {
                 setEditingField(fieldName);
                 setIsEditing(true);
-                setValues({...values, [fieldName]: ''});
+                setValues({...values, [fieldName]: ""});
             }
             setShowUpdateButtons(true);
         },
         //  --------------- SAVE DATA
         handleSave = async () => {
             if (editingField) {
-                const updatedValues = {...editedValues, [editingField]: values[editingField]};
+                const updatedValues = {
+                    ...editedValues,
+                    [editingField]: values[editingField],
+                };
                 setEditedValues(updatedValues);
                 dispatch(getUserData());
                 dispatch(updateUserData({[editingField]: values[editingField]}));
@@ -87,7 +85,6 @@ export default function ProfilePage() {
                 setShowUpdateButtons(false);
             }
         },
-
         //  --------------- CANCEL CHANGE
         handleCancel = () => {
             setShowUpdateButtons(false);
@@ -99,40 +96,44 @@ export default function ProfilePage() {
 
     //  --------------- LOADER ---------------
 
-    if (!userData || (authStatus === 'loading') && renderCondition) {
-        return <Loader description="Загрузка Ваших заказов..."/>;
+    if (!userData || (authStatus === "loading" && renderCondition)) {
+        return <Loader description="Загрузка Ваших заказов..." />;
     }
 
     return (
-        <Transitions>
-            <section
-                className={styles.profile_section}
-                data-testid="profile_section"
-            >
-
-                <ProfileMenu/>
-
+        <Transition>
+            <section className={styles.profile_section} data-testid="profile_section">
+                <ProfileMenu />
 
                 <div className={styles.profile_content}>
-                    {location.pathname === '/profile/orders' ?
-                        <ProfileOrders/>
-                        :
-                        <Transitions>
+                    {location.pathname === "/profile/orders" ? (
+                        <ProfileOrders />
+                    ) : (
+                        <Transition>
                             <form className={styles.profile_form}>
                                 <div>
                                     <Input
                                         error={false}
                                         errorText="Ошибка"
                                         extraClass="mb-6"
-                                        icon={(editingField == 'name') ? undefined : 'EditIcon'}
+                                        icon={
+                                            editingField == "name"
+                                                ? undefined
+                                                : "EditIcon"
+                                        }
                                         name="name"
                                         onChange={handleChange}
-                                        onIconClick={() => handleEditIconClick('name')}
+                                        onIconClick={() => handleEditIconClick("name")}
                                         placeholder="Имя"
                                         ref={nameInputRef}
                                         size="default"
                                         type="text"
-                                        value={(editingField === 'name') ? (values.name || '') : (editedValues.name || userData.name) ?? ''}
+                                        value={
+                                            editingField === "name"
+                                                ? values.name || ""
+                                                : (editedValues.name || userData.name) ??
+                                                  ""
+                                        }
                                         onPointerEnterCapture={undefined}
                                         onPointerLeaveCapture={undefined}
                                     />
@@ -141,15 +142,25 @@ export default function ProfilePage() {
                                         error={false}
                                         errorText="Ошибка"
                                         extraClass="mb-6"
-                                        icon={(editingField == 'email') ? undefined : 'EditIcon'}
+                                        icon={
+                                            editingField == "email"
+                                                ? undefined
+                                                : "EditIcon"
+                                        }
                                         name="email"
                                         onChange={handleChange}
-                                        onIconClick={() => handleEditIconClick('email')}
+                                        onIconClick={() => handleEditIconClick("email")}
                                         placeholder="Почта"
                                         ref={emailInputRef}
                                         size="default"
                                         type="text"
-                                        value={(editingField === 'email') ? (values.email || '') : (editedValues.email || userData.email) ?? ''}
+                                        value={
+                                            editingField === "email"
+                                                ? values.email || ""
+                                                : (editedValues.email ||
+                                                      userData.email) ??
+                                                  ""
+                                        }
                                         onPointerEnterCapture={undefined}
                                         onPointerLeaveCapture={undefined}
                                     />
@@ -158,21 +169,32 @@ export default function ProfilePage() {
                                         error={false}
                                         errorText="Ошибка"
                                         extraClass="mb-6"
-                                        icon={(editingField == 'password') ? undefined : 'EditIcon'}
+                                        icon={
+                                            editingField == "password"
+                                                ? undefined
+                                                : "EditIcon"
+                                        }
                                         name="password"
                                         onChange={handleChange}
-                                        onIconClick={() => handleEditIconClick('password')}
+                                        onIconClick={() =>
+                                            handleEditIconClick("password")
+                                        }
                                         placeholder="Пароль"
                                         ref={passwordInputRef}
                                         size="default"
                                         type="text"
-                                        value={((editingField == 'password') && values.password || '') ?? ''}
+                                        value={
+                                            ((editingField == "password" &&
+                                                values.password) ||
+                                                "") ??
+                                            ""
+                                        }
                                         onPointerEnterCapture={undefined}
                                         onPointerLeaveCapture={undefined}
                                     />
 
-                                    {
-                                        isEditing && editingField ? <div
+                                    {isEditing && editingField ? (
+                                        <div
                                             className={`${styles.profile_update_button} ${showUpdateButtons ? styles.fadeIn : styles.fadeOut}`}
                                         >
                                             <Button
@@ -192,15 +214,14 @@ export default function ProfilePage() {
                                             >
                                                 Отмена
                                             </Button>
-                                        </div> : null
-                                    }
+                                        </div>
+                                    ) : null}
                                 </div>
                             </form>
-                        </Transitions>
-                    }
-
+                        </Transition>
+                    )}
                 </div>
             </section>
-        </Transitions>
-    )
+        </Transition>
+    );
 }

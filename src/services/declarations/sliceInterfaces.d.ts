@@ -1,6 +1,6 @@
 import {IIngredient} from "utils/interfaces/interfaces";
 import {TError, TOrder, TStatus} from "declarations/types";
-import {IIngredients} from "declarations/interfaces";
+import {IIngredients, IUserData} from "declarations/interfaces";
 
 export interface IConstructorSlice {
     totalPrice: number;
@@ -9,11 +9,10 @@ export interface IConstructorSlice {
     bun: IIngredient | null;
 }
 
-export interface IIngredientsListSlice extends IIngredients, TStatus, TError {
-}
+export interface IIngredientsListSlice extends IIngredients, TStatus, TError {}
 
 export interface IAuthSlice extends TStatus, TError {
-    user: IUserData | null,
+    user: IUserData | null;
     userData: IUserData | null;
     isAuth: boolean;
     authChecked: boolean;
@@ -21,7 +20,7 @@ export interface IAuthSlice extends TStatus, TError {
 }
 
 export interface IOrderSlice extends TStatus, TError {
-    orderNumber: number | null,
-    IDs: Array<string>,
-    currentOrder: TOrder,
+    orderNumber: number | null;
+    IDs: Array<string>;
+    currentOrder: TOrder;
 }

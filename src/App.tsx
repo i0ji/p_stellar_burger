@@ -1,9 +1,9 @@
-import 'styles/_scrollbar.scss';
+import "styles/_scrollbar.scss";
 
-import {Route, Routes, useLocation, useNavigate} from 'react-router-dom';
-import {checkUserAuth, getIngredients, getUserData} from 'utils/api.ts';
+import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
+import {checkUserAuth, getIngredients, getUserData} from "utils/api.ts";
 
-import {AppHeader, Loader, Modal} from 'components/index.ts';
+import {AppHeader, Loader, Modal} from "components/index.ts";
 
 import {
     FeedPage,
@@ -18,15 +18,15 @@ import {
     RegisterPage,
     ResetPage,
     SuccessPage,
-} from './pages';
+} from "./pages";
 
-import {useDispatch, useSelector} from 'hooks/reduxHooks.ts';
-import {useCallback, useEffect} from 'react';
+import {useDispatch, useSelector} from "hooks/reduxHooks.ts";
+import {useCallback, useEffect} from "react";
 
-import {ProtectedRoute} from 'common/ProtectedRoute/ProtectedRoute.tsx';
+import {ProtectedRoute} from "common/ProtectedRoute/ProtectedRoute.tsx";
 
 export default function App() {
-    console.log('0.1.9.7.7');
+    console.log("0.1.9.7.7");
 
     // --------------- LINT TEST ---------------
 
@@ -42,7 +42,7 @@ export default function App() {
         background: string = location.state && location.state.background,
         navigate = useNavigate(),
         ingredientsStatus = useSelector(state => state.ingredients.status),
-        accessToken = localStorage.getItem('accessToken'),
+        accessToken = localStorage.getItem("accessToken"),
         // --------------- HANDLE CLOSE MODAL
         handleCloseModal = useCallback(() => {
             navigate(-1);
@@ -56,7 +56,7 @@ export default function App() {
 
     // --------------- LOADER ---------------
 
-    if (ingredientsStatus == 'loading') {
+    if (ingredientsStatus == "loading") {
         return <Loader description="Загрузка..." />;
     }
     // --------------- MARKUP ---------------
@@ -80,62 +80,44 @@ export default function App() {
 
                 <Route
                     element={
-                        <ProtectedRoute
-                            component={<ProfilePage />}
-                            unAuth={false}
-                        />
+                        <ProtectedRoute component={<ProfilePage />} unAuth={false} />
                     }
                     path="profile"
                 />
 
                 <Route
                     element={
-                        <ProtectedRoute
-                            component={<ProfileOrders />}
-                            unAuth={false}
-                        />
+                        <ProtectedRoute component={<ProfileOrders />} unAuth={false} />
                     }
                     path="profile/orders"
                 />
 
                 <Route
                     element={
-                        <ProtectedRoute
-                            component={<OrderDetails />}
-                            unAuth={false}
-                        />
+                        <ProtectedRoute component={<OrderDetails />} unAuth={false} />
                     }
                     path="profile/orders/:number"
                 />
 
                 <Route
-                    element={
-                        <ProtectedRoute component={<LoginPage />} unAuth />
-                    }
+                    element={<ProtectedRoute component={<LoginPage />} unAuth />}
                     path="login"
                 />
 
                 <Route
                     element={
-                        <ProtectedRoute
-                            component={<ProfilePage />}
-                            unAuth={false}
-                        />
+                        <ProtectedRoute component={<ProfilePage />} unAuth={false} />
                     }
                     path="login"
                 />
 
                 <Route
-                    element={
-                        <ProtectedRoute component={<RegisterPage />} unAuth />
-                    }
+                    element={<ProtectedRoute component={<RegisterPage />} unAuth />}
                     path="register"
                 />
 
                 <Route
-                    element={
-                        <ProtectedRoute component={<ForgotPage />} unAuth />
-                    }
+                    element={<ProtectedRoute component={<ForgotPage />} unAuth />}
                     path="forgot-password"
                 />
 

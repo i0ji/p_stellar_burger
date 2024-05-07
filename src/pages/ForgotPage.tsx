@@ -4,7 +4,7 @@ import {forgotPassword} from "utils/api.ts";
 
 import {IForm} from "declarations/interfaces";
 
-import {Transitions} from "components/index.ts";
+import {Transition} from "components/index.ts";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {Link, useNavigate} from "react-router-dom";
@@ -12,25 +12,23 @@ import {useForm} from "hooks/useForm.ts";
 import {useDispatch} from "hooks/reduxHooks.ts";
 
 export default function ForgotPage() {
-
     const {values, handleChange} = useForm<IForm>({}),
-
         dispatch = useDispatch(),
         navigate = useNavigate(),
-
         handleForgotPassword = async () => {
             const action = dispatch(forgotPassword(values.email));
-            navigate('/reset-password');
+            navigate("/reset-password");
             return action.payload;
-        }
+        };
 
     return (
-        <Transitions>
+        <Transition>
             <section className={styles.section}>
-                <form onSubmit={(e) => {
-                    e.preventDefault();
-                    void handleForgotPassword();
-                }}
+                <form
+                    onSubmit={e => {
+                        e.preventDefault();
+                        void handleForgotPassword();
+                    }}
                 >
                     <h1 className="text text text_type_main-medium pb-6">
                         Восстановить пароль
@@ -51,24 +49,16 @@ export default function ForgotPage() {
                         onPointerLeaveCapture={undefined}
                     />
 
-                    <Button
-                        extraClass="mb-20"
-                        htmlType="submit"
-                        type="primary"
-                    >
+                    <Button extraClass="mb-20" htmlType="submit" type="primary">
                         Восстановить
                     </Button>
 
                     <p>
                         Вспомнили пароль?
-                        <Link
-                            to="/login"
-                        >
-                            &nbsp;Войти
-                        </Link>
+                        <Link to="/login">&nbsp;Войти</Link>
                     </p>
                 </form>
             </section>
-        </Transitions>
+        </Transition>
     );
 }

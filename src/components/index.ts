@@ -8,7 +8,7 @@ import {ProtectedRoute} from "common/ProtectedRoute/ProtectedRoute.tsx";
 import Thumbnail from "common/Thumbnail/Thumbnail.tsx";
 import WarningMessage from "common/WarningMessage/WarningMessage.tsx";
 import OrderAcceptance from "common/Modal/OrderAcceptance/OrderAcceptance.tsx";
-import Transitions from "common/Transitions/Transitions.tsx";
+import Transition from "common/Transition/Transition.tsx";
 
 export {
     AppHeader,
@@ -21,5 +21,5 @@ export {
     Thumbnail,
     WarningMessage,
     OrderAcceptance,
-    Transitions,
+    Transition,
 };

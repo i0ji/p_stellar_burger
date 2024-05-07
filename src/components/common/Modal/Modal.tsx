@@ -1,4 +1,4 @@
-import styles from "./ModalStyles.module.scss"
+import styles from "./ModalStyles.module.scss";
 
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -7,29 +7,30 @@ import React, {useEffect} from "react";
 
 import {AnimatePresence, motion} from "framer-motion";
 
-export default function Modal({onClose, children}: {
-    readonly onClose: () => void,
-    readonly children: React.ReactNode,
+export default function Modal({
+    onClose,
+    children,
+}: {
+    readonly onClose: () => void;
+    readonly children: React.ReactNode;
 }) {
-
-
     // --------------- ERROR CHECK ---------------
 
     const hasError = useSelector(state => state.orderSlice.error);
-
 
     // --------------- CLOSING LOGIC ---------------
 
     useEffect(() => {
         const closeOnEscapeKey = (e: KeyboardEvent) => {
-            if (onClose) {(e.key === "Escape" ? onClose() : null);}
+            if (onClose) {
+                e.key === "Escape" ? onClose() : null;
+            }
         };
         document.body.addEventListener("keydown", closeOnEscapeKey);
         return () => {
             document.body.removeEventListener("keydown", closeOnEscapeKey);
         };
     }, [onClose]);
-
 
     // --------------- MARKUP ---------------
 
@@ -47,19 +48,14 @@ export default function Modal({onClose, children}: {
                     onClick={onClose}
                 />
 
-                <div
-                    className={`${styles.modal}`}
-                >
+                <div className={`${styles.modal}`}>
                     <div className={styles.modal_btn}>
-                        {!hasError && <CloseIcon
-                            onClick={onClose}
-                            type="primary"
-                                      />}
+                        {!hasError && <CloseIcon onClick={onClose} type="primary" />}
                     </div>
 
                     {children}
                 </div>
             </motion.div>
         </AnimatePresence>
-    )
+    );
 }

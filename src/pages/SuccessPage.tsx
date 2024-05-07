@@ -1,22 +1,20 @@
-import styles from "pages/Pages.module.scss"
+import styles from "pages/Pages.module.scss";
 
 import {Link} from "react-router-dom";
 
-import {useNavigate} from 'react-router-dom';
+import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 
 export default function SuccessPage() {
-
     const navigate = useNavigate(),
         [count, setCount] = useState(10);
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
-                navigate('/');
+                navigate("/");
             }, 10000),
-
             intervalId = setInterval(() => {
-                setCount((prevCount) => prevCount - 1);
+                setCount(prevCount => prevCount - 1);
             }, 1000);
 
         return () => {
@@ -29,28 +27,17 @@ export default function SuccessPage() {
         <section className={styles.section}>
             <form>
                 <h1 className="text text text_type_main-medium pb-6">
-                    {' '}
+                    {" "}
                     Пароль успешно изменён!
                 </h1>
 
                 <p className="pb-6">
                     Автоматически вернёмся на главную через:
-                    <span
-                        style={{color: '#b90101'}}
-                    >
-                        {count}
-                    </span>
-
-                    {' '}
-                    секунд...
+                    <span style={{color: "#b90101"}}>{count}</span> секунд...
                 </p>
 
                 <p>
-                    <Link
-                        to="/"
-                    >
-                        &nbsp;На главную
-                    </Link>
+                    <Link to="/">&nbsp;На главную</Link>
                 </p>
             </form>
         </section>

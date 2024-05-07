@@ -1,9 +1,20 @@
-import {getUserData, loginUser, logoutUser, registerUser, updateUserData} from 'utils/api.ts';
-import {addIngredient, removeIngredient, reorderIngredients, resetIngredients} from "slices/constructorSlice.ts";
+import {
+    getUserData,
+    loginUser,
+    logoutUser,
+    registerUser,
+    updateUserData,
+} from "utils/api.ts";
+import {
+    addIngredient,
+    removeIngredient,
+    reorderIngredients,
+    resetIngredients,
+} from "slices/constructorSlice.ts";
 import {updateSelectedIngredient} from "slices/currentIngredientSlice.ts";
 import {updateIds, updateOrderNumber} from "slices/orderSlice.ts";
 import {createOrder} from "utils/api.ts";
-import {getIngredients} from "utils/api.ts"
+import {getIngredients} from "utils/api.ts";
 import {
     wsClose,
     wsConnect,
@@ -11,29 +22,28 @@ import {
     wsDisconnect,
     wsError,
     wsMessage,
-    wsOpen
+    wsOpen,
 } from "services/orderFeed/actions.ts";
 
 type TIngredientActions =
     | ReturnType<typeof getIngredients.pending>
     | ReturnType<typeof getIngredients.fulfilled>
-    | ReturnType<typeof getIngredients.rejected>
+    | ReturnType<typeof getIngredients.rejected>;
 
 type TOrderActions =
     | ReturnType<typeof createOrder.pending>
     | ReturnType<typeof createOrder.fulfilled>
     | ReturnType<typeof createOrder.rejected>
     | ReturnType<typeof updateIds>
-    | ReturnType<typeof updateOrderNumber>
+    | ReturnType<typeof updateOrderNumber>;
 
-type TCurrentActions =
-    | ReturnType<typeof updateSelectedIngredient>
+type TCurrentActions = ReturnType<typeof updateSelectedIngredient>;
 
 type TConstructorActions =
     | ReturnType<typeof addIngredient>
     | ReturnType<typeof resetIngredients>
     | ReturnType<typeof reorderIngredients>
-    | ReturnType<typeof removeIngredient>
+    | ReturnType<typeof removeIngredient>;
 
 type TAuthActions =
     | ReturnType<typeof loginUser.pending>
@@ -58,8 +68,7 @@ type TFeedActions =
     | ReturnType<typeof wsMessage>
     | ReturnType<typeof wsClose>
     | ReturnType<typeof wsDisconnect>
-    | ReturnType<typeof wsError>
-
+    | ReturnType<typeof wsError>;
 
 export type TAppAction =
     | TConstructorActions
@@ -67,4 +76,4 @@ export type TAppAction =
     | TCurrentActions
     | TOrderActions
     | TIngredientActions
-    | TFeedActions
+    | TFeedActions;

@@ -1,8 +1,5 @@
-import {
-    Button,
-    Input,
-} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Loader, Transitions} from "components/index.ts";
+import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Loader, Transition} from "components/index.ts";
 import {Link} from "react-router-dom";
 
 import {IForm, IUserData} from "declarations/interfaces";
@@ -43,9 +40,7 @@ export default function LoginPage() {
 
         handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
-            checkEmail(values.email)
-                ? setEmailError(true)
-                : setEmailError(false);
+            checkEmail(values.email) ? setEmailError(true) : setEmailError(false);
 
             stateLoginError && setLoginError(true);
 
@@ -67,11 +62,9 @@ export default function LoginPage() {
 
     return (
         <section className={styles.section}>
-            <Transitions>
+            <Transition>
                 <form onSubmit={handleLogin}>
-                    <h1 className="text text text_type_main-medium pb-6">
-                        Вход
-                    </h1>
+                    <h1 className="text text text_type_main-medium pb-6">Вход</h1>
 
                     <Input
                         error={false}
@@ -130,7 +123,7 @@ export default function LoginPage() {
                         <Link to="/forgot-password"> Восстановить пароль</Link>
                     </p>
                 </form>
-            </Transitions>
+            </Transition>
         </section>
     );
 }

@@ -1,6 +1,8 @@
 import {IIngredient, IIngredientsWithQuantity} from "declarations/interfaces";
 
-export const orderPriceCalculation = (ingredientsWithQuantity: Array<IIngredientsWithQuantity>) => {
+export const orderPriceCalculation = (
+    ingredientsWithQuantity: Array<IIngredientsWithQuantity>,
+) => {
     let totalOrderPrice = 0;
 
     ingredientsWithQuantity.forEach(item => {
@@ -9,14 +11,14 @@ export const orderPriceCalculation = (ingredientsWithQuantity: Array<IIngredient
     });
 
     return totalOrderPrice;
-}
+};
 
 export const getIngredientsWithQuantity = (
     orderIngredientIDs: Array<string>,
-    ingredientsData: Array<IIngredient>
+    ingredientsData: Array<IIngredient>,
 ): Array<IIngredientsWithQuantity> => {
-    const ingredientCounts: { [key: string]: number } = {},
-     ingredientsWithQuantity: Array<IIngredientsWithQuantity> = [];
+    const ingredientCounts: {[key: string]: number} = {},
+        ingredientsWithQuantity: Array<IIngredientsWithQuantity> = [];
 
     orderIngredientIDs.forEach(order => {
         ingredientCounts[order] = (ingredientCounts[order] || 0) + 1;
@@ -26,7 +28,7 @@ export const getIngredientsWithQuantity = (
         if (orderIngredientIDs.includes(ingredient._id as string)) {
             let qty = ingredientCounts[ingredient._id as string];
 
-            if (ingredient.type === 'bun') {
+            if (ingredient.type === "bun") {
                 qty = 2;
             }
 
@@ -35,4 +37,4 @@ export const getIngredientsWithQuantity = (
     });
 
     return ingredientsWithQuantity;
-}
+};

@@ -6,10 +6,7 @@ import {TwsActionTypes} from "declarations/types";
 import {refreshToken} from "utils/api.ts";
 
 export const socketMiddleware =
-    (
-        wsActions: TwsActionTypes,
-        withTokenRefresh: boolean,
-    ): Middleware<{}, RootState> =>
+    (wsActions: TwsActionTypes, withTokenRefresh: boolean): Middleware<{}, RootState> =>
     store => {
         let socket: WebSocket | null = null,
             url: string | null = null;

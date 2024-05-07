@@ -1,4 +1,4 @@
-declare module '*.scss';
+declare module "*.scss";
 
 declare module "*.svg" {
     const content: string;
@@ -7,7 +7,7 @@ declare module "*.svg" {
 
 declare module "*.png";
 
-declare module '*.gif' {
+declare module "*.gif" {
     const value: string;
     export default value;
 }

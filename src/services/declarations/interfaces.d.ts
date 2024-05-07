@@ -46,7 +46,7 @@ export interface IIngredients {
 }
 
 export interface IUser {
-    name?: string | null,
+    name?: string | null;
     email?: string | undefined;
     password?: string | undefined;
 }
@@ -60,8 +60,7 @@ export interface IRefreshData extends IToken {
     success: boolean;
 }
 
-export interface IBurgerState extends IIngredients, TStatus, TError {
-}
+export interface IBurgerState extends IIngredients, TStatus, TError {}
 
 export interface IUserData extends IUser {
     user?: IUser;

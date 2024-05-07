@@ -8,6 +8,7 @@ module.exports = {
         "plugin:react/recommended",
         "plugin:prettier/recommended",
     ],
+    parser: "@typescript-eslint/parser",
     overrides: [
         {
             env: {

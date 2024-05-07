@@ -1,25 +1,25 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice} from "@reduxjs/toolkit";
 import {createOrder} from "utils/api.ts";
 import {IOrderSlice} from "declarations/sliceInterfaces";
 
 export const initialState: IOrderSlice = {
     orderNumber: null as number | null,
-    IDs: [''],
-    status: 'idle',
+    IDs: [""],
+    status: "idle",
     error: null as string | null,
     currentOrder: {
-        createdAt: '',
-        ingredients: [''],
-        name: '',
+        createdAt: "",
+        ingredients: [""],
+        name: "",
         number: null,
-        status: 'pending',
-        _id: '',
-        updatedAt: '',
+        status: "pending",
+        _id: "",
+        updatedAt: "",
     },
-}
+};
 
 export const orderSlice = createSlice({
-    name: 'orderSlice',
+    name: "orderSlice",
     initialState,
     reducers: {
         updateIds: (state, action) => {
@@ -34,27 +34,23 @@ export const orderSlice = createSlice({
             state.error = null;
         },
     },
-    extraReducers: (builder) => {
+    extraReducers: builder => {
         builder
-            .addCase(createOrder.pending, (state) => {
-                state.status = 'loading';
+            .addCase(createOrder.pending, state => {
+                state.status = "loading";
             })
             .addCase(createOrder.fulfilled, (state, action) => {
-                state.status = 'succeeded';
+                state.status = "succeeded";
                 state.orderNumber = action.payload;
                 state.error = null;
             })
             .addCase(createOrder.rejected, (state, action) => {
-                state.status = 'failed';
+                state.status = "failed";
                 state.error = action.error.message;
-            })
+            });
     },
 });
 
-export const {
-    updateIds,
-    updateOrderNumber,
-    updateCurrentOrder,
-} = orderSlice.actions;
+export const {updateIds, updateOrderNumber, updateCurrentOrder} = orderSlice.actions;
 
 export default orderSlice.reducer;
