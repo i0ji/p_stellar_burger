@@ -26,7 +26,7 @@ import {useCallback, useEffect} from 'react';
 import {ProtectedRoute} from 'common/ProtectedRoute/ProtectedRoute.tsx';
 
 export default function App() {
-    console.log('1.9.7.6.1');
+    console.log('0.1.9.7.7');
 
     // --------------- LINT TEST ---------------
 
