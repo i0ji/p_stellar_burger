@@ -133,6 +133,8 @@ export default function ProfilePage() {
                                         size="default"
                                         type="text"
                                         value={(editingField === 'name') ? (values.name || '') : (editedValues.name || userData.name) ?? ''}
+                                        onPointerEnterCapture={undefined}
+                                        onPointerLeaveCapture={undefined}
                                     />
 
                                     <Input
@@ -148,6 +150,8 @@ export default function ProfilePage() {
                                         size="default"
                                         type="text"
                                         value={(editingField === 'email') ? (values.email || '') : (editedValues.email || userData.email) ?? ''}
+                                        onPointerEnterCapture={undefined}
+                                        onPointerLeaveCapture={undefined}
                                     />
 
                                     <Input
@@ -163,6 +167,8 @@ export default function ProfilePage() {
                                         size="default"
                                         type="text"
                                         value={((editingField == 'password') && values.password || '') ?? ''}
+                                        onPointerEnterCapture={undefined}
+                                        onPointerLeaveCapture={undefined}
                                     />
 
                                     {

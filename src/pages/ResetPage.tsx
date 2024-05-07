@@ -71,6 +71,8 @@ export default function ResetPage() {
                         size="default"
                         type={isPasswordShow ? 'text' : 'password'}
                         value={password}
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}
                     />
 
                     <Input
@@ -84,6 +86,8 @@ export default function ResetPage() {
                         size="default"
                         type="text"
                         value={token}
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}
                     />
 
                     <Button

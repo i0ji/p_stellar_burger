@@ -51,6 +51,8 @@ export default function RegisterPage() {
                         size="default"
                         type="text"
                         value={values.email ?? ''}
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}
                     />
 
                     <Input
@@ -65,6 +67,8 @@ export default function RegisterPage() {
                         size="default"
                         type={isPasswordShow ? 'text' : 'password'}
                         value={values.password ?? ''}
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}
                     />
 
                     <Input
@@ -78,6 +82,8 @@ export default function RegisterPage() {
                         size="default"
                         type="text"
                         value={values.name ?? ''}
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}
                     />
 
                     <Button

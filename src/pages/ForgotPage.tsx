@@ -47,6 +47,8 @@ export default function ForgotPage() {
                         size="default"
                         type="text"
                         value={values.email ?? ``}
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}
                     />
 
                     <Button

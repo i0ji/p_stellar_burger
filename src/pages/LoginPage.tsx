@@ -91,7 +91,8 @@ export default function LoginPage() {
                         size="default"
                         type="text"
                         value={values.email ?? ''}
-                    />
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}                    />
 
                     <Input
                         error={false}
@@ -104,8 +105,8 @@ export default function LoginPage() {
                         placeholder="Пароль"
                         size="default"
                         type={isPasswordShow ? 'text' : 'password'}
-                        value={values.password ?? ''}
-                    />
+                        value={values.password ?? ''} onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}                    />
 
                     {
                         !emailError && loginError ? <p
